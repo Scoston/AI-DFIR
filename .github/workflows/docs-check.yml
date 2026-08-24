@@ -1,12 +1,25 @@
-name: Documentation and Repository Checks
-on: {pull_request:}
-permissions: {contents: read}
+﻿name: Documentation and Repository Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-        with: {persist-credentials: false}
+        with:
+          persist-credentials: false
+
       - uses: actions/setup-python@v7
-        with: {python-version: '3.12'}
-      - run: python scripts/github_repo_check_v16.py
+        with:
+          python-version: '3.12'
+
+      - name: Validate GitHub repository
+        run: python scripts/github_repo_check_v16.py
