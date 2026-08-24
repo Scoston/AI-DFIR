@@ -1,0 +1,88 @@
+AI-DFIR Agentic Incident Response v0.9 — Acceptance Test
+
+v0.9:
+{
+  "components": {
+    "agentic_evidence_pack_catalog": "PASS",
+    "agentic_rule_engine": "PASS",
+    "effective_authority_diff": "PASS",
+    "mcp_inventory_and_auth_diff": "PASS",
+    "memory_and_causal_reconstruction": "PASS",
+    "microsoft_v08_catalog_retained": "PASS",
+    "multi_pack_vendor_plus_technique": "PASS",
+    "rag_poisoning_blast_radius": "PASS",
+    "read_only_workbench_integration": "PASS"
+  },
+  "microsoft_defender_for_cloud_pack_count": 18,
+  "owasp_agentic_pack_count": 10,
+  "pack_count": 37,
+  "status": "PASS"
+}
+
+v0.7 Workbench compatibility:
+{
+  "case_summary": {
+    "case_id": "CASE-V07",
+    "confidence_level": 4,
+    "containment_mode": "freeze-tools",
+    "containment_status": "CONTAINED",
+    "created_utc": "2026-08-23T20:00:00Z",
+    "evidence": {
+      "containment_control": true,
+      "containment_result": true,
+      "correlation": true,
+      "divergence": true,
+      "live_attestation": false,
+      "low_rank_screen": true,
+      "open_consequences": true,
+      "runtime_findings": true,
+      "tensor_metrics": true,
+      "timeline": true
+    },
+    "finding": "runtime-only model-behavior intervention",
+    "first_divergence_depth": 36,
+    "highest_abs_robust_z": 12.4,
+    "highest_anomaly_depth": 40,
+    "open_consequences": 1,
+    "root": "/mnt/data/ai_dfir_agentic_ir_v0.9_v07compat/cases/CASE-V07",
+    "runtime_findings_count": 2,
+    "severity": "critical",
+    "timeline_events": 3,
+    "tool_version": "0.7"
+  },
+  "components": {
+    "dashboard_does_not_modify_evidence": "PASS",
+    "evidence_search": "PASS",
+    "fleet_state_view": "PASS",
+    "investigator_report": "PASS",
+    "normalized_case_model": "PASS",
+    "read_only_dashboard": "PASS",
+    "signed_annotations": "PASS"
+  },
+  "coverage": {
+    "missing": [
+      "live_attestation"
+    ],
+    "percent": 90.0,
+    "present": 9,
+    "total": 10
+  },
+  "status": "PASS"
+}
+
+v0.6 containment/recovery compatibility:
+{
+  "components": {
+    "explicit_contain_anyway_override": "PASS",
+    "failover_guard": "PASS",
+    "freeze_tools_enforced": "PASS",
+    "open_consequence_blocks_release": "PASS",
+    "preservation_failure_aborts_by_default": "PASS",
+    "preservation_first_transaction": "PASS",
+    "signed_recovery_release": "PASS",
+    "tampered_control_fail_closed": "PASS"
+  },
+  "status": "PASS"
+}
+
+Synthetic validation only. Provider integrations and production evidence paths require environment-specific validation.

@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tenant_context",
+      "relative_path": "tenant_contexttenanttenant_contextcontexttenant_context.jsontenant_context",
+      "sha256": "671a0e79946de6f62ef71eee55415381394e925f31eb153c2d3bfc0345eae1db",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_cache",
+      "relative_path": "memory_cachememorymemory_cache.jsonmemory_cache",
+      "sha256": "186862d8dbd3eb1e69776dfad220476bfa70aa1911f4756f1e96d40f000e2c15",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "retrieval",
+      "relative_path": "retrievalretrievalretrieval.jsonretrieval",
+      "sha256": "02e0b03f0a99b122c77e1280281cbaf7fcfdcff31f4126157a6a1277dcdb53d0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "responses",
+      "relative_path": "responsesresponseresponses.jsonresponses",
+      "sha256": "6dfb60d9aad973664812700b56f93d9276b15c137aac02a7164adc87bb2bb306",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "identity",
+      "relative_path": "identityidentityidentity.jsonidentity",
+      "sha256": "91601f9bba44bd8e7263c037b9b2cd0ab656bae13d4700df829b74a91621c088",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.cross_tenant_context_bleed",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

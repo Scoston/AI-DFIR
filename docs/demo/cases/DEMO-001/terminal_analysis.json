@@ -1,0 +1,21 @@
+{
+  "csi_count": 1,
+  "findings": [
+    {
+      "count": 1,
+      "examples": [
+        "\u001b[2J"
+      ],
+      "severity": "high",
+      "type": "terminal_cursor_or_display_control"
+    },
+    {
+      "payload_sha256": "3d7dfe056b25ee1b2af223d077108e9757c32ca39c2fea6ce00ea1167502ec1e",
+      "severity": "critical",
+      "type": "terminal_osc52_clipboard_control"
+    }
+  ],
+  "osc_count": 1,
+  "rule": "Analyzer surfaces control sequences; it never renders or interprets them in a terminal.",
+  "schema": "ai-dfir/terminal-render-analysis/v1.2"
+}

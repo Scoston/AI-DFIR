@@ -1,0 +1,377 @@
+{
+  "file_count": 74,
+  "files": [
+    {
+      "path": "CHANGELOG_V0.4.md",
+      "sha256": "df2c2fa4d5bbf1c38d8a7e648d27b75746def4831b340a36dc169c791f8841aa",
+      "size": 930
+    },
+    {
+      "path": "CHANGELOG_V0.5.md",
+      "sha256": "e5378752ff350f94f4fe243160e4254af7c63c395bce1adb1a97ee7d8ec009ce",
+      "size": 1083
+    },
+    {
+      "path": "CHANGELOG_V0.6.md",
+      "sha256": "c3b67ac1c8150e590db76801aeb9ef61e71a0933b49784aec2aefb2d9c4fc785",
+      "size": 1052
+    },
+    {
+      "path": "LIVE_ATTESTATION_RUNBOOK.md",
+      "sha256": "abf24dca9413756f41b954cb6f7fccf3bb8c76a13fad7fc5bae46a42d7f4ff35",
+      "size": 5853
+    },
+    {
+      "path": "PACKAGE_MANIFEST.json",
+      "sha256": "61d2b121466dac69cbdcff10cbf3475300c165f03e215222f8ee71482743e753",
+      "size": 5385
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V0.5.json",
+      "sha256": "63a7253e1f3f8501ebaae42b27a31b5cc626bc1ec86b9715ef6e520ebdf9f5ad",
+      "size": 8669
+    },
+    {
+      "path": "README.md",
+      "sha256": "c42efb98fc4788bfaf512eeadf99a8241a14d4f1da28ee15f0e55d3bade4ab36",
+      "size": 16117
+    },
+    {
+      "path": "SELFTEST_RESULT.txt",
+      "sha256": "ab7b04eefd6c9142bad5d72350b995829d60057a6132b1d1ecb7e6f6fd4fde80",
+      "size": 604
+    },
+    {
+      "path": "V0.3_SELFTEST_RESULT.txt",
+      "sha256": "e6839efdd5399d78370118e92628b5d592520d247e72207502e8211daae83042",
+      "size": 619
+    },
+    {
+      "path": "V0.4_RUNBOOK.md",
+      "sha256": "d46ead7b16705f3555874d8422efd0937211d939e639f7064288957453768033",
+      "size": 11848
+    },
+    {
+      "path": "V0.4_SELFTEST_RESULT.txt",
+      "sha256": "8cea036b24b5c6386214a9cacf556d1a2a0e0061cdb9caab31af42f811b2a03a",
+      "size": 1183
+    },
+    {
+      "path": "V0.5_RUNBOOK.md",
+      "sha256": "34b2c36cb787587d2abb5376a9403aceca281f7aebebfd30698fdc0a6f99c419",
+      "size": 13371
+    },
+    {
+      "path": "V0.5_SELFTEST_RESULT.txt",
+      "sha256": "6af1fb87aa7197d6f6bdb4628a1035f2312d97e2889dd9e731e6e20d94dbe934",
+      "size": 470
+    },
+    {
+      "path": "V0.6_RUNBOOK.md",
+      "sha256": "f784a95c5cad02b0ea4ae38a2bc47431f303f971356a3f47c405390ca2ae2466",
+      "size": 13617
+    },
+    {
+      "path": "V0.6_SELFTEST_RESULT.txt",
+      "sha256": "23ed0591b482e9851c14b9384bcd29eaa87dc1e9188817415b122ee8daee57e8",
+      "size": 833
+    },
+    {
+      "path": "activation_fingerprint.py",
+      "sha256": "29a687d29c414a6123f419d9bce5e77f85d9ef83792299130df16edd615bfa52",
+      "size": 28557
+    },
+    {
+      "path": "agent_trace.py",
+      "sha256": "50f2608302b9eeee791bba005ae8fdc9e6c2d683f2326f5523861c40d337df9c",
+      "size": 2559
+    },
+    {
+      "path": "auto_responder.py",
+      "sha256": "0dda34da80d067f1db1611a4be3614da58bc436e2f79744090eb9fc9e69369a5",
+      "size": 6229
+    },
+    {
+      "path": "auto_responder_config.example.json",
+      "sha256": "bc40a1a74017c61e193f9b7e2c08b3db2d02faf3857ee3af89dd258c23e9d53a",
+      "size": 2040
+    },
+    {
+      "path": "baseline_engine.py",
+      "sha256": "fd3059b18489fc53b2681b86fa43247bc7b84a46580399fa673ead334652c0c8",
+      "size": 11750
+    },
+    {
+      "path": "canary_runner.py",
+      "sha256": "cc8c21e722ea826fbbe1623c2f1c928198732201da33a55da78203dfb0cb3920",
+      "size": 1697
+    },
+    {
+      "path": "case_init.py",
+      "sha256": "f193d36276bf76958154a15bdedc49be420c2237077b6f0a1abc7ad83536237d",
+      "size": 1143
+    },
+    {
+      "path": "collect_process_memory_linux.sh",
+      "sha256": "8309710db31a2622e028c4a3198aa8c26fe3a829dc9e98828599f5f8704f5e23",
+      "size": 1217
+    },
+    {
+      "path": "collect_runtime_ebpf.sh",
+      "sha256": "b5721f535dccac1165fa44b9c261f74bb741ec93a3fcae5a13c5fdf051a154fc",
+      "size": 1733
+    },
+    {
+      "path": "collect_runtime_linux.sh",
+      "sha256": "08e180ea1bc76dbbddd57afaee38665b6309793792c2da0a892fa955fa37e290",
+      "size": 2090
+    },
+    {
+      "path": "consequence_reconciler.py",
+      "sha256": "c2aefc6068ab93fc87cf96b6ddcf6b33d31facc0edb6905baf7d7c135d54ee26",
+      "size": 2143
+    },
+    {
+      "path": "containment_audit.py",
+      "sha256": "e9025822390ee64e4bb8ecc8c0358875ab8a7305694113de496d83bc95fbcfb0",
+      "size": 1463
+    },
+    {
+      "path": "containment_control.py",
+      "sha256": "0ad92d6df18a40d84e22a9d37378e0edd88118127aa1bf04c7208978fd5ea8ee",
+      "size": 3655
+    },
+    {
+      "path": "containment_guard.py",
+      "sha256": "0e74fceb4ba8cf64a6794e5a152b6d788f2e355edddf2b3809d96a647a0db5af",
+      "size": 3282
+    },
+    {
+      "path": "containment_integration_example.py",
+      "sha256": "59bbaf4a8df640c88ce12dd4810bbc93569195f40741be898cb24296de608f3d",
+      "size": 695
+    },
+    {
+      "path": "containment_plan.py",
+      "sha256": "bfd37c9c2f1e07df9d59b71661b67c60fe39d23cc37afaebc87b159471a3c2da",
+      "size": 4442
+    },
+    {
+      "path": "correlate_evidence.py",
+      "sha256": "674ae76bef6f7617c3a1854bb1c590cdd137dd17add57bc7501706400eb2fefd",
+      "size": 4797
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-auto-responder.service",
+      "sha256": "f9688006ab1c2f79ca32b619b55ad4f19a8ea11cd715d3f5b8cdf585c016610b",
+      "size": 488
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-canary.service",
+      "sha256": "c1c66235238e49980118e1911c88bc1531f791a9be1d0abd3fdccddf30ac24d4",
+      "size": 217
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-canary.timer",
+      "sha256": "691922c693546299db0ee1a2b04dec2db70ced02c3ca7f9aca58b9d6df23e42b",
+      "size": 145
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-collector.service",
+      "sha256": "f30c5e05dada58c53299fd509d490e13d4a1da84fe8a94cdc797446a331acf9e",
+      "size": 578
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-fleet-agent.service",
+      "sha256": "dbb0c2f37d34e7ff4576183b1eba44e110312140e4593fff08da14c18c94b1af",
+      "size": 538
+    },
+    {
+      "path": "download_reference.py",
+      "sha256": "d82ea331fdabcdf64dd676ab9fa4a2aadec5e2b152cc956b11da6528a3babd01",
+      "size": 1472
+    },
+    {
+      "path": "execute_containment.py",
+      "sha256": "a554cbfb72d27c2ac7ca4abf959deb200fe26795b4644eb779fd1e18988c67e2",
+      "size": 7350
+    },
+    {
+      "path": "failover_precheck.py",
+      "sha256": "af6c21572dff73aa1d80b207fff1afae7fc0de97042feb8c7cc44d3ca01ac9f1",
+      "size": 1672
+    },
+    {
+      "path": "fleet_agent.py",
+      "sha256": "c6ecc87c60e894d614ff5504f938709eb5c4eeff86126854dcdf7b8c581a524e",
+      "size": 10382
+    },
+    {
+      "path": "fleet_agent_config.example.json",
+      "sha256": "6a2a756e8f122445e90cfbc8e72c52069828279e205aff2aaf97552a8f55f265",
+      "size": 1573
+    },
+    {
+      "path": "fleet_collector.py",
+      "sha256": "a4f6375a7b69b62c32b1c07fc73c9be7d3c45b4971c408ddfbcb6e21627136bd",
+      "size": 14132
+    },
+    {
+      "path": "fleet_crypto.py",
+      "sha256": "c779735bd40162355d52bc8d6af7572d0592a4120a2fb231afc11358dca56663",
+      "size": 2988
+    },
+    {
+      "path": "fleet_policy.example.json",
+      "sha256": "49cc9fa108e4b0257c8efbf0c612a24913ecd76e0ffd2157865326fc24026b3c",
+      "size": 575
+    },
+    {
+      "path": "fleet_policy.py",
+      "sha256": "f6c5f5dfbf620f38b0df24a58d4a5034ee49fb965e50bfec42e89f806ccafd7a",
+      "size": 5559
+    },
+    {
+      "path": "fleet_policy_builder.py",
+      "sha256": "5e87fc7a6b6e75bc37f78a6e8b88880f531d743389973ef3830983290eb472a0",
+      "size": 1843
+    },
+    {
+      "path": "fleet_registry.py",
+      "sha256": "a6522423cba4f20c39d7b4c7e2b9143009007fe277988f8273797406f4d7f253",
+      "size": 3526
+    },
+    {
+      "path": "fleet_snapshot.py",
+      "sha256": "2a9a72a9722ebf9662bd5f41b19c66255c8e3d610d4af486683c0a68b37d0f33",
+      "size": 1233
+    },
+    {
+      "path": "fleet_status.py",
+      "sha256": "9757a49f4ff1bf346231e10d295ad90a32c09f1b274f3c584368c025d97d2c7c",
+      "size": 939
+    },
+    {
+      "path": "gpu_attestation_ingest.py",
+      "sha256": "c90d4ee79e9287528c50e8216ee3e30a951292ca1bdf1ee1cc832de8f30603b0",
+      "size": 2817
+    },
+    {
+      "path": "live_attestation.py",
+      "sha256": "9044365d99525c1ebc4c4e643b5c8a20c06c9fd228edc2f5494fa4ed97e13056",
+      "size": 30863
+    },
+    {
+      "path": "model_adapters.py",
+      "sha256": "b1a4b3135794364ad239941c0d0172e23990c19a7c3786e8bc98f95076cb14a3",
+      "size": 1466
+    },
+    {
+      "path": "ocsf_export.py",
+      "sha256": "867b5a8987b70e8f56025953c00d01f6b0bfdbb13beffe083b7760df0cd57ecd",
+      "size": 3824
+    },
+    {
+      "path": "otel_fleet_export.py",
+      "sha256": "f7c9cfab728661c47613046a10b27fdfce34b2626a9a8e3e3cf2c6733e7515b2",
+      "size": 1937
+    },
+    {
+      "path": "preservation_engine.py",
+      "sha256": "d33b037d073322a052280b8685ded287bffa46a468a89f07ce9f2e3d9dd4ca5e",
+      "size": 7212
+    },
+    {
+      "path": "probe_client.py",
+      "sha256": "372fcdd0b24b48d3ab277ad435c46f57129758141a6a43c54628be0b5d8debbf",
+      "size": 3767
+    },
+    {
+      "path": "production_integration_example.py",
+      "sha256": "01ad2a179da8d156988371e2bb4c231e2c5e973f444f55816215682e7ad86a0a",
+      "size": 1874
+    },
+    {
+      "path": "prompts/activation_probe.jsonl",
+      "sha256": "d575c365fb998db8238f1f95aa0afa235b1418ee57bfc0d34ca837068e67e0f3",
+      "size": 3280
+    },
+    {
+      "path": "prompts/behavioral_probe.jsonl",
+      "sha256": "f60ca8b54a712e69e0386ee85a3b4857c88097d623f79fc8b5631c85e81f28ed",
+      "size": 3759
+    },
+    {
+      "path": "prompts/synthetic_system_prompt.txt",
+      "sha256": "c8dfdfbb5941f9efffb602f4822096d7cc4efed459c0879bc271a9458ed45977",
+      "size": 289
+    },
+    {
+      "path": "provenance_bundle.py",
+      "sha256": "9255d2b3e8972ea2bdb1e7cb2260967975c79cef5e7812dbaa002200b644acf5",
+      "size": 14699
+    },
+    {
+      "path": "qwen_forensic_detector.py",
+      "sha256": "e79c10c2584e0a0807c3173b1754ee71c6d06987aee27d93e03cf05beda699f3",
+      "size": 20303
+    },
+    {
+      "path": "recovery_gate.py",
+      "sha256": "f736354b64450a0ef9ba0e9301c7a40fb8280e6507e3f94f1b86bf95630287e2",
+      "size": 5597
+    },
+    {
+      "path": "replay_engine.py",
+      "sha256": "e3a5f26c6657c04e62dc9c035a93ff4c16cb31851cb3c7d4b46bbcee490fbcf6",
+      "size": 4138
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b325b8d84aa557401a576b6b24f71d960cc173089ef79046859b191d6e25fbeb",
+      "size": 177
+    },
+    {
+      "path": "runtime_inventory.py",
+      "sha256": "91b065254f06d5df44f341b6b7aba355f5bd8e1e5b234c8e38e05d127272b200",
+      "size": 9637
+    },
+    {
+      "path": "runtime_model_inventory_example.py",
+      "sha256": "be75a826a84c58c0a6c21f0e78c9e9e41935e284c0272729c1463ed1d40950c7",
+      "size": 507
+    },
+    {
+      "path": "summarize_live_attestation.py",
+      "sha256": "d87cef536f925a24383fe5097857af4f7156530fa61bffc4be3edbdfc6748b4a",
+      "size": 5031
+    },
+    {
+      "path": "timeline_builder.py",
+      "sha256": "c2c78755b5e0bcc02cb7a512e9a69b570d8b97cb7c06efee6d45d2dea48c0ecc",
+      "size": 4595
+    },
+    {
+      "path": "v04_selftest.py",
+      "sha256": "0264d02940ff845d2231d23a3c8d5c04acada6033aeb5efd69be8dab96421fa5",
+      "size": 6879
+    },
+    {
+      "path": "v05_selftest.py",
+      "sha256": "dfc18ab91e26916bc646e9494ad2af6512ec8aab48a701344d40e8d1432b5155",
+      "size": 7280
+    },
+    {
+      "path": "v06_selftest.py",
+      "sha256": "f04c633a9c229cee0f279c981e1c829be256026548036301786b0e200a94fd89",
+      "size": 9371
+    },
+    {
+      "path": "verify_attestation_log.py",
+      "sha256": "577fc9a2d94f0e4c9d9bf2f69c7fae502cda3ba4c8a12e6a46fded8f1ef4fbcb",
+      "size": 643
+    }
+  ],
+  "package": "AI-DFIR Automated Containment & Forensic Preservation",
+  "version": "0.6"
+}

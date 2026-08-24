@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "unified_audit",
+      "relative_path": "unified_auditunified_auditunified_audit.jsonunified_audit",
+      "sha256": "71b5ec4542825b2594b329f6dc481471a71bd3a05d18a5bd4d46431721d069f8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "activity_explorer",
+      "relative_path": "activity_exploreractivity_exploreractivity_explorer.jsonactivity_explorer",
+      "sha256": "e43202f9624970f1af38cff9128bb12a67a4be966015e4a2372596ef253da5ec",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "prompt_response",
+      "relative_path": "prompt_responseprompt_responseprompt_response.jsonprompt_response",
+      "sha256": "c02defd29108eaeed7a14d4f704ee8a4e31a0104745a02f83f6cc977d7b9e5f2",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "referenced_files",
+      "relative_path": "referenced_filesreferenced_filesreferenced_files.jsonreferenced_files",
+      "sha256": "7bec3633ca11ebcccb31f4890107934a2e6387e2c6cfc69d00eae19463d38f1b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "labels_dlp",
+      "relative_path": "labels_dlpsensitivitylabels_dlp.jsonlabels_dlp",
+      "sha256": "85b1286db2fcd8b5cc450e5bc9ffbc33be8db1f43fa0eca1ed6703bb7c1234f2",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "identity",
+      "relative_path": "identitysigninidentity.jsonidentity",
+      "sha256": "91601f9bba44bd8e7263c037b9b2cd0ab656bae13d4700df829b74a91621c088",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-microsoft.purview.ai_interaction",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

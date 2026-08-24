@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "defender_alertAlertInfodefender_alert.jsondefender_alert",
+    "boundary_payloadprompt_evidenceboundary_payload.jsonboundary_payload",
+    "process_treeDeviceProcessEventsprocess_tree.jsonprocess_tree",
+    "file_networkDeviceFileEventsfile_network.jsonfile_network",
+    "agent_native_historyhistory.jsonl",
+    "mcp_discoverymcpmcp_discovery.jsonmcp_discovery"
+  ],
+  "pack_id": "microsoft.defender_endpoint.suspicious_ai_prompt_injection",
+  "pack_source": "evidence_packs/microsoft/defender_endpoint/suspicious_ai_prompt_injection.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

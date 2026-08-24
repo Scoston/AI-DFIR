@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_registry",
+      "relative_path": "session_registrysessionsession_registryregistrysession_registry.jsonsession_registry",
+      "sha256": "08e64555d37b980e78694bccbffe90994692e56daa8f662b56bb49148ad0758d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_auth",
+      "relative_path": "session_authsessionsession_authtokensession_auth.jsonsession_auth",
+      "sha256": "0249c18d47c368913ad3a2c72b6f686b6155a96d469e280e15526b280d4acd9f",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_events",
+      "relative_path": "session_eventssessionsession_eventseventssession_events.jsonl",
+      "sha256": "ff19ec03df1d548114e6e1a8eda8d819f4330a3cfd721bfe52795908fa9c414a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_authority",
+      "relative_path": "agent_authorityauthorityagent_authority.jsonagent_authority",
+      "sha256": "80fcd67011e8bcde500aa930b551ec6da3fcd08929eb43091cd5f34e7b828235",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "downstream_actions",
+      "relative_path": "downstream_actionsagentic_eventsdownstream_actions.jsonl",
+      "sha256": "fdf7ddceab283a5caf3e976baa5e98870381ab59919822cef95a09f9b901922c",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.agent_session_hijack",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

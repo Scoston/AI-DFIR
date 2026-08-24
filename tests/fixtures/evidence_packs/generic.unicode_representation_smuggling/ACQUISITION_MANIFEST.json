@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "raw_content",
+      "relative_path": "raw_contentrawraw_content.txt",
+      "sha256": "1c33a0b12a21462a19454eff11122a12130d45f60943f9239a38c765724d4a83",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "unicode_analysis",
+      "relative_path": "unicode_analysisunicodeunicode_analysisanalysisunicode_analysis.jsonunicode_analysis",
+      "sha256": "4a64e039455ebb9ca1f3e0aadf26f6c315db507c96c840040a1d3d03fa142a6c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "normalized_content",
+      "relative_path": "normalized_contentnormalizednormalized_content.txt",
+      "sha256": "e7e378740d87c6097f3f6a679805b6e5b4614a4b10e65cb4ecbfae51b7067555",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "ingestion_trace",
+      "relative_path": "ingestion_tracemodel_inputingestion_trace.jsoningestion_trace",
+      "sha256": "b4097fc9d839476f7270fb02c1eb6bbe5bb51f754d859f0455007ed8b61a2171",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.unicode_representation_smuggling",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

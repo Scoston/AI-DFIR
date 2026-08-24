@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "component_inventorysbomcomponent_inventory.jsoncomponent_inventory",
+    "component_hashesmanifestcomponent_hashes.jsoncomponent_hashes",
+    "mcp_inventorymcpmcp_inventoryinventorymcp_inventory.jsonmcp_inventory",
+    "deployment_historydeploymentdeployment_history.jsondeployment_history",
+    "execution_traceagentic_eventsexecution_trace.jsonl"
+  ],
+  "pack_id": "owasp.agentic.asi04",
+  "pack_source": "evidence_packs/owasp_agentic/ASI04_agentic_supply_chain.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

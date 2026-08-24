@@ -1,0 +1,4 @@
+{"event_id": "S", "event_type": "retrieval_result", "actor_id": "rag", "content_sha256": "bad", "metadata": {"untrusted": true}, "session_id": "A"}
+{"event_id": "M", "event_type": "memory_write", "actor_id": "agent", "parent_event_id": "S", "metadata": {"memory_id": "MEM", "version": 2, "expires_utc": "2026-08-24T15:30:00Z"}, "tenant_id": "TENANT-A", "timestamp_utc": "2026-08-24T15:10:00Z"}
+{"event_id": "T", "event_type": "tool_call", "actor_id": "agent", "parent_event_id": "M", "tool_id": "send_email", "tenant_id": "TENANT-B", "timestamp_utc": "2026-08-24T16:00:00Z"}
+{"event_id": "C", "event_type": "consequence", "actor_id": "mail", "parent_event_id": "T", "timestamp_utc": "2026-08-24T16:00:05Z"}

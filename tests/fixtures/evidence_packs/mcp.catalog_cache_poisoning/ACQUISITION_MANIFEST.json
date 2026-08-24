@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "catalog",
+      "relative_path": "catalogtoolscataloglistcatalog.jsoncatalog",
+      "sha256": "c1f1c5676908d3d6cb382c2b69dbf6cb90c84ca2e5e7a8941d218311ccf03bf9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "cache",
+      "relative_path": "cachemcpcachecachecache.jsoncache",
+      "sha256": "8c87ba51b9bf161ca25f90d68dd25d6dc687112d7858e4219459a83fa27da6ba",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "server_inventory",
+      "relative_path": "server_inventorymcpserver_inventoryinventoryserver_inventory.jsonserver_inventory",
+      "sha256": "060932438f6f10a3e855f6922a199c5c8c476feb042534cd3b8ff8f1a41ee867",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-mcp.catalog_cache_poisoning",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

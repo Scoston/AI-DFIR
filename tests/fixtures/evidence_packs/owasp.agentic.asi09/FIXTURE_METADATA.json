@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "agent_outputconversationagent_output.jsonagent_output",
+    "ui_renderinguiui_rendering.jsonui_rendering",
+    "approval_recordapprovalapproval_record.jsonapproval_record",
+    "policyapproval_policypolicy.jsonpolicy",
+    "resulting_actionagentic_eventsresulting_action.jsonl"
+  ],
+  "pack_id": "owasp.agentic.asi09",
+  "pack_source": "evidence_packs/owasp_agentic/ASI09_human_agent_trust_exploitation.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

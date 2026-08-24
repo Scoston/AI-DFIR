@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "raw_terminal_outputterminalraw_terminal_outputrawraw_terminal_output.txt",
+    "terminal_analysisterminalterminal_analysisanalysisterminal_analysis.jsonterminal_analysis",
+    "rendered_captureterminalrendered_capturescreenshotrendered_capture.png",
+    "network_clicknetworknetwork_click.jsonnetwork_click"
+  ],
+  "pack_id": "generic.terminal_control_deception",
+  "pack_source": "evidence_packs/representation_v12/generic_terminal_control_deception.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "holdlegalholdholdhold.jsonhold",
+    "storageobjectstoragemetadatastorage.jsonstorage",
+    "releaselegalreleaseholdreleasereleaserelease.jsonrelease"
+  ],
+  "pack_id": "enterprise.legal_hold",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_legal_hold.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

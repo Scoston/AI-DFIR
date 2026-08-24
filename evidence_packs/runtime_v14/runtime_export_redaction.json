@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "source",
+      "presence_patterns": [
+        "*source*export*.txt",
+        "*source*export*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves original hash.",
+      "title": "Source export artifact",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "redacted",
+      "presence_patterns": [
+        "*redacted*.txt",
+        "*redacted*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shareable derivative.",
+      "title": "Redacted artifact",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "manifest",
+      "presence_patterns": [
+        "*redaction*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds source and derivative hashes and rule counts.",
+      "title": "Redaction manifest",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "redaction",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "source",
+        "redacted",
+        "manifest"
+      ],
+      "title": "Redacted derivative traceable to source"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.export_redaction",
+  "incident_type": "export_redaction_integrity",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Evidence Export Redaction / Disclosure Integrity"
+    ],
+    "incident_types": [
+      "export_redaction_integrity"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Can the shared artifact be traced to its source hash?",
+    "Which fields were redacted?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Evidence Export Redaction / Disclosure Integrity",
+  "vendor": "Generic"
+}

@@ -1,0 +1,89 @@
+{
+  "profiles": [
+    {
+      "display_name": "Microsoft Copilot / Azure AI Foundry",
+      "expected_sources": [
+        "provider_audit",
+        "identity_signin",
+        "resource_activity",
+        "agent/tool traces",
+        "model deployment/config",
+        "network/process where applicable"
+      ],
+      "id": "microsoft_copilot_foundry",
+      "normalizer": "provider_normalizer.py"
+    },
+    {
+      "display_name": "OpenAI API / Agent Platforms",
+      "expected_sources": [
+        "request IDs",
+        "model/provider metadata",
+        "agent/tool traces",
+        "application identity",
+        "network gateway logs"
+      ],
+      "id": "openai",
+      "normalizer": "provider_normalizer.py"
+    },
+    {
+      "display_name": "Anthropic / Claude / Claude Code",
+      "expected_sources": [
+        "request IDs",
+        "conversation/session history",
+        "workspace controls",
+        "tool traces",
+        "identity/network/process evidence"
+      ],
+      "id": "anthropic",
+      "normalizer": "provider_normalizer.py"
+    },
+    {
+      "display_name": "Google Gemini / Vertex AI",
+      "expected_sources": [
+        "Cloud Audit Logs",
+        "request/model metadata",
+        "service account identity",
+        "agent/tool traces",
+        "network logs"
+      ],
+      "id": "google_vertex",
+      "normalizer": "provider_normalizer.py"
+    },
+    {
+      "display_name": "AWS Bedrock",
+      "expected_sources": [
+        "CloudTrail",
+        "request/model ID",
+        "IAM/STS lineage",
+        "agent/tool traces",
+        "VPC/network telemetry"
+      ],
+      "id": "aws_bedrock",
+      "normalizer": "provider_normalizer.py"
+    },
+    {
+      "display_name": "GitHub Copilot",
+      "expected_sources": [
+        "audit logs",
+        "repository/workspace controls",
+        "IDE extension/process telemetry",
+        "agent/tool trace"
+      ],
+      "id": "github_copilot",
+      "normalizer": "provider_normalizer.py"
+    },
+    {
+      "display_name": "Cursor",
+      "expected_sources": [
+        "workspace controls",
+        "extension/app version",
+        "agent/tool trace",
+        "process/network telemetry",
+        "session history"
+      ],
+      "id": "cursor",
+      "normalizer": "provider_normalizer.py"
+    }
+  ],
+  "schema": "ai-dfir/provider-collection-profiles/v1.4"
+}

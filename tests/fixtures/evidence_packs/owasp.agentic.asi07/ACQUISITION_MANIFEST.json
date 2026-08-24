@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_messages",
+      "relative_path": "agent_messagesagentic_eventsagent_messages.jsonl",
+      "sha256": "44bba542c5b722b613147c3d6336399d49985aa65e03e312fca0f67140b2b0f9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_identities",
+      "relative_path": "agent_identitiesagent_identityagent_identities.jsonagent_identities",
+      "sha256": "cd7c1062efb3c3c2c3367414eca513aeef6ed606c5c15f62660ed1f96f3c5ab8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "delegations",
+      "relative_path": "delegationsdelegationdelegations.jsondelegations",
+      "sha256": "fd3275edaf6bc34133d03b3f3e4a2ca103a2fd41fd990f38e70bbda19cddc53b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "orchestrator",
+      "relative_path": "orchestratororchestratororchestrator.jsonorchestrator",
+      "sha256": "ad152f9316aa7788af1e0445b37d3ec8a0cba5a3f575bfc60282442b1a7189a8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "downstream_trace",
+      "relative_path": "downstream_traceagentic_eventsdownstream_trace.jsonl",
+      "sha256": "3c896f502d151b78c261bf3631f90e56e8943a8364a95f9aba649e5ed7d824a5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi07",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

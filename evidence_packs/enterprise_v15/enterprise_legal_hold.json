@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "hold",
+      "presence_patterns": [
+        "*legal*hold*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes hold scope/reason.",
+      "title": "Signed legal-hold record",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "storage",
+      "presence_patterns": [
+        "*object*metadata*.json*",
+        "*object*index*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows enforcement at storage layer.",
+      "title": "Object retention/hold metadata",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "release",
+      "presence_patterns": [
+        "*legal*hold*release*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Proves authorized release.",
+      "title": "Signed hold release when applicable",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "hold_violation",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "hold",
+        "storage"
+      ],
+      "title": "Legal-hold/retention violation established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.legal_hold",
+  "incident_type": "legal_hold",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Evidence Legal Hold / Retention Violation"
+    ],
+    "incident_types": [
+      "legal_hold"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Was evidence deleted or retention weakened during an active hold?",
+    "Was release independently signed?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Evidence Legal Hold / Retention Violation",
+  "vendor": "Generic"
+}

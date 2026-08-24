@@ -1,0 +1,142 @@
+{
+  "artifacts": [
+    {
+      "category": "tool",
+      "id": "tool_catalog",
+      "presence_patterns": [
+        "*mcp*inventory*.json*",
+        "*tool_schema*.json*",
+        "*tools*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines intended tool behavior and parameter schema.",
+      "title": "Tool/MCP schema and version inventory"
+    },
+    {
+      "category": "tool",
+      "id": "tool_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl",
+        "*tool_invocations*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs actual use of the legitimate capability.",
+      "title": "Tool call arguments, results and ordering"
+    },
+    {
+      "category": "identity",
+      "id": "authority",
+      "presence_patterns": [
+        "*authority*.json*",
+        "*policy*.json*",
+        "*delegation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows whether the tool use was authorized or exceeded intended privilege.",
+      "title": "Scopes, roles and approval policy"
+    },
+    {
+      "category": "impact",
+      "id": "target_audit",
+      "presence_patterns": [
+        "*target*audit*.json*",
+        "*CloudAppEvents*.json*",
+        "*api*audit*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves whether the tool request actually changed or accessed the target.",
+      "title": "Target-system audit/API logs"
+    },
+    {
+      "category": "interaction",
+      "id": "source_context",
+      "presence_patterns": [
+        "*conversation*.json*",
+        "*retrieval*.json*",
+        "*memory*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Supports attribution of why the tool was selected.",
+      "title": "Prompt/retrieval/memory source preceding tool use"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "tool_misuse_observed",
+      "logic": "all",
+      "requires": [
+        "tool_trace",
+        "tool_catalog"
+      ],
+      "title": "Agent invoked the tool in the questioned manner"
+    },
+    {
+      "id": "authorization_violation",
+      "logic": "all",
+      "requires": [
+        "tool_trace",
+        "authority"
+      ],
+      "title": "Tool action exceeded approved authority"
+    },
+    {
+      "id": "tool_impact_confirmed",
+      "logic": "all",
+      "requires": [
+        "tool_trace",
+        "target_audit"
+      ],
+      "title": "Tool caused downstream effect"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi02",
+  "incident_type": "tool_misuse",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "AI Agent Tool Invocation",
+      "Exfiltration via AI Agent Tool Invocation",
+      "Data Destruction via AI Agent Tool Invocation"
+    ],
+    "owasp_agentic": "ASI02"
+  },
+  "match": {
+    "detection_families": [
+      "Tool Misuse & Exploitation"
+    ],
+    "incident_types": [
+      "tool_misuse"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes tool misuse & exploitation?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI02 \u2014 Tool Misuse & Exploitation",
+  "vendor": "OWASP"
+}

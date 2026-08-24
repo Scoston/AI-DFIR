@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "mcp_responsemcpmcp_responseresponsemcp_response.jsonmcp_response",
+    "model_contextcontextmodel_context.jsonmodel_context",
+    "tool_traceagentic_eventstool_trace.jsonl"
+  ],
+  "pack_id": "mcp.instruction_poisoning",
+  "pack_source": "evidence_packs/advanced_v11/mcp_instruction_poisoning.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

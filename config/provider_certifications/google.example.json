@@ -1,0 +1,10 @@
+{
+  "schema": "ai-dfir/provider-certification-profile/v1.6",
+  "provider": "google",
+  "adapter": "google_cloud_logs",
+  "api_version": "deployment-pinned",
+  "max_certification_age_days": 90,
+  "known_limitations": [
+    "Data Access audit logs and retention depend on project policy."
+  ]
+}

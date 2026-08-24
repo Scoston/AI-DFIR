@@ -1,0 +1,7 @@
+{
+  "case_id": "SYN-agentic.mcp.protocol_compromise.2026_07_28",
+  "schema": "ai-dfir/case/v1.6",
+  "synthetic": true,
+  "tenant_id": "SYNTHETIC",
+  "tool_version": "1.6"
+}

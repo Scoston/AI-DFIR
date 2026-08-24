@@ -1,0 +1,127 @@
+{
+  "artifacts": [
+    {
+      "category": "audit",
+      "id": "unified_audit",
+      "presence_patterns": [
+        "*unified_audit*.json*",
+        "*AIInteraction*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides provider-side evidence of prompts/responses, timestamps and service context.",
+      "title": "Unified Audit Log AI interaction events"
+    },
+    {
+      "category": "audit",
+      "id": "activity_explorer",
+      "presence_patterns": [
+        "*activity_explorer*.json*",
+        "*dspm*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows AI activity, sensitive-data detections and related app context.",
+      "title": "DSPM Activity Explorer AI activity"
+    },
+    {
+      "category": "interaction",
+      "id": "prompt_response",
+      "presence_patterns": [
+        "*prompt_response*.json*",
+        "*conversation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Needed to determine disclosure, policy violation and injection context.",
+      "title": "Full prompt/response protected copy"
+    },
+    {
+      "category": "data",
+      "condition": "AI interaction referenced Microsoft 365 content.",
+      "id": "referenced_files",
+      "presence_patterns": [
+        "*referenced_files*.json*",
+        "*file_reference*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Determines which enterprise files influenced the response.",
+      "title": "Referenced Microsoft 365 files and hashes"
+    },
+    {
+      "category": "data",
+      "condition": "Sensitive-data/policy event involved.",
+      "id": "labels_dlp",
+      "presence_patterns": [
+        "*sensitivity*.json*",
+        "*dlp*.json*",
+        "*sit*.json*",
+        "*classifier*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Explains why content was sensitive and what policy applied.",
+      "title": "Sensitivity labels, DLP/SIT/classifier evidence"
+    },
+    {
+      "category": "identity",
+      "id": "identity",
+      "presence_patterns": [
+        "*signin*.json*",
+        "*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes who performed the AI interaction and from where.",
+      "title": "User/device/session identity context"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "interaction_reconstructed",
+      "logic": "all",
+      "requires": [
+        "unified_audit",
+        "prompt_response",
+        "identity"
+      ],
+      "title": "AI interaction reconstructed"
+    },
+    {
+      "id": "sensitive_data_context",
+      "logic": "all",
+      "requires": [
+        "labels_dlp"
+      ],
+      "title": "Sensitive-data context established"
+    }
+  ],
+  "forensic_modes": [
+    "black-box"
+  ],
+  "id": "microsoft.purview.ai_interaction",
+  "incident_type": "ai_data_security",
+  "match": {
+    "incident_types": [
+      "risky_ai_usage",
+      "data_loss",
+      "ai_interaction"
+    ],
+    "platforms": [
+      "Microsoft Purview",
+      "DSPM for AI"
+    ]
+  },
+  "platform": "Microsoft Purview DSPM for AI / Audit",
+  "questions": [
+    "What prompt/response caused the policy or risk event?",
+    "What enterprise files were referenced?",
+    "What labels/DLP/SIT controls applied?",
+    "Was sensitive content exposed outside the intended boundary?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [
+    {
+      "type": "vendor_documentation",
+      "url": "https://learn.microsoft.com/en-us/purview/ai-claude-enterprise",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "Microsoft Purview AI Interaction / Risky AI Usage Investigation",
+  "vendor": "Microsoft"
+}

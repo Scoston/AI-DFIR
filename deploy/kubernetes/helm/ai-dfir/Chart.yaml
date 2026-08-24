@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ai-dfir
+description: Hardened AI-DFIR production deployment (external PostgreSQL/KMS/object store required)
+type: application
+version: 1.6.0
+appVersion: "1.6.0"

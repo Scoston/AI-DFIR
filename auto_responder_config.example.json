@@ -1,0 +1,60 @@
+{
+  "collector_url": "https://ai-dfir-collector.example:8787",
+  "collector_ca_file": "/etc/ai-dfir/collector-ca.pem",
+  "automation_mode": "approval",
+  "poll_seconds": 15,
+  "state_file": "/var/lib/ai-dfir/auto_responder_state.json",
+  "case_root": "/evidence/ai-dfir/incidents",
+  "plan_private_key": "/etc/ai-dfir/response_plan_ed25519.pem",
+  "plan_public_key": "/etc/ai-dfir/response_plan_ed25519.pub.pem",
+  "containment_private_key": "/etc/ai-dfir/containment_ed25519.pem",
+  "containment_public_key": "/etc/ai-dfir/containment_ed25519.pub.pem",
+  "preservation_signing_key": "/etc/ai-dfir/investigator_ed25519.pem",
+  "preservation_failure_action": "abort",
+  "severities": [
+    "critical"
+  ],
+  "read_only_tools": [
+    "lookup_ticket",
+    "read_user",
+    "search_logs"
+  ],
+  "approved_backend_by_node": {
+    "qwen-prod-01": "https://qwen-approved-failover.internal"
+  },
+  "policy": {
+    "alert_actions": {
+      "UNEXPECTED_RUNTIME_HOOK": "failover",
+      "UNEXPECTED_ADAPTER": "failover",
+      "MODEL_CONTENT_TREE_DRIFT": "quarantine",
+      "MODEL_MANIFEST_DRIFT": "quarantine",
+      "FINGERPRINT_DRIFT": "quarantine",
+      "ACTIVATION_DRIFT_CRITICAL": "freeze-tools",
+      "DELEGATED_AUTHORITY_DRIFT": "freeze-tools",
+      "TOOL_SCHEMA_DRIFT": "freeze-tools",
+      "ATTESTATION_CHAIN_INVALID": "quarantine",
+      "HARDWARE_ATTESTATION_FAILED": "quarantine"
+    },
+    "severity_actions": {
+      "critical": "freeze-tools",
+      "high": "read-only"
+    },
+    "default_action": "observe"
+  },
+  "nodes": {
+    "qwen-prod-01": {
+      "control_file": "/run/ai-dfir/containment.json",
+      "pid": 12345,
+      "model_path": "/srv/models/qwen38",
+      "copy": [
+        "runtime_inventory=/var/lib/ai-dfir/model_runtime_inventory.json",
+        "live_attestation=/var/log/ai-dfir/live",
+        "canary=/var/lib/ai-dfir/canary"
+      ],
+      "reference": [
+        "deployed_manifest=/var/lib/ai-dfir/deployed_manifest.json",
+        "gpu_attestation=/var/lib/ai-dfir/gpu_attestation.json"
+      ]
+    }
+  }
+}

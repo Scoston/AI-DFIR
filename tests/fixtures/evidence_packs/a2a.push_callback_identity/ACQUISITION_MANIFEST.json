@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "push_config",
+      "relative_path": "push_configpushpush_confignotificationpush_configconfigpush_config.jsonpush_config",
+      "sha256": "07d5c169ce9abdeea1a04d08ee8373c0d79077c8bed92dade7e79cc659dafa90",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "callback_events",
+      "relative_path": "callback_eventscallbackcallback_events.jsonl",
+      "sha256": "b42ba8b7b431274b1e896e1c979720fb9ad7bf4cb45065ebd80feaaa22db1d26",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_card_verification",
+      "relative_path": "agent_card_verificationagentagent_card_verificationcardagent_card_verificationverificationagent_card_verification.jsonagent_card_verification",
+      "sha256": "78b5fffe2af998d379101072976b13aa58e1fd5755b8b623c8347c7585e0b975",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "transport_identity",
+      "relative_path": "transport_identitytlstransport_identity.jsontransport_identity",
+      "sha256": "c4d3330fc064ae95c899a6bb49b8990ca1779464a35d184f8b8262659b75d012",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "task_registry",
+      "relative_path": "task_registrya2atask_registrytasktask_registry.jsontask_registry",
+      "sha256": "367e731c3d6963b30fc0b5a4b67c966d904495484d5aa8faf890151a09e2a06a",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-a2a.push_callback_identity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

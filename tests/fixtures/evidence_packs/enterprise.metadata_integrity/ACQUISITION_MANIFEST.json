@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "db_probe",
+      "relative_path": "db_probeproductiondb_probereadinessdb_probe.jsondb_probe",
+      "sha256": "5615d6fb44a7c2f1ff984fd1152b48e0d213a52986e19d9c59e3b84226c7367c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "audit",
+      "relative_path": "auditanalystauditauditaudit.jsonl",
+      "sha256": "87a1c8f289ae22ebdbbed307a343f8df49eebbe8400667bc1b4a287e4b8fa1b9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "case_meta",
+      "relative_path": "case_metacasecase_metametadatacase_meta.jsoncase_meta",
+      "sha256": "2fd2946d7c8e1459520151be8814e6e8ed8e9aee72b9333c6c158d61e3b31530",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.metadata_integrity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,104 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "snapshot",
+      "presence_patterns": [
+        "*memory*snapshot*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Cryptographic memory baseline.",
+      "title": "Signed memory snapshot/baseline",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "events",
+      "presence_patterns": [
+        "*memory*events*.json*",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs version history.",
+      "title": "Memory read/write/tombstone events",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "analysis",
+      "presence_patterns": [
+        "*memory*integrity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects replay, cross-tenant, expiry and tombstone reads.",
+      "title": "Memory integrity analysis",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "retrieval",
+      "presence_patterns": [
+        "*retrieval*.json*",
+        "*vector*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Maps source chunk to embedding/vector/read.",
+      "title": "Vector/retrieval provenance",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "memory",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "snapshot",
+        "events",
+        "analysis"
+      ],
+      "title": "Persistent-memory integrity violation established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.memory_integrity",
+  "incident_type": "persistent_memory_integrity",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Persistent Memory Integrity / Poisoning"
+    ],
+    "incident_types": [
+      "persistent_memory_integrity"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Was a memory version replayed?",
+    "Was deleted/expired memory read?",
+    "Did embedding model/version drift?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Persistent Memory Integrity / Poisoning",
+  "vendor": "Generic"
+}

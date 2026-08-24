@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "slo",
+      "presence_patterns": [
+        "*service*slo*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows availability, lag and error rates.",
+      "title": "Service/collector SLO result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "collector_health",
+      "presence_patterns": [
+        "*collector*health*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows evidence-source completeness.",
+      "title": "Collector health/retention coverage",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "collection_slo",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "slo",
+        "collector_health"
+      ],
+      "title": "Collection SLO breach is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.collection_slo_breach",
+  "incident_type": "collection_slo_breach",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Evidence Collection SLO Breach"
+    ],
+    "incident_types": [
+      "collection_slo_breach"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Did lag or outage overlap the incident window?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Evidence Collection SLO Breach",
+  "vendor": "AI-DFIR"
+}

@@ -1,0 +1,106 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "raw",
+      "presence_patterns": [
+        "*provider*raw*.json*",
+        "*provider*collection*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves source telemetry.",
+      "title": "Raw provider-native API/log export",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "receipt",
+      "presence_patterns": [
+        "*provider*collection*receipt*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds API path/request ID and limitations.",
+      "title": "Hash-bound provider collection receipt",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "identity",
+      "presence_patterns": [
+        "*collector*identity*.json*",
+        "*spiffe*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes acquisition.",
+      "title": "Collector/workload identity",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "normalization",
+      "presence_patterns": [
+        "*provider*normalized*.json*",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "conditional",
+      "rationale": "Supports cross-provider timeline.",
+      "title": "Normalized AI-DFIR events",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "native_collection",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "raw",
+        "receipt",
+        "identity"
+      ],
+      "title": "Provider-native evidence acquisition established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.native_provider_collection",
+  "incident_type": "native_provider_collection",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Provider-Native Collector Integrity"
+    ],
+    "incident_types": [
+      "native_provider_collection"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Was the endpoint read-only and provider-allowlisted?",
+    "Was pagination completed?",
+    "What retention/configuration limitations apply?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Provider-Native Collector Integrity",
+  "vendor": "Generic"
+}

@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "hold",
+      "relative_path": "holdlegalholdholdhold.jsonhold",
+      "sha256": "96b6f038e7709f4a0cfd6200406aadb8e818fdb1671f4c21eaf8962f3e5402a9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "storage",
+      "relative_path": "storageobjectstoragemetadatastorage.jsonstorage",
+      "sha256": "6a2b4a0c5f3c8635178faaca287f9c88566a8c9f1449d3e4e455a0ce92031443",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "release",
+      "relative_path": "releaselegalreleaseholdreleasereleaserelease.jsonrelease",
+      "sha256": "ba5d49b4b50d68c12eb0c2a791269ea1e1ceec17584dbaec61f687718d7fcd3e",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.legal_hold",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

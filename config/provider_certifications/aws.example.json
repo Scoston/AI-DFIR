@@ -1,0 +1,10 @@
+{
+  "schema": "ai-dfir/provider-certification-profile/v1.6",
+  "provider": "aws",
+  "adapter": "aws_bedrock",
+  "api_version": "deployment-pinned",
+  "max_certification_age_days": 90,
+  "known_limitations": [
+    "Bedrock invocation logging and CloudTrail data events require explicit configuration."
+  ]
+}

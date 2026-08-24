@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "memory_eventsagentic_eventsmemory_events.jsonl",
+    "memory_snapshotmemorymemory_snapshotsnapshotmemory_snapshot.jsonmemory_snapshot",
+    "source_provenanceprovenancesource_provenance.jsonsource_provenance",
+    "session_historysessionsession_history.jsonl",
+    "downstream_traceagentic_eventsdownstream_trace.jsonl",
+    "memory_policymemorymemory_policypolicymemory_policy.jsonmemory_policy"
+  ],
+  "pack_id": "owasp.agentic.asi06",
+  "pack_source": "evidence_packs/owasp_agentic/ASI06_memory_context_poisoning.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

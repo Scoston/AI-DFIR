@@ -1,0 +1,20 @@
+Qwen3.8 Forensic Detector v0.3 validation
+
+Passive live-attestation self-test: PASS
+
+captured_depths: [1, 2, 3, 4]
+synthetic_depth3_relative_l2: 0.47572824358940125
+valid_chain_accepted: True
+corrupt_chain_rejected: True
+event_count: 3
+
+What this validates:
+- observation-only forward-hook capture
+- approved-reference exact activation comparison
+- detection of a synthetic runtime divergence
+- SHA-256 chained event integrity
+- HMAC-SHA256 verification
+- rejection of a modified/corrupt event log
+- investigator summary generation
+
+This does not constitute validation against a real Qwen3.8-27B production deployment.

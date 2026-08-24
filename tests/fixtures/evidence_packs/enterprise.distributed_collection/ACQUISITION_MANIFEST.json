@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "task",
+      "relative_path": "taskacquisitiontasktasktask.jsontask",
+      "sha256": "3ccfbfc5b876de123dcded1070efcffb16807f4677499fa88020c420b7560b3f",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "receipt",
+      "relative_path": "receiptacquisitionreceiptreceiptreceipt.jsonreceipt",
+      "sha256": "9b70ed5dc788aa38843e76a45af8e59ec3bf3197c0767b04745d77afd15c9b85",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "lease",
+      "relative_path": "leasetaskleasemetadatalease.jsonlease",
+      "sha256": "9a2c7b89334d143e82332a7bfec35117d9f9c3fa474fcaa2164eb052cf906441",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "collector_identity",
+      "relative_path": "collector_identityspiffecollector_identityidentitycollector_identity.jsoncollector_identity",
+      "sha256": "ee9571209a865a601dd8d493b3fa745361c01cf3ccf4baebf4176a655299910f",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.distributed_collection",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

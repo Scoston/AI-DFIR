@@ -1,0 +1,142 @@
+{
+  "artifacts": [
+    {
+      "category": "detection",
+      "id": "defender_alert",
+      "presence_patterns": [
+        "*AlertInfo*.json*",
+        "*alert*.json",
+        "*device_timeline*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves detection type, severity, affected agent and process-tree context.",
+      "title": "Defender alert and device timeline entry"
+    },
+    {
+      "category": "interaction",
+      "id": "boundary_payload",
+      "presence_patterns": [
+        "*prompt_evidence*.json*",
+        "*pre_tool*.json*",
+        "*post_tool*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether Defender detected the user prompt, pre-tool request, or post-tool response.",
+      "title": "Triggering agent boundary payload"
+    },
+    {
+      "category": "endpoint",
+      "id": "process_tree",
+      "presence_patterns": [
+        "*DeviceProcessEvents*.json*",
+        "*process_tree*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Independently verifies local execution and parent/child process relationships.",
+      "title": "Endpoint process tree and command lines"
+    },
+    {
+      "category": "endpoint",
+      "id": "file_network",
+      "presence_patterns": [
+        "*DeviceFileEvents*.json*",
+        "*DeviceNetworkEvents*.json*",
+        "*file_events*.json*",
+        "*network_events*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Confirms file changes, command side effects, and potential network exfiltration.",
+      "title": "Endpoint file/network evidence"
+    },
+    {
+      "category": "agent",
+      "id": "agent_native_history",
+      "presence_patterns": [
+        "*history.jsonl",
+        "*session*.jsonl",
+        "*agent_config*.json*",
+        "*.mcp.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "The vendor-native record is necessary to reconstruct the complete agent loop beyond Defender snippets.",
+      "title": "Agent-native transcript/history/configuration"
+    },
+    {
+      "category": "mcp",
+      "condition": "Agent has MCP/tool-server configuration.",
+      "id": "mcp_discovery",
+      "presence_patterns": [
+        "*mcp*.json*",
+        "*MCP*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Establishes tools/servers available to the local agent.",
+      "title": "Discovered MCP server configuration"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "prompt_injection_reconstructed",
+      "logic": "all",
+      "requires": [
+        "defender_alert",
+        "boundary_payload",
+        "agent_native_history"
+      ],
+      "title": "Prompt injection reconstructed"
+    },
+    {
+      "id": "execution_confirmed",
+      "logic": "all",
+      "requires": [
+        "process_tree"
+      ],
+      "title": "Endpoint execution confirmed"
+    },
+    {
+      "id": "impact_confirmed",
+      "logic": "all",
+      "requires": [
+        "file_network"
+      ],
+      "title": "File/network impact confirmed"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box"
+  ],
+  "id": "microsoft.defender_endpoint.suspicious_ai_prompt_injection",
+  "incident_type": "prompt_injection",
+  "match": {
+    "agents": [
+      "Claude Code",
+      "Codex CLI",
+      "GitHub Copilot CLI",
+      "GitHub Copilot app"
+    ],
+    "alert_titles": [
+      "Suspicious AI prompt injection"
+    ]
+  },
+  "platform": "Microsoft Defender for Endpoint",
+  "questions": [
+    "Which boundary triggered the alert: user prompt, pre-tool call, or post-tool response?",
+    "What content introduced the malicious instruction?",
+    "Was the suspicious action blocked or audited?",
+    "What executed on the endpoint?",
+    "What data or systems were affected?"
+  ],
+  "related_packs": [
+    "anthropic.claude_code.prompt_injection"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [
+    {
+      "type": "vendor_documentation",
+      "url": "https://learn.microsoft.com/en-us/defender-endpoint/ai-agent-runtime-protection-overview",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "Suspicious AI prompt injection (local AI agent)",
+  "vendor": "Microsoft"
+}

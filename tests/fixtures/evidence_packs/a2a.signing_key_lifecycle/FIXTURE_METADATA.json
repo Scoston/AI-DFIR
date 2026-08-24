@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "previous_cardpreviousprevious_cardagentprevious_cardcardprevious_card.jsonprevious_card",
+    "current_cardcurrentcurrent_cardagentcurrent_cardcardcurrent_card.jsoncurrent_card",
+    "history_analysisa2ahistory_analysiscardhistory_analysishistoryhistory_analysis.jsonhistory_analysis",
+    "trust_storea2atrust_storetrusttrust_storestoretrust_store.jsontrust_store",
+    "change_controlchangechange_controlcontrolchange_control.jsonchange_control"
+  ],
+  "pack_id": "a2a.signing_key_lifecycle",
+  "pack_source": "evidence_packs/a2a_v13/a2a_signing_key_lifecycle.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

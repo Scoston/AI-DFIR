@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "component_inventory",
+      "relative_path": "component_inventorysbomcomponent_inventory.jsoncomponent_inventory",
+      "sha256": "1f6cdbb321b61e986102b89d73caf6e82bbee73f23c3a651496b8c1cb9d5a4d3",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "component_hashes",
+      "relative_path": "component_hashesmanifestcomponent_hashes.jsoncomponent_hashes",
+      "sha256": "8a913a2c21467b105460789c84c9a6a65138699c23b58a546af15d142ca3c496",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_inventory",
+      "relative_path": "mcp_inventorymcpmcp_inventoryinventorymcp_inventory.jsonmcp_inventory",
+      "sha256": "699e9528dc82c9c7605d3fad258af900c0afcb6211c766ebf50fce2891eccad5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "deployment_history",
+      "relative_path": "deployment_historydeploymentdeployment_history.jsondeployment_history",
+      "sha256": "1085fbef6bb4890c4a42770c670d412829244a425a0b56ab96c943f9bb6dfa55",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "execution_trace",
+      "relative_path": "execution_traceagentic_eventsexecution_trace.jsonl",
+      "sha256": "1e3caa5b1232dad153721e914ea5885a8298f93a7bab602a6158ce627311813d",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi04",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

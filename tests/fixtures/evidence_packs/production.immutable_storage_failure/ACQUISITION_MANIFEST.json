@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "storage_probe",
+      "relative_path": "storage_probeobjectstorage_probelockstorage_probeprobestorage_probe.jsonstorage_probe",
+      "sha256": "ba2871facab5e71846443f4020c8225c438ca801cfe757f9728cf7c0aadf0804",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "hold_probe",
+      "relative_path": "hold_probelegalhold_probeholdhold_probevalidationhold_probe.jsonhold_probe",
+      "sha256": "b3a7457df0db133a3484ade1235706ed2ac8b887b1c7decfd1ddb8b5638b1c59",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.immutable_storage_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

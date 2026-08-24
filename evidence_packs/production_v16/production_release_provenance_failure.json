@@ -1,0 +1,74 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "release_integrity",
+      "presence_patterns": [
+        "*release*integrity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Verifies checksums/manifest/SBOM structure.",
+      "title": "Release integrity verification",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "provenance",
+      "presence_patterns": [
+        "*.intoto.jsonl",
+        "*.sigstore",
+        "*provenance*validation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds deployed artifact to the build.",
+      "title": "SLSA/Sigstore provenance or admission verification",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "release_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "release_integrity",
+        "provenance"
+      ],
+      "title": "Release provenance failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.release_provenance_failure",
+  "incident_type": "release_provenance_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Release Provenance / Supply-Chain Assurance Failure"
+    ],
+    "incident_types": [
+      "release_provenance_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Can the running image be traced to protected source and isolated build?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Release Provenance / Supply-Chain Assurance Failure",
+  "vendor": "AI-DFIR"
+}

@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "raw_markup.md",
+    "markup_analysismarkupmarkup_analysisanalysismarkup_analysis.jsonmarkup_analysis",
+    "rendered_viewrenderedrendered_view.html",
+    "agent_inputmodel_inputagent_input.jsonagent_input"
+  ],
+  "pack_id": "generic.hidden_markup_source",
+  "pack_source": "evidence_packs/representation_v12/generic_hidden_markup_source.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

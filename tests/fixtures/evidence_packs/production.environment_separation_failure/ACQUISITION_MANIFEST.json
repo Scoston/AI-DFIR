@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "separation",
+      "relative_path": "separationenvironmentseparationseparationseparation.jsonseparation",
+      "sha256": "3e4221860bbd14e136b62a9c1f8162872735b15ed5bd72680555805f6eaf7929",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "environment_config",
+      "relative_path": "environment_configenvironmentsenvironment_config.jsonenvironment_config",
+      "sha256": "376cc399ce632dc38ac3233cfb6d4f84058bdf8551b945cd7f6e5028e0dccc36",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.environment_separation_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

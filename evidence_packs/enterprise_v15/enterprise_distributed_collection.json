@@ -1,0 +1,107 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "task",
+      "presence_patterns": [
+        "*acquisition*task*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines allowed collection request.",
+      "title": "Signed acquisition task",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "receipt",
+      "presence_patterns": [
+        "*acquisition*receipt*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves completion/partial/failure.",
+      "title": "Signed collector receipt",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "lease",
+      "presence_patterns": [
+        "*task*metadata*.json*",
+        "*metadata*export*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects replay/double execution.",
+      "title": "Collector lease/task metadata",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "collector_identity",
+      "presence_patterns": [
+        "*spiffe*identity*.json*",
+        "*collector*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes collector.",
+      "title": "Collector SVID/key identity",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "collection_trust_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "task",
+        "receipt",
+        "lease",
+        "collector_identity"
+      ],
+      "title": "Distributed collection trust failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.distributed_collection",
+  "incident_type": "distributed_collection",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Distributed Collector Trust / Lease / Receipt Failure"
+    ],
+    "incident_types": [
+      "distributed_collection"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Was the task signed and unexpired?",
+    "Was collector type allowlisted?",
+    "Did a collector complete a task it did not lease?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Distributed Collector Trust / Lease / Receipt Failure",
+  "vendor": "Generic"
+}

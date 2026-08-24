@@ -1,0 +1,156 @@
+{
+  "artifacts": [
+    {
+      "category": "interaction",
+      "id": "conversation",
+      "presence_patterns": [
+        "*conversation*.json*",
+        "*session*.jsonl",
+        "*prompt_response*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes the original goal and the instruction that may have redirected it.",
+      "title": "Full prompt/conversation and system instructions"
+    },
+    {
+      "category": "rag",
+      "id": "retrieval_context",
+      "presence_patterns": [
+        "*retrieval*.json*",
+        "*context*.json*",
+        "*tool-results*",
+        "*tool_results*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Distinguishes direct user instruction from indirect/context injection.",
+      "title": "Retrieved/context content actually supplied to agent"
+    },
+    {
+      "category": "agent",
+      "id": "agent_config",
+      "presence_patterns": [
+        "*agent_config*.json*",
+        "*orchestrator*.json*",
+        "*CLAUDE.md",
+        "*settings*.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines approved goal, instruction hierarchy, stop conditions and orchestration behavior.",
+      "title": "Agent/orchestrator configuration and instruction policy"
+    },
+    {
+      "category": "tool",
+      "id": "tool_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl",
+        "*tool*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows whether goal hijack changed actions rather than only text.",
+      "title": "Complete tool/delegation execution trace"
+    },
+    {
+      "category": "identity",
+      "id": "authority",
+      "presence_patterns": [
+        "*authority*.json*",
+        "*delegation*.json*",
+        "*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines which actions were reachable when the goal changed.",
+      "title": "Effective authority/delegation snapshot"
+    },
+    {
+      "category": "impact",
+      "id": "target_audit",
+      "presence_patterns": [
+        "*audit*.json*",
+        "*target*.json*",
+        "*CloudAppEvents*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Confirms impact produced by hijacked actions.",
+      "title": "Downstream target-system audit"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "goal_change_supported",
+      "logic": "all",
+      "requires": [
+        "conversation",
+        "retrieval_context",
+        "agent_config"
+      ],
+      "title": "Goal was materially redirected"
+    },
+    {
+      "id": "hijack_caused_action",
+      "logic": "all",
+      "requires": [
+        "conversation",
+        "tool_trace"
+      ],
+      "title": "Hijack caused an agent/tool action"
+    },
+    {
+      "id": "impact_confirmed",
+      "logic": "all",
+      "requires": [
+        "tool_trace",
+        "target_audit"
+      ],
+      "title": "Hijacked action produced downstream impact"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi01",
+  "incident_type": "agent_goal_hijack",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "LLM Prompt Injection",
+      "AI Agent Context Poisoning"
+    ],
+    "owasp_agentic": "ASI01"
+  },
+  "match": {
+    "detection_families": [
+      "Agent Goal Hijack"
+    ],
+    "incident_types": [
+      "agent_goal_hijack"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes agent goal hijack?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI01 \u2014 Agent Goal Hijack",
+  "vendor": "OWASP"
+}

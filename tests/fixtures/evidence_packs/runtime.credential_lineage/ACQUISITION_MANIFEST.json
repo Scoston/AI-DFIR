@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "issuance",
+      "relative_path": "issuancecredentialissuancelineageissuance.jsonissuance",
+      "sha256": "d4b6299683fb829bebe538bc9cc4f51a01c650b37c58b0a6c5564992d6b0b32d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "uses",
+      "relative_path": "usestokenusesuseuses.jsonuses",
+      "sha256": "9641545192792025bf14f792fb216b7dbaaf79cf2c3a699ea65b24084be597ac",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "revocation",
+      "relative_path": "revocationrevocationrevocation.jsonrevocation",
+      "sha256": "792c6399ba88ef35214a644e5d3ca86f1e30c51d21f8d3329788dcdf5c64ac33",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "workload",
+      "relative_path": "workloadworkloadworkloadidentityworkload.jsonworkload",
+      "sha256": "3d4a42584792548529263021c56064427926596dc9ac58c280ae017c17af2b75",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.credential_lineage",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

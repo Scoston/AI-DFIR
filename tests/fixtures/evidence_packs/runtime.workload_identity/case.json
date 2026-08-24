@@ -1,0 +1,7 @@
+{
+  "case_id": "SYN-runtime.workload_identity",
+  "schema": "ai-dfir/case/v1.6",
+  "synthetic": true,
+  "tenant_id": "SYNTHETIC",
+  "tool_version": "1.6"
+}

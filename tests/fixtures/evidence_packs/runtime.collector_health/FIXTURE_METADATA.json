@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "expectationscollectorexpectationsexpectationsexpectations.jsonexpectations",
+    "observationscollectorobservationsobservationsobservations.jsonobservations",
+    "analysiscollectoranalysishealthanalysis.jsonanalysis"
+  ],
+  "pack_id": "runtime.collector_health",
+  "pack_source": "evidence_packs/runtime_v14/runtime_collector_health.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

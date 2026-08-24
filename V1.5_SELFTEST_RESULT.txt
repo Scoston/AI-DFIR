@@ -1,0 +1,24 @@
+AI-DFIR v1.5 — Release Candidate Validation
+
+Source-tree full release gate: PASS
+Evidence Packs: 96
+High-fidelity synthetic detector domains: 19
+
+Checks:
+- dashboard_javascript: PASS
+- evidence_pack_matrix: PASS
+- host_dependency_profile: WARN
+- python_compile: PASS
+- secret_scan: PASS
+- synthetic_scenarios: PASS
+- test_corpus_generation: PASS
+- v11_execution_compatibility: PASS
+- v12_representation_compatibility: PASS
+- v13_compatibility: PASS
+- v14_compatibility: PASS
+- v15_focused: PASS
+
+Notes:
+- The shared test host does not have the preferred `rfc8785` Python package installed; the release tests exercise the bundled standards-aware Node fallback. GitHub CI installs declared requirements into a clean environment.
+- Global `pip check` is intentionally not used as a release gate because the shared host contains unrelated packages; AI-DFIR validates its declared dependency profile and functional imports instead.
+- The final GitHub release archive is not considered valid until `scripts/package_release.py` extracts the exact ZIP and reruns the full gate from the extracted copy.

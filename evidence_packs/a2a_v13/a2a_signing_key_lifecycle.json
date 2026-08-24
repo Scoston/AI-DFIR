@@ -1,0 +1,142 @@
+{
+  "artifacts": [
+    {
+      "category": "a2a_trust",
+      "id": "previous_card",
+      "presence_patterns": [
+        "*previous*agent*card*.json*",
+        "*approved*agent*card*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides historical identity/capability baseline.",
+      "title": "Previously approved/signed Agent Card",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "current_card",
+      "presence_patterns": [
+        "*current*agent*card*.json*",
+        "*suspect*agent*card*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves current state.",
+      "title": "Current Agent Card",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "history_analysis",
+      "presence_patterns": [
+        "*a2a*card*history*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects content drift, key rotation, interface changes and same-version mutation.",
+      "title": "Card history/key-rotation analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "trust_store",
+      "presence_patterns": [
+        "*a2a*trust*store*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether old/new keys were valid at incident time.",
+      "title": "Trust-store key lifecycle/revocation state",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "change_control",
+      "presence_patterns": [
+        "*change*control*.json*",
+        "*deployment*audit*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Distinguishes expected rotation from unauthorized replacement.",
+      "title": "Agent/key change-control evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "key_lifecycle_anomaly",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "previous_card",
+        "current_card",
+        "history_analysis",
+        "trust_store"
+      ],
+      "title": "Unexpected signing-key or signed-card lifecycle change is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "a2a.signing_key_lifecycle",
+  "incident_type": "a2a_signing_key_lifecycle",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI03",
+      "ASI07",
+      "ASI08"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "A2A Signing-Key Rotation / Revocation / Rollback"
+    ],
+    "incident_types": [
+      "a2a_signing_key_lifecycle"
+    ]
+  },
+  "notes": [
+    "A valid Agent Card signature proves integrity under a key; enterprise trust additionally requires key lifecycle and identity-policy binding."
+  ],
+  "platform": "A2A v1.0",
+  "questions": [
+    "Was rotation overlapping or an abrupt full replacement?",
+    "Did content change without version change?",
+    "Was an older revoked card replayed from cache?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.3",
+  "sources": [
+    {
+      "type": "spec",
+      "url": "https://a2a-protocol.org/latest/specification/",
+      "verified": "2026-08-24"
+    },
+    {
+      "type": "protocol",
+      "url": "https://a2a-protocol.org/latest/whats-new-v1/",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "A2A Signing-Key Rotation / Revocation / Rollback",
+  "vendor": "Generic"
+}

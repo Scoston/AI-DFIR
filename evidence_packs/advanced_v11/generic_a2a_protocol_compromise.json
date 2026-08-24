@@ -1,0 +1,166 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "agent_cards",
+      "locations": [],
+      "presence_patterns": [
+        "*agent*card*.json*",
+        "*a2a*card*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes advertised agent identity, interfaces, skills and security schemes.",
+      "title": "Agent Card(s), signatures and hashes",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "a2a_messages",
+      "locations": [],
+      "presence_patterns": [
+        "*a2a*.jsonl",
+        "*agent*message*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs SendMessage/Task interactions.",
+      "title": "A2A messages and task operations",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "a2a_security",
+      "locations": [],
+      "presence_patterns": [
+        "*a2a*security*.json*",
+        "*oauth*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines authentication and authorization context.",
+      "title": "A2A security schemes/OAuth/token metadata",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "task_context",
+      "locations": [],
+      "presence_patterns": [
+        "*a2a*task*.json*",
+        "*task*context*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects task/context hijacking and cross-tenant access.",
+      "title": "Task IDs, context IDs, owner and state changes",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "push_notifications",
+      "locations": [],
+      "presence_patterns": [
+        "*push*notification*.json*",
+        "*webhook*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Investigates callback spoofing, SSRF and notification abuse.",
+      "title": "Push notification/webhook configs and callbacks",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "downstream_trace",
+      "locations": [],
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*target*audit*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows impact beyond protocol activity.",
+      "title": "Recipient agent/tool/consequence trace",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "a2a_identity_or_task_compromise",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "agent_cards",
+        "a2a_messages",
+        "a2a_security",
+        "task_context"
+      ],
+      "title": "Agent identity, task, or context integrity was violated"
+    },
+    {
+      "id": "a2a_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "a2a_messages",
+        "downstream_trace"
+      ],
+      "title": "A2A compromise led to downstream agent action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.a2a_protocol_compromise",
+  "incident_type": "a2a_protocol_compromise",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI03",
+      "ASI07",
+      "ASI08"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "A2A v1.0 Agent Card / Task / Context Compromise"
+    ],
+    "incident_types": [
+      "a2a_protocol_compromise"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Did the Agent Card change or fail signature verification?",
+    "Were task/context identifiers accessed by another principal?",
+    "Was a push callback destination approved?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [
+    {
+      "type": "protocol",
+      "url": "https://a2a-protocol.org/latest/announcing-1.0/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "spec",
+      "url": "https://a2a-protocol.org/latest/specification/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "A2A v1.0 Agent Card / Task / Context Compromise",
+  "vendor": "Generic"
+}

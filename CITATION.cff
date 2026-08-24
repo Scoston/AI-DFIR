@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use AI-DFIR in research, cite the software and the specific release."
+title: "AI-DFIR: AI Incident Response and Digital Forensics Platform"
+type: software
+authors:
+  - family-names: Coston
+    given-names: Stephen
+version: 1.6.0
+date-released: 2026-08-24
+license: Apache-2.0
+abstract: >-
+  AI-DFIR is a reference platform for model, agent, runtime, identity,
+  representation, provider, evidence-custody, and enterprise AI incident
+  response and digital forensics.
+keywords:
+  - AI security
+  - digital forensics
+  - incident response
+  - agentic AI
+  - model integrity
+  - A2A
+  - MCP
+  - evidence provenance

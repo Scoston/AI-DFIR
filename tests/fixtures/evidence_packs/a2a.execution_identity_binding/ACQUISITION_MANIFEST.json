@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "card_verification",
+      "relative_path": "card_verificationagentcard_verificationcardcard_verificationverificationcard_verification.jsoncard_verification",
+      "sha256": "55cb485d56da5c4b779b976814fcc3d996c6c8b54060f83f0467c5d88103e7ed",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "a2a_events",
+      "relative_path": "a2a_eventsa2aa2a_events.jsonl",
+      "sha256": "a49e9fb77f3d614f0f711493c73248aaab8ac20574ca7fdf286fde09818b43f3",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "binding_analysis",
+      "relative_path": "binding_analysisa2abinding_analysisexecutionbinding_analysisbindingbinding_analysis.jsonbinding_analysis",
+      "sha256": "98b54a64a0772356b7a8521e8a628ce9b3300e093048d518dcff1f32f2f5e329",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "auth_transport",
+      "relative_path": "auth_transportoauthauth_transport.jsonauth_transport",
+      "sha256": "f5f2864ceac2ede9fa8ac50ec6b5941137ec3f9f5ed2ca11a504fd9d5daee9ec",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "authority",
+      "relative_path": "authorityauthorityauthority.jsonauthority",
+      "sha256": "4a48c7e1979822b51a50b79d730e24576cfcee99e8fbab685fe7e38cb80c7a0c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "target_audit",
+      "relative_path": "target_audittargettarget_auditaudittarget_audit.jsontarget_audit",
+      "sha256": "5739f0a65844495e4802283411b9883cb37582ec9646ab5bf381f5c4dce98cf5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-a2a.execution_identity_binding",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

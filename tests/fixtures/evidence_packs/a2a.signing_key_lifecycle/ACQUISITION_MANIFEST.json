@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "previous_card",
+      "relative_path": "previous_cardpreviousprevious_cardagentprevious_cardcardprevious_card.jsonprevious_card",
+      "sha256": "08d711f89b53b5efd3bbe9c850203dda7938d868c050676d08a0bc0360319935",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "current_card",
+      "relative_path": "current_cardcurrentcurrent_cardagentcurrent_cardcardcurrent_card.jsoncurrent_card",
+      "sha256": "7baccb5cab2195eb7b154f1aa8492747daddc7609519de0f5d74fddafce1e4bf",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "history_analysis",
+      "relative_path": "history_analysisa2ahistory_analysiscardhistory_analysishistoryhistory_analysis.jsonhistory_analysis",
+      "sha256": "aa00ea550f8d39b90d185b207e9a34e4c28dadcc3d43359dc76e2c507bc29f9c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "trust_store",
+      "relative_path": "trust_storea2atrust_storetrusttrust_storestoretrust_store.jsontrust_store",
+      "sha256": "825fd060543c21d44a4ab1f89b7e8c8501243e6217a87a823b7625df02df685e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "change_control",
+      "relative_path": "change_controlchangechange_controlcontrolchange_control.jsonchange_control",
+      "sha256": "17fdf901093c37c30b541fcbbdc2e9e81944cd715d90b29a78b07ac99eb03cae",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-a2a.signing_key_lifecycle",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

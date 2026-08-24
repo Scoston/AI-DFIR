@@ -1,0 +1,90 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "readiness",
+      "presence_patterns": [
+        "*production*readiness*v1.5*.json*",
+        "*production*readiness*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Tests live/verified controls.",
+      "title": "Evidence-backed production readiness result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "slo",
+      "presence_patterns": [
+        "*service*slo*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes operational availability/lag.",
+      "title": "Service SLO probe",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "dr",
+      "presence_patterns": [
+        "*dr*restore*validation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes tested recoverability.",
+      "title": "Recent DR validation",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "not_ready",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "readiness",
+        "slo",
+        "dr"
+      ],
+      "title": "Deployment has unverified/failed critical production controls"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.production_readiness",
+  "incident_type": "production_readiness",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Production Deployment Control Failure"
+    ],
+    "incident_types": [
+      "production_readiness"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Which production control was only declared rather than verified?",
+    "Are mandatory collectors within ingest-lag SLO?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Production Deployment Control Failure",
+  "vendor": "Generic"
+}

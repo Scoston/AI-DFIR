@@ -1,0 +1,4 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: {name: ai-dfir}
+spec: {minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}, selector: {matchLabels: {app: ai-dfir}}}

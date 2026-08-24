@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "readinessproductionreadinessreadinessreadinessv1.5readiness.jsonreadiness",
+    "sloserviceslosloslo.jsonslo",
+    "drdrdrrestoredrvalidationdr.jsondr"
+  ],
+  "pack_id": "enterprise.production_readiness",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_production_readiness.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

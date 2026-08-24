@@ -1,0 +1,2 @@
+{"type": "user", "message": "synthetic prompt", "timestamp": "2026-08-24T16:00:00Z"}
+{"type": "assistant", "tool": "synthetic_tool", "timestamp": "2026-08-24T16:00:00Z"}

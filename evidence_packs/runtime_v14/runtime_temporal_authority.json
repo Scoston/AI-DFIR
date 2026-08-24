@@ -1,0 +1,104 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "policy",
+      "presence_patterns": [
+        "*authority*policy*.json*",
+        "*temporal*authority*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines authority over time.",
+      "title": "Grants/denies/delegations/approval policy",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "actions",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*tool*events*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides actions to evaluate.",
+      "title": "Observed tool/API actions",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "credential",
+      "presence_patterns": [
+        "*credential*lineage*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds authority to credential lifecycle.",
+      "title": "Credential validity evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "approvals",
+      "presence_patterns": [
+        "*approval*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Verifies step-up/explicit approval.",
+      "title": "Approval events",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "authority",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "policy",
+        "actions",
+        "credential"
+      ],
+      "title": "Action exceeded time-bound authority"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.temporal_authority",
+  "incident_type": "temporal_authority_violation",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Temporal Effective Authority Violation"
+    ],
+    "incident_types": [
+      "temporal_authority_violation"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "What could the principal reach at that instant?",
+    "What authority was actually used?",
+    "Was approval required and present?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Temporal Effective Authority Violation",
+  "vendor": "Generic"
+}

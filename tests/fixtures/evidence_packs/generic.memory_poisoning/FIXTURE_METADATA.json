@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "memory_storememorymemory_store.jsonmemory_store",
+    "memory_provenancememory_provenancememory_provenance.jsonmemory_provenance",
+    "memory_retrievalmemory_retrievalmemory_retrieval.jsonmemory_retrieval",
+    "agent_traceagent_traceagent_trace.jsonl"
+  ],
+  "pack_id": "generic.memory_poisoning",
+  "pack_source": "evidence_packs/generic/memory_poisoning.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

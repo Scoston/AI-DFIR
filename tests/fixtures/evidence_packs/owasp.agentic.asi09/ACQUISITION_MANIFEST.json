@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_output",
+      "relative_path": "agent_outputconversationagent_output.jsonagent_output",
+      "sha256": "aa4c194ca94aee087a53dfa2c8f894a2576095200c173fcf543fabeaf2be9635",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "ui_rendering",
+      "relative_path": "ui_renderinguiui_rendering.jsonui_rendering",
+      "sha256": "38310015ecb8371abe86616827193d5391b8b88c952a7aea27e3443e0442787b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approval_record",
+      "relative_path": "approval_recordapprovalapproval_record.jsonapproval_record",
+      "sha256": "b57188e745fb1eb6c1065f9669b843ef2bf5f53f6c856f7684569b506ba150a9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "policy",
+      "relative_path": "policyapproval_policypolicy.jsonpolicy",
+      "sha256": "02bb5e53a75e9a55976d8a8d10cc46e993ad641776325a8984d497338108bc43",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "resulting_action",
+      "relative_path": "resulting_actionagentic_eventsresulting_action.jsonl",
+      "sha256": "98cecc181b550c94a0f56ae84d3aa848ef250a1b101ac7d27f48b032cb7750a4",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi09",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

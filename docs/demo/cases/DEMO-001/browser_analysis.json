@@ -1,0 +1,63 @@
+{
+  "findings": [
+    {
+      "event": {
+        "event_type": "websocket_connect",
+        "session_id": "B",
+        "url": "wss://synthetic.invalid/control"
+      },
+      "origin": "wss://synthetic.invalid",
+      "severity": "critical",
+      "type": "browser_unapproved_websocket_origin"
+    },
+    {
+      "event": {
+        "event_type": "dom_snapshot",
+        "metadata": {
+          "hidden_instruction_detected": true
+        },
+        "session_id": "B"
+      },
+      "severity": "high",
+      "type": "hidden_dom_instruction"
+    },
+    {
+      "event": {
+        "event_type": "click",
+        "metadata": {
+          "approval_required": true
+        },
+        "session_id": "B"
+      },
+      "severity": "critical",
+      "type": "browser_action_without_required_approval"
+    }
+  ],
+  "recommended_artifacts": [
+    "browser profile metadata",
+    "process tree",
+    "extension inventory",
+    "DevTools/CDP events",
+    "WebSocket connections",
+    "navigation/redirect chain",
+    "DOM snapshot",
+    "accessibility tree",
+    "screenshots",
+    "mouse/keyboard events",
+    "uploads/downloads",
+    "script evaluations",
+    "network HAR/proxy/DNS",
+    "approval events"
+  ],
+  "schema": "ai-dfir/browser-computer-use-analysis/v1.1",
+  "sessions": {
+    "B": {
+      "actions": 1,
+      "approvals": 0,
+      "events": 3,
+      "urls": [
+        "wss://synthetic.invalid/control"
+      ]
+    }
+  }
+}

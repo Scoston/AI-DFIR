@@ -1,0 +1,119 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "raw_markup",
+      "presence_patterns": [
+        "*.md",
+        "*.markdown",
+        "*.html",
+        "*.htm"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves comments, reference definitions, collapsed sections and hidden attributes.",
+      "title": "Raw Markdown/HTML source",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "markup_analysis",
+      "presence_patterns": [
+        "*markup*analysis*.json*",
+        "*representation*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Identifies source content not normally reviewed in rendered view.",
+      "title": "Hidden-source structural analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "rendered_view",
+      "presence_patterns": [
+        "*rendered*.html",
+        "*visible_text*.txt",
+        "*rendered*image*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides human-review representation.",
+      "title": "Rendered/visible representation or hash",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "agent_input",
+      "presence_patterns": [
+        "*model_input*.json*",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows whether AI consumed hidden source.",
+      "title": "Raw source actually supplied to AI",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "hidden_source_channel",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "raw_markup",
+        "markup_analysis",
+        "rendered_view"
+      ],
+      "title": "Markup contains a hidden/unreviewed instruction channel"
+    },
+    {
+      "id": "hidden_source_ingested",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "markup_analysis",
+        "agent_input"
+      ],
+      "title": "AI consumed the hidden source representation"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.hidden_markup_source",
+  "incident_type": "hidden_markup_source",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Hidden Markdown / HTML Source Instruction Channel"
+    ],
+    "incident_types": [
+      "hidden_markup_source"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Did HTML comments, reference links, collapsed content, alt/aria or hidden CSS carry instructions?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [],
+  "title": "Hidden Markdown / HTML Source Instruction Channel",
+  "vendor": "Generic"
+}

@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "raw_terminal_output",
+      "relative_path": "raw_terminal_outputterminalraw_terminal_outputrawraw_terminal_output.txt",
+      "sha256": "716da98b1ceafe7b328f028e3431842b97f521754bbb135f2f19c1ad13182554",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "terminal_analysis",
+      "relative_path": "terminal_analysisterminalterminal_analysisanalysisterminal_analysis.jsonterminal_analysis",
+      "sha256": "a6fb4e27153450eac349452e56c9f039c9db8833a047dd1452ef9c68a3ab4d5b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "rendered_capture",
+      "relative_path": "rendered_captureterminalrendered_capturescreenshotrendered_capture.png",
+      "sha256": "15163cf8ad136f89c98bb6dd02793382fb414d12e508fcd29b4c8ec73ea842ce",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "network_click",
+      "relative_path": "network_clicknetworknetwork_click.jsonnetwork_click",
+      "sha256": "1b72354aa15672f7c334cc10434e08417965efdbe0c7356eef1aab099666e381",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.terminal_control_deception",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,94 @@
+{
+  "artifacts": [
+    {
+      "category": "provider",
+      "id": "provider_request_ids",
+      "presence_patterns": [
+        "*request_ids*.json*",
+        "*provider_log*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Allows correlation with provider-side logs without internal model access.",
+      "title": "Provider request/trace identifiers"
+    },
+    {
+      "category": "model",
+      "id": "model_metadata",
+      "presence_patterns": [
+        "*model_metadata*.json*",
+        "*deployment*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes what provider model/deployment was invoked.",
+      "title": "Provider/model/version/deployment metadata"
+    },
+    {
+      "category": "interaction",
+      "id": "prompt_response",
+      "presence_patterns": [
+        "*prompt_response*.json*",
+        "*conversation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Primary black-box execution evidence.",
+      "title": "Prompt/response and generation parameters"
+    },
+    {
+      "category": "tool",
+      "condition": "Tools/agents used.",
+      "id": "tool_trace",
+      "presence_patterns": [
+        "*tool*.json*",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "conditional",
+      "rationale": "Reconstructs actions beyond the hosted model.",
+      "title": "Tool calls/results/approval decisions"
+    },
+    {
+      "category": "identity",
+      "id": "identity",
+      "presence_patterns": [
+        "*identity*.json*",
+        "*signin*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes principal and access path.",
+      "title": "User/workload identity"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "event_reconstructed",
+      "logic": "all",
+      "requires": [
+        "provider_request_ids",
+        "model_metadata",
+        "prompt_response",
+        "identity"
+      ],
+      "title": "Core event reconstructed"
+    }
+  ],
+  "forensic_modes": [
+    "black-box"
+  ],
+  "id": "generic.api_model_incident",
+  "incident_type": "api_model_incident",
+  "match": {
+    "incident_types": [
+      "api_model_incident"
+    ]
+  },
+  "platform": "Any",
+  "questions": [
+    "What evidence entered the AI context?",
+    "What identity/authority was active?",
+    "What action followed?",
+    "What independent artifact confirms impact?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [],
+  "title": "Hosted/API Model Incident",
+  "vendor": "Generic"
+}

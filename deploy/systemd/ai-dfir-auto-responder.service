@@ -1,0 +1,20 @@
+[Unit]
+Description=AI-DFIR Containment Responder
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/opt/ai-dfir/.venv/bin/python /opt/ai-dfir/auto_responder.py --config /etc/ai-dfir/auto_responder.json
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/run/ai-dfir /var/lib/ai-dfir /var/log/ai-dfir /evidence/ai-dfir
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "assurance",
+      "relative_path": "assuranceplatformassuranceassuranceassurance.jsonassurance",
+      "sha256": "deba04aaa8a9c532e70c48b297dd061c2000061fa7121c11b063e3197495a7a6",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "control_evidence",
+      "relative_path": "control_evidenceproductioncontrol_evidenceprobecontrol_evidence.jsoncontrol_evidence",
+      "sha256": "eaf0222f8e3cb3279b422636065654faa8e954aa0066acbb9f24d4b9f5c039da",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.platform_assurance_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

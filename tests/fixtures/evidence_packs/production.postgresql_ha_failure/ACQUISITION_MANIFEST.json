@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "db_probe",
+      "relative_path": "db_probepostgresdb_probehadb_probeprobedb_probe.jsondb_probe",
+      "sha256": "5615d6fb44a7c2f1ff984fd1152b48e0d213a52986e19d9c59e3b84226c7367c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "failover",
+      "relative_path": "failoverdatabasefailoverprimaryfailoverlossfailover.jsonfailover",
+      "sha256": "4f16789e7857adadf9ea665632b1dde317ac766e52a00436ca7caf1f98798153",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.postgresql_ha_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

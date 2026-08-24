@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "raw_output",
+      "relative_path": "raw_outputrawraw_outputresponseraw_output.jsonraw_output",
+      "sha256": "9577a600d969d55477d83b2072f933f3c91610ee8a23d8b71a276b4a9cd66e3d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "sanitized_output",
+      "relative_path": "sanitized_outputsanitizedsanitized_output.html",
+      "sha256": "b398c898a36047490a2c4f1bbd4a2980ce776ee5f6e1d27675025c6e21d5d795",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "renderer",
+      "relative_path": "rendererrendererrendererconfigrenderer.jsonrenderer",
+      "sha256": "9fb162f39d792ab78945aa41291c49b4a9b99942f08e187b0cd7a09d1f62eb3c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "dom_network",
+      "relative_path": "dom_networkrendereddom_networkdomdom_network.jsondom_network",
+      "sha256": "3be9e67d7ae39ebbb6df0c44299b842ecd0f8196f89d8038990e1ed721dafa4a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_security",
+      "relative_path": "session_securitysessionsession_securitysecuritysession_security.jsonsession_security",
+      "sha256": "bc0ef0400ada28709768b82a71708bc15e5e63fa924daaf21181baac8e25a4dd",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.output_rendering_active_content",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

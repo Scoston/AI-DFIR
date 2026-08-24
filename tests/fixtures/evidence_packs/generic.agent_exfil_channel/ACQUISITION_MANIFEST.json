@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "network_logs",
+      "relative_path": "network_logsdnsnetwork_logs.jsonnetwork_logs",
+      "sha256": "179b491cae8134a272a334568a50f5b4a372ac6eac928289c83f8c8b3d4a1acf",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "exfil_analysis",
+      "relative_path": "exfil_analysisnetworkexfil_analysisexfilexfil_analysisanalysisexfil_analysis.jsonexfil_analysis",
+      "sha256": "65caac63a5d665015e59ba5e2832f3d9c5d120d068f3b0618da6e0b092f24102",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "source_data",
+      "relative_path": "source_datadatasource_dataaccesssource_data.jsonsource_data",
+      "sha256": "3a4c93e57ccf0370aa2396b008d6534092743b0396d0b644bcb3ceb5d68f68bc",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "rendering_trace",
+      "relative_path": "rendering_tracerenderrendering_traceanalysisrendering_trace.jsonrendering_trace",
+      "sha256": "c36e93afdf8a6ed611112e49454979ef0fb6365bee6765e35cbb1fe0d237a434",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.agent_exfil_channel",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approved",
+      "relative_path": "approvedapprovedapprovedskillapprovedmanifestapproved.jsonapproved",
+      "sha256": "4810c9af891f53fc9dfbacc355cfd8f7558c4982e6a9c0ec91d9bda61604aec5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "suspect",
+      "relative_path": "suspectsuspectsuspectskillsuspectmanifestsuspect.jsonsuspect",
+      "sha256": "3989807a95249cf0c8f2d49d36f42122301f5f603f7ec75cb181c1394c2b99b0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "diff",
+      "relative_path": "diffskilldiffsupplydiffchaindiffdiffdiff.jsondiff",
+      "sha256": "9b3e85fc1ee46a7b8285c21e3add2b1b18ae4d12920c5cda4866e767076c3d7c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "runtime",
+      "relative_path": "runtimebehavioralruntimesandboxruntime.jsonruntime",
+      "sha256": "ade4d1b031d660eed6ddec681421271a16ba1398cde447ff6dcbd12ae272bb1d",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.skill_supply_chain",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

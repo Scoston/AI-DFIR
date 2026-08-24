@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "catalogtoolscataloglistcatalog.jsoncatalog",
+    "cachemcpcachecachecache.jsoncache",
+    "server_inventorymcpserver_inventoryinventoryserver_inventory.jsonserver_inventory"
+  ],
+  "pack_id": "mcp.catalog_cache_poisoning",
+  "pack_source": "evidence_packs/advanced_v11/mcp_catalog_cache_poisoning.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

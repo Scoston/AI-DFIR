@@ -1,0 +1,139 @@
+{
+  "artifacts": [
+    {
+      "category": "multi_agent",
+      "id": "agent_messages",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*a2a*.json*",
+        "*message_bus*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs inter-agent content and routing.",
+      "title": "A2A/message-bus request and response records"
+    },
+    {
+      "category": "identity",
+      "id": "agent_identities",
+      "presence_patterns": [
+        "*agent_identity*.json*",
+        "*identity*.json*",
+        "*cert*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether messages came from authenticated expected agents.",
+      "title": "Agent identities, signing keys/workload principals"
+    },
+    {
+      "category": "identity",
+      "id": "delegations",
+      "presence_patterns": [
+        "*delegation*.json*",
+        "*authority*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines what one agent was allowed to ask another to do.",
+      "title": "Delegation/authority records"
+    },
+    {
+      "category": "agent",
+      "id": "orchestrator",
+      "presence_patterns": [
+        "*orchestrator*.json*",
+        "*workflow*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows which agent sent, received and acted on messages.",
+      "title": "Orchestrator routing/state logs"
+    },
+    {
+      "category": "impact",
+      "id": "downstream_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*target*audit*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows whether spoofed/unsafe message changed behavior.",
+      "title": "Recipient actions and consequences"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "message_attributed",
+      "logic": "all",
+      "requires": [
+        "agent_messages",
+        "agent_identities"
+      ],
+      "title": "Inter-agent message origin is attributable"
+    },
+    {
+      "id": "delegation_validated",
+      "logic": "all",
+      "requires": [
+        "agent_messages",
+        "delegations"
+      ],
+      "title": "Message/action was within delegated authority"
+    },
+    {
+      "id": "inter_agent_impact",
+      "logic": "all",
+      "requires": [
+        "agent_messages",
+        "downstream_trace"
+      ],
+      "title": "Message caused recipient/downstream action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi07",
+  "incident_type": "insecure_inter_agent_communication",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "Deploy AI Agent",
+      "AI Agent",
+      "AI Agent Context Poisoning"
+    ],
+    "owasp_agentic": "ASI07"
+  },
+  "match": {
+    "detection_families": [
+      "Insecure Inter-Agent Communication"
+    ],
+    "incident_types": [
+      "insecure_inter_agent_communication"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes insecure inter-agent communication?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI07 \u2014 Insecure Inter-Agent Communication",
+  "vendor": "OWASP"
+}

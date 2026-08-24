@@ -1,0 +1,10 @@
+{
+  "schema": "ai-dfir/provider-certification-profile/v1.6",
+  "provider": "microsoft",
+  "adapter": "microsoft_graph_security",
+  "api_version": "deployment-pinned",
+  "max_certification_age_days": 90,
+  "known_limitations": [
+    "Prompt/tool content varies by Microsoft product, tenant configuration and retention."
+  ]
+}

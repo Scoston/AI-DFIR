@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "taskacquisitiontasktasktask.jsontask",
+    "receiptacquisitionreceiptreceiptreceipt.jsonreceipt",
+    "leasetaskleasemetadatalease.jsonlease",
+    "collector_identityspiffecollector_identityidentitycollector_identity.jsoncollector_identity"
+  ],
+  "pack_id": "enterprise.distributed_collection",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_distributed_collection.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

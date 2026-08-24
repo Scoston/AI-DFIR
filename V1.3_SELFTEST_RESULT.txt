@@ -1,0 +1,32 @@
+AI-DFIR v1.3 — A2A Identity, Signed Agent Cards & Delegation Trust
+
+Focused acceptance
+------------------
+- a2a_case_orchestrator: PASS
+- a2a_v13_evidence_packs: PASS
+- agent_card_history_and_rotation: PASS
+- agent_card_multisignature_verification: PASS
+- agent_card_tamper_rejected: PASS
+- execution_delegation_binding: PASS
+- jku_trust_bootstrap_protection: PASS
+- provider_interface_policy_binding: PASS
+- revoked_signing_key_rejected: PASS
+- rfc8785_agentcard_canonicalization: PASS
+- signed_offline_trust_store: PASS
+- workbench_a2a_trust_integration: PASS
+- evidence_pack_count: 68
+
+Additional checks
+-----------------
+- all top-level Python files compile: PASS
+- Analyst Workbench JavaScript node --check: PASS
+- RFC 8785 canonicalization used bundled Node fallback in this environment: PASS
+- rfc8785 Python package remains the preferred installed dependency
+- v1.2 compatibility suite was re-run after the Workbench version change: PASS
+
+The unrelated spreadsheet-runtime warmup warnings produced by this environment did not affect test return codes.
+
+Extracted ZIP validation
+------------------------
+- v1.3 focused A2A trust suite: PASS
+- Analyst Workbench JavaScript: PASS

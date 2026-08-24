@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "category": "alert",
+      "id": "m1"
+    }
+  ],
+  "provider": "microsoft",
+  "synthetic": true
+}

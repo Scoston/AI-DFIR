@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_card",
+      "relative_path": "agent_cardagentagent_cardcardagent_card.jsonagent_card",
+      "sha256": "f1aba5716ed6f2c37613a600fa64260432b119b21e917091ec637c89cf2aca73",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "verification",
+      "relative_path": "verificationagentverificationcardverificationverificationverification.jsonverification",
+      "sha256": "43665065b0658f1f0e89a5cb7004b78f1fdf9414a37dff0ca991f3f4d7a2d36d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "trust_store",
+      "relative_path": "trust_storea2atrust_storetrusttrust_storestoretrust_store.jsontrust_store",
+      "sha256": "825fd060543c21d44a4ab1f89b7e8c8501243e6217a87a823b7625df02df685e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "trust_store_signature",
+      "relative_path": "trust_store_signaturetrusttrust_store_signaturepublictrust_store_signature.pem",
+      "sha256": "73ec88f097133d6d644bc7000cd267ed2f6e8cb8b44aace2e1b4d57679105d2a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "jwks_capture",
+      "relative_path": "jwks_capturejwksjwks_capture.jsonjwks_capture",
+      "sha256": "44f0326fa7a72bba67a17300c2a182eb371689f8b803ac172456120c6d41b418",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tls_dns",
+      "relative_path": "tls_dnstlstls_dns.jsontls_dns",
+      "sha256": "2316fdea4b26980f3d5472567d80d02ae47c4720ca385dd7533d749e973f3178",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-a2a.signed_agent_card_trust",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "ai-dfir/production-readiness-config/v1.6",
+  "v15_readiness_result": "/evidence/platform/v15_readiness.json",
+  "platform_assurance": "/evidence/platform/platform_assurance.json",
+  "environment_separation": "/evidence/platform/environment_separation.json",
+  "chaos_validation": "/evidence/platform/chaos_validation.json",
+  "release_integrity": "/evidence/platform/release_integrity.json",
+  "security_assurance": "/evidence/platform/security_assurance.json",
+  "upgrade_assurance": "/evidence/platform/upgrade_assurance.json",
+  "network_policy_validation": "/evidence/platform/network_policy_validation.json",
+  "provider_certifications": [
+    "/evidence/platform/provider_openai.json",
+    "/evidence/platform/provider_microsoft.json"
+  ],
+  "service_slo": "/evidence/platform/service_slo.json",
+  "scale_benchmark": "/evidence/platform/scale_benchmark.json"
+}

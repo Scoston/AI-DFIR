@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "submission",
+      "relative_path": "submissiontransparencysubmissionsubmissionsubmission.jsonsubmission",
+      "sha256": "f7d2d29418bd7cf9a9f8bf93dd47e80d82765fc5f9edb6b78ce69783fdc9e0e5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "receipt",
+      "relative_path": "receipttransparencyreceiptreceiptreceipt.jsonreceipt",
+      "sha256": "e4befe85478e30dffdb4d75511c123357868ec36e814b2fbce6f9185e7dcb85e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "validation",
+      "relative_path": "validationtransparencyvalidationvalidationvalidation.jsonvalidation",
+      "sha256": "418e51f2c2284db2b70b6cbe1c3a86229424e889ec30a204be2bb81827ed45c0",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.transparency_anchor",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

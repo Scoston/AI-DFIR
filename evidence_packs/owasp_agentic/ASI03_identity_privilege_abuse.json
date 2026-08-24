@@ -1,0 +1,140 @@
+{
+  "artifacts": [
+    {
+      "category": "identity",
+      "id": "identity_logs",
+      "presence_patterns": [
+        "*signin*.json*",
+        "*identity*.json*",
+        "*service_principal*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes the principal and credential used.",
+      "title": "Authentication/workload identity logs"
+    },
+    {
+      "category": "identity",
+      "id": "authority",
+      "presence_patterns": [
+        "*authority*.json*",
+        "*roles*.json*",
+        "*delegation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Calculates reachable scopes from roles and delegation.",
+      "title": "Effective authority graph"
+    },
+    {
+      "category": "identity",
+      "id": "token_evidence",
+      "presence_patterns": [
+        "*token*.json*",
+        "*oauth*.json*",
+        "*api_key*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows credential issuance, audience, scope and subsequent use.",
+      "title": "Token/API-key issuance and use metadata"
+    },
+    {
+      "category": "agent",
+      "id": "agent_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Links identity use to agent actions.",
+      "title": "Agent/tool action trace"
+    },
+    {
+      "category": "impact",
+      "id": "target_audit",
+      "presence_patterns": [
+        "*target*audit*.json*",
+        "*AzureActivity*.json*",
+        "*CloudAppEvents*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Confirms what privileged actions were accepted.",
+      "title": "Target resource audit"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "identity_attributed",
+      "logic": "all",
+      "requires": [
+        "identity_logs",
+        "token_evidence"
+      ],
+      "title": "Principal/credential is attributable"
+    },
+    {
+      "id": "privilege_expansion",
+      "logic": "all",
+      "requires": [
+        "authority"
+      ],
+      "title": "Effective authority exceeded approved state"
+    },
+    {
+      "id": "privilege_abuse_impact",
+      "logic": "all",
+      "requires": [
+        "agent_trace",
+        "target_audit"
+      ],
+      "title": "Expanded/abused identity produced action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi03",
+  "incident_type": "identity_privilege_abuse",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "Valid Accounts",
+      "Use Alternate Authentication Material",
+      "Credential Access"
+    ],
+    "owasp_agentic": "ASI03"
+  },
+  "match": {
+    "detection_families": [
+      "Identity & Privilege Abuse"
+    ],
+    "incident_types": [
+      "identity_privilege_abuse"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes identity & privilege abuse?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI03 \u2014 Identity & Privilege Abuse",
+  "vendor": "OWASP"
+}

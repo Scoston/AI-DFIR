@@ -1,0 +1,37 @@
+{
+  "complete_mandatory": false,
+  "findings": [
+    {
+      "reasons": [
+        "event coverage 50/100"
+      ],
+      "severity": "critical",
+      "source_id": "provider",
+      "status": "INCOMPLETE",
+      "type": "mandatory_evidence_source_unavailable"
+    }
+  ],
+  "rule": "Unavailable evidence is represented explicitly and never interpreted as evidence of absence.",
+  "schema": "ai-dfir/collector-health/v1.4",
+  "sources": [
+    {
+      "expectation": {
+        "expected_events": 100,
+        "mandatory": true,
+        "source_id": "provider"
+      },
+      "mandatory": true,
+      "observation": {
+        "collected_events": 50,
+        "enabled": true,
+        "source_id": "provider"
+      },
+      "reasons": [
+        "event coverage 50/100"
+      ],
+      "source_id": "provider",
+      "status": "INCOMPLETE"
+    }
+  ],
+  "unknown_sources": []
+}

@@ -1,0 +1,139 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "workspace_inventory",
+      "presence_patterns": [
+        "*ide*surface*inventory*.json*",
+        "*workspace*inventory*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Enumerates MCP, LSP, prompt templates, tools, hooks and automation.",
+      "title": "Workspace control-surface inventory",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "approved_inventory",
+      "presence_patterns": [
+        "*approved*workspace*.json*",
+        "*baseline*ide*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides change baseline.",
+      "title": "Known-good workspace inventory",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "surface_diff",
+      "presence_patterns": [
+        "*ide*surface*diff*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects added/changed auto-load execution surfaces.",
+      "title": "Approved-vs-suspect IDE surface diff",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "process_trace",
+      "presence_patterns": [
+        "*process*.json*",
+        "*DeviceProcessEvents*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Confirms auto-loaded execution.",
+      "title": "IDE/language-server/tool process telemetry",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "filesystem_trace",
+      "presence_patterns": [
+        "*file*events*.json*",
+        "*DeviceFileEvents*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows persistence/config changes.",
+      "title": "Files/config created or modified",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "ide_surface_changed",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "workspace_inventory",
+        "approved_inventory",
+        "surface_diff"
+      ],
+      "title": "Sensitive AI IDE execution/trust surface changed"
+    },
+    {
+      "id": "ide_autoload_executed",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "surface_diff",
+        "process_trace"
+      ],
+      "title": "Changed auto-load surface executed"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.ai_ide_autoload_surface",
+  "incident_type": "ai_ide_autoload_surface",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "AI IDE Auto-Load / LSP / Tool / Hook Attack Surface"
+    ],
+    "incident_types": [
+      "ai_ide_autoload_surface"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Did LSP binary/args change?",
+    "Were tools/skills/hooks/prompt templates auto-loaded?",
+    "Did directory/filename text itself become agent context?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/Mindgard/ai-ide-vuln-patterns",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "AI IDE Auto-Load / LSP / Tool / Hook Attack Surface",
+  "vendor": "Generic"
+}

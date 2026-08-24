@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "insertId": "g1",
+      "logName": "audit"
+    }
+  ],
+  "provider": "google",
+  "synthetic": true
+}

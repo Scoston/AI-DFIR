@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "conversationconversationconversation.jsonconversation",
+    "retrieval_contextretrievalretrieval_context.jsonretrieval_context",
+    "agent_configagent_configagent_config.jsonagent_config",
+    "tool_traceagentic_eventstool_trace.jsonl",
+    "authorityauthorityauthority.jsonauthority",
+    "target_auditaudittarget_audit.jsontarget_audit"
+  ],
+  "pack_id": "owasp.agentic.asi01",
+  "pack_source": "evidence_packs/owasp_agentic/ASI01_agent_goal_hijack.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_catalog",
+      "relative_path": "tool_catalogmcptool_cataloginventorytool_catalog.jsontool_catalog",
+      "sha256": "58e1926c037990cdcc6090a85fbc71bb798726f2ce966ffd5137849f7ca48b0b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_trace",
+      "relative_path": "tool_traceagentic_eventstool_trace.jsonl",
+      "sha256": "817b3bbd0774afa1ae6c4bb2e47b0bb80c51c9332189b7a58fa0c428ccf30886",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "authority",
+      "relative_path": "authorityauthorityauthority.jsonauthority",
+      "sha256": "4a48c7e1979822b51a50b79d730e24576cfcee99e8fbab685fe7e38cb80c7a0c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "target_audit",
+      "relative_path": "target_audittargettarget_auditaudittarget_audit.jsontarget_audit",
+      "sha256": "5739f0a65844495e4802283411b9883cb37582ec9646ab5bf381f5c4dce98cf5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "source_context",
+      "relative_path": "source_contextconversationsource_context.jsonsource_context",
+      "sha256": "9b4737a46ef7cec01e0800edc1619f98e5c9da93e63af91ccc19f858dd74eaa7",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi02",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,676 @@
+{
+  "failed": 0,
+  "failures": [],
+  "pack_count": 111,
+  "passed": 111,
+  "results": [
+    {
+      "mandatory": 5,
+      "pack_id": "a2a.execution_identity_binding",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "a2a.push_callback_identity",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "a2a.signed_agent_card_trust",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "a2a.signing_key_lifecycle",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.a2a_protocol_compromise",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 7,
+      "pack_id": "generic.agent_harness_compromise",
+      "pass": true,
+      "qualified": 7
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.agent_session_hijack",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.ai_cache_poisoning",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "generic.browser_computer_use",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.cross_tenant_context_bleed",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.model_router_drift",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.output_rendering_active_content",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.outstanding_delegated_work",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.prompt_self_replication",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "generic.tool_identity_shadowing",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.workspace_instruction_poisoning",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "mcp.authorization_compromise",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "mcp.catalog_cache_poisoning",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "mcp.instruction_poisoning",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "mcp.root_escape",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "mcp.task_abuse",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 9,
+      "pack_id": "anthropic.claude_code.prompt_injection",
+      "pass": true,
+      "qualified": 9
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "enterprise.a2a_request_provenance",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "enterprise.case_export",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "enterprise.distributed_collection",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "enterprise.dr_restore",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "enterprise.kms_envelope_integrity",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "enterprise.legal_hold",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "enterprise.metadata_integrity",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "enterprise.native_provider_collection",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "enterprise.object_storage_integrity",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "enterprise.oidc_identity",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "enterprise.production_readiness",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "enterprise.provider_collection_gap",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "enterprise.scale_capacity",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "enterprise.spiffe_service_identity",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.api_model_incident",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.mcp_compromise",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "agentic.mcp.protocol_compromise.2026_07_28",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.memory_poisoning",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.rag_poisoning",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "microsoft.agent365.ai_threat_detection",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "microsoft.defender_endpoint.suspicious_ai_prompt_injection",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 8,
+      "pack_id": "microsoft.AI.AIModelScan_MalwareDetected",
+      "pass": true,
+      "qualified": 8
+    },
+    {
+      "mandatory": 8,
+      "pack_id": "microsoft.AI.Azure_ASCIISmuggling",
+      "pass": true,
+      "qualified": 8
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_AccessAnomaly",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_AccessFromAnonymizedIP",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_AccessFromSuspiciousIP",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_AccessFromSuspiciousUserAgent",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_AnomalousOperation.InitialAccess",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 8,
+      "pack_id": "microsoft.AI.Azure_AnomalousToolInvocation",
+      "pass": true,
+      "qualified": 8
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_CredentialTheftAttempt",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 7,
+      "pack_id": "microsoft.AI.Azure_DOWDuplicateRequests",
+      "pass": true,
+      "qualified": 7
+    },
+    {
+      "mandatory": 7,
+      "pack_id": "microsoft.AI.Azure_DOWVolumeAnomaly",
+      "pass": true,
+      "qualified": 7
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 7,
+      "pack_id": "microsoft.AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt",
+      "pass": true,
+      "qualified": 7
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "microsoft.AI.Azure_LLMReconnaissance",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.ModelResponse",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.UnknownSource",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.UserPrompt",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 8,
+      "pack_id": "microsoft.ExposedKubernetesService.AI",
+      "pass": true,
+      "qualified": 8
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "microsoft.purview.ai_interaction",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "owasp.agentic.asi01",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "owasp.agentic.asi02",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "owasp.agentic.asi03",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "owasp.agentic.asi04",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "owasp.agentic.asi05",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "owasp.agentic.asi06",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "owasp.agentic.asi07",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "owasp.agentic.asi08",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "owasp.agentic.asi09",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 6,
+      "pack_id": "owasp.agentic.asi10",
+      "pass": true,
+      "qualified": 6
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.admission_policy_failure",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.collection_slo_breach",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.dr_failover_failure",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.environment_separation_failure",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 1,
+      "pack_id": "production.immutable_storage_failure",
+      "pass": true,
+      "qualified": 1
+    },
+    {
+      "mandatory": 1,
+      "pack_id": "production.kms_hsm_failure",
+      "pass": true,
+      "qualified": 1
+    },
+    {
+      "mandatory": 1,
+      "pack_id": "production.network_segmentation_failure",
+      "pass": true,
+      "qualified": 1
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.platform_assurance_failure",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 1,
+      "pack_id": "production.postgresql_ha_failure",
+      "pass": true,
+      "qualified": 1
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.provider_certification_gap",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.release_provenance_failure",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.security_assurance_gap",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 1,
+      "pack_id": "production.tenant_isolation_failure",
+      "pass": true,
+      "qualified": 1
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.upgrade_rollback_failure",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "production.workload_identity_failure",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "generic.agent_exfil_channel",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "generic.agent_workspace_archive_intake",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "generic.ai_ide_autoload_surface",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.approval_trust_toctou",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.evil_font_glyph_deception",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 5,
+      "pack_id": "generic.hidden_document_representation",
+      "pass": true,
+      "qualified": 5
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "generic.hidden_markup_source",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "generic.session_history_tampering",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "generic.terminal_control_deception",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "generic.unicode_representation_smuggling",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "runtime.analyst_governance",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 4,
+      "pack_id": "runtime.behavioral_sandbox",
+      "pass": true,
+      "qualified": 4
+    },
+    {
+      "mandatory": 2,
+      "pack_id": "runtime.causal_graph",
+      "pass": true,
+      "qualified": 2
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.collector_health",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.credential_lineage",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.export_redaction",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.mcp_2026_integrity",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.memory_integrity",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.otel_genai",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.provider_telemetry",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.skill_supply_chain",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.temporal_authority",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.transparency_anchor",
+      "pass": true,
+      "qualified": 3
+    },
+    {
+      "mandatory": 3,
+      "pack_id": "runtime.workload_identity",
+      "pass": true,
+      "qualified": 3
+    }
+  ],
+  "schema": "ai-dfir/evidence-pack-matrix-test/v1.6",
+  "status": "PASS"
+}

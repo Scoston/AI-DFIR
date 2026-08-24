@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS platform_assurance_runs(assurance_id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL,created_utc TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,status TEXT NOT NULL,report TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS provider_certifications(certification_id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL,provider TEXT NOT NULL,adapter TEXT NOT NULL,api_version TEXT,certified INTEGER NOT NULL,validated_utc TEXT NOT NULL,report TEXT NOT NULL);

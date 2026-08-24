@@ -1,0 +1,62 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "harness_inventory",
+      "relative_path": "harness_inventoryharnessharness_inventoryinventoryharness_inventory.jsonharness_inventory",
+      "sha256": "72da6a4c3b98deecc9fd40ccb39ff4ee83f2ef3beacad87ba3443a8941c35ab4",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "prompt_assembly",
+      "relative_path": "prompt_assemblypromptprompt_assemblyassemblyprompt_assembly.jsonprompt_assembly",
+      "sha256": "103f0c1adccd89a34d3bcbcbca23e85495088eee215b5835f75c68280e5ff1e8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "middleware_hooks",
+      "relative_path": "middleware_hooksmiddlewaremiddleware_hooks.jsonmiddleware_hooks",
+      "sha256": "23a2fcceb7a08c2be20c8e26ffc77968a16f5056a8281692f8a580b4437b49b6",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_policy",
+      "relative_path": "tool_policytooltool_policypolicytool_policy.jsontool_policy",
+      "sha256": "a06d0ed19e9b1b1150b3301c349b6155ade502ff41948dc13e60082171e2f3bf",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_strategy",
+      "relative_path": "memory_strategymemorymemory_strategystrategymemory_strategy.jsonmemory_strategy",
+      "sha256": "f0860e5295a6954024c555e06d9c541270e031db0dbbffa1e5e5e647fd23f2c2",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "dynamic_components",
+      "relative_path": "dynamic_componentsplugindynamic_components.jsondynamic_components",
+      "sha256": "27cfd37c9daa878bc99c3b15e0318001546b2a17d910cb9b64b10769484cfcce",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "lifecycle_log",
+      "relative_path": "lifecycle_logharnesslifecycle_loglifecyclelifecycle_log.jsonl",
+      "sha256": "6548d188613f2349d13df6d235c6ec0346a4e03470427b6de4810e1e40dbbb0e",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.agent_harness_compromise",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

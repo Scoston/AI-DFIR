@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "approvedapprovedapprovedskillapprovedmanifestapproved.jsonapproved",
+    "suspectsuspectsuspectskillsuspectmanifestsuspect.jsonsuspect",
+    "diffskilldiffsupplydiffchaindiffdiffdiff.jsondiff",
+    "runtimebehavioralruntimesandboxruntime.jsonruntime"
+  ],
+  "pack_id": "runtime.skill_supply_chain",
+  "pack_source": "evidence_packs/runtime_v14/runtime_skill_supply_chain.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

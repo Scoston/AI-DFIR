@@ -1,0 +1,53 @@
+services:
+  enterprise-api:
+    build:
+      context: ../..
+      dockerfile: deploy/enterprise/Dockerfile
+    command:
+      - python
+      - enterprise_api.py
+      - --cases-db
+      - /data/cases.db
+      - --repository
+      - /data/repository
+      - --auth-secret-hex
+      - ${AI_DFIR_AUTH_SECRET_HEX}
+      - --repository-key-hex
+      - ${AI_DFIR_REPOSITORY_KEY_HEX}
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8890"
+    volumes:
+      - ai_dfir_data:/data
+    ports:
+      - "127.0.0.1:8890:8890"
+    restart: unless-stopped
+
+  enterprise-portal:
+    build:
+      context: ../..
+      dockerfile: deploy/enterprise/Dockerfile
+    command:
+      - python
+      - enterprise_portal.py
+      - --cases-db
+      - /data/cases.db
+      - --repository
+      - /data/repository
+      - --auth-secret-hex
+      - ${AI_DFIR_AUTH_SECRET_HEX}
+      - --repository-key-hex
+      - ${AI_DFIR_REPOSITORY_KEY_HEX}
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8891"
+    volumes:
+      - ai_dfir_data:/data
+    ports:
+      - "127.0.0.1:8891:8891"
+    restart: unless-stopped
+
+volumes:
+  ai_dfir_data:

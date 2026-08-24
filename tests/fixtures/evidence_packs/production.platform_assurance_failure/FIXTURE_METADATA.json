@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "assuranceplatformassuranceassuranceassurance.jsonassurance",
+    "control_evidenceproductioncontrol_evidenceprobecontrol_evidence.jsoncontrol_evidence"
+  ],
+  "pack_id": "production.platform_assurance_failure",
+  "pack_source": "evidence_packs/production_v16/production_platform_assurance_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

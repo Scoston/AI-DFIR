@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "task_registrytasktask_registryregistrytask_registry.jsontask_registry",
+    "containment_timelinecontainment_auditcontainment_timeline.jsonl",
+    "task_statetasktask_stateeventstask_state.jsonl",
+    "child_agentsagentchild_agentsbirthchild_agents.jsonchild_agents",
+    "consequencesopen_consequencesconsequences.jsonconsequences"
+  ],
+  "pack_id": "generic.outstanding_delegated_work",
+  "pack_source": "evidence_packs/advanced_v11/generic_outstanding_delegated_work.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "slo",
+      "relative_path": "sloserviceslosloslo.jsonslo",
+      "sha256": "d5484ae839320f1289a44520a641ee3d888140fa4e564e8bf4cef990b0455b69",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "collector_health",
+      "relative_path": "collector_healthcollectorcollector_healthhealthcollector_health.jsoncollector_health",
+      "sha256": "290ce559ae4ebb13831f460d808feb7979ce0b271953edf275d3176ccef3c34e",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.collection_slo_breach",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

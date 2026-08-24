@@ -1,0 +1,110 @@
+{
+  "rules": [
+    {
+      "pack": "generic.evil_font_glyph_deception",
+      "severity": "critical",
+      "signals": [
+        "font_glyph_outline_collapse",
+        "font_mass_blank_glyph_mapping",
+        "machine_visible_text_disagreement_via_font_mapping",
+        "stealth_font_machine_only_characters",
+        "per_character_font_switching"
+      ]
+    },
+    {
+      "pack": "generic.hidden_document_representation",
+      "severity": "critical",
+      "signals": [
+        "pdf_invisible_text_render_mode_3",
+        "pdf_image_dominant_with_machine_text_layer",
+        "human_machine_representation_divergence"
+      ]
+    },
+    {
+      "pack": "generic.unicode_representation_smuggling",
+      "severity": "critical",
+      "signals": [
+        "unicode_tag",
+        "unicode_bidi",
+        "unicode_variation_selector",
+        "unicode_zero_width_or_invisible",
+        "unicode_confusable_characters",
+        "mixed_script_tokens"
+      ]
+    },
+    {
+      "pack": "generic.hidden_markup_source",
+      "severity": "critical",
+      "signals": [
+        "html_comment",
+        "markdown_reference_definition",
+        "collapsed_details",
+        "css_display_none",
+        "css_visibility_hidden",
+        "css_opacity_zero",
+        "css_font_zero",
+        "offscreen_css",
+        "aria_or_alt_instruction_channel"
+      ]
+    },
+    {
+      "pack": "generic.terminal_control_deception",
+      "severity": "critical",
+      "signals": [
+        "terminal_cursor_or_display_control",
+        "terminal_osc8_hyperlink",
+        "terminal_osc52_clipboard_control"
+      ]
+    },
+    {
+      "pack": "generic.approval_trust_toctou",
+      "severity": "critical",
+      "signals": [
+        "approval_toctou_content_changed",
+        "approval_target_changed_via_path_resolution",
+        "approval_not_bound_to_content_hash"
+      ]
+    },
+    {
+      "pack": "generic.session_history_tampering",
+      "severity": "critical",
+      "signals": [
+        "session_history_integrity_divergence",
+        "authorization_semantics_after_history_divergence"
+      ]
+    },
+    {
+      "pack": "generic.ai_ide_autoload_surface",
+      "severity": "critical",
+      "signals": [
+        "ide_control_surface_added",
+        "ide_control_surface_changed",
+        "workspace_autoapproval_setting",
+        "workspace_path_invisible_or_bidi_characters",
+        "adversarial_instruction_like_path_name"
+      ]
+    },
+    {
+      "pack": "generic.agent_exfil_channel",
+      "severity": "critical",
+      "signals": [
+        "dns_data_like_subdomain_label",
+        "dns_high_unique_subdomain_fanout",
+        "agent_network_to_unapproved_domain",
+        "dns_query_correlated_with_sensitive_source",
+        "rendered_content_unapproved_network_request"
+      ]
+    },
+    {
+      "pack": "generic.agent_workspace_archive_intake",
+      "severity": "critical",
+      "signals": [
+        "archive_path_escape",
+        "archive_symlink_member",
+        "archive_extreme_compression_ratio",
+        "archive_contains_agent_autoload_control"
+      ]
+    }
+  ],
+  "schema": "ai-dfir/representation-integrity-rules/v1.2"
+}

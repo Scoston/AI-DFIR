@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "auth_flow",
+      "relative_path": "auth_flowmcpauth_flowauthauth_flow.jsonauth_flow",
+      "sha256": "a96e753c7b619d775b18b1060adac23c432add2aa89e8ab3da11b868dbed9ad3",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_requests",
+      "relative_path": "mcp_requestsmcpmcp_requests.jsonl",
+      "sha256": "ec6518c2cdfb1164bb6a8705fd466b73454f8ae1ca9509867edd4bb9e2651b79",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "token_use",
+      "relative_path": "token_usetokentoken_use.jsontoken_use",
+      "sha256": "8c2908b555f3755d244eb9970bfeeb9bc099e83d5ce5e9a091d64bdd856f6242",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-mcp.authorization_compromise",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

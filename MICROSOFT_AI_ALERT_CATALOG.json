@@ -1,0 +1,231 @@
+{
+  "agent365_documented_detection_families": [
+    "jailbreak attempts",
+    "indirect prompt injection (XPIA)",
+    "malicious content propagation",
+    "secret and credential leakage",
+    "evasion techniques",
+    "LLM reconnaissance",
+    "suspicious user or IP access"
+  ],
+  "agent365_note": "Microsoft documents these detection families but does not publish a stable exact alert ID/title catalog for every family on the referenced page; v0.8 does not invent IDs.",
+  "alerts": [
+    {
+      "alert_ids": [
+        "AI.AIModelScan_MalwareDetected"
+      ],
+      "alert_titles": [
+        "Malicious content detected in uploaded AI model"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.AIModelScan_MalwareDetected.json",
+      "incident_type": "model_supply_chain",
+      "pack_id": "microsoft.AI.AIModelScan_MalwareDetected",
+      "severity": "High"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_ASCIISmuggling"
+      ],
+      "alert_titles": [
+        "ASCII Smuggling prompt injection detected"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_ASCIISmuggling.json",
+      "incident_type": "indirect_prompt_injection",
+      "pack_id": "microsoft.AI.Azure_ASCIISmuggling",
+      "severity": "High"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_AccessAnomaly"
+      ],
+      "alert_titles": [
+        "Access anomaly in AI resource"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessAnomaly.json",
+      "incident_type": "suspicious_access",
+      "pack_id": "microsoft.AI.Azure_AccessAnomaly",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_AccessFromAnonymizedIP"
+      ],
+      "alert_titles": [
+        "Access from a Tor IP"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessFromAnonymizedIP.json",
+      "incident_type": "suspicious_access",
+      "pack_id": "microsoft.AI.Azure_AccessFromAnonymizedIP",
+      "severity": "High"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_AccessFromSuspiciousIP"
+      ],
+      "alert_titles": [
+        "Access from suspicious IP"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessFromSuspiciousIP.json",
+      "incident_type": "suspicious_access",
+      "pack_id": "microsoft.AI.Azure_AccessFromSuspiciousIP",
+      "severity": "High"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_AccessFromSuspiciousUserAgent"
+      ],
+      "alert_titles": [
+        "Suspicious user agent detected"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessFromSuspiciousUserAgent.json",
+      "incident_type": "suspicious_access",
+      "pack_id": "microsoft.AI.Azure_AccessFromSuspiciousUserAgent",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_AnomalousOperation.InitialAccess"
+      ],
+      "alert_titles": [
+        "Suspicious invocation of a high-risk 'Initial Access' operation by a service principal detected (AI resources)"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AnomalousOperation.InitialAccess.json",
+      "incident_type": "identity_compromise",
+      "pack_id": "microsoft.AI.Azure_AnomalousOperation.InitialAccess",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_AnomalousToolInvocation"
+      ],
+      "alert_titles": [
+        "Anomalous tool invocation"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AnomalousToolInvocation.json",
+      "incident_type": "tool_abuse",
+      "pack_id": "microsoft.AI.Azure_AnomalousToolInvocation",
+      "severity": "Low"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_CredentialTheftAttempt"
+      ],
+      "alert_titles": [
+        "Detected credential theft attempts on an Azure AI model deployment"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_CredentialTheftAttempt.json",
+      "incident_type": "credential_exposure",
+      "pack_id": "microsoft.AI.Azure_CredentialTheftAttempt",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_DOWDuplicateRequests"
+      ],
+      "alert_titles": [
+        "Suspected wallet attack - recurring requests"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_DOWDuplicateRequests.json",
+      "incident_type": "cost_abuse",
+      "pack_id": "microsoft.AI.Azure_DOWDuplicateRequests",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_DOWVolumeAnomaly"
+      ],
+      "alert_titles": [
+        "Suspected wallet attack - volume anomaly"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_DOWVolumeAnomaly.json",
+      "incident_type": "cost_abuse",
+      "pack_id": "microsoft.AI.Azure_DOWVolumeAnomaly",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt"
+      ],
+      "alert_titles": [
+        "A Jailbreak attempt on an Azure AI model deployment was blocked by Azure AI Content Safety Prompt Shields"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt.json",
+      "incident_type": "direct_prompt_injection",
+      "pack_id": "microsoft.AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt"
+      ],
+      "alert_titles": [
+        "A Jailbreak attempt on an Azure AI model deployment was detected by Azure AI Content Safety Prompt Shields"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt.json",
+      "incident_type": "direct_prompt_injection",
+      "pack_id": "microsoft.AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt",
+      "severity": "Medium"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_LLMReconnaissance"
+      ],
+      "alert_titles": [
+        "LLM Reconnaissance Attempt Detected"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_LLMReconnaissance.json",
+      "incident_type": "llm_reconnaissance",
+      "pack_id": "microsoft.AI.Azure_LLMReconnaissance",
+      "severity": "Low"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_MaliciousUrl.ModelResponse"
+      ],
+      "alert_titles": [
+        "Corrupted AI application/model/data directed a phishing attempt at a user"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_MaliciousUrl.ModelResponse.json",
+      "incident_type": "malicious_content_propagation",
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.ModelResponse",
+      "severity": "High"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_MaliciousUrl.UnknownSource"
+      ],
+      "alert_titles": [
+        "Phishing URL shared in an AI application"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_MaliciousUrl.UnknownSource.json",
+      "incident_type": "malicious_content_propagation",
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.UnknownSource",
+      "severity": "High"
+    },
+    {
+      "alert_ids": [
+        "AI.Azure_MaliciousUrl.UserPrompt"
+      ],
+      "alert_titles": [
+        "Phishing attempt detected in an AI application"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_MaliciousUrl.UserPrompt.json",
+      "incident_type": "prompt_poisoning",
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.UserPrompt",
+      "severity": "High"
+    },
+    {
+      "alert_ids": [],
+      "alert_titles": [
+        "Exposed Kubernetes service detected"
+      ],
+      "file": "evidence_packs/microsoft/defender_for_cloud/ExposedKubernetesService.AI.json",
+      "incident_type": "ai_infrastructure_exposure",
+      "pack_id": "microsoft.ExposedKubernetesService.AI",
+      "severity": null
+    }
+  ],
+  "schema": "ai-dfir/microsoft-ai-alert-catalog/v0.8",
+  "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/alerts-ai-workloads",
+  "verified_date": "2026-08-23"
+}

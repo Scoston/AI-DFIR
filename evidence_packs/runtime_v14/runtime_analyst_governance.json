@@ -1,0 +1,104 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "audit",
+      "presence_patterns": [
+        "*analyst*action*audit*.json*",
+        "*analyst*actions*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves investigator actions.",
+      "title": "Signed analyst action audit",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "conclusions",
+      "presence_patterns": [
+        "*conclusions*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines conclusions needing review.",
+      "title": "High-impact conclusions",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "reviews",
+      "presence_patterns": [
+        "*peer*review*.json*",
+        "*reviews*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows independent concurrence.",
+      "title": "Independent reviews/sign-offs",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "gate",
+      "presence_patterns": [
+        "*peer*review*gate*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Prevents unreviewed critical closure.",
+      "title": "Peer-review gate result",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "review",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "audit",
+        "conclusions",
+        "reviews",
+        "gate"
+      ],
+      "title": "Required independent review completed"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.analyst_governance",
+  "incident_type": "analyst_governance_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Analyst Action / Peer Review Integrity Failure"
+    ],
+    "incident_types": [
+      "analyst_governance_failure"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Who changed or exported evidence?",
+    "Were critical conclusions independently reviewed?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Analyst Action / Peer Review Integrity Failure",
+  "vendor": "Generic"
+}

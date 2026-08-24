@@ -1,0 +1,4 @@
+blank_issues_enabled: true
+# Security reports must follow SECURITY.md and use GitHub Private Vulnerability
+# Reporting / Security Advisories when enabled. Do not disclose exploit details
+# or real incident evidence in public issues.

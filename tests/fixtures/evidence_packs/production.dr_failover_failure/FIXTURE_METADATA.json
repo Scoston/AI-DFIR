@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "restorerestorerestorevalidationrestore.jsonrestore",
+    "chaoschaoschaosvalidationchaos.jsonchaos"
+  ],
+  "pack_id": "production.dr_failover_failure",
+  "pack_source": "evidence_packs/production_v16/production_dr_failover_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

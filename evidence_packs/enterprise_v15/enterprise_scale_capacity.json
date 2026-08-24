@@ -1,0 +1,88 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "benchmark",
+      "presence_patterns": [
+        "*scale*benchmark*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes tested metadata throughput.",
+      "title": "Scale benchmark result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "slo",
+      "presence_patterns": [
+        "*service*slo*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows lag/error during load.",
+      "title": "Service/collector SLO results",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "queue",
+      "presence_patterns": [
+        "*queue*metrics*.json*",
+        "*task*metrics*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Identifies backpressure.",
+      "title": "Acquisition queue/lease metrics",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "capacity_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "benchmark",
+        "slo"
+      ],
+      "title": "Capacity/ingest failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.scale_capacity",
+  "incident_type": "scale_capacity",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "AI-DFIR Capacity / Backpressure Failure"
+    ],
+    "incident_types": [
+      "scale_capacity"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Did evidence ingestion fall behind incident-generation rate?",
+    "Were tasks replayed or expired under load?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "AI-DFIR Capacity / Backpressure Failure",
+  "vendor": "Generic"
+}

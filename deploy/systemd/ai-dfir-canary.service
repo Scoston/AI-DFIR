@@ -1,0 +1,11 @@
+[Unit]
+Description=AI-DFIR Controlled Model Canary
+
+[Service]
+Type=oneshot
+User=ai-dfir
+Group=ai-dfir
+EnvironmentFile=-/etc/ai-dfir/canary.env
+ExecStart=/opt/ai-dfir/run_canary.sh
+NoNewPrivileges=true
+PrivateTmp=true

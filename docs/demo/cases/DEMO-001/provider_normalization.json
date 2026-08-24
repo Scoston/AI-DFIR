@@ -1,0 +1,21 @@
+{
+  "content_policy": "hash_only",
+  "event_count": 1,
+  "events": [
+    {
+      "actor_id": null,
+      "event_id": "openai:r1",
+      "model": "synthetic-model",
+      "prompt_sha256": null,
+      "provider": "openai",
+      "raw_event_sha256": "fb0758bba312e3097f8e7c364cc2306b1f9d74824f174f516e6bdf1e0bdca858",
+      "request_id": "r1",
+      "response_sha256": null,
+      "schema": "ai-dfir/provider-event/v1.4",
+      "timestamp_utc": null,
+      "tool_name": null
+    }
+  ],
+  "provider": "openai",
+  "schema": "ai-dfir/provider-normalization/v1.4"
+}

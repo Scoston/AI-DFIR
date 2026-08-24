@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "agent_cardagentagent_cardcardagent_card.jsonagent_card",
+    "verificationagentverificationcardverificationverificationverification.jsonverification",
+    "trust_storea2atrust_storetrusttrust_storestoretrust_store.jsontrust_store",
+    "trust_store_signaturetrusttrust_store_signaturepublictrust_store_signature.pem",
+    "jwks_capturejwksjwks_capture.jsonjwks_capture",
+    "tls_dnstlstls_dns.jsontls_dns"
+  ],
+  "pack_id": "a2a.signed_agent_card_trust",
+  "pack_source": "evidence_packs/a2a_v13/a2a_signed_agent_card_trust.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

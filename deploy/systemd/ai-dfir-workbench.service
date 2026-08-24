@@ -1,0 +1,19 @@
+[Unit]
+Description=AI-DFIR Analyst Workbench v0.7
+After=network.target
+
+[Service]
+Type=simple
+User=ai-dfir
+Group=ai-dfir
+ExecStart=/opt/ai-dfir/.venv/bin/python /opt/ai-dfir/analyst_dashboard.py --case-root /evidence/ai-dfir --host 127.0.0.1 --port 8877
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/evidence/ai-dfir
+
+[Install]
+WantedBy=multi-user.target

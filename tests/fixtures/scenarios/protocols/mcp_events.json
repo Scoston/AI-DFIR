@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "body_method": "resources/read",
+      "headers": {
+        "Mcp-Method": "tools/call"
+      },
+      "mcp_name": "x"
+    },
+    {
+      "expected_issuer": "good",
+      "issuer": "bad",
+      "pkce_method": "plain",
+      "protected_resource_metadata_present": false,
+      "protected_resource_metadata_required": true
+    },
+    {
+      "mcp_method": "tasks/update",
+      "state": "cancelled",
+      "task_id": "T"
+    },
+    {
+      "mcp_method": "tasks/get",
+      "state": "running",
+      "task_id": "T"
+    }
+  ]
+}

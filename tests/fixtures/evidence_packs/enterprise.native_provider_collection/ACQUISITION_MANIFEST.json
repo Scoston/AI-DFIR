@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "raw",
+      "relative_path": "rawproviderrawrawraw.jsonraw",
+      "sha256": "1d513ee48315aba261a0f5d733b986296d7c5776c9107923680e50057d92c2dd",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "receipt",
+      "relative_path": "receiptproviderreceiptcollectionreceiptreceiptreceipt.jsonreceipt",
+      "sha256": "9b70ed5dc788aa38843e76a45af8e59ec3bf3197c0767b04745d77afd15c9b85",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "identity",
+      "relative_path": "identitycollectoridentityidentityidentity.jsonidentity",
+      "sha256": "91601f9bba44bd8e7263c037b9b2cd0ab656bae13d4700df829b74a91621c088",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "normalization",
+      "relative_path": "normalizationprovidernormalizationnormalizednormalization.jsonnormalization",
+      "sha256": "40bc08b6833dcb214289bcf9c67457eeaf58dfa3eac50ac7288443f988380681",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.native_provider_collection",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

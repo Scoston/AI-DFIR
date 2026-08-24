@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "separationenvironmentseparationseparationseparation.jsonseparation",
+    "environment_configenvironmentsenvironment_config.jsonenvironment_config"
+  ],
+  "pack_id": "production.environment_separation_failure",
+  "pack_source": "evidence_packs/production_v16/production_environment_separation_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

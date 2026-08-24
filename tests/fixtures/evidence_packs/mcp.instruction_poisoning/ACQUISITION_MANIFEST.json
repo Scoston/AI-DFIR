@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_response",
+      "relative_path": "mcp_responsemcpmcp_responseresponsemcp_response.jsonmcp_response",
+      "sha256": "0977e79a56eab8e6858f061d0b48f8e01a8b011eb2e8d14b01865a93e97d3e35",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "model_context",
+      "relative_path": "model_contextcontextmodel_context.jsonmodel_context",
+      "sha256": "bf0dc51ebc809b651aaee3d8f07379853ea938845b9d9c10f2e81f2778644caf",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_trace",
+      "relative_path": "tool_traceagentic_eventstool_trace.jsonl",
+      "sha256": "817b3bbd0774afa1ae6c4bb2e47b0bb80c51c9332189b7a58fa0c428ccf30886",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-mcp.instruction_poisoning",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

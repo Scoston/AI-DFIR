@@ -1,0 +1,72 @@
+{
+  "findings": [
+    {
+      "event": {
+        "expires_utc": "2026-08-24T15:00:00Z",
+        "host_id": "H",
+        "process_id": 1,
+        "spiffe_id": "spiffe://corp/agent/a",
+        "timestamp_utc": "2026-08-24T16:00:00Z",
+        "trust_domain": "corp"
+      },
+      "severity": "critical",
+      "spiffe_id": "spiffe://corp/agent/a",
+      "type": "workload_identity_used_after_expiry"
+    },
+    {
+      "current": "spiffe://corp/agent/b",
+      "host_id": "H",
+      "previous": "spiffe://corp/agent/a",
+      "process_id": 1,
+      "severity": "critical",
+      "type": "workload_identity_changed_for_process"
+    }
+  ],
+  "identities": {
+    "spiffe://corp/agent/a": {
+      "events": 1,
+      "hosts": [
+        "H"
+      ],
+      "processes": [
+        "1"
+      ],
+      "svid_fingerprints": []
+    },
+    "spiffe://corp/agent/b": {
+      "events": 1,
+      "hosts": [
+        "H"
+      ],
+      "processes": [
+        "1"
+      ],
+      "svid_fingerprints": []
+    }
+  },
+  "identity_count": 2,
+  "rule": "Identity validity is evaluated at each event timestamp; current validity is not substituted for incident-time validity.",
+  "schema": "ai-dfir/workload-identity/v1.4",
+  "timeline": [
+    {
+      "host_id": "H",
+      "process_id": 1,
+      "source": null,
+      "spiffe_id": "spiffe://corp/agent/a",
+      "status_at_event": "EXPIRED",
+      "svid_sha256": null,
+      "timestamp_utc": "2026-08-24T16:00:00Z",
+      "trust_domain": "corp"
+    },
+    {
+      "host_id": "H",
+      "process_id": 1,
+      "source": null,
+      "spiffe_id": "spiffe://corp/agent/b",
+      "status_at_event": "VALID",
+      "svid_sha256": null,
+      "timestamp_utc": "2026-08-24T16:01:00Z",
+      "trust_domain": "corp"
+    }
+  ]
+}

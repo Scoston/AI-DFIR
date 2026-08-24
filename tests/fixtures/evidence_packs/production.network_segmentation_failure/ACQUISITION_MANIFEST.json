@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "network_policy",
+      "relative_path": "network_policynetworknetwork_policypolicynetwork_policyvalidationnetwork_policy.jsonnetwork_policy",
+      "sha256": "9d090bb43a8a71f05a9a060240fc1f2242ce5ef102f7e579d72a49bfef575a46",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "network_test",
+      "relative_path": "network_testnetworknetwork_testsegmentationnetwork_testtestnetwork_test.jsonnetwork_test",
+      "sha256": "03d30506397aaea5a5c8878f41d73854ebbbce57e96490ddd8cab03da0c8fe15",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.network_segmentation_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,44 @@
+{
+  "content_policy": "hash_only",
+  "coverage": {
+    "genai_spans_normalized": 1,
+    "operations": {
+      "execute_tool": 1
+    },
+    "spans_seen": 1
+  },
+  "events": [
+    {
+      "actor_id": "a",
+      "cause_event_ids": [],
+      "content_sha256": null,
+      "correlation_ids": [
+        "trace:t"
+      ],
+      "event_id": "otel:t:s",
+      "event_type": "tool_call",
+      "metadata": {
+        "error.type": null,
+        "gen_ai.agent.id": "a",
+        "gen_ai.agent.name": null,
+        "gen_ai.conversation.id": null,
+        "gen_ai.data_source.id": null,
+        "gen_ai.operation.name": "execute_tool",
+        "gen_ai.request.model": null,
+        "gen_ai.response.model": null,
+        "gen_ai.tool.call.id": "tc",
+        "gen_ai.tool.name": "send_email",
+        "otel.parent_span_id": null,
+        "otel.span_id": "s",
+        "otel.trace_id": "t"
+      },
+      "parent_event_id": null,
+      "schema": "ai-dfir/agentic-event/v1.4",
+      "session_id": null,
+      "target_id": "send_email",
+      "timestamp_utc": "1"
+    }
+  ],
+  "findings": [],
+  "schema": "ai-dfir/otel-genai-ingest/v1.4"
+}

@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "eventsagentic_eventsevents.jsonl",
+    "graphtypedgraphcausalgraphgraphgraph.jsongraph",
+    "claimscausalclaimsclaimsclaims.jsonclaims"
+  ],
+  "pack_id": "runtime.causal_graph",
+  "pack_source": "evidence_packs/runtime_v14/runtime_causal_graph.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

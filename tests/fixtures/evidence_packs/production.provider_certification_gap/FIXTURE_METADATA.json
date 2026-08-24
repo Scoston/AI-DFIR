@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "certificationprovidercertificationcertificationcertification.jsoncertification",
+    "receiptsproviderreceiptscertreceiptsreceiptsreceipts.jsonreceipts"
+  ],
+  "pack_id": "production.provider_certification_gap",
+  "pack_source": "evidence_packs/production_v16/production_provider_certification_gap.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

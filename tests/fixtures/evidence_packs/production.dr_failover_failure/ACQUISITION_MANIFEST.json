@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "restore",
+      "relative_path": "restorerestorerestorevalidationrestore.jsonrestore",
+      "sha256": "df1243896f5003def5370c958111849944e5ced7f8ab3a4822e0a77d0f002c8f",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "chaos",
+      "relative_path": "chaoschaoschaosvalidationchaos.jsonchaos",
+      "sha256": "0383c4d11ca5c2e811f95376222bef25489f3c8edade4dee50763d7219fd7502",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.dr_failover_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

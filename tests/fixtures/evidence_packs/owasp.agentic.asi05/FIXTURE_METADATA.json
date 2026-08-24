@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "process_treeDeviceProcessEventsprocess_tree.jsonprocess_tree",
+    "agent_traceagentic_eventsagent_trace.jsonl",
+    "tool_schematool_schematool_schema.jsontool_schema",
+    "filesystemDeviceFileEventsfilesystem.jsonfilesystem",
+    "networkDeviceNetworkEventsnetwork.jsonnetwork",
+    "container_runtimekubernetescontainer_runtime.jsoncontainer_runtime"
+  ],
+  "pack_id": "owasp.agentic.asi05",
+  "pack_source": "evidence_packs/owasp_agentic/ASI05_unexpected_code_execution.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

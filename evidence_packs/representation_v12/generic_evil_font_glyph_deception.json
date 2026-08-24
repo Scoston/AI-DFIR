@@ -1,0 +1,193 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "original_document",
+      "presence_patterns": [
+        "*.docx",
+        "*.pdf",
+        "*.html",
+        "*.htm"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves the attacked representation exactly as received.",
+      "title": "Original DOCX/PDF/HTML and acquisition hash",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "font_analysis",
+      "presence_patterns": [
+        "*evil_font*analysis*.json*",
+        "*font*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects glyph-outline collapse, stealth/blank glyphs, and abnormal remapping.",
+      "title": "Embedded/custom font and glyph-outline analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "ooxml_font_parts",
+      "presence_patterns": [
+        "*docx*font*inventory*.json*",
+        "*ooxml*font*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Preserves embedded font relationships, fontKey and per-run font assignment.",
+      "title": "DOCX fontTable/rels/settings/embedded-font inventory",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "representation_diff",
+      "presence_patterns": [
+        "*representation*differential*.json*",
+        "*visible*machine*diff*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves that the AI-readable text differs materially from what a human sees.",
+      "title": "Human-visible vs machine-readable text differential",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "independent_visible",
+      "presence_patterns": [
+        "*visible_text*.txt",
+        "*rendered*page*.json*",
+        "*rendered*image*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides an independent human-visible representation for comparison.",
+      "title": "Independent rendered/vision-derived visible text or image hashes",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "ai_ingestion",
+      "presence_patterns": [
+        "*model_input*.json*",
+        "*ingestion*.json*",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows which representation entered the AI system.",
+      "title": "AI/model input or document-ingestion trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "downstream_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*target*audit*.json*",
+        "*consequence*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Establishes downstream effect.",
+      "title": "Agent/tool/decision consequence trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "font_deception_present",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "original_document",
+        "font_analysis",
+        "representation_diff",
+        "independent_visible"
+      ],
+      "title": "Font/glyph deception is technically established"
+    },
+    {
+      "id": "ai_exposure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "original_document",
+        "ai_ingestion"
+      ],
+      "title": "AI consumed the machine-readable representation"
+    },
+    {
+      "id": "impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "ai_ingestion",
+        "downstream_trace"
+      ],
+      "title": "Representation deception led to downstream action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.evil_font_glyph_deception",
+  "incident_type": "evil_font_glyph_deception",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI01"
+    ],
+    "owasp_llm": "LLM01 Prompt Injection"
+  },
+  "match": {
+    "detection_families": [
+      "Font/Glyph Representation Deception (EvilFont-style)"
+    ],
+    "incident_types": [
+      "evil_font_glyph_deception"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Do glyph outlines collapse across unrelated Unicode codepoints?",
+    "Are many embedded fonts switched per character?",
+    "Does the machine text differ from independently rendered visible text?",
+    "Did the AI ingest the machine representation or an image/vision representation?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/DoctorEww/EvilFontTool",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "Font/Glyph Representation Deception (EvilFont-style)",
+  "vendor": "Generic"
+}

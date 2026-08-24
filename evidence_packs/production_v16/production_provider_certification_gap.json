@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "certification",
+      "presence_patterns": [
+        "*provider*certification*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows adapter/API tests and expiry.",
+      "title": "Current provider certification result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "receipts",
+      "presence_patterns": [
+        "*provider*cert*receipts*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves evidence behind certification.",
+      "title": "Provider certification test receipts",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "provider_cert",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "certification",
+        "receipts"
+      ],
+      "title": "Provider collector certification gap is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.provider_certification_gap",
+  "incident_type": "provider_certification_gap",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Provider Collector Certification Gap"
+    ],
+    "incident_types": [
+      "provider_certification_gap"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Is the adapter certified against the current provider API?",
+    "Has certification expired?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Provider Collector Certification Gap",
+  "vendor": "AI-DFIR"
+}

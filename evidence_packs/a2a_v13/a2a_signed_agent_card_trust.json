@@ -1,0 +1,170 @@
+{
+  "artifacts": [
+    {
+      "category": "a2a_trust",
+      "id": "agent_card",
+      "presence_patterns": [
+        "*agent*card*.json*",
+        "*a2a*card*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves the signed discovery object.",
+      "title": "Exact received Agent Card JSON",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "verification",
+      "presence_patterns": [
+        "*agent*card*verification*.json*",
+        "*a2a*verification*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes cryptographic validity and policy trust.",
+      "title": "RFC 8785 + JWS verification result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "trust_store",
+      "presence_patterns": [
+        "*a2a*trust*store*.json*",
+        "*trust*store*signed*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Identifies the keys and bindings the organization actually trusted.",
+      "title": "Signed investigator/enterprise A2A trust store",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "trust_store_signature",
+      "presence_patterns": [
+        "*trust*public*.pem",
+        "*trust*signing*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Prevents a suspect host from redefining trust after the incident.",
+      "title": "Trust-store signer/public-key evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "jwks_capture",
+      "presence_patterns": [
+        "*jwks*.json*",
+        "*jwk*source*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Preserves the public-key material and retrieval provenance.",
+      "title": "Captured JWKS/key-source evidence",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "tls_dns",
+      "presence_patterns": [
+        "*tls*.json*",
+        "*certificate*.json*",
+        "*dns*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Corroborates the remote identity used for discovery.",
+      "title": "JWKS/Agent Card TLS and DNS evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "signature_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "agent_card",
+        "verification",
+        "trust_store"
+      ],
+      "title": "Agent Card signature/trust policy violation is established"
+    },
+    {
+      "id": "trust_source",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "trust_store",
+        "trust_store_signature"
+      ],
+      "title": "The verifying trust source is itself established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "a2a.signed_agent_card_trust",
+  "incident_type": "a2a_signed_agent_card_trust",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI03",
+      "ASI07",
+      "ASI08"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "A2A Signed Agent Card / Trust-Store Violation"
+    ],
+    "incident_types": [
+      "a2a_signed_agent_card_trust"
+    ]
+  },
+  "notes": [
+    "A valid Agent Card signature proves integrity under a key; enterprise trust additionally requires key lifecycle and identity-policy binding."
+  ],
+  "platform": "A2A v1.0",
+  "questions": [
+    "Was at least one signature cryptographically valid?",
+    "Was the signing key trusted at that time?",
+    "Did provider and interface origins match the key's policy binding?",
+    "Was the key revoked, expired, or replaced?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.3",
+  "sources": [
+    {
+      "type": "spec",
+      "url": "https://a2a-protocol.org/latest/specification/",
+      "verified": "2026-08-24"
+    },
+    {
+      "type": "protocol",
+      "url": "https://a2a-protocol.org/latest/whats-new-v1/",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "A2A Signed Agent Card / Trust-Store Violation",
+  "vendor": "Generic"
+}

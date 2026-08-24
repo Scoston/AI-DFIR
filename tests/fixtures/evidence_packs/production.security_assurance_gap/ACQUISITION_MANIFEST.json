@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "assessment",
+      "relative_path": "assessmentsecurityassessmentassuranceassessment.jsonassessment",
+      "sha256": "773dfb164b139d81290f838f713f15001302eba437e7e272fd4419fcb50ade5f",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "report_meta",
+      "relative_path": "report_metasecurityreport_metaassessmentreport_metareportreport_meta.jsonreport_meta",
+      "sha256": "4c2d116fe980d6ead9ffd872b2f7e0912964c73bdaeacb6eee74bfca80520623",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.security_assurance_gap",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

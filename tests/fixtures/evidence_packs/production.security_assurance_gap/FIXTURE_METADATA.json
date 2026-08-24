@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "assessmentsecurityassessmentassuranceassessment.jsonassessment",
+    "report_metasecurityreport_metaassessmentreport_metareportreport_meta.jsonreport_meta"
+  ],
+  "pack_id": "production.security_assurance_gap",
+  "pack_source": "evidence_packs/production_v16/production_security_assurance_gap.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

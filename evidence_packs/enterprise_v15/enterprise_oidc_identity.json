@@ -1,0 +1,90 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "token_verification",
+      "presence_patterns": [
+        "*oidc*principal*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes authenticated subject/tenant/roles.",
+      "title": "Pinned-JWKS token verification",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "jwks",
+      "presence_patterns": [
+        "*jwks*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines identity trust root.",
+      "title": "Pinned issuer JWKS acquisition",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "access_audit",
+      "presence_patterns": [
+        "*analyst*audit*.jsonl",
+        "*access*audit*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows actions taken under identity.",
+      "title": "Tenant-scoped access audit",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "identity_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "token_verification",
+        "jwks",
+        "access_audit"
+      ],
+      "title": "Identity or tenant authorization failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.oidc_identity",
+  "incident_type": "oidc_identity",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Enterprise OIDC Identity / Cross-Tenant Access"
+    ],
+    "incident_types": [
+      "oidc_identity"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Was the JWT issuer/audience/kid trusted?",
+    "Did the principal act outside assigned tenant or role?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Enterprise OIDC Identity / Cross-Tenant Access",
+  "vendor": "Generic"
+}

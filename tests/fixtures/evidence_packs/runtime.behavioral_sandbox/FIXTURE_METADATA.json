@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "planbehavioralplansandboxplanplanplan.jsonplan",
+    "declareddeclareddeclaredcapabilitiesdeclared.jsondeclared",
+    "telemetrysandboxtelemetrytelemetrytelemetry.jsontelemetry",
+    "analysisbehavioralanalysissandboxanalysisanalysisanalysis.jsonanalysis"
+  ],
+  "pack_id": "runtime.behavioral_sandbox",
+  "pack_source": "evidence_packs/runtime_v14/runtime_behavioral_sandbox.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

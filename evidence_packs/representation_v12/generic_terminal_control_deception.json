@@ -1,0 +1,122 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "raw_terminal_output",
+      "presence_patterns": [
+        "*terminal*raw*.txt",
+        "*stdout*.log",
+        "*console*.log"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves control sequences before terminal rendering.",
+      "title": "Raw agent/tool terminal bytes",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "terminal_analysis",
+      "presence_patterns": [
+        "*terminal*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects cursor/display rewrites, OSC hyperlinks, clipboard and title controls.",
+      "title": "ANSI/OSC analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "rendered_capture",
+      "presence_patterns": [
+        "*terminal*screenshot*.png",
+        "*rendered*terminal*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Corroborates what operator saw.",
+      "title": "Terminal screenshot/render transcript",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "network_click",
+      "presence_patterns": [
+        "*network*.json*",
+        "*proxy*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Confirms exfiltration or external navigation.",
+      "title": "Link click/network evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "terminal_deception",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "raw_terminal_output",
+        "terminal_analysis"
+      ],
+      "title": "Terminal control-sequence deception exists"
+    },
+    {
+      "id": "terminal_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "terminal_analysis",
+        "network_click"
+      ],
+      "title": "Control sequence resulted in external action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.terminal_control_deception",
+  "incident_type": "terminal_control_deception",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Terminal ANSI / OSC Rendering Deception"
+    ],
+    "incident_types": [
+      "terminal_control_deception"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Did ANSI cursor/erase sequences hide or replace command text?",
+    "Did OSC 8 or OSC 52 appear?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/Mindgard/ai-ide-vuln-patterns",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "Terminal ANSI / OSC Rendering Deception",
+  "vendor": "Generic"
+}

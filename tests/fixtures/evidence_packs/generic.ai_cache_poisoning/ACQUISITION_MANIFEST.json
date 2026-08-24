@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "cache_records",
+      "relative_path": "cache_recordscachecache_recordseventscache_records.jsonl",
+      "sha256": "1c28242e293d8d2a89b342b4a294b4a81ee3fe0a7d561f7a820b5aed90722662",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "cache_policy",
+      "relative_path": "cache_policycachecache_policypolicycache_policy.jsoncache_policy",
+      "sha256": "22dccb651365bd052caebefbd815d561ad64daf3c45e3caac6727f133b343986",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "source_manifest",
+      "relative_path": "source_manifestsourcesource_manifestmanifestsource_manifest.jsonsource_manifest",
+      "sha256": "a18bdaa7b1fc02542205810f2617c58e8a53f585096c44a261c92988dfdaaee9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "writer_identity",
+      "relative_path": "writer_identitycachewriter_identitywriterwriter_identity.jsonwriter_identity",
+      "sha256": "5904f08ffae8fe26dce6ba243677ce53844c0e6d1125af195ba53688c7faff35",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "consumer_trace",
+      "relative_path": "consumer_traceagentic_eventsconsumer_trace.jsonl",
+      "sha256": "af25cf60d1b6082f25dd5f000d464cef4efecb9d943ed7212456f9b50cdd15fb",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.ai_cache_poisoning",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

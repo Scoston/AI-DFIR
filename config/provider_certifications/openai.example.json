@@ -1,0 +1,10 @@
+{
+  "schema": "ai-dfir/provider-certification-profile/v1.6",
+  "provider": "openai",
+  "adapter": "openai_org",
+  "api_version": "deployment-pinned",
+  "max_certification_age_days": 90,
+  "known_limitations": [
+    "Organization usage/cost telemetry does not automatically equal request-level history."
+  ]
+}

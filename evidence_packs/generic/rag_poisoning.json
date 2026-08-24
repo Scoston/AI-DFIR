@@ -1,0 +1,94 @@
+{
+  "artifacts": [
+    {
+      "category": "rag",
+      "id": "source_document",
+      "presence_patterns": [
+        "*source_document*",
+        "*source_bytes*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves the possible poisoned content.",
+      "title": "Original retrieved source document bytes"
+    },
+    {
+      "category": "rag",
+      "id": "retrieval_trace",
+      "presence_patterns": [
+        "*retrieval_trace*.json*",
+        "*vector*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows exactly why/how malicious content entered context.",
+      "title": "Query, embedding model, index revision, top-k chunks and scores"
+    },
+    {
+      "category": "rag",
+      "id": "chunk_content",
+      "presence_patterns": [
+        "*chunks*.json*",
+        "*retrieved_chunks*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Allows independent reproduction of context.",
+      "title": "Exact retrieved chunk bytes/text and hashes"
+    },
+    {
+      "category": "identity",
+      "id": "permissions",
+      "presence_patterns": [
+        "*permissions*.json*",
+        "*acl*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether the agent should have seen the source.",
+      "title": "Document/index authorization decision"
+    },
+    {
+      "category": "agent",
+      "id": "agent_trace",
+      "presence_patterns": [
+        "*agent_trace*.jsonl",
+        "*tool_call*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes behavioral effect and impact.",
+      "title": "Agent/tool actions after retrieval"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "event_reconstructed",
+      "logic": "all",
+      "requires": [
+        "source_document",
+        "retrieval_trace",
+        "chunk_content",
+        "permissions",
+        "agent_trace"
+      ],
+      "title": "Core event reconstructed"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box"
+  ],
+  "id": "generic.rag_poisoning",
+  "incident_type": "rag_poisoning",
+  "match": {
+    "incident_types": [
+      "rag_poisoning"
+    ]
+  },
+  "platform": "Any",
+  "questions": [
+    "What evidence entered the AI context?",
+    "What identity/authority was active?",
+    "What action followed?",
+    "What independent artifact confirms impact?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [],
+  "title": "RAG Poisoning / Indirect Prompt Injection",
+  "vendor": "Generic"
+}

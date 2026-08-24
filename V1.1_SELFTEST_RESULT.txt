@@ -1,0 +1,50 @@
+AI-DFIR v1.1 — Execution Integrity & Advanced Agent Attack Surfaces
+
+Release acceptance status: PASS
+
+v1.1 focused suite
+-------------------
+- a2a_v1_forensics: PASS
+- agent_harness_forensics: PASS
+- browser_computer_use_forensics: PASS
+- cache_poisoning_forensics: PASS
+- evidence_pack_catalog_expansion: PASS
+- mcp_execution_integrity: PASS
+- model_router_forensics: PASS
+- output_rendering_forensics: PASS
+- prompt_self_replication_detection: PASS
+- quality_not_filename_presence: PASS
+- session_and_execution_debt: PASS
+- signed_repository_merkle_anchor: PASS
+- source_to_sink_taint: PASS
+- streamed_repository_and_classification_upgrade: PASS
+- tool_identity_shadowing: PASS
+- workbench_execution_integrity_integration: PASS
+- workspace_trust_forensics: PASS
+- evidence_pack_count: 54
+
+Compatibility suites
+--------------------
+- v1.0 enterprise: PASS
+- v0.9 agentic IR: PASS
+- v0.7 analyst workbench: PASS
+- v0.6 containment/recovery: PASS
+
+Additional release checks
+-------------------------
+- All top-level Python entry points compile.
+- Analyst Workbench JavaScript passes `node --check`.
+- AIDFIR2 encrypted repository objects are streamed in authenticated chunks.
+- Legacy AIDFIR1 repository extraction remains supported.
+- Evidence Pack sufficiency uses quality validation, not filename presence.
+- Signed repository Merkle anchor verification passed.
+
+Synthetic/reference validation only. Provider-specific production integrations,
+enterprise IdP, KMS/HSM, HA databases, immutable object storage, and environment-
+specific collection permissions require deployment-specific validation.
+
+Extracted ZIP validation
+------------------------
+- v1.1 suite: PASS
+- v1.0 compatibility suite: PASS
+- Workbench JavaScript syntax: PASS

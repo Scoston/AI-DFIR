@@ -1,0 +1,79 @@
+{
+  "artifacts": [
+    {
+      "category": "memory",
+      "id": "memory_store",
+      "presence_patterns": [
+        "*memory*.json*",
+        "*memory_store*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows malicious/persistent state.",
+      "title": "Persistent memory entries and metadata"
+    },
+    {
+      "category": "memory",
+      "id": "memory_provenance",
+      "presence_patterns": [
+        "*memory_provenance*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes who/what created the poisoned entry.",
+      "title": "Writer/source/timestamp/version of each memory"
+    },
+    {
+      "category": "memory",
+      "id": "memory_retrieval",
+      "presence_patterns": [
+        "*memory_retrieval*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows when poisoned memory entered active context.",
+      "title": "Memory retrieval events and scores"
+    },
+    {
+      "category": "agent",
+      "id": "agent_trace",
+      "presence_patterns": [
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes consequence and scope.",
+      "title": "Actions taken after poisoned memory retrieval"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "event_reconstructed",
+      "logic": "all",
+      "requires": [
+        "memory_store",
+        "memory_provenance",
+        "memory_retrieval",
+        "agent_trace"
+      ],
+      "title": "Core event reconstructed"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box"
+  ],
+  "id": "generic.memory_poisoning",
+  "incident_type": "memory_poisoning",
+  "match": {
+    "incident_types": [
+      "memory_poisoning"
+    ]
+  },
+  "platform": "Any",
+  "questions": [
+    "What evidence entered the AI context?",
+    "What identity/authority was active?",
+    "What action followed?",
+    "What independent artifact confirms impact?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [],
+  "title": "Agent Memory Poisoning",
+  "vendor": "Generic"
+}

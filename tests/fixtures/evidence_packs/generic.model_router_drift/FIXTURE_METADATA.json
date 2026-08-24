@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "router_policyrouterrouter_policypolicyrouter_policy.jsonrouter_policy",
+    "routing_logroutingrouting_log.jsonl",
+    "model_catalogmodelmodel_catalogcatalogmodel_catalog.jsonmodel_catalog",
+    "safety_policysafetysafety_policypolicysafety_policy.jsonsafety_policy",
+    "provider_auditproviderprovider_auditauditprovider_audit.jsonprovider_audit"
+  ],
+  "pack_id": "generic.model_router_drift",
+  "pack_source": "evidence_packs/advanced_v11/generic_model_router_drift.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

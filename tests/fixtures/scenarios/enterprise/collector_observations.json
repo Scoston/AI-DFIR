@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "collected_events": 50,
+      "enabled": true,
+      "source_id": "provider"
+    }
+  ]
+}

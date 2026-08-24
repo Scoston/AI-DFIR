@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "submissiontransparencysubmissionsubmissionsubmission.jsonsubmission",
+    "receipttransparencyreceiptreceiptreceipt.jsonreceipt",
+    "validationtransparencyvalidationvalidationvalidation.jsonvalidation"
+  ],
+  "pack_id": "runtime.transparency_anchor",
+  "pack_source": "evidence_packs/runtime_v14/runtime_transparency_anchor.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

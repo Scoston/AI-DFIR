@@ -1,0 +1,144 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "message_corpus",
+      "locations": [],
+      "presence_patterns": [
+        "*prompt*corpus*.json*",
+        "*message*corpus*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Allows exact/fuzzy propagation comparison.",
+      "title": "Cross-agent/session message/input/output corpus",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "agentic_trace",
+      "locations": [],
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Distinguishes similarity from causation.",
+      "title": "Explicit source/parent/cause agent trace",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "propagation_analysis",
+      "locations": [],
+      "presence_patterns": [
+        "*prompt*replication*.json*",
+        "*taint*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Identifies cross-boundary propagation candidates.",
+      "title": "Replication similarity/propagation output",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "delivery_channels",
+      "locations": [],
+      "presence_patterns": [
+        "*email*audit*.json*",
+        "*document*audit*.json*",
+        "*memory*.json*",
+        "*retrieval*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows how the instruction moved between agents.",
+      "title": "Email/document/chat/RAG/memory delivery audit",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "downstream_consequences",
+      "locations": [],
+      "presence_patterns": [
+        "*open_consequences*.json*",
+        "*target*audit*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Measures impact.",
+      "title": "Tool/action/consequence ledger",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "replication_supported",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "message_corpus",
+        "propagation_analysis",
+        "delivery_channels"
+      ],
+      "title": "Substantially similar instruction propagated across agent/session boundaries"
+    },
+    {
+      "id": "replication_causal",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "agentic_trace",
+        "propagation_analysis"
+      ],
+      "title": "Explicit trace links replicated content to downstream processing"
+    },
+    {
+      "id": "replication_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "agentic_trace",
+        "downstream_consequences"
+      ],
+      "title": "Propagation caused downstream consequence"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.prompt_self_replication",
+  "incident_type": "prompt_self_replication",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Prompt Self-Replication / AI Worm Propagation"
+    ],
+    "incident_types": [
+      "prompt_self_replication"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "How many independent agents/sessions received the replicated instruction?",
+    "Which channel propagated it?",
+    "Was similarity merely copied content or executable instruction propagation?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [],
+  "title": "Prompt Self-Replication / AI Worm Propagation",
+  "vendor": "Generic"
+}

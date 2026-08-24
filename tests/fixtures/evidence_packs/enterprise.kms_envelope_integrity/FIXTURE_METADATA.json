@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "kms_probekmskms_probeprobekms_probe.jsonkms_probe",
+    "envelopeencryptedenvelopeobjectenvelope.jsonenvelope",
+    "key_auditkmskey_auditauditkey_audit.jsonkey_audit"
+  ],
+  "pack_id": "enterprise.kms_envelope_integrity",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_kms_envelope_integrity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

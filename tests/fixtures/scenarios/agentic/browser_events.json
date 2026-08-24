@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "event_type": "websocket_connect",
+      "session_id": "B",
+      "url": "wss://synthetic.invalid/control"
+    },
+    {
+      "event_type": "dom_snapshot",
+      "metadata": {
+        "hidden_instruction_detected": true
+      },
+      "session_id": "B"
+    },
+    {
+      "event_type": "click",
+      "metadata": {
+        "approval_required": true
+      },
+      "session_id": "B"
+    }
+  ]
+}

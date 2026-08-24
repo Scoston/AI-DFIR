@@ -1,0 +1,176 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "browser_runtime",
+      "locations": [],
+      "presence_patterns": [
+        "*browser*runtime*.json*",
+        "*browser*profile*.json*",
+        "*extension*inventory*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes the browser execution environment.",
+      "title": "Browser process/profile/extension inventory",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "navigation",
+      "locations": [],
+      "presence_patterns": [
+        "*navigation*.json*",
+        "*browser*history*.json*",
+        "*har*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes the untrusted page/source and redirect chain.",
+      "title": "Navigation/redirect history",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "dom",
+      "locations": [],
+      "presence_patterns": [
+        "*dom*.json*",
+        "*accessibility*.json*",
+        "*rendered*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves hidden and rendered instructions.",
+      "title": "DOM/accessibility/rendered-content snapshot",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "computer_actions",
+      "locations": [],
+      "presence_patterns": [
+        "*computer*use*.jsonl",
+        "*browser*events*.jsonl",
+        "*cdp*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs concrete browser actions.",
+      "title": "Mouse/keyboard/click/upload/download/script events",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "browser_network",
+      "locations": [],
+      "presence_patterns": [
+        "*har*.json*",
+        "*proxy*.json*",
+        "*dns*.json*",
+        "*websocket*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Confirms remote bridges, external requests, downloads, and exfiltration.",
+      "title": "HAR/proxy/DNS/WebSocket evidence",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "approvals",
+      "locations": [],
+      "presence_patterns": [
+        "*approval*.json*",
+        "*consent*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether actions bypassed required approval.",
+      "title": "Human/tool approval events",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "screenshots",
+      "locations": [],
+      "presence_patterns": [
+        "*screenshot*.png",
+        "*screen*frame*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Corroborates what was visually presented to the agent/human.",
+      "title": "Screenshots or screen-frame hashes",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "browser_manipulation",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "navigation",
+        "dom",
+        "computer_actions"
+      ],
+      "title": "Untrusted browser content or control path influenced agent execution"
+    },
+    {
+      "id": "browser_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "computer_actions",
+        "browser_network"
+      ],
+      "title": "Browser action produced external/system effect"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.browser_computer_use",
+  "incident_type": "browser_computer_use",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI01",
+      "ASI05",
+      "ASI09"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "Browser / Computer-Use Agent Compromise"
+    ],
+    "incident_types": [
+      "browser_computer_use"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What untrusted content entered through the browser?",
+    "Was an action approved?",
+    "Was JavaScript/CDP execution allowed?",
+    "Did a WebSocket/browser bridge expose session control?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [],
+  "title": "Browser / Computer-Use Agent Compromise",
+  "vendor": "Generic"
+}

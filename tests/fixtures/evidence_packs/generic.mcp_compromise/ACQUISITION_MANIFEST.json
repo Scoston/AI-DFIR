@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_config",
+      "relative_path": "mcp_config.mcp.json",
+      "sha256": "0427b591fb8360e320791c8f1279bdaf0069e635ee78df43926bcc49463d5df7",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_schema",
+      "relative_path": "tool_schematool_schematool_schema.jsontool_schema",
+      "sha256": "ba7fc3e797127bb4327fcdec1b62e3b95fa1a74adb97d3f7a505f7dfe5d6b8be",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "server_artifact",
+      "relative_path": "server_artifactpackageserver_artifact.jsonserver_artifact",
+      "sha256": "0cae84bf8a54ee0697a9fcd463a83ad4dc1fc5041338cd89ea223d5cdaf45eb3",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_trace",
+      "relative_path": "tool_tracetool_calltool_trace.jsontool_trace",
+      "sha256": "59bebd6691c5f78f48a4148603716722e6bd8ba41cdaa2a098b7f776515bf55d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "credentials_network",
+      "relative_path": "credentials_networkoauthcredentials_network.jsoncredentials_network",
+      "sha256": "bea2a50cdb2ad5e89214a6d60d31d2720759b3acca8b7993c8ff299cf9feef3a",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.mcp_compromise",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

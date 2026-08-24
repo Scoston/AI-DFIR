@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "mcp_logmcpmcp_log.jsonl",
+    "analysismcpanalysis2026analysisforensicsanalysis.jsonanalysis",
+    "authoauthauth.jsonauth",
+    "appsmcpappsappapps.jsonapps"
+  ],
+  "pack_id": "runtime.mcp_2026_integrity",
+  "pack_source": "evidence_packs/runtime_v14/runtime_mcp_2026_integrity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "svidspiffesvididentitysvid.jsonsvid",
+    "bundletrustbundlebundlebundle.pem",
+    "collector_registrycollectorcollector_registryregistrycollector_registry.jsoncollector_registry"
+  ],
+  "pack_id": "enterprise.spiffe_service_identity",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_spiffe_service_identity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,140 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "approval_record",
+      "presence_patterns": [
+        "*approval*.json*",
+        "*trust*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes what content was actually approved.",
+      "title": "Original trust/approval record and approved content hash",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "current_resource",
+      "presence_patterns": [
+        "*mcp*.json*",
+        "*settings*.json*",
+        "*hook*",
+        "*config*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves the resource later loaded.",
+      "title": "Current config/tool/hook artifact",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "approval_integrity",
+      "presence_patterns": [
+        "*approval*integrity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects content or path target changes after approval.",
+      "title": "Approval-vs-current hash/realpath analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "git_history",
+      "presence_patterns": [
+        "*git*history*.txt",
+        "*git*diff*.txt"
+      ],
+      "priority": "conditional",
+      "rationale": "Attributes when change entered workspace.",
+      "title": "Change history between approval and execution",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "execution_trace",
+      "presence_patterns": [
+        "*process*.json*",
+        "*agentic_events*.jsonl",
+        "*runtime*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows modified approved resource executed.",
+      "title": "Load/execution trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "trust_toctou",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "approval_record",
+        "current_resource",
+        "approval_integrity"
+      ],
+      "title": "Approved resource changed without new approval"
+    },
+    {
+      "id": "trust_toctou_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "approval_integrity",
+        "execution_trace"
+      ],
+      "title": "Changed trusted resource executed"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.approval_trust_toctou",
+  "incident_type": "approval_trust_toctou",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Approval / Workspace Trust TOCTOU"
+    ],
+    "incident_types": [
+      "approval_trust_toctou"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Was approval bound to content hash or only path/name?",
+    "Did symlink/realpath target change?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/Mindgard/ai-ide-vuln-patterns",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "Approval / Workspace Trust TOCTOU",
+  "vendor": "Generic"
+}

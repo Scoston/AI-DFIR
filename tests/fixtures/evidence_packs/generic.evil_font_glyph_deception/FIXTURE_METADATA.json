@@ -1,0 +1,16 @@
+{
+  "created_files": [
+    "original_document.docx",
+    "font_analysisevil_fontfont_analysisanalysisfont_analysis.jsonfont_analysis",
+    "ooxml_font_partsdocxooxml_font_partsfontooxml_font_partsinventoryooxml_font_parts.jsonooxml_font_parts",
+    "representation_diffrepresentationrepresentation_diffdifferentialrepresentation_diff.jsonrepresentation_diff",
+    "independent_visiblevisible_textindependent_visible.txt",
+    "ai_ingestionmodel_inputai_ingestion.jsonai_ingestion",
+    "downstream_traceagentic_eventsdownstream_trace.jsonl"
+  ],
+  "pack_id": "generic.evil_font_glyph_deception",
+  "pack_source": "evidence_packs/representation_v12/generic_evil_font_glyph_deception.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

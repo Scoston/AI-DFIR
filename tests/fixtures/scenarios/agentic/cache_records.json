@@ -1,0 +1,31 @@
+{
+  "records": [
+    {
+      "cache_key": "K",
+      "cache_type": "prompt",
+      "content_sha256": "C",
+      "event": "write",
+      "source_hashes": [
+        "H1"
+      ],
+      "source_ids": [
+        "D"
+      ],
+      "tenant_id": "A"
+    },
+    {
+      "cache_key": "K",
+      "cache_type": "prompt",
+      "content_sha256": "BAD",
+      "event": "read",
+      "expected_content_sha256": "C",
+      "source_hashes": [
+        "H1"
+      ],
+      "source_ids": [
+        "D"
+      ],
+      "tenant_id": "B"
+    }
+  ]
+}

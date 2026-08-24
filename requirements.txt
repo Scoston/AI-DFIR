@@ -1,0 +1,13 @@
+# AI-DFIR v1.6 default feature set.
+# PyMuPDF is intentionally NOT installed by default because it is AGPL/commercial.
+cryptography>=42
+requests>=2.32
+PyJWT[crypto]>=2.9
+rfc8785>=0.1.4
+fonttools>=4.63
+numpy>=1.26
+pandas>=2.2
+scikit-learn>=1.5
+matplotlib>=3.8
+huggingface_hub>=0.28
+safetensors>=0.4.5

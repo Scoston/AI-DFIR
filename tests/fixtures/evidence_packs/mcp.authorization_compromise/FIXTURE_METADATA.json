@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "auth_flowmcpauth_flowauthauth_flow.jsonauth_flow",
+    "mcp_requestsmcpmcp_requests.jsonl",
+    "token_usetokentoken_use.jsontoken_use"
+  ],
+  "pack_id": "mcp.authorization_compromise",
+  "pack_source": "evidence_packs/advanced_v11/mcp_authorization_compromise.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

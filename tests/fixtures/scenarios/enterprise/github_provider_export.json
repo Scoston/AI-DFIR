@@ -1,0 +1,9 @@
+{
+  "events": [
+    {
+      "action": "copilot.synthetic"
+    }
+  ],
+  "provider": "github",
+  "synthetic": true
+}

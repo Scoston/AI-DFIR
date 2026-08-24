@@ -1,0 +1,146 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "session_file",
+      "presence_patterns": [
+        "*session*.jsonl",
+        "*history*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves state loaded by agent.",
+      "title": "Current resumable session/history file",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "signed_checkpoint",
+      "presence_patterns": [
+        "*session*checkpoint*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides integrity baseline.",
+      "title": "Prior signed session-state checkpoint",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "integrity_analysis",
+      "presence_patterns": [
+        "*session*state*integrity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects inserted/removed/replaced state.",
+      "title": "Line-level checkpoint comparison",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "resume_trace",
+      "presence_patterns": [
+        "*resume*.json*",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows suspect state was loaded.",
+      "title": "Agent resume/load trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "downstream_action",
+      "presence_patterns": [
+        "*tool*call*.json*",
+        "*target*audit*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Establishes impact.",
+      "title": "Action after resume",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "session_state_tampered",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "session_file",
+        "signed_checkpoint",
+        "integrity_analysis"
+      ],
+      "title": "Session history diverged from signed checkpoint"
+    },
+    {
+      "id": "tampered_state_used",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "integrity_analysis",
+        "resume_trace"
+      ],
+      "title": "Agent resumed from altered state"
+    },
+    {
+      "id": "tampered_state_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "resume_trace",
+        "downstream_action"
+      ],
+      "title": "Altered state led to action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.session_history_tampering",
+  "incident_type": "session_history_tampering",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Agent Session-History / Conversation-State Tampering"
+    ],
+    "incident_types": [
+      "session_history_tampering"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Were approval/authorization messages inserted after the checkpoint?",
+    "What was the first divergent record?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/Mindgard/ai-ide-vuln-patterns",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "Agent Session-History / Conversation-State Tampering",
+  "vendor": "Generic"
+}

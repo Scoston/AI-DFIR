@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "rawotelraw.jsonraw",
+    "normalizedotelnormalizedgenainormalizedingestnormalized.jsonnormalized",
+    "coveragecollectorcoveragehealthcoverage.jsoncoverage"
+  ],
+  "pack_id": "runtime.otel_genai",
+  "pack_source": "evidence_packs/runtime_v14/runtime_otel_genai.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

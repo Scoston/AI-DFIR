@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "identity_probespiffeidentity_probemtlsidentity_probe.jsonidentity_probe",
+    "trust_bundletrusttrust_bundlebundletrust_bundle.jsontrust_bundle"
+  ],
+  "pack_id": "production.workload_identity_failure",
+  "pack_source": "evidence_packs/production_v16/production_workload_identity_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

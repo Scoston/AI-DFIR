@@ -1,0 +1,141 @@
+{
+  "artifacts": [
+    {
+      "category": "multi_agent",
+      "id": "multi_agent_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*causal_analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Required to distinguish causal propagation from simultaneous correlated failures.",
+      "title": "End-to-end multi-agent causal trace"
+    },
+    {
+      "category": "architecture",
+      "id": "dependency_graph",
+      "presence_patterns": [
+        "*dependency*.json*",
+        "*topology*.json*",
+        "*authority*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines possible propagation paths.",
+      "title": "Agent/tool/service dependency topology"
+    },
+    {
+      "category": "runtime",
+      "id": "queues_retries",
+      "presence_patterns": [
+        "*queue*.json*",
+        "*retry*.json*",
+        "*task*.json*",
+        "*scheduler*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Explains amplification and repeated effects.",
+      "title": "Queue, retry, task and scheduler telemetry"
+    },
+    {
+      "category": "impact",
+      "id": "consequences",
+      "presence_patterns": [
+        "*open_consequences*.json*",
+        "*consequence*.json*",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Measures blast radius.",
+      "title": "Downstream consequence ledger"
+    },
+    {
+      "category": "containment",
+      "id": "containment_timeline",
+      "presence_patterns": [
+        "*containment_audit*.jsonl",
+        "*timeline*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows whether propagation continued after attempted containment.",
+      "title": "Containment/stop/cancel timeline"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "causal_cascade",
+      "logic": "all",
+      "requires": [
+        "multi_agent_trace",
+        "dependency_graph"
+      ],
+      "title": "A causal path exists across multiple components"
+    },
+    {
+      "id": "blast_radius_established",
+      "logic": "all",
+      "requires": [
+        "multi_agent_trace",
+        "consequences"
+      ],
+      "title": "Downstream affected systems/actions enumerated"
+    },
+    {
+      "id": "containment_effectiveness",
+      "logic": "all",
+      "requires": [
+        "containment_timeline",
+        "consequences"
+      ],
+      "title": "Propagation relative to containment is known"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi08",
+  "incident_type": "cascading_failures",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "AI Agent Tool Invocation",
+      "Deploy AI Agent",
+      "Impact"
+    ],
+    "owasp_agentic": "ASI08"
+  },
+  "match": {
+    "detection_families": [
+      "Cascading Failures"
+    ],
+    "incident_types": [
+      "cascading_failures"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes cascading failures?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI08 \u2014 Cascading Failures",
+  "vendor": "OWASP"
+}

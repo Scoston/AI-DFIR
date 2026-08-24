@@ -1,0 +1,22 @@
+{
+  "denies": [],
+  "grants": [
+    {
+      "expires_utc": "2026-08-25T00:00:00Z",
+      "grant_id": "G",
+      "not_before_utc": "2026-08-24T00:00:00Z",
+      "principal": "agent",
+      "scopes": [
+        "read"
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "id": "delete",
+      "requires_scopes": [
+        "write"
+      ]
+    }
+  ]
+}

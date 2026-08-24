@@ -1,0 +1,32 @@
+AI-DFIR v0.6 Acceptance Test
+
+v0.6:
+{
+  "components": {
+    "explicit_contain_anyway_override": "PASS",
+    "failover_guard": "PASS",
+    "freeze_tools_enforced": "PASS",
+    "open_consequence_blocks_release": "PASS",
+    "preservation_failure_aborts_by_default": "PASS",
+    "preservation_first_transaction": "PASS",
+    "signed_recovery_release": "PASS",
+    "tampered_control_fail_closed": "PASS"
+  },
+  "status": "PASS"
+}
+
+v0.5 compatibility:
+{
+  "components": {
+    "adapter_drift_detection": "PASS",
+    "alerts_and_metrics": "PASS",
+    "anti_replay": "PASS",
+    "healthy_signed_heartbeat": "PASS",
+    "model_content_tree_drift": "PASS",
+    "recovery_hysteresis": "PASS",
+    "stale_node_detection": "PASS"
+  },
+  "status": "PASS"
+}
+
+Synthetic validation only; production integrations require environment-specific testing.

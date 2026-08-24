@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "multi_agent_traceagentic_eventsmulti_agent_trace.jsonl",
+    "dependency_graphdependencydependency_graph.jsondependency_graph",
+    "queues_retriesqueuequeues_retries.jsonqueues_retries",
+    "consequencesopen_consequencesconsequences.jsonconsequences",
+    "containment_timelinecontainment_auditcontainment_timeline.jsonl"
+  ],
+  "pack_id": "owasp.agentic.asi08",
+  "pack_source": "evidence_packs/owasp_agentic/ASI08_cascading_failures.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

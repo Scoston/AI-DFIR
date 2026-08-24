@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "provider_exportproviderprovider_exportexportprovider_export.jsonprovider_export",
+    "normalizedprovidernormalizednormalizationnormalized.jsonnormalized",
+    "app_traceagentic_eventsapp_trace.jsonl"
+  ],
+  "pack_id": "runtime.provider_telemetry",
+  "pack_source": "evidence_packs/runtime_v14/runtime_provider_telemetry.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

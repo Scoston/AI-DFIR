@@ -1,0 +1,103 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "task_log",
+      "locations": [],
+      "presence_patterns": [
+        "*mcp*task*.jsonl",
+        "*task*events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs long-running work.",
+      "title": "MCP tasks/get/update/cancel/subscription lifecycle",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "mcp_requests",
+      "locations": [],
+      "presence_patterns": [
+        "*mcp*.jsonl",
+        "*gateway*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Links task to initiating call.",
+      "title": "Originating tools/call and method/name headers",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "containment",
+      "locations": [],
+      "presence_patterns": [
+        "*containment*.json*",
+        "*cancel*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Tests whether task survived containment.",
+      "title": "Cancel/containment records",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "mcp_task_abuse",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "task_log",
+        "mcp_requests",
+        "containment"
+      ],
+      "title": "MCP task continued or changed beyond approved lifecycle"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box",
+    "black-box"
+  ],
+  "id": "mcp.task_abuse",
+  "incident_type": "mcp_task_abuse",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI01",
+      "ASI02",
+      "ASI03",
+      "ASI04"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "MCP Tasks / Long-Running Work Abuse"
+    ],
+    "incident_types": [
+      "mcp_task_abuse"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Did a long-running task survive agent/session containment?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [
+    {
+      "type": "protocol",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "MCP Tasks / Long-Running Work Abuse",
+  "vendor": "Generic"
+}

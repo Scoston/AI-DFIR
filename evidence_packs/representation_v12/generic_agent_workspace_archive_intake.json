@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "original_archive",
+      "presence_patterns": [
+        "*.zip",
+        "*.tar",
+        "*.tgz",
+        "*.whl",
+        "*.jar",
+        "*.vsix"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves exact packaged workspace/extension content.",
+      "title": "Original archive/package",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "archive_analysis",
+      "presence_patterns": [
+        "*archive*intake*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects traversal, symlinks, nested archives, compression bombs and agent auto-load control files.",
+      "title": "Static archive metadata/path analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "post_extract_inventory",
+      "presence_patterns": [
+        "*workspace*inventory*.json*",
+        "*ide*surface*inventory*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Corroborates what was materialized into the agent workspace.",
+      "title": "Post-extraction workspace/control inventory",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "execution_trace",
+      "presence_patterns": [
+        "*process*.json*",
+        "*agentic_events*.jsonl",
+        "*runtime*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Determines whether packaged control surfaces were executed or loaded.",
+      "title": "Agent/IDE process or auto-load trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "archive_risk",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "original_archive",
+        "archive_analysis"
+      ],
+      "title": "Archive contains a boundary/auto-load risk"
+    },
+    {
+      "id": "archive_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "archive_analysis",
+        "execution_trace"
+      ],
+      "title": "Packaged control surface reached runtime"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.agent_workspace_archive_intake",
+  "incident_type": "agent_workspace_archive_intake",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI04",
+      "ASI05"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "archive intake",
+      "workspace package poisoning"
+    ],
+    "incident_types": [
+      "agent_workspace_archive_intake"
+    ]
+  },
+  "notes": [
+    "Archive member presence is not proof of execution; runtime impact requires execution evidence."
+  ],
+  "platform": "AI Coding Agent / IDE",
+  "questions": [
+    "Does the archive contain path traversal or symlink members?",
+    "Does it introduce agent/IDE auto-load files?",
+    "Did those files execute or only exist?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/Mindgard/ai-ide-vuln-patterns",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "Agent Workspace / Extension Archive Intake",
+  "vendor": "Generic"
+}

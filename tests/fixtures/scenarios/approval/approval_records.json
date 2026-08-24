@@ -1,0 +1,10 @@
+{
+  "records": [
+    {
+      "approval_scope": "path",
+      "approved_realpath": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json",
+      "approved_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "resource_path": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json"
+    }
+  ]
+}

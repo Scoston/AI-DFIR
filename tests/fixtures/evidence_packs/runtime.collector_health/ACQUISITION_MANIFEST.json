@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "expectations",
+      "relative_path": "expectationscollectorexpectationsexpectationsexpectations.jsonexpectations",
+      "sha256": "683da70e5dc54f715c42685df2b009a83a5967936b8e2ae12ea1eb9017418ac9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "observations",
+      "relative_path": "observationscollectorobservationsobservationsobservations.jsonobservations",
+      "sha256": "75cc76af59edb1219c23a8aa1f1e2a832aa007d714273e5eec107a6e1703dd8e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "analysis",
+      "relative_path": "analysiscollectoranalysishealthanalysis.jsonanalysis",
+      "sha256": "cf8844f78c8fadfa63b20871939be8c79b60277f2fe6dbd500d64b819d8d7c54",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.collector_health",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

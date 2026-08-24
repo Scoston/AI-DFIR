@@ -1,0 +1,7 @@
+{
+  "case_id": "SYN-microsoft.agent365.ai_threat_detection",
+  "schema": "ai-dfir/case/v1.6",
+  "synthetic": true,
+  "tenant_id": "SYNTHETIC",
+  "tool_version": "1.6"
+}

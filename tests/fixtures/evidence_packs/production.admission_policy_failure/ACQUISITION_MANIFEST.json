@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "admission",
+      "relative_path": "admissionadmissionadmissionpolicyadmission.jsonadmission",
+      "sha256": "4d006a3ff841dfd5a09e0fb1a78a1232fc26455e638c8972264568c637b61c6e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "release",
+      "relative_path": "releasereleasereleaseintegrityrelease.jsonrelease",
+      "sha256": "ba5d49b4b50d68c12eb0c2a791269ea1e1ceec17584dbaec61f687718d7fcd3e",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.admission_policy_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

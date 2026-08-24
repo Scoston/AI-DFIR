@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "workspace_inventory",
+      "relative_path": "workspace_inventoryideworkspace_inventorysurfaceworkspace_inventoryinventoryworkspace_inventory.jsonworkspace_inventory",
+      "sha256": "afef4583a45168ab739bb392fd89484a2357c43923c5624ed8ce23048b593806",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approved_inventory",
+      "relative_path": "approved_inventoryapprovedapproved_inventoryworkspaceapproved_inventory.jsonapproved_inventory",
+      "sha256": "aa2959b6afc98693811db8756221d0990372a2ccf04aa04226c3745dec0e3aed",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "surface_diff",
+      "relative_path": "surface_diffidesurface_diffsurfacesurface_diffdiffsurface_diff.jsonsurface_diff",
+      "sha256": "349bda3b93f51a56a33e82d02c7aeb2c93a0779dccaae952f7e356b4e72b4c30",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "process_trace",
+      "relative_path": "process_traceprocessprocess_trace.jsonprocess_trace",
+      "sha256": "9948f7328fe4b0dbf44005e9538e9923b16e74ab283df2e153038e2912943e62",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "filesystem_trace",
+      "relative_path": "filesystem_tracefilefilesystem_traceeventsfilesystem_trace.jsonfilesystem_trace",
+      "sha256": "9d1abc6bf750aaa24422973b9ddf315b8dfcd62a911f1860831eecde1808bf5d",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.ai_ide_autoload_surface",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

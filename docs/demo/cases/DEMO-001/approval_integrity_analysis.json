@@ -1,0 +1,27 @@
+{
+  "findings": [
+    {
+      "record": {
+        "approval_scope": "path",
+        "approved_realpath": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json",
+        "approved_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "current_realpath": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json",
+        "current_sha256": "47ad6ed65d6fc7b667885bebef6824b431e48867b6c3d3bb6194ef0ab31f1b36",
+        "resource_path": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json"
+      },
+      "severity": "critical",
+      "type": "approval_toctou_content_changed"
+    }
+  ],
+  "records": [
+    {
+      "approval_scope": "path",
+      "approved_realpath": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json",
+      "approved_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_realpath": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json",
+      "current_sha256": "47ad6ed65d6fc7b667885bebef6824b431e48867b6c3d3bb6194ef0ab31f1b36",
+      "resource_path": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/approval/trusted.json"
+    }
+  ],
+  "schema": "ai-dfir/approval-integrity-analysis/v1.2"
+}

@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "export",
+      "relative_path": "exportcaseexportexportexport.jsonexport",
+      "sha256": "e63caed3e6f815c423b40a77a9150f619f2e76fde29482252cf8c39326c224c8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "manifest",
+      "relative_path": "manifestCASE_EXPORT_MANIFESTmanifest.jsonmanifest",
+      "sha256": "b33b9d5f858dbdc1ed689cd09ce95652205710877efd0344b70f443d15dbc951",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "redaction",
+      "relative_path": "redactionredactionredactionmanifestredaction.jsonredaction",
+      "sha256": "c2fd6f6931f5bc976047bdd43099664cb49c229b7a58fe9541a516158ba3d6fe",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approval",
+      "relative_path": "approvalanalystapprovalauditapproval.jsonl",
+      "sha256": "ae3307337b262a4bfb7dea5ae0e8c687cc2b1dfef57977667a227ba102bdfc01",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.case_export",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

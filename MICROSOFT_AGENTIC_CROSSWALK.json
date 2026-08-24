@@ -1,0 +1,104 @@
+{
+  "alerts": {
+    "AI.AIModelScan_MalwareDetected": {
+      "rationale": "Malicious model artifacts are supply-chain evidence.",
+      "recommended": [
+        "owasp.agentic.asi04"
+      ]
+    },
+    "AI.Azure_ASCIISmuggling": {
+      "rationale": "Hidden instruction content is investigated as goal/context manipulation.",
+      "recommended": [
+        "owasp.agentic.asi01"
+      ]
+    },
+    "AI.Azure_AccessAnomaly": {
+      "rationale": "Identity/privilege changes may explain anomalous access.",
+      "recommended": [
+        "owasp.agentic.asi03"
+      ]
+    },
+    "AI.Azure_AccessFromAnonymizedIP": {
+      "rationale": "Identity and credential-use investigation is primary.",
+      "recommended": [
+        "owasp.agentic.asi03"
+      ]
+    },
+    "AI.Azure_AccessFromSuspiciousIP": {
+      "rationale": "Identity and credential-use investigation is primary.",
+      "recommended": [
+        "owasp.agentic.asi03"
+      ]
+    },
+    "AI.Azure_AccessFromSuspiciousUserAgent": {
+      "rationale": "Investigate identity, credential and effective authority.",
+      "recommended": [
+        "owasp.agentic.asi03"
+      ]
+    },
+    "AI.Azure_AnomalousOperation.InitialAccess": {
+      "rationale": "Service-principal initial-access anomalies require privilege and delegation analysis.",
+      "recommended": [
+        "owasp.agentic.asi03"
+      ]
+    },
+    "AI.Azure_AnomalousToolInvocation": {
+      "rationale": "Investigate tool misuse plus effective authority.",
+      "recommended": [
+        "owasp.agentic.asi02",
+        "owasp.agentic.asi03"
+      ]
+    },
+    "AI.Azure_CredentialTheftAttempt": {
+      "rationale": "Credential exposure/use requires identity and effective-authority investigation.",
+      "recommended": [
+        "owasp.agentic.asi03"
+      ]
+    },
+    "AI.Azure_DOWDuplicateRequests": {
+      "rationale": "Primarily consumption/cost abuse; no Agentic Top-10 condition should be inferred solely from this alert.",
+      "recommended": []
+    },
+    "AI.Azure_DOWVolumeAnomaly": {
+      "rationale": "Primarily consumption/cost abuse; no Agentic Top-10 condition should be inferred solely from this alert.",
+      "recommended": []
+    },
+    "AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt": {
+      "rationale": "Jailbreak/goal manipulation overlaps goal-hijack evidence requirements.",
+      "recommended": [
+        "owasp.agentic.asi01"
+      ]
+    },
+    "AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt": {
+      "rationale": "Detection without confirmed block requires downstream action analysis.",
+      "recommended": [
+        "owasp.agentic.asi01"
+      ]
+    },
+    "AI.Azure_LLMReconnaissance": {
+      "rationale": "Reconnaissance is mapped in ATLAS; an OWASP Agentic Top-10 category should not be inferred without agentic evidence.",
+      "recommended": []
+    },
+    "AI.Azure_MaliciousUrl.ModelResponse": {
+      "rationale": "Investigate context-driven goal change and whether a human trusted/rendered the malicious output.",
+      "recommended": [
+        "owasp.agentic.asi01",
+        "owasp.agentic.asi09"
+      ]
+    },
+    "AI.Azure_MaliciousUrl.UnknownSource": {
+      "rationale": "Source attribution should include indirect/context injection paths.",
+      "recommended": [
+        "owasp.agentic.asi01"
+      ]
+    },
+    "AI.Azure_MaliciousUrl.UserPrompt": {
+      "rationale": "Direct malicious prompt can redirect agent goals/actions.",
+      "recommended": [
+        "owasp.agentic.asi01"
+      ]
+    }
+  },
+  "rule": "These are investigation-pack recommendations from alert semantics, not proof an OWASP Agentic condition occurred.",
+  "schema": "ai-dfir/microsoft-agentic-crosswalk/v0.9"
+}

@@ -1,0 +1,1 @@
+{"event_id": "A1", "task_id": "T1", "context_id": "C1", "principal": "alice", "agent_id": "agent", "skill_id": "undeclared", "tenant": "TENANT-B", "authority_before": ["read"], "authority_after": ["read", "write"], "authority_elevation_approved": false, "agent_card_sha256": "wrong"}

@@ -1,0 +1,182 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "harness_inventory",
+      "locations": [],
+      "presence_patterns": [
+        "*harness*inventory*.json*",
+        "*harness*config*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes the exact scaffold executing around the model.",
+      "title": "Harness package/version/binary/container inventory",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "prompt_assembly",
+      "locations": [],
+      "presence_patterns": [
+        "*prompt*assembly*.json*",
+        "*context*priority*.json*",
+        "*system*instruction*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows how instructions and context were ordered/transformed.",
+      "title": "Prompt assembly/context priority rules",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "middleware_hooks",
+      "locations": [],
+      "presence_patterns": [
+        "*middleware*.json*",
+        "*hook*.json*",
+        "*lifecycle*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Hooks can rewrite prompts, approvals, tool requests, and stop behavior.",
+      "title": "Middleware/lifecycle hooks and hashes",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "tool_policy",
+      "locations": [],
+      "presence_patterns": [
+        "*tool*policy*.json*",
+        "*approval*policy*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines action authority enforced by the harness.",
+      "title": "Tool-selection and approval policy",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "memory_strategy",
+      "locations": [],
+      "presence_patterns": [
+        "*memory*strategy*.json*",
+        "*session*policy*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines what state can persist across turns/sessions.",
+      "title": "Memory/session persistence strategy",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "dynamic_components",
+      "locations": [],
+      "presence_patterns": [
+        "*plugin*.json*",
+        "*skill*.json*",
+        "*dynamic*import*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects code/capability loaded outside the approved harness.",
+      "title": "Plugins/skills/dynamic imports",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "lifecycle_log",
+      "locations": [],
+      "presence_patterns": [
+        "*harness*lifecycle*.jsonl",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows how the harness actually behaved.",
+      "title": "Harness lifecycle/model/tool/stop event log",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "harness_drift",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "harness_inventory",
+        "prompt_assembly",
+        "middleware_hooks",
+        "tool_policy",
+        "dynamic_components"
+      ],
+      "title": "Harness execution configuration materially changed"
+    },
+    {
+      "id": "harness_behavior_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "lifecycle_log",
+        "tool_policy"
+      ],
+      "title": "Harness change influenced runtime action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.agent_harness_compromise",
+  "incident_type": "agent_harness_compromise",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI01",
+      "ASI02",
+      "ASI04",
+      "ASI10"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "Agent Harness Compromise / Runtime Scaffolding Drift"
+    ],
+    "incident_types": [
+      "agent_harness_compromise"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Which harness version and configuration actually executed?",
+    "Did middleware or hooks transform instructions or approvals?",
+    "Did the agent continue after a stop/containment request?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [
+    {
+      "type": "current_docs",
+      "url": "https://developers.cloudflare.com/agents/harnesses/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "Agent Harness Compromise / Runtime Scaffolding Drift",
+  "vendor": "Generic"
+}

@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_log",
+      "relative_path": "mcp_logmcpmcp_log.jsonl",
+      "sha256": "f13701da8a690533b16d53e5c6d90392b72cc7b6e42189360c3e455e2ac12e21",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "analysis",
+      "relative_path": "analysismcpanalysis2026analysisforensicsanalysis.jsonanalysis",
+      "sha256": "cf8844f78c8fadfa63b20871939be8c79b60277f2fe6dbd500d64b819d8d7c54",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "auth",
+      "relative_path": "authoauthauth.jsonauth",
+      "sha256": "889d357e8bfb0fa74f6940d2417e33f8712b4cca8b3d00de1d7034d76c08ca76",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "apps",
+      "relative_path": "appsmcpappsappapps.jsonapps",
+      "sha256": "40497c57585407a3d6b3c1304bfc67c562b96a44990b1fcac3ba88280d6bc225",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.mcp_2026_integrity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

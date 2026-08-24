@@ -1,0 +1,88 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "events",
+      "presence_patterns": [
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Evidence graph source.",
+      "title": "Normalized source events",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "graph",
+      "presence_patterns": [
+        "*typed*causal*graph*.json*",
+        "*causal*graph*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Separates causality from correlation.",
+      "title": "Typed causal graph",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "claims",
+      "presence_patterns": [
+        "*causal*claims*.json*",
+        "*conclusions*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Specifies propositions under review.",
+      "title": "Conclusion/claim definitions",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "causal",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "events",
+        "graph"
+      ],
+      "title": "Causal proposition supported by evidence path"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.causal_graph",
+  "incident_type": "causal_evidence_gap",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Typed Causal Evidence Gap / Contradiction"
+    ],
+    "incident_types": [
+      "causal_evidence_gap"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Which exact evidence supports input\u2192action causality?",
+    "Are any conclusions supported only by correlation?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Typed Causal Evidence Gap / Contradiction",
+  "vendor": "Generic"
+}

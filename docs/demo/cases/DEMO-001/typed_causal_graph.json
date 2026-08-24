@@ -1,0 +1,126 @@
+{
+  "claims": [
+    {
+      "claim_id": "chain",
+      "path_count": 1,
+      "paths": [
+        [
+          {
+            "confidence": 0.8,
+            "evidence_ids": [
+              "S",
+              "M"
+            ],
+            "origin": "normalized_parent",
+            "source": "S",
+            "target": "M",
+            "type": "caused_by"
+          },
+          {
+            "confidence": 0.8,
+            "evidence_ids": [
+              "M",
+              "T"
+            ],
+            "origin": "normalized_parent",
+            "source": "M",
+            "target": "T",
+            "type": "caused_by"
+          },
+          {
+            "confidence": 0.8,
+            "evidence_ids": [
+              "T",
+              "C"
+            ],
+            "origin": "normalized_parent",
+            "source": "T",
+            "target": "C",
+            "type": "caused_by"
+          }
+        ]
+      ],
+      "source": "S",
+      "supported": true,
+      "target": "C"
+    }
+  ],
+  "edges": [
+    {
+      "confidence": 0.8,
+      "evidence_ids": [
+        "S",
+        "M"
+      ],
+      "origin": "normalized_parent",
+      "source": "S",
+      "target": "M",
+      "type": "caused_by"
+    },
+    {
+      "confidence": 0.8,
+      "evidence_ids": [
+        "M",
+        "T"
+      ],
+      "origin": "normalized_parent",
+      "source": "M",
+      "target": "T",
+      "type": "caused_by"
+    },
+    {
+      "confidence": 0.8,
+      "evidence_ids": [
+        "T",
+        "C"
+      ],
+      "origin": "normalized_parent",
+      "source": "T",
+      "target": "C",
+      "type": "caused_by"
+    }
+  ],
+  "findings": [],
+  "nodes": {
+    "C": {
+      "actor_id": "mail",
+      "event_id": "C",
+      "event_type": "consequence",
+      "parent_event_id": "T",
+      "timestamp_utc": "2026-08-24T16:00:05Z"
+    },
+    "M": {
+      "actor_id": "agent",
+      "event_id": "M",
+      "event_type": "memory_write",
+      "metadata": {
+        "expires_utc": "2026-08-24T15:30:00Z",
+        "memory_id": "MEM",
+        "version": 2
+      },
+      "parent_event_id": "S",
+      "tenant_id": "TENANT-A",
+      "timestamp_utc": "2026-08-24T15:10:00Z"
+    },
+    "S": {
+      "actor_id": "rag",
+      "content_sha256": "bad",
+      "event_id": "S",
+      "event_type": "retrieval_result",
+      "metadata": {
+        "untrusted": true
+      },
+      "session_id": "A"
+    },
+    "T": {
+      "actor_id": "agent",
+      "event_id": "T",
+      "event_type": "tool_call",
+      "parent_event_id": "M",
+      "tenant_id": "TENANT-B",
+      "timestamp_utc": "2026-08-24T16:00:00Z",
+      "tool_id": "send_email"
+    }
+  },
+  "schema": "ai-dfir/typed-causal-graph/v1.4"
+}

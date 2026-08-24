@@ -1,0 +1,88 @@
+{
+  "findings": [
+    {
+      "event_id": "M1",
+      "memory_id": "MEM",
+      "severity": "critical",
+      "type": "memory_untrusted_writer",
+      "writer": "untrusted"
+    },
+    {
+      "event_id": "M1",
+      "memory_id": "MEM",
+      "severity": "high",
+      "type": "memory_missing_source_provenance"
+    },
+    {
+      "memory_id": "MEM",
+      "reader_tenant": "B",
+      "record_tenant": "A",
+      "severity": "critical",
+      "type": "memory_cross_tenant_read"
+    },
+    {
+      "event_id": "M2",
+      "memory_id": "MEM",
+      "severity": "critical",
+      "type": "memory_read_after_expiry"
+    },
+    {
+      "event_id": "M2",
+      "memory_id": "MEM",
+      "reader_tenant": "B",
+      "record_tenant": "A",
+      "severity": "critical",
+      "type": "memory_cross_tenant_read"
+    }
+  ],
+  "history": [
+    {
+      "content_sha256": "A",
+      "created_utc": "2026-08-24T15:00:00Z",
+      "embedding_model": null,
+      "embedding_version": null,
+      "event_id": "M1",
+      "expires_utc": "2026-08-24T15:30:00Z",
+      "memory_id": "MEM",
+      "operation": "write",
+      "source_chunk_sha256": null,
+      "source_event_id": null,
+      "tenant_id": "A",
+      "tombstoned_utc": null,
+      "vector_id": null,
+      "version": 2,
+      "writer_id": "untrusted"
+    },
+    {
+      "content_sha256": "A",
+      "event_id": "M2",
+      "memory_id": "MEM",
+      "operation": "read",
+      "tenant_id": "B",
+      "version": 2
+    }
+  ],
+  "schema": "ai-dfir/memory-integrity/v1.4",
+  "snapshot": {
+    "record_count": 1,
+    "records": [
+      {
+        "content_sha256": "A",
+        "created_utc": "2026-08-24T15:00:00Z",
+        "embedding_model": null,
+        "embedding_version": null,
+        "expires_utc": "2026-08-24T15:30:00Z",
+        "memory_id": "MEM",
+        "source_chunk_sha256": null,
+        "source_event_id": null,
+        "tenant_id": "A",
+        "tombstoned_utc": null,
+        "vector_id": null,
+        "version": 2,
+        "writer_id": "untrusted"
+      }
+    ],
+    "schema": "ai-dfir/memory-snapshot/v1.4",
+    "snapshot_sha256": "fcf58cb3072f2ebe8afe37a29ac1086c709daba4d68e7a7b5107e1b12849b371"
+  }
+}

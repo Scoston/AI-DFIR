@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "kms_probe",
+      "relative_path": "kms_probekmskms_probeprobekms_probe.jsonkms_probe",
+      "sha256": "9dfa1feea3311bb886353bde91c6b3c7ed3e3c00c5792c0879e1e918850bbb41",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "envelope",
+      "relative_path": "envelopeencryptedenvelopeobjectenvelope.jsonenvelope",
+      "sha256": "215e85107f225b9d47af5e7551fb84fff52b58632c2a03bf732f5bc5eef00705",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "key_audit",
+      "relative_path": "key_auditkmskey_auditauditkey_audit.jsonkey_audit",
+      "sha256": "859e3a38ff0b5fe10a45b8574bfa9f535546b378a6ad8b837b4ae9b3b6897098",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.kms_envelope_integrity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

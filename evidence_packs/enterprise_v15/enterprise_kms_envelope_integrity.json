@@ -1,0 +1,91 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "kms_probe",
+      "presence_patterns": [
+        "*kms*probe*.json*",
+        "*production*readiness*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves enterprise key availability/trust.",
+      "title": "KMS/HSM key-state probe",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "envelope",
+      "presence_patterns": [
+        "*encrypted*object*.json*",
+        "*envelope*metadata*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds evidence to KEK/DEK lineage.",
+      "title": "Evidence envelope header/wrapped DEK metadata",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "key_audit",
+      "presence_patterns": [
+        "*kms*audit*.json*",
+        "*key*rotation*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows key lifecycle.",
+      "title": "KMS key audit/rotation records",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "kms_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "kms_probe",
+        "envelope"
+      ],
+      "title": "Evidence key-management integrity failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.kms_envelope_integrity",
+  "incident_type": "kms_envelope_integrity",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Evidence KMS / Envelope Encryption Failure"
+    ],
+    "incident_types": [
+      "kms_envelope_integrity"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Which KEK protected the object?",
+    "Was the key enabled and approved at evidence time?",
+    "Was plaintext DEK ever persisted?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Evidence KMS / Envelope Encryption Failure",
+  "vendor": "Generic"
+}

@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "defender_alert",
+      "relative_path": "defender_alertAlertInfodefender_alert.jsondefender_alert",
+      "sha256": "d47eba7ced066c9bafffbf342f87ed6664ea3c0202e95f56acb1744c929f0d5a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "boundary_payload",
+      "relative_path": "boundary_payloadprompt_evidenceboundary_payload.jsonboundary_payload",
+      "sha256": "f579b7be1a419b4666db7037118bdf89c9161e2d84a5cf7fee680a2e94780c0a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "process_tree",
+      "relative_path": "process_treeDeviceProcessEventsprocess_tree.jsonprocess_tree",
+      "sha256": "899a69757dce18c19cc2003791b580a6cffc8eed28e8a61703ba9744d6f6f5f2",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "file_network",
+      "relative_path": "file_networkDeviceFileEventsfile_network.jsonfile_network",
+      "sha256": "7c83fad5ee3927c7ca34bbe8849f64445774a34ee8887fe18efd8afbafb07a47",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_native_history",
+      "relative_path": "agent_native_historyhistory.jsonl",
+      "sha256": "21bad5dc8c87c2948b7cedf277d77a315bd98cead47ed75458fc896595ea2cc0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_discovery",
+      "relative_path": "mcp_discoverymcpmcp_discovery.jsonmcp_discovery",
+      "sha256": "e0d6525d9f909cae29f2f736acf10eef71b323f6b74044cc855fb927772978e5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-microsoft.defender_endpoint.suspicious_ai_prompt_injection",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

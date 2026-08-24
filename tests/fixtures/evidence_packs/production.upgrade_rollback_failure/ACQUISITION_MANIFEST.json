@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "upgrade",
+      "relative_path": "upgradeupgradeupgradeassuranceupgrade.jsonupgrade",
+      "sha256": "297f4483cb1b90eac01aafa944e2bf6c6b6729e8af41759d4cc07e2a71bf0e5b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "migration",
+      "relative_path": "migrationschemamigrationmigrationmigration.jsonmigration",
+      "sha256": "41a40bddc0340357189548629051e712b9df60c2c6d830d432fba9eace9d17e9",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.upgrade_rollback_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

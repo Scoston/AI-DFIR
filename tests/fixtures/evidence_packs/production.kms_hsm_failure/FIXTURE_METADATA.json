@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "kms_probekmskms_probeprobekms_probe.jsonkms_probe",
+    "rotationkeyrotationrotationrotation.jsonrotation"
+  ],
+  "pack_id": "production.kms_hsm_failure",
+  "pack_source": "evidence_packs/production_v16/production_kms_hsm_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

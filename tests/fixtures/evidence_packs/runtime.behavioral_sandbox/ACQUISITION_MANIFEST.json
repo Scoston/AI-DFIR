@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "plan",
+      "relative_path": "planbehavioralplansandboxplanplanplan.jsonplan",
+      "sha256": "c9559bf1ca7455a8159380060c50c709714d5eae49654c83ff0c925f2d7740b2",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "declared",
+      "relative_path": "declareddeclareddeclaredcapabilitiesdeclared.jsondeclared",
+      "sha256": "60e17e720a5b1c04b5ecc855301ba1ec0fc8d6e0d41e48a9cdda9cc6a9ca4532",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "telemetry",
+      "relative_path": "telemetrysandboxtelemetrytelemetrytelemetry.jsontelemetry",
+      "sha256": "461e407fdbce7ff3914c132b74de6ff0260b6037a1fb7a5e18fcf3ec287a5cd1",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "analysis",
+      "relative_path": "analysisbehavioralanalysissandboxanalysisanalysisanalysis.jsonanalysis",
+      "sha256": "cf8844f78c8fadfa63b20871939be8c79b60277f2fe6dbd500d64b819d8d7c54",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.behavioral_sandbox",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

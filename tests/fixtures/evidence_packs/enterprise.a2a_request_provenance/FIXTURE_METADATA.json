@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "envelopea2aenveloperequestenvelopeprovenanceenvelope.jsonenvelope",
+    "agent_cardagentagent_cardcardagent_cardverificationagent_card.jsonagent_card",
+    "transportoidctransportprincipaltransport.jsontransport",
+    "taska2atask.jsonl"
+  ],
+  "pack_id": "enterprise.a2a_request_provenance",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_a2a_request_provenance.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

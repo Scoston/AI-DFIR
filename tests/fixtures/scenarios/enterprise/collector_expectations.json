@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "expected_events": 100,
+      "mandatory": true,
+      "source_id": "provider"
+    }
+  ]
+}

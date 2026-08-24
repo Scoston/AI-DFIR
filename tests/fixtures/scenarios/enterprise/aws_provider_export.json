@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "eventID": "aws1",
+      "eventName": "InvokeModel"
+    }
+  ],
+  "provider": "aws",
+  "synthetic": true
+}

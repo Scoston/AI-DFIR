@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "mcp_config.mcp.json",
+    "tool_schematool_schematool_schema.jsontool_schema",
+    "server_artifactpackageserver_artifact.jsonserver_artifact",
+    "tool_tracetool_calltool_trace.jsontool_trace",
+    "credentials_networkoauthcredentials_network.jsoncredentials_network"
+  ],
+  "pack_id": "generic.mcp_compromise",
+  "pack_source": "evidence_packs/generic/mcp_compromise.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

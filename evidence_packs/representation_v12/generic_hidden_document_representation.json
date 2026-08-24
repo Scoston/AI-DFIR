@@ -1,0 +1,147 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "original_document",
+      "presence_patterns": [
+        "*.pdf",
+        "*.docx"
+      ],
+      "priority": "mandatory",
+      "rationale": "Source artifact.",
+      "title": "Original PDF/DOCX",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "structural_scan",
+      "presence_patterns": [
+        "*document*representation*.json*",
+        "*hidden*text*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects invisible render mode, hidden runs, off-page/hidden layers or dual-layer structures.",
+      "title": "PDF/DOCX structural hidden-text scan",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "representation_diff",
+      "presence_patterns": [
+        "*representation*differential*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Method-agnostic proof of representation divergence.",
+      "title": "Rendered-visible vs extracted-machine comparison",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "visible_representation",
+      "presence_patterns": [
+        "*visible_text*.txt",
+        "*rendered*image*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves human-visible representation.",
+      "title": "Independent visible rendering text/image manifest",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "ingestion_trace",
+      "presence_patterns": [
+        "*ingestion*.json*",
+        "*model_input*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows machine text reached AI.",
+      "title": "AI ingestion trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "hidden_representation",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "original_document",
+        "structural_scan",
+        "representation_diff",
+        "visible_representation"
+      ],
+      "title": "Human/machine document representations materially diverge"
+    },
+    {
+      "id": "hidden_content_ingested",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "representation_diff",
+        "ingestion_trace"
+      ],
+      "title": "Hidden/machine-only content reached AI"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.hidden_document_representation",
+  "incident_type": "hidden_document_representation",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_llm": "LLM01 Prompt Injection"
+  },
+  "match": {
+    "detection_families": [
+      "Hidden / Dual-Layer Document Prompt Injection"
+    ],
+    "incident_types": [
+      "hidden_document_representation"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Is the page image-dominant with a separate text layer?",
+    "Is PDF render mode 3 present?",
+    "Does OCR/vision-derived text disagree with extraction?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/tobycmurray/phantom-lint",
+      "verified": "2026-08-24"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/wppoland/hidden-text-detector",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "Hidden / Dual-Layer Document Prompt Injection",
+  "vendor": "Generic"
+}

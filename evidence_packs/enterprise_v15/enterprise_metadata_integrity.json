@@ -1,0 +1,93 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "db_probe",
+      "presence_patterns": [
+        "*production*readiness*.json*",
+        "*metadata*probe*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes durable metadata schema and tenant isolation.",
+      "title": "PostgreSQL schema/RLS probe",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "audit",
+      "presence_patterns": [
+        "*analyst*audit*.jsonl",
+        "*platform*audit*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes metadata changes.",
+      "title": "Signed analyst/platform audit events",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "case_meta",
+      "presence_patterns": [
+        "*case*metadata*.json*",
+        "*metadata*export*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows affected case/tenant state.",
+      "title": "Case/tenant metadata export",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "metadata_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "db_probe",
+        "audit",
+        "case_meta"
+      ],
+      "title": "Metadata integrity or tenant isolation failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.metadata_integrity",
+  "incident_type": "metadata_integrity",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Durable Case Metadata / Tenant Isolation Failure"
+    ],
+    "incident_types": [
+      "metadata_integrity"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Was RLS active?",
+    "Did any cross-tenant query or write occur?",
+    "Was metadata transactionally durable?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Durable Case Metadata / Tenant Isolation Failure",
+  "vendor": "Generic"
+}

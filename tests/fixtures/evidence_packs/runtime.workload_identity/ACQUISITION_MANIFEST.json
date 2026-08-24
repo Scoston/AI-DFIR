@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "identity_events",
+      "relative_path": "identity_eventsworkloadidentity_eventsidentityidentity_events.jsonidentity_events",
+      "sha256": "17229ea44f15e92d9bafffe33f7992c6ce58424597ed592abdd75c0bb101ab0b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "attestation",
+      "relative_path": "attestationattestationattestation.jsonattestation",
+      "sha256": "78e0bc533b7af6d55dfc38959cff497d31a991d3edfaed3d045083ae9e4d97c9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "process",
+      "relative_path": "processprocessprocess.jsonprocess",
+      "sha256": "34892637d1704727e3fbe38e37dabcb5af8a2d96d3d1b4042ad3e5767ed86ae5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "transport",
+      "relative_path": "transportmtlstransport.jsontransport",
+      "sha256": "c7bce3c2ec744bcce8703e649b8b741373a0e5afaacd574445291aaab01c766b",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.workload_identity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

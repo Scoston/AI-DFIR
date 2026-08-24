@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "kms_probe",
+      "presence_patterns": [
+        "*kms*probe*.json*",
+        "*key*management*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows key state, rotation and provider.",
+      "title": "KMS/HSM key probe",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "rotation",
+      "presence_patterns": [
+        "*key*rotation*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows rotation/recovery behavior.",
+      "title": "Key rotation drill",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "kms_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "kms_probe"
+      ],
+      "title": "KMS/HSM assurance failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.kms_hsm_failure",
+  "incident_type": "kms_hsm_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "KMS/HSM Evidence-Key Assurance Failure"
+    ],
+    "incident_types": [
+      "kms_hsm_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Are persistent root keys outside the application?",
+    "Is rotation tested?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "KMS/HSM Evidence-Key Assurance Failure",
+  "vendor": "AI-DFIR"
+}

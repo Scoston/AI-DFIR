@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "approval_recordapprovalapproval_record.jsonapproval_record",
+    "current_resourcemcpcurrent_resource.jsoncurrent_resource",
+    "approval_integrityapprovalapproval_integrityintegrityapproval_integrity.jsonapproval_integrity",
+    "git_historygitgit_historyhistorygit_history.txt",
+    "execution_traceprocessexecution_trace.jsonexecution_trace"
+  ],
+  "pack_id": "generic.approval_trust_toctou",
+  "pack_source": "evidence_packs/representation_v12/generic_approval_trust_toctou.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

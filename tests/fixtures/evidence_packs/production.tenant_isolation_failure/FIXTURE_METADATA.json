@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "rlstenantrlsisolationrls.jsonrls",
+    "security_assessmentsecuritysecurity_assessmentassurancesecurity_assessment.jsonsecurity_assessment"
+  ],
+  "pack_id": "production.tenant_isolation_failure",
+  "pack_source": "evidence_packs/production_v16/production_tenant_isolation_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "object_probeobjectobject_probestoreobject_probeprobeobject_probe.jsonobject_probe",
+    "object_indexobjectobject_indexindexobject_index.jsonobject_index",
+    "storage_audits3storage_auditauditstorage_audit.jsonstorage_audit"
+  ],
+  "pack_id": "enterprise.object_storage_integrity",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_object_storage_integrity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

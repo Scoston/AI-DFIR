@@ -1,0 +1,62 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "original_document",
+      "relative_path": "original_document.docx",
+      "sha256": "6cec096ee876e126de5ef9d8eec2f2d037d425f610d1ebc920bdba64c45abc1a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "font_analysis",
+      "relative_path": "font_analysisevil_fontfont_analysisanalysisfont_analysis.jsonfont_analysis",
+      "sha256": "01cdb7bc4981b66fb850ab67616559daee55296393a9e2f99135e02124187b0a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "ooxml_font_parts",
+      "relative_path": "ooxml_font_partsdocxooxml_font_partsfontooxml_font_partsinventoryooxml_font_parts.jsonooxml_font_parts",
+      "sha256": "f64dac5d3c985bff105db23d5022f0f4bd9cddb8303ef605009083f6b8eb740f",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "representation_diff",
+      "relative_path": "representation_diffrepresentationrepresentation_diffdifferentialrepresentation_diff.jsonrepresentation_diff",
+      "sha256": "cae071e67225cff086740cb06c4f0dcca6f3112720be59175060e0763808b722",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "independent_visible",
+      "relative_path": "independent_visiblevisible_textindependent_visible.txt",
+      "sha256": "98da05cfe11693ba1f34627d8923b3d60ed37f8cc85692a5b1d7a7c6708d683b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "ai_ingestion",
+      "relative_path": "ai_ingestionmodel_inputai_ingestion.jsonai_ingestion",
+      "sha256": "e9dd598f798fcb206f0fe132367227a92a4d3a8bcec20c43f5c70fa04e06a338",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "downstream_trace",
+      "relative_path": "downstream_traceagentic_eventsdownstream_trace.jsonl",
+      "sha256": "3c896f502d151b78c261bf3631f90e56e8943a8364a95f9aba649e5ed7d824a5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.evil_font_glyph_deception",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

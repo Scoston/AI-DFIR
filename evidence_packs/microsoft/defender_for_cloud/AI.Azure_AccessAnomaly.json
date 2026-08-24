@@ -1,0 +1,217 @@
+{
+  "artifacts": [
+    {
+      "category": "detection",
+      "collection_guidance": "Export the alert and parent incident from Microsoft Defender; preserve the native AlertId/IncidentId.",
+      "id": "defender_alert",
+      "presence_patterns": [
+        "*AlertInfo*.json*",
+        "*alert*.json",
+        "*incident*.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves the alert identifier, severity, detection source, timestamps, entities and correlation context.",
+      "title": "Defender alert record"
+    },
+    {
+      "category": "detection",
+      "collection_guidance": "Export matching AlertEvidence rows for the alert time window.",
+      "id": "alert_evidence",
+      "presence_patterns": [
+        "*AlertEvidence*.json*",
+        "*alert_evidence*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Identifies users, agents, tools, URLs, IPs, files and resources associated with the alert.",
+      "title": "AlertEvidence entities"
+    },
+    {
+      "category": "agent",
+      "condition": "Agent 365-managed or M365-connected agent.",
+      "id": "cloud_app_events",
+      "presence_patterns": [
+        "*CloudAppEvents*.json*",
+        "*cloud_app_events*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Reconstructs agent actions, tool invocations and data access when Agent 365 observability is available.",
+      "title": "CloudAppEvents / agent observability"
+    },
+    {
+      "category": "agent",
+      "condition": "Agent/agentic application involved.",
+      "id": "agents_info",
+      "presence_patterns": [
+        "*AgentsInfo*.json*",
+        "*agents_info*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Establishes agent identity, owner, platform, knowledge sources, tools and security-relevant configuration.",
+      "title": "AgentsInfo inventory/configuration"
+    },
+    {
+      "category": "protection",
+      "condition": "Real-time protection or Prompt Shields behavior exists.",
+      "id": "behavior_info",
+      "presence_patterns": [
+        "*BehaviorInfo*.json*",
+        "*behavior_info*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows Defender runtime audit/block decisions and their reason.",
+      "title": "BehaviorInfo protection events"
+    },
+    {
+      "category": "protection",
+      "condition": "BehaviorInfo event exists.",
+      "id": "behavior_entities",
+      "presence_patterns": [
+        "*BehaviorEntities*.json*",
+        "*behavior_entities*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Links protection behaviors to agents, users, tools and resources.",
+      "title": "BehaviorEntities related entities"
+    },
+    {
+      "category": "identity",
+      "id": "identity",
+      "presence_patterns": [
+        "*signin*.json*",
+        "*sign_in*.json*",
+        "*Entra*.json*",
+        "*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes the principal, authentication method, IP, client application and service/workload identity used.",
+      "title": "Identity/authentication telemetry"
+    },
+    {
+      "category": "cloud",
+      "condition": "Azure resource or deployment configuration may have changed.",
+      "id": "azure_activity",
+      "presence_patterns": [
+        "*AzureActivity*.json*",
+        "*azure_activity*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows deployment, role, resource and service-principal control-plane changes.",
+      "title": "Azure control-plane activity"
+    },
+    {
+      "category": "interaction",
+      "collection_guidance": "Preserve full content where authorized; otherwise preserve provider event IDs and cryptographic hashes plus a protected copy.",
+      "id": "request_response",
+      "presence_patterns": [
+        "*request_response*.json*",
+        "*RequestResponse*.json*",
+        "*prompt*.json*",
+        "*conversation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides the content and execution context necessary to determine what entered and left the model boundary.",
+      "title": "AI request/response evidence"
+    },
+    {
+      "category": "network",
+      "condition": "Impact, exfiltration, URL, suspicious-IP, or tool-network activity is in scope.",
+      "id": "network",
+      "presence_patterns": [
+        "*proxy*.json*",
+        "*dns*.json*",
+        "*network*.json*",
+        "*DeviceNetworkEvents*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Establishes external destinations and whether suspected exfiltration or phishing access actually occurred.",
+      "title": "Network/proxy/DNS telemetry"
+    },
+    {
+      "category": "baseline",
+      "id": "historical_access",
+      "presence_patterns": [
+        "*access_baseline*.json*",
+        "*historical_access*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Provides the expected IP, user-agent, authentication and principal patterns.",
+      "title": "Historical access baseline"
+    },
+    {
+      "category": "network",
+      "id": "current_access",
+      "presence_patterns": [
+        "*current_access*.json*",
+        "*request_sequence*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows the exact attributes that deviated from the established baseline.",
+      "title": "Anomalous request sequence"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "event_confirmed",
+      "logic": "all",
+      "requires": [
+        "defender_alert",
+        "alert_evidence",
+        "request_response"
+      ],
+      "title": "Alert event independently reconstructable"
+    },
+    {
+      "allow_aliases": {
+        "target_system_or_network": [
+          "network",
+          "target_system"
+        ]
+      },
+      "id": "impact_confirmed",
+      "logic": "all",
+      "requires": [
+        "request_response",
+        "target_system_or_network"
+      ],
+      "title": "Downstream impact confirmed"
+    }
+  ],
+  "description": "AI-resource access attributes deviated from historical patterns.",
+  "forensic_modes": [
+    "gray-box",
+    "black-box"
+  ],
+  "id": "microsoft.AI.Azure_AccessAnomaly",
+  "incident_type": "suspicious_access",
+  "match": {
+    "alert_ids": [
+      "AI.Azure_AccessAnomaly"
+    ],
+    "alert_titles": [
+      "Access anomaly in AI resource"
+    ]
+  },
+  "notes": [
+    "Missing provider content must be reported as an evidence gap, not interpreted as benign activity."
+  ],
+  "platform": "Microsoft Defender for Cloud AI workloads",
+  "questions": [
+    "What principal initiated or received the AI interaction?",
+    "What exact content entered the model or agent context?",
+    "Did the alerting control audit, detect, or block the activity?",
+    "What model/agent/tool action followed the suspicious event?",
+    "Did any consequence escape the AI boundary?",
+    "What independent identity, endpoint, network, cloud, or target-system evidence corroborates impact?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [
+    {
+      "type": "vendor_documentation",
+      "url": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/alerts-ai-workloads",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "Access anomaly in AI resource",
+  "vendor": "Microsoft",
+  "vendor_severity": "Medium"
+}

@@ -1,0 +1,177 @@
+{
+  "file_count": 34,
+  "files": [
+    {
+      "path": "CHANGELOG_V0.4.md",
+      "sha256": "df2c2fa4d5bbf1c38d8a7e648d27b75746def4831b340a36dc169c791f8841aa",
+      "size": 930
+    },
+    {
+      "path": "LIVE_ATTESTATION_RUNBOOK.md",
+      "sha256": "abf24dca9413756f41b954cb6f7fccf3bb8c76a13fad7fc5bae46a42d7f4ff35",
+      "size": 5853
+    },
+    {
+      "path": "README.md",
+      "sha256": "4063259ea32064f054cc12a1abcd9204a0302832171150b11e7beca0d1315c5b",
+      "size": 14281
+    },
+    {
+      "path": "SELFTEST_RESULT.txt",
+      "sha256": "ab7b04eefd6c9142bad5d72350b995829d60057a6132b1d1ecb7e6f6fd4fde80",
+      "size": 604
+    },
+    {
+      "path": "V0.3_SELFTEST_RESULT.txt",
+      "sha256": "e6839efdd5399d78370118e92628b5d592520d247e72207502e8211daae83042",
+      "size": 619
+    },
+    {
+      "path": "V0.4_RUNBOOK.md",
+      "sha256": "d46ead7b16705f3555874d8422efd0937211d939e639f7064288957453768033",
+      "size": 11848
+    },
+    {
+      "path": "V0.4_SELFTEST_RESULT.txt",
+      "sha256": "8cea036b24b5c6386214a9cacf556d1a2a0e0061cdb9caab31af42f811b2a03a",
+      "size": 1183
+    },
+    {
+      "path": "activation_fingerprint.py",
+      "sha256": "29a687d29c414a6123f419d9bce5e77f85d9ef83792299130df16edd615bfa52",
+      "size": 28557
+    },
+    {
+      "path": "agent_trace.py",
+      "sha256": "50f2608302b9eeee791bba005ae8fdc9e6c2d683f2326f5523861c40d337df9c",
+      "size": 2559
+    },
+    {
+      "path": "baseline_engine.py",
+      "sha256": "fd3059b18489fc53b2681b86fa43247bc7b84a46580399fa673ead334652c0c8",
+      "size": 11750
+    },
+    {
+      "path": "case_init.py",
+      "sha256": "f193d36276bf76958154a15bdedc49be420c2237077b6f0a1abc7ad83536237d",
+      "size": 1143
+    },
+    {
+      "path": "collect_runtime_ebpf.sh",
+      "sha256": "b5721f535dccac1165fa44b9c261f74bb741ec93a3fcae5a13c5fdf051a154fc",
+      "size": 1733
+    },
+    {
+      "path": "collect_runtime_linux.sh",
+      "sha256": "08e180ea1bc76dbbddd57afaee38665b6309793792c2da0a892fa955fa37e290",
+      "size": 2090
+    },
+    {
+      "path": "correlate_evidence.py",
+      "sha256": "674ae76bef6f7617c3a1854bb1c590cdd137dd17add57bc7501706400eb2fefd",
+      "size": 4797
+    },
+    {
+      "path": "download_reference.py",
+      "sha256": "d82ea331fdabcdf64dd676ab9fa4a2aadec5e2b152cc956b11da6528a3babd01",
+      "size": 1472
+    },
+    {
+      "path": "gpu_attestation_ingest.py",
+      "sha256": "c90d4ee79e9287528c50e8216ee3e30a951292ca1bdf1ee1cc832de8f30603b0",
+      "size": 2817
+    },
+    {
+      "path": "live_attestation.py",
+      "sha256": "9044365d99525c1ebc4c4e643b5c8a20c06c9fd228edc2f5494fa4ed97e13056",
+      "size": 30863
+    },
+    {
+      "path": "model_adapters.py",
+      "sha256": "b1a4b3135794364ad239941c0d0172e23990c19a7c3786e8bc98f95076cb14a3",
+      "size": 1466
+    },
+    {
+      "path": "ocsf_export.py",
+      "sha256": "867b5a8987b70e8f56025953c00d01f6b0bfdbb13beffe083b7760df0cd57ecd",
+      "size": 3824
+    },
+    {
+      "path": "probe_client.py",
+      "sha256": "372fcdd0b24b48d3ab277ad435c46f57129758141a6a43c54628be0b5d8debbf",
+      "size": 3767
+    },
+    {
+      "path": "production_integration_example.py",
+      "sha256": "01ad2a179da8d156988371e2bb4c231e2c5e973f444f55816215682e7ad86a0a",
+      "size": 1874
+    },
+    {
+      "path": "prompts/activation_probe.jsonl",
+      "sha256": "d575c365fb998db8238f1f95aa0afa235b1418ee57bfc0d34ca837068e67e0f3",
+      "size": 3280
+    },
+    {
+      "path": "prompts/behavioral_probe.jsonl",
+      "sha256": "f60ca8b54a712e69e0386ee85a3b4857c88097d623f79fc8b5631c85e81f28ed",
+      "size": 3759
+    },
+    {
+      "path": "prompts/synthetic_system_prompt.txt",
+      "sha256": "c8dfdfbb5941f9efffb602f4822096d7cc4efed459c0879bc271a9458ed45977",
+      "size": 289
+    },
+    {
+      "path": "provenance_bundle.py",
+      "sha256": "9255d2b3e8972ea2bdb1e7cb2260967975c79cef5e7812dbaa002200b644acf5",
+      "size": 14699
+    },
+    {
+      "path": "qwen_forensic_detector.py",
+      "sha256": "e79c10c2584e0a0807c3173b1754ee71c6d06987aee27d93e03cf05beda699f3",
+      "size": 20303
+    },
+    {
+      "path": "replay_engine.py",
+      "sha256": "e3a5f26c6657c04e62dc9c035a93ff4c16cb31851cb3c7d4b46bbcee490fbcf6",
+      "size": 4138
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b325b8d84aa557401a576b6b24f71d960cc173089ef79046859b191d6e25fbeb",
+      "size": 177
+    },
+    {
+      "path": "runtime_inventory.py",
+      "sha256": "91b065254f06d5df44f341b6b7aba355f5bd8e1e5b234c8e38e05d127272b200",
+      "size": 9637
+    },
+    {
+      "path": "runtime_model_inventory_example.py",
+      "sha256": "be75a826a84c58c0a6c21f0e78c9e9e41935e284c0272729c1463ed1d40950c7",
+      "size": 507
+    },
+    {
+      "path": "summarize_live_attestation.py",
+      "sha256": "d87cef536f925a24383fe5097857af4f7156530fa61bffc4be3edbdfc6748b4a",
+      "size": 5031
+    },
+    {
+      "path": "timeline_builder.py",
+      "sha256": "c2c78755b5e0bcc02cb7a512e9a69b570d8b97cb7c06efee6d45d2dea48c0ecc",
+      "size": 4595
+    },
+    {
+      "path": "v04_selftest.py",
+      "sha256": "0264d02940ff845d2231d23a3c8d5c04acada6033aeb5efd69be8dab96421fa5",
+      "size": 6879
+    },
+    {
+      "path": "verify_attestation_log.py",
+      "sha256": "577fc9a2d94f0e4c9d9bf2f69c7fae502cda3ba4c8a12e6a46fded8f1ef4fbcb",
+      "size": 643
+    }
+  ],
+  "package": "AI-DFIR Model Integrity",
+  "version": "0.4"
+}

@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "agent_messagesagentic_eventsagent_messages.jsonl",
+    "agent_identitiesagent_identityagent_identities.jsonagent_identities",
+    "delegationsdelegationdelegations.jsondelegations",
+    "orchestratororchestratororchestrator.jsonorchestrator",
+    "downstream_traceagentic_eventsdownstream_trace.jsonl"
+  ],
+  "pack_id": "owasp.agentic.asi07",
+  "pack_source": "evidence_packs/owasp_agentic/ASI07_insecure_inter_agent_communication.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

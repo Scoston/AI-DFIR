@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "session_registry",
+      "locations": [],
+      "presence_patterns": [
+        "*session*registry*.json*",
+        "*session*ownership*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes legitimate ownership and changes.",
+      "title": "Session IDs, creator, owner, assignment history",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "session_auth",
+      "locations": [],
+      "presence_patterns": [
+        "*session*token*.json*",
+        "*oauth*.json*",
+        "*signin*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes who accessed the session.",
+      "title": "Session token/issuer/audience/authentication events",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "session_events",
+      "locations": [],
+      "presence_patterns": [
+        "*session*events*.jsonl",
+        "*websocket*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows reassignment and reconnect activity.",
+      "title": "Session access/reconnect/transfer events",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "agent_authority",
+      "locations": [],
+      "presence_patterns": [
+        "*authority*.json*",
+        "*tool*policy*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines what a hijacker inherited.",
+      "title": "Agent authority/tool state inherited by session",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "downstream_actions",
+      "locations": [],
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*target*audit*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes impact.",
+      "title": "Tool/action/target audit after ownership change",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "session_hijack",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "session_registry",
+        "session_auth",
+        "session_events"
+      ],
+      "title": "Session ownership/access changed without approved delegation"
+    },
+    {
+      "id": "session_hijack_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "agent_authority",
+        "downstream_actions"
+      ],
+      "title": "Hijacked session retained authority and executed actions"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.agent_session_hijack",
+  "incident_type": "agent_session_hijack",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Agent Session / Context Hijacking"
+    ],
+    "incident_types": [
+      "agent_session_hijack"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Who created and owned the session?",
+    "Was ownership transferred?",
+    "Did the new principal inherit existing model/tool context and authority?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [],
+  "title": "Agent Session / Context Hijacking",
+  "vendor": "Generic"
+}

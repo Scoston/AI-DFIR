@@ -1,0 +1,95 @@
+{
+  "authorization_event_count": 1,
+  "findings": [
+    {
+      "event": {
+        "body_method": "resources/read",
+        "headers": {
+          "Mcp-Method": "tools/call"
+        },
+        "mcp_name": "x"
+      },
+      "severity": "critical",
+      "type": "mcp_header_body_method_mismatch"
+    },
+    {
+      "event": {
+        "expected_issuer": "good",
+        "issuer": "bad",
+        "pkce_method": "plain",
+        "protected_resource_metadata_present": false,
+        "protected_resource_metadata_required": true
+      },
+      "severity": "high",
+      "type": "mcp_missing_method_header_or_field"
+    },
+    {
+      "actual": "bad",
+      "event": {
+        "expected_issuer": "good",
+        "issuer": "bad",
+        "pkce_method": "plain",
+        "protected_resource_metadata_present": false,
+        "protected_resource_metadata_required": true
+      },
+      "expected": "good",
+      "severity": "critical",
+      "type": "mcp_authorization_issuer_mismatch"
+    },
+    {
+      "event": {
+        "expected_issuer": "good",
+        "issuer": "bad",
+        "pkce_method": "plain",
+        "protected_resource_metadata_present": false,
+        "protected_resource_metadata_required": true
+      },
+      "severity": "critical",
+      "type": "mcp_pkce_not_s256"
+    },
+    {
+      "event": {
+        "expected_issuer": "good",
+        "issuer": "bad",
+        "pkce_method": "plain",
+        "protected_resource_metadata_present": false,
+        "protected_resource_metadata_required": true
+      },
+      "severity": "critical",
+      "type": "mcp_protected_resource_metadata_missing"
+    },
+    {
+      "event": {
+        "mcp_method": "tasks/get",
+        "state": "running",
+        "task_id": "T"
+      },
+      "severity": "critical",
+      "task_id": "T",
+      "type": "mcp_task_activity_after_cancel"
+    }
+  ],
+  "mrtr": {},
+  "mrtr_count": 0,
+  "schema": "ai-dfir/mcp-2026-07-28-forensics/v1.4",
+  "task_count": 1,
+  "tasks": {
+    "T": {
+      "cancelled": true,
+      "events": [
+        {
+          "mcp_method": "tasks/update",
+          "state": "cancelled",
+          "task_id": "T"
+        },
+        {
+          "mcp_method": "tasks/get",
+          "state": "running",
+          "task_id": "T"
+        }
+      ],
+      "state": "running",
+      "subscribers": []
+    }
+  }
+}

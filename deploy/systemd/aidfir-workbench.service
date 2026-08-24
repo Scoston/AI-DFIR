@@ -1,0 +1,19 @@
+[Unit]
+Description=AI-DFIR Read-Only Analyst Workbench
+After=network.target
+
+[Service]
+Type=simple
+User=aidfir
+Group=aidfir
+WorkingDirectory=/opt/ai-dfir
+ExecStart=/opt/ai-dfir/.venv/bin/python analyst_dashboard.py --case-root /var/lib/ai-dfir/cases --host 127.0.0.1 --port 8877
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/var/lib/ai-dfir/cases
+
+[Install]
+WantedBy=multi-user.target

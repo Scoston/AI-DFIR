@@ -1,0 +1,32 @@
+{
+  "schema": "ai-dfir/environment-separation/v1.6",
+  "environments": {
+    "lab": {
+      "spiffe_trust_domain": "spiffe://lab.ai-dfir.example",
+      "metadata_dsn": "postgresql://lab-db/aidfir",
+      "object_store_bucket": "aidfir-lab",
+      "kms_key_id": "alias/aidfir-lab",
+      "oidc_audience": "aidfir-lab",
+      "default_egress": "deny",
+      "allows_synthetic_malware_execution": true
+    },
+    "staging": {
+      "spiffe_trust_domain": "spiffe://staging.ai-dfir.example",
+      "metadata_dsn": "postgresql://staging-db/aidfir",
+      "object_store_bucket": "aidfir-staging",
+      "kms_key_id": "alias/aidfir-staging",
+      "oidc_audience": "aidfir-staging",
+      "default_egress": "deny",
+      "allows_synthetic_malware_execution": false
+    },
+    "production": {
+      "spiffe_trust_domain": "spiffe://prod.ai-dfir.example",
+      "metadata_dsn": "postgresql://prod-db/aidfir",
+      "object_store_bucket": "aidfir-prod",
+      "kms_key_id": "alias/aidfir-prod",
+      "oidc_audience": "aidfir-prod",
+      "default_egress": "deny",
+      "allows_synthetic_malware_execution": false
+    }
+  }
+}

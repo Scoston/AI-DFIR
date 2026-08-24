@@ -1,0 +1,102 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "catalog",
+      "locations": [],
+      "presence_patterns": [
+        "*tools*list*.json*",
+        "*prompts*list*.json*",
+        "*resources*list*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves discovered capabilities.",
+      "title": "tools/prompts/resources list responses and hashes",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "cache",
+      "locations": [],
+      "presence_patterns": [
+        "*mcp*cache*.json*",
+        "*cache*events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows cached discovery state.",
+      "title": "ttlMs/cacheScope/cache read/write records",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "server_inventory",
+      "locations": [],
+      "presence_patterns": [
+        "*mcp*inventory*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether cached catalog matches source server.",
+      "title": "Approved/current MCP server inventory",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "mcp_cache_poisoned",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "catalog",
+        "cache",
+        "server_inventory"
+      ],
+      "title": "Cached MCP discovery state differed from source/approved catalog"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box",
+    "black-box"
+  ],
+  "id": "mcp.catalog_cache_poisoning",
+  "incident_type": "mcp_catalog_cache_poisoning",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI01",
+      "ASI02",
+      "ASI03",
+      "ASI04"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "MCP Tool/Prompt/Resource Catalog Cache Poisoning"
+    ],
+    "incident_types": [
+      "mcp_catalog_cache_poisoning"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Was a stale/poisoned tools list reused after server state changed?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [
+    {
+      "type": "protocol",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "MCP Tool/Prompt/Resource Catalog Cache Poisoning",
+  "vendor": "Generic"
+}

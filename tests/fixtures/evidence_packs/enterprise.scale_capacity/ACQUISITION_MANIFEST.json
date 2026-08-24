@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "benchmark",
+      "relative_path": "benchmarkscalebenchmarkbenchmarkbenchmark.jsonbenchmark",
+      "sha256": "e21cb9acc6339d2451e0dbd49e36efbec2469b57a4183d9b83644a48de80e601",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "slo",
+      "relative_path": "sloserviceslosloslo.jsonslo",
+      "sha256": "d5484ae839320f1289a44520a641ee3d888140fa4e564e8bf4cef990b0455b69",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "queue",
+      "relative_path": "queuequeuequeuemetricsqueue.jsonqueue",
+      "sha256": "1b2cd188cfe434023f05ef55cd350a0ba462bca1870e350d7d0e4e13d96ee939",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.scale_capacity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,16 @@
+{
+  "created_files": [
+    "server_inventorymcpserver_inventoryinventoryserver_inventory.jsonserver_inventory",
+    "tool_catalogtoolstool_cataloglisttool_catalog.jsontool_catalog",
+    "mcp_logsmcpmcp_logs.jsonl",
+    "auth_metadataoauthauth_metadata.jsonauth_metadata",
+    "taskstasktasks.jsontasks",
+    "cache_catalogcachecache_catalog.jsoncache_catalog",
+    "downstream_traceagentic_eventsdownstream_trace.jsonl"
+  ],
+  "pack_id": "agentic.mcp.protocol_compromise.2026_07_28",
+  "pack_source": "evidence_packs/generic/mcp_protocol_compromise_v2026_07_28.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

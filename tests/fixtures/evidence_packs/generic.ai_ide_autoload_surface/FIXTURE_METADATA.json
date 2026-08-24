@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "workspace_inventoryideworkspace_inventorysurfaceworkspace_inventoryinventoryworkspace_inventory.jsonworkspace_inventory",
+    "approved_inventoryapprovedapproved_inventoryworkspaceapproved_inventory.jsonapproved_inventory",
+    "surface_diffidesurface_diffsurfacesurface_diffdiffsurface_diff.jsonsurface_diff",
+    "process_traceprocessprocess_trace.jsonprocess_trace",
+    "filesystem_tracefilefilesystem_traceeventsfilesystem_trace.jsonfilesystem_trace"
+  ],
+  "pack_id": "generic.ai_ide_autoload_surface",
+  "pack_source": "evidence_packs/representation_v12/generic_ai_ide_autoload_surface.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

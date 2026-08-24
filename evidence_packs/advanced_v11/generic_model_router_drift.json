@@ -1,0 +1,135 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "router_policy",
+      "locations": [],
+      "presence_patterns": [
+        "*router*policy*.json*",
+        "*gateway*policy*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines approved model/provider/region/safety routes.",
+      "title": "Approved router/gateway policy and hash",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "routing_log",
+      "locations": [],
+      "presence_patterns": [
+        "*routing*.jsonl",
+        "*model*gateway*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows what model actually executed.",
+      "title": "Per-request requested/resolved model/provider/region/fallback log",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "model_catalog",
+      "locations": [],
+      "presence_patterns": [
+        "*model*catalog*.json*",
+        "*deployment*inventory*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Maps resolved identifiers to approved versions.",
+      "title": "Approved deployment/model snapshot catalog",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "safety_policy",
+      "locations": [],
+      "presence_patterns": [
+        "*safety*policy*.json*",
+        "*content*filter*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects safety-profile downgrade.",
+      "title": "Safety/content-filter policy versions",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "provider_audit",
+      "locations": [],
+      "presence_patterns": [
+        "*provider*audit*.json*",
+        "*request*response*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Independent corroboration of routing decision.",
+      "title": "Provider/gateway request IDs and audit",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "route_drift",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "router_policy",
+        "routing_log",
+        "model_catalog",
+        "safety_policy"
+      ],
+      "title": "Request resolved to unapproved model/provider/region or policy"
+    },
+    {
+      "id": "route_execution",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "routing_log",
+        "provider_audit"
+      ],
+      "title": "Provider evidence confirms the resolved execution"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.model_router_drift",
+  "incident_type": "model_router_drift",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Model Router / Provider Gateway Drift"
+    ],
+    "incident_types": [
+      "model_router_drift"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Which model actually executed?",
+    "Was there a fallback?",
+    "Did safety policy change across the fallback?",
+    "Did routing cross a region/provider boundary?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [],
+  "title": "Model Router / Provider Gateway Drift",
+  "vendor": "Generic"
+}

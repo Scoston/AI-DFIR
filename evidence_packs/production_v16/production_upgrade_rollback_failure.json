@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "upgrade",
+      "presence_patterns": [
+        "*upgrade*assurance*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows backup, migration, verification and rollback.",
+      "title": "Upgrade/rollback assurance result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "migration",
+      "presence_patterns": [
+        "*schema*migration*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves transactional migration state.",
+      "title": "Schema migration result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "upgrade_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "upgrade",
+        "migration"
+      ],
+      "title": "Upgrade/rollback assurance failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.upgrade_rollback_failure",
+  "incident_type": "upgrade_rollback_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Upgrade / Rollback Assurance Failure"
+    ],
+    "incident_types": [
+      "upgrade_rollback_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Can a failed upgrade be rolled back without breaking evidence integrity?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Upgrade / Rollback Assurance Failure",
+  "vendor": "AI-DFIR"
+}

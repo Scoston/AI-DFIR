@@ -1,0 +1,22 @@
+{
+  "created_files": [
+    "defender_alertAlertInfodefender_alert.jsondefender_alert",
+    "alert_evidenceAlertEvidencealert_evidence.jsonalert_evidence",
+    "cloud_app_eventsCloudAppEventscloud_app_events.jsoncloud_app_events",
+    "agents_infoAgentsInfoagents_info.jsonagents_info",
+    "behavior_infoBehaviorInfobehavior_info.jsonbehavior_info",
+    "behavior_entitiesBehaviorEntitiesbehavior_entities.jsonbehavior_entities",
+    "identitysigninidentity.jsonidentity",
+    "azure_activityAzureActivityazure_activity.jsonazure_activity",
+    "request_responserequest_responserequest_response.jsonrequest_response",
+    "networkproxynetwork.jsonnetwork",
+    "prompt_evidenceprompt_evidenceprompt_evidence.jsonprompt_evidence",
+    "tool_tracetool_invocationstool_trace.jsontool_trace",
+    "knowledge_sourcesknowledge_sourcesknowledge_sources.jsonknowledge_sources"
+  ],
+  "pack_id": "microsoft.agent365.ai_threat_detection",
+  "pack_source": "evidence_packs/microsoft/agent365/ai_threat_detection.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

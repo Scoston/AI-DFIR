@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "task_registry",
+      "locations": [],
+      "presence_patterns": [
+        "*task*registry*.json*",
+        "*outstanding*work*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Enumerates work that can survive the initiating agent.",
+      "title": "Async task/job/delegation registry",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "containment_timeline",
+      "locations": [],
+      "presence_patterns": [
+        "*containment_audit*.jsonl",
+        "*stop*events*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines when authority was revoked.",
+      "title": "Agent containment/stop/cancel timeline",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "task_state",
+      "locations": [],
+      "presence_patterns": [
+        "*task*events*.jsonl",
+        "*scheduler*.json*",
+        "*queue*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines what remained active.",
+      "title": "Task state/cancelability/heartbeat logs",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "child_agents",
+      "locations": [],
+      "presence_patterns": [
+        "*agent*birth*.json*",
+        "*agent*death*.json*",
+        "*child*agent*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Finds shadow/child agents still operating.",
+      "title": "Child/delegated agent lifecycle records",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "consequences",
+      "locations": [],
+      "presence_patterns": [
+        "*open_consequences*.json*",
+        "*target*audit*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows escaped effects.",
+      "title": "Consequences after containment",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "work_survived_containment",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "task_registry",
+        "containment_timeline",
+        "task_state"
+      ],
+      "title": "Delegated work remained active after parent containment"
+    },
+    {
+      "id": "surviving_work_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "task_state",
+        "consequences"
+      ],
+      "title": "Surviving task/child produced consequences"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.outstanding_delegated_work",
+  "incident_type": "outstanding_delegated_work",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Outstanding Delegated Work After Containment"
+    ],
+    "incident_types": [
+      "outstanding_delegated_work"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What work remained in flight?",
+    "Which tasks could not be canceled?",
+    "Were child agents still alive?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [],
+  "title": "Outstanding Delegated Work After Containment",
+  "vendor": "Generic"
+}

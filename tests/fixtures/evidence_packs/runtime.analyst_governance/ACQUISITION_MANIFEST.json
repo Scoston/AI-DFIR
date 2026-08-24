@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "audit",
+      "relative_path": "auditanalystauditactionauditauditaudit.jsonaudit",
+      "sha256": "ff958f0a843b2da1943eaed3cb0b7a8ce78c783cf2c3f43e7f1408e2c9258210",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "conclusions",
+      "relative_path": "conclusionsconclusionsconclusions.jsonconclusions",
+      "sha256": "f03e61634bfcc0ed094db21d4fbcb788705057e4969819e48c2715bff2a6191d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "reviews",
+      "relative_path": "reviewspeerreviewsreviewreviews.jsonreviews",
+      "sha256": "b6048a26a0e1f18813de067af929f5a1a50f87e7e94f3d3517e161b5532caec1",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "gate",
+      "relative_path": "gatepeergatereviewgategategate.jsongate",
+      "sha256": "1eb10834bc1293ee529956f4a792cc6dc51fb27a817f7ea8086e21db4e099bd5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.analyst_governance",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

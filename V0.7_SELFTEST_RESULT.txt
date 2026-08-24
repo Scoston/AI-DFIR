@@ -1,0 +1,67 @@
+AI-DFIR Analyst Workbench v0.7 — Acceptance Test
+
+{
+  "case_summary": {
+    "case_id": "CASE-V07",
+    "confidence_level": 4,
+    "containment_mode": "freeze-tools",
+    "containment_status": "CONTAINED",
+    "created_utc": "2026-08-23T20:00:00Z",
+    "evidence": {
+      "containment_control": true,
+      "containment_result": true,
+      "correlation": true,
+      "divergence": true,
+      "live_attestation": false,
+      "low_rank_screen": true,
+      "open_consequences": true,
+      "runtime_findings": true,
+      "tensor_metrics": true,
+      "timeline": true
+    },
+    "finding": "runtime-only model-behavior intervention",
+    "first_divergence_depth": 36,
+    "highest_abs_robust_z": 12.4,
+    "highest_anomaly_depth": 40,
+    "open_consequences": 1,
+    "root": "/mnt/data/ai_dfir_analyst_workbench_v0.7_selftest_final/cases/CASE-V07",
+    "runtime_findings_count": 2,
+    "severity": "critical",
+    "timeline_events": 3,
+    "tool_version": "0.7"
+  },
+  "components": {
+    "dashboard_does_not_modify_evidence": "PASS",
+    "evidence_search": "PASS",
+    "fleet_state_view": "PASS",
+    "investigator_report": "PASS",
+    "normalized_case_model": "PASS",
+    "read_only_dashboard": "PASS",
+    "signed_annotations": "PASS"
+  },
+  "coverage": {
+    "missing": [
+      "live_attestation"
+    ],
+    "percent": 90.0,
+    "present": 9,
+    "total": 10
+  },
+  "status": "PASS"
+}
+
+Compatibility:
+- v0.6 containment/recovery suite: PASS in compatibility validation after v0.7 integration.
+- v0.5 fleet-attestation suite: PASS in compatibility validation after v0.7 integration.
+
+Key v0.7 invariants validated:
+- dashboard is read-only (POST rejected with 405)
+- dashboard exploration leaves case-evidence hashes unchanged
+- signed analyst annotation chain verifies
+- case-wide search returns source-file SHA-256 provenance
+- evidence coverage marks missing evidence as missing
+- fleet state is read read-only from captured fleet.db
+- investigator report is generated deterministically with SHA-256 manifest
+- activation/tensor/runtime/authority/consequence/containment/timeline evidence normalizes into one case model
+
+Synthetic acceptance testing does not constitute certification of a production deployment.

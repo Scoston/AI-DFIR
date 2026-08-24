@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "push_configpushpush_confignotificationpush_configconfigpush_config.jsonpush_config",
+    "callback_eventscallbackcallback_events.jsonl",
+    "agent_card_verificationagentagent_card_verificationcardagent_card_verificationverificationagent_card_verification.jsonagent_card_verification",
+    "transport_identitytlstransport_identity.jsontransport_identity",
+    "task_registrya2atask_registrytasktask_registry.jsontask_registry"
+  ],
+  "pack_id": "a2a.push_callback_identity",
+  "pack_source": "evidence_packs/a2a_v13/a2a_push_callback_identity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

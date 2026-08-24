@@ -1,0 +1,16 @@
+{
+  "created_files": [
+    "harness_inventoryharnessharness_inventoryinventoryharness_inventory.jsonharness_inventory",
+    "prompt_assemblypromptprompt_assemblyassemblyprompt_assembly.jsonprompt_assembly",
+    "middleware_hooksmiddlewaremiddleware_hooks.jsonmiddleware_hooks",
+    "tool_policytooltool_policypolicytool_policy.jsontool_policy",
+    "memory_strategymemorymemory_strategystrategymemory_strategy.jsonmemory_strategy",
+    "dynamic_componentsplugindynamic_components.jsondynamic_components",
+    "lifecycle_logharnesslifecycle_loglifecyclelifecycle_log.jsonl"
+  ],
+  "pack_id": "generic.agent_harness_compromise",
+  "pack_source": "evidence_packs/advanced_v11/generic_agent_harness_compromise.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

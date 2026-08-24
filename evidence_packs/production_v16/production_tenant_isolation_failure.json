@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "rls",
+      "presence_patterns": [
+        "*tenant*isolation*.json*",
+        "*rls*probe*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves cross-tenant access is denied.",
+      "title": "RLS/tenant-isolation test result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "security_assessment",
+      "presence_patterns": [
+        "*security*assurance*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Adds independent validation.",
+      "title": "Independent assessment coverage",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "tenant_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "rls"
+      ],
+      "title": "Tenant isolation failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.tenant_isolation_failure",
+  "incident_type": "tenant_isolation_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Tenant Isolation Assurance Failure"
+    ],
+    "incident_types": [
+      "tenant_isolation_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Can one tenant enumerate another tenant case/evidence metadata?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Tenant Isolation Assurance Failure",
+  "vendor": "AI-DFIR"
+}

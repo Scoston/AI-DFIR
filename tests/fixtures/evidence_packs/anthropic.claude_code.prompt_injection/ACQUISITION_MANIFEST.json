@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_transcript",
+      "relative_path": "session_transcriptprojectssession_transcript/session_transcript.jsonl",
+      "sha256": "c675a92f2abef8062f244c91c833f20a90c86dfb05a886ce5c80ee4fa7c454fc",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "prompt_history",
+      "relative_path": "prompt_historyhistory.jsonl",
+      "sha256": "295b606fb97bb11ca23d965a177ae4c5954d13aa9cb6d767f4d0c1d739072b38",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_results",
+      "relative_path": "tool_resultstool-resultstool_results/tool_results",
+      "sha256": "134db09f64441cad23158f8af6b15fe5e01443abc7fa032ef7c990aa5e46c15a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "file_history",
+      "relative_path": "file_historyfile-historyfile_history/file_history",
+      "sha256": "3511d6da29bafd439314d7815ee0beaf61ff196a164a8ab61bd0c1a7362ed29a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "claude_md",
+      "relative_path": "claude_mdCLAUDE.md",
+      "sha256": "7a6fca5530fadc517282b91340be625c770ad4062d1497af56e5e70d3c6538b3",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "settings",
+      "relative_path": "settingssettings.json",
+      "sha256": "0411817229e07b22cee9779ad9fda422d8fc4de684713b0eef4a9abbee4fa0ba",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "claude_state",
+      "relative_path": "claude_state.claude.json",
+      "sha256": "f2394a946006a5c78c7ca70b563663732f58c79729937c72e819443a3625a608",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_config",
+      "relative_path": "mcp_config.mcp.json",
+      "sha256": "0427b591fb8360e320791c8f1279bdaf0069e635ee78df43926bcc49463d5df7",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "hooks",
+      "relative_path": "hookshookshooks.json",
+      "sha256": "c4ffceb20f887383e411eae2d11ae61b9df3acfcfa46afbc23f9ac6c72e2c11d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "skills_agents_rules",
+      "relative_path": "skills_agents_rulesskillsskills_agents_rules/skills_agents_rules",
+      "sha256": "b155e5f3cbd2a16954c98f811c9684e22630d56e5ba1b065b2489ecaade98fc9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_env",
+      "relative_path": "session_envsession-envsession_env/session_env",
+      "sha256": "1e8fde907e47a08e0cc34630a1b5de53d0637118690a15417389fbfb4a273e4e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "paste_image_cache",
+      "relative_path": "paste_image_cachepaste-cachepaste_image_cache/paste_image_cache",
+      "sha256": "a7d75d06ff801e237ffd4b9cf037e9fbc500a1b261489a60f8a887da5ecd6ae5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "debug_plans_tasks",
+      "relative_path": "debug_plans_tasksdebugdebug_plans_tasks/debug_plans_tasks",
+      "sha256": "45edec48433d357db40089e94fc8536729a798db41dacda20426fa9340d54b72",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "git_state",
+      "relative_path": "git_state.git/git_state",
+      "sha256": "5594688d775352a9a86fb4d3e3732b000950d0e261aa31cb3ed799518e349eb0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "endpoint_telemetry",
+      "relative_path": "endpoint_telemetryDeviceProcessEventsendpoint_telemetry.jsonendpoint_telemetry",
+      "sha256": "2a07453b09acda2dfae7304f7dbcbb0dd1f057b0153bf2191b0833f151fdbc62",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "provider_audit",
+      "relative_path": "provider_auditpurviewprovider_audit.jsonprovider_audit",
+      "sha256": "466fee588dad138aee00be0f98711ea3fafb7988c52a39c45b63eff5383a89dc",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-anthropic.claude_code.prompt_injection",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

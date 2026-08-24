@@ -1,0 +1,51 @@
+{
+  "controls": [
+    {
+      "control": "metadata_database",
+      "detail": "HA/RLS evidence available",
+      "status": "PASS"
+    },
+    {
+      "control": "immutable_storage",
+      "detail": "WORM evidence verified",
+      "status": "PASS"
+    },
+    {
+      "control": "kms",
+      "detail": "Envelope-key control healthy",
+      "status": "PASS"
+    },
+    {
+      "control": "service_identity",
+      "detail": "SPIFFE/mTLS identity verified",
+      "status": "PASS"
+    },
+    {
+      "control": "provider_telemetry",
+      "detail": "One mandatory provider source incomplete",
+      "status": "DEGRADED"
+    },
+    {
+      "control": "collector_health",
+      "detail": "Expected 100 events; observed 71",
+      "status": "DEGRADED"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "high",
+      "source": "synthetic-provider",
+      "type": "provider_telemetry_incomplete"
+    },
+    {
+      "expected": 100,
+      "observed": 71,
+      "severity": "high",
+      "type": "collector_coverage_gap"
+    }
+  ],
+  "rule": "A platform evidence gap cannot be interpreted as clean incident evidence.",
+  "schema": "ai-dfir/platform-assurance/v1.6",
+  "status": "DEGRADED",
+  "validated_utc": "2026-08-24T18:13:34.503599Z"
+}

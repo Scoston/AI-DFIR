@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "unified_auditunified_auditunified_audit.jsonunified_audit",
+    "activity_exploreractivity_exploreractivity_explorer.jsonactivity_explorer",
+    "prompt_responseprompt_responseprompt_response.jsonprompt_response",
+    "referenced_filesreferenced_filesreferenced_files.jsonreferenced_files",
+    "labels_dlpsensitivitylabels_dlp.jsonlabels_dlp",
+    "identitysigninidentity.jsonidentity"
+  ],
+  "pack_id": "microsoft.purview.ai_interaction",
+  "pack_source": "evidence_packs/microsoft/purview/ai_interaction.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

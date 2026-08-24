@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "benchmarkscalebenchmarkbenchmarkbenchmark.jsonbenchmark",
+    "sloserviceslosloslo.jsonslo",
+    "queuequeuequeuemetricsqueue.jsonqueue"
+  ],
+  "pack_id": "enterprise.scale_capacity",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_scale_capacity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

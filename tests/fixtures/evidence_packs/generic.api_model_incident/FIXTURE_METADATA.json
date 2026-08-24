@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "provider_request_idsrequest_idsprovider_request_ids.jsonprovider_request_ids",
+    "model_metadatamodel_metadatamodel_metadata.jsonmodel_metadata",
+    "prompt_responseprompt_responseprompt_response.jsonprompt_response",
+    "tool_tracetooltool_trace.jsontool_trace",
+    "identityidentityidentity.jsonidentity"
+  ],
+  "pack_id": "generic.api_model_incident",
+  "pack_source": "evidence_packs/generic/api_model_incident.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

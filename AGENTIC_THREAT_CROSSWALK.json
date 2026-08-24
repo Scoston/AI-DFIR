@@ -1,0 +1,108 @@
+{
+  "mitre_atlas_snapshot": {
+    "note": "Technique names are used here for stable analyst cross-reference; refresh from current ATLAS before production content release.",
+    "tactics": 16,
+    "techniques": 178,
+    "verified": "2026-08-23"
+  },
+  "owasp_agentic_top10_2026": {
+    "ASI01": {
+      "evidence_pack_id": "owasp.agentic.asi01",
+      "incident_type": "agent_goal_hijack",
+      "mitre_atlas_techniques": [
+        "LLM Prompt Injection",
+        "AI Agent Context Poisoning"
+      ],
+      "title": "Agent Goal Hijack"
+    },
+    "ASI02": {
+      "evidence_pack_id": "owasp.agentic.asi02",
+      "incident_type": "tool_misuse",
+      "mitre_atlas_techniques": [
+        "AI Agent Tool Invocation",
+        "Exfiltration via AI Agent Tool Invocation",
+        "Data Destruction via AI Agent Tool Invocation"
+      ],
+      "title": "Tool Misuse & Exploitation"
+    },
+    "ASI03": {
+      "evidence_pack_id": "owasp.agentic.asi03",
+      "incident_type": "identity_privilege_abuse",
+      "mitre_atlas_techniques": [
+        "Valid Accounts",
+        "Use Alternate Authentication Material",
+        "Credential Access"
+      ],
+      "title": "Identity & Privilege Abuse"
+    },
+    "ASI04": {
+      "evidence_pack_id": "owasp.agentic.asi04",
+      "incident_type": "agentic_supply_chain",
+      "mitre_atlas_techniques": [
+        "AI Supply Chain Rug Pull",
+        "AI Supply Chain Reputation Inflation",
+        "AI Agent Tool Poisoning"
+      ],
+      "title": "Agentic Supply Chain Vulnerabilities"
+    },
+    "ASI05": {
+      "evidence_pack_id": "owasp.agentic.asi05",
+      "incident_type": "unexpected_code_execution",
+      "mitre_atlas_techniques": [
+        "Command and Scripting Interpreter",
+        "Escape to Host",
+        "AI Agent Tool Invocation"
+      ],
+      "title": "Unexpected Code Execution (RCE)"
+    },
+    "ASI06": {
+      "evidence_pack_id": "owasp.agentic.asi06",
+      "incident_type": "memory_context_poisoning",
+      "mitre_atlas_techniques": [
+        "AI Agent Context Poisoning",
+        "AI Agent Tool Data Poisoning"
+      ],
+      "title": "Memory & Context Poisoning"
+    },
+    "ASI07": {
+      "evidence_pack_id": "owasp.agentic.asi07",
+      "incident_type": "insecure_inter_agent_communication",
+      "mitre_atlas_techniques": [
+        "Deploy AI Agent",
+        "AI Agent",
+        "AI Agent Context Poisoning"
+      ],
+      "title": "Insecure Inter-Agent Communication"
+    },
+    "ASI08": {
+      "evidence_pack_id": "owasp.agentic.asi08",
+      "incident_type": "cascading_failures",
+      "mitre_atlas_techniques": [
+        "AI Agent Tool Invocation",
+        "Deploy AI Agent",
+        "Impact"
+      ],
+      "title": "Cascading Failures"
+    },
+    "ASI09": {
+      "evidence_pack_id": "owasp.agentic.asi09",
+      "incident_type": "human_agent_trust_exploitation",
+      "mitre_atlas_techniques": [
+        "User Execution",
+        "LLM Response Rendering"
+      ],
+      "title": "Human-Agent Trust Exploitation"
+    },
+    "ASI10": {
+      "evidence_pack_id": "owasp.agentic.asi10",
+      "incident_type": "rogue_agents",
+      "mitre_atlas_techniques": [
+        "Deploy AI Agent",
+        "AI Agent Tool Invocation",
+        "Persistence"
+      ],
+      "title": "Rogue Agents"
+    }
+  },
+  "schema": "ai-dfir/agentic-crosswalk/v0.9"
+}

@@ -1,0 +1,18 @@
+{
+  "canonical_payload_sha256": "expected",
+  "card_identity": {
+    "interfaces": [
+      {
+        "tenant": "TENANT-A",
+        "url": "https://agent.synthetic.invalid/a2a"
+      }
+    ],
+    "name": "Synthetic Agent",
+    "skills": [
+      "review"
+    ]
+  },
+  "policy_satisfied": true,
+  "schema": "ai-dfir/a2a-agent-card-verification/v1.3",
+  "trusted": true
+}

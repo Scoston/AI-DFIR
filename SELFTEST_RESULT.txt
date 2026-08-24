@@ -1,0 +1,15 @@
+Qwen3.8 Forensic Detector v0.2 validation
+
+Synthetic activation-fingerprint self-test: PASS
+
+num_depths: 9
+separation_curve_cosine_similarity: 0.9906122088432312
+separation_curve_relative_l2_delta: 0.17421726882457733
+matched_activation_comparison: True
+
+The self-test constructs an approved activation signal and a synthetic suspect
+that loses most of that signal in later residual depths. The detector derives
+directions only from the approved bundle and detects the resulting divergence.
+
+This validates the analysis pipeline mathematics; it is not a validation against
+a real Qwen3.8-27B checkpoint.

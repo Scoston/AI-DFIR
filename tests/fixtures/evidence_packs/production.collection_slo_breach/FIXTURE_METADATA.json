@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "sloserviceslosloslo.jsonslo",
+    "collector_healthcollectorcollector_healthhealthcollector_health.jsoncollector_health"
+  ],
+  "pack_id": "production.collection_slo_breach",
+  "pack_source": "evidence_packs/production_v16/production_collection_slo_breach.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

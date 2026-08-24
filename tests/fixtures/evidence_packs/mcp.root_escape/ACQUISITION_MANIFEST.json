@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "roots",
+      "relative_path": "rootsmcprootsrootsroots.jsonroots",
+      "sha256": "5870d42c93190e5d7ce0a3b63d0822ad4eaa5f784e98a1d8100c25410a284462",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "file_access",
+      "relative_path": "file_accessfilefile_accessaccessfile_access.jsonl",
+      "sha256": "3d64da05a1adeae65668e74fd95d2ebf569cb39ac6d20dc238d65e7407e0bbb9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "filesystem_meta",
+      "relative_path": "filesystem_metafilesystemfilesystem_metametadatafilesystem_meta.jsonfilesystem_meta",
+      "sha256": "39af84c6d02a4cf1f77607bb523a103fac0f28c46301e6eeba29fa09a3100ab9",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-mcp.root_escape",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

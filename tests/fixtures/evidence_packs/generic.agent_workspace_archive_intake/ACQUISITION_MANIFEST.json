@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "original_archive",
+      "relative_path": "original_archive.zip",
+      "sha256": "5aba962e2ee51941b3df2559c9ae39918c4b0dbcd9ea32297ea25fe2287ea7d1",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "archive_analysis",
+      "relative_path": "archive_analysisarchivearchive_analysisintakearchive_analysisanalysisarchive_analysis.jsonarchive_analysis",
+      "sha256": "dba5fbdab1eb841f68b535dd3da2bcfff68e07c1bb4bfa9ba32f5effb412fc0a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "post_extract_inventory",
+      "relative_path": "post_extract_inventoryworkspacepost_extract_inventoryinventorypost_extract_inventory.jsonpost_extract_inventory",
+      "sha256": "7ad28ecb6995f4a0d433d8bf145dcee0ab71d5beafa5862008ee4eae029c55e0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "execution_trace",
+      "relative_path": "execution_traceprocessexecution_trace.jsonexecution_trace",
+      "sha256": "313cb8b1b61efd4b677c7c8736ff9a6bfc3831e1cdd87fd3550f58eaacb5fc96",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.agent_workspace_archive_intake",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

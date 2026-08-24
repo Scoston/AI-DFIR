@@ -1,0 +1,106 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "export",
+      "presence_patterns": [
+        "*case*export*.json*",
+        "*export*receipt*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Identifies released package.",
+      "title": "Export archive SHA-256",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "manifest",
+      "presence_patterns": [
+        "*CASE_EXPORT_MANIFEST*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines exact included files and tenant/case.",
+      "title": "Signed case export manifest",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "redaction",
+      "presence_patterns": [
+        "*redaction*manifest*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows intentionally withheld/changed fields.",
+      "title": "Redaction manifest when used",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "approval",
+      "presence_patterns": [
+        "*analyst*audit*.jsonl",
+        "*export*approval*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes disclosure authorization.",
+      "title": "Export approval/audit event",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "export_integrity",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "export",
+        "manifest",
+        "approval"
+      ],
+      "title": "Case export integrity established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.case_export",
+  "incident_type": "case_export",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Signed Case Export / Disclosure Integrity"
+    ],
+    "incident_types": [
+      "case_export"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Was export tenant-scoped?",
+    "Was evidence included intentionally?",
+    "Were redactions traceable?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Signed Case Export / Disclosure Integrity",
+  "vendor": "Generic"
+}

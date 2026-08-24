@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "object_probe",
+      "relative_path": "object_probeobjectobject_probestoreobject_probeprobeobject_probe.jsonobject_probe",
+      "sha256": "e7de030a14d806a931761c08d4461e1ec44437b93b035fa9ba4f34c863806a81",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "object_index",
+      "relative_path": "object_indexobjectobject_indexindexobject_index.jsonobject_index",
+      "sha256": "a631adef2cd68ec3f4b82cab339d87a88b00f0f2537284851a6fbd66ae2a0ec7",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "storage_audit",
+      "relative_path": "storage_audits3storage_auditauditstorage_audit.jsonstorage_audit",
+      "sha256": "8fe960772525057e44d7cff72382a2743177cc2d6a6de63bb4619ccf89b3213f",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.object_storage_integrity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

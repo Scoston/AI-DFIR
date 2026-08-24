@@ -1,0 +1,18 @@
+AI-DFIR v1.1 Extracted Package Validation
+
+Status: PASS
+
+The packaged ZIP was extracted into a clean directory and the extracted files
+were used to execute:
+
+- v11_selftest.py: PASS
+- v10_selftest.py: PASS
+- Analyst Workbench JavaScript `node --check`: PASS
+
+The extracted v1.1 suite reported:
+- 54 Evidence Packs
+- 17/17 v1.1 focused components PASS
+
+This validates that the ZIP contains the dependencies and source files required
+by the reference implementation; it is not a certification of a specific
+production deployment.

@@ -1,0 +1,88 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "expectations",
+      "presence_patterns": [
+        "*collector*expectations*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines required sources.",
+      "title": "Expected evidence-source policy",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "observations",
+      "presence_patterns": [
+        "*collector*observations*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows availability and gaps.",
+      "title": "Collector health/coverage observations",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "analysis",
+      "presence_patterns": [
+        "*collector*health*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Distinguishes unavailable evidence from absence.",
+      "title": "Collector-health analysis",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "coverage",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "expectations",
+        "observations",
+        "analysis"
+      ],
+      "title": "Mandatory evidence source unavailable or incomplete"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.collector_health",
+  "incident_type": "collector_health_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Evidence Collector / Retention Coverage Failure"
+    ],
+    "incident_types": [
+      "collector_health_failure"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Was logging disabled?",
+    "Did retention omit part of incident window?",
+    "Is clock uncertainty excessive?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Evidence Collector / Retention Coverage Failure",
+  "vendor": "Generic"
+}

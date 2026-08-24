@@ -1,0 +1,62 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "browser_runtime",
+      "relative_path": "browser_runtimebrowserbrowser_runtimeruntimebrowser_runtime.jsonbrowser_runtime",
+      "sha256": "77bbd3b799e5325ddfaa7fb1f0c4613f66258c54c203b9ee70d6083f211f8492",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "navigation",
+      "relative_path": "navigationnavigationnavigation.jsonnavigation",
+      "sha256": "8bc25ca70ff5699657db3cbc8039ef18686c8c0de6e7b3804ef9480348799fad",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "dom",
+      "relative_path": "domdomdom.jsondom",
+      "sha256": "153585cfbdf2bd2dbe714333c28058f9c94cb16acaa93fce961469b7e14089df",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "computer_actions",
+      "relative_path": "computer_actionscomputercomputer_actionsusecomputer_actions.jsonl",
+      "sha256": "ad57af18f1fdfef7563ee6abccec880e4cdd5e978aeb9da33c8b02c35a6c8ed4",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "browser_network",
+      "relative_path": "browser_networkharbrowser_network.jsonbrowser_network",
+      "sha256": "041da80be950cb943d79cdea6f9963710fc7e03fb41e6c0faee1f2474e994dc0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approvals",
+      "relative_path": "approvalsapprovalapprovals.jsonapprovals",
+      "sha256": "9cba0d978955f23d3810fbed197c2a62693f6daf1463e484bf912f591339ee5a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "screenshots",
+      "relative_path": "screenshotsscreenshotscreenshots.png",
+      "sha256": "518b6c25ade10de70aef0b5173dc6c1d7f4fb9898281ba851b56d1f388680340",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.browser_computer_use",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

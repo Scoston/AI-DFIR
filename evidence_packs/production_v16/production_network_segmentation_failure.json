@@ -1,0 +1,71 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "network_policy",
+      "presence_patterns": [
+        "*network*policy*validation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows deny-by-default segmentation.",
+      "title": "Kubernetes/network policy validation",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "network_test",
+      "presence_patterns": [
+        "*network*segmentation*test*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows effective, not merely declared, reachability.",
+      "title": "Network reachability test result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "network_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "network_policy"
+      ],
+      "title": "Network segmentation failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.network_segmentation_failure",
+  "incident_type": "network_segmentation_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Network Segmentation / Egress Assurance Failure"
+    ],
+    "incident_types": [
+      "network_segmentation_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Can the Workbench directly reach evidence backends or provider APIs?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Network Segmentation / Egress Assurance Failure",
+  "vendor": "AI-DFIR"
+}

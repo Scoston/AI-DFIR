@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:06,000
+AI-DFIR v1.6.0 — AI Incident Response & Digital Forensics.
+
+2
+00:00:06,000 --> 00:00:16,000
+Install in an isolated environment and generate synthetic evidence locally. No production credentials are required.
+
+3
+00:00:16,000 --> 00:00:26,000
+AI-DFIR validates 111 Evidence Packs. File presence alone is not proof; evidence must meet integrity and quality gates.
+
+4
+00:00:26,000 --> 00:00:37,000
+Representation Integrity separates source bytes, machine-readable content, and what a human actually sees, including EvilFont-style glyph deception.
+
+5
+00:00:37,000 --> 00:00:49,000
+Runtime Trust evaluates Agent Cards, workload identity, credential lineage, memory, skills, tenant binding, and authority at incident time.
+
+6
+00:00:49,000 --> 00:01:01,000
+The read-only Analyst Workbench combines representation, runtime, A2A, MCP, provider, causal, and collection evidence in one case view.
+
+7
+00:01:01,000 --> 00:01:13,000
+Platform Assurance checks whether the forensic platform itself is healthy. Missing telemetry from an unhealthy source cannot be interpreted as clean evidence.
+
+8
+00:01:13,000 --> 00:01:23,000
+Human-in-the-loop gates remain required for attribution, destructive containment, legal-hold release, evidence sharing, and case closure.
+
+9
+00:01:23,000 --> 00:01:31,000
+A production-capable release becomes a production-ready deployment only after HA, WORM, KMS, identity, provider, DR, security assessment, and SLO evidence pass.

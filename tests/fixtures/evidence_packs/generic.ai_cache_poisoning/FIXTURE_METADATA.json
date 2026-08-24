@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "cache_recordscachecache_recordseventscache_records.jsonl",
+    "cache_policycachecache_policypolicycache_policy.jsoncache_policy",
+    "source_manifestsourcesource_manifestmanifestsource_manifest.jsonsource_manifest",
+    "writer_identitycachewriter_identitywriterwriter_identity.jsonwriter_identity",
+    "consumer_traceagentic_eventsconsumer_trace.jsonl"
+  ],
+  "pack_id": "generic.ai_cache_poisoning",
+  "pack_source": "evidence_packs/advanced_v11/generic_ai_cache_poisoning.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

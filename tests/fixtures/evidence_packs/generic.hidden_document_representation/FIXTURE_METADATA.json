@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "original_document.pdf",
+    "structural_scandocumentstructural_scanrepresentationstructural_scan.jsonstructural_scan",
+    "representation_diffrepresentationrepresentation_diffdifferentialrepresentation_diff.jsonrepresentation_diff",
+    "visible_representationvisible_textvisible_representation.txt",
+    "ingestion_traceingestioningestion_trace.jsoningestion_trace"
+  ],
+  "pack_id": "generic.hidden_document_representation",
+  "pack_source": "evidence_packs/representation_v12/generic_hidden_document_representation.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

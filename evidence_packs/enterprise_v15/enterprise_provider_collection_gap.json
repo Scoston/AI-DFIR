@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "gap",
+      "presence_patterns": [
+        "*provider*evidence*gap*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Identifies mandatory source coverage.",
+      "title": "Provider gap analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "receipts",
+      "presence_patterns": [
+        "*provider*collection*receipt*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves what was queried/collected.",
+      "title": "Provider collection receipts",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "health",
+      "presence_patterns": [
+        "*collector*health*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Separates missing from unavailable evidence.",
+      "title": "Collector/retention health",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "provider_gap",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "gap",
+        "receipts",
+        "health"
+      ],
+      "title": "Mandatory provider evidence unavailable or missing"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.provider_collection_gap",
+  "incident_type": "provider_collection_gap",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Provider-Native Evidence Collection Gap"
+    ],
+    "incident_types": [
+      "provider_collection_gap"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Which provider-native sources were mandatory?",
+    "Was logging disabled, expired, unauthorized, or simply not collected?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Provider-Native Evidence Collection Gap",
+  "vendor": "Generic"
+}

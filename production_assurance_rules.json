@@ -1,0 +1,65 @@
+{
+  "rules": [
+    {
+      "pack": "production.platform_assurance_failure",
+      "signals": [
+        "platform_assurance_control_failed",
+        "platform_assurance_control_missing",
+        "platform_assurance_control_stale"
+      ]
+    },
+    {
+      "pack": "production.provider_certification_gap",
+      "signals": [
+        "provider_certification_test_failed",
+        "provider_api_version_not_certified",
+        "provider_certification_test_stale"
+      ]
+    },
+    {
+      "pack": "production.environment_separation_failure",
+      "signals": [
+        "environment_missing",
+        "environment_control_reused",
+        "production_egress_not_deny_by_default"
+      ]
+    },
+    {
+      "pack": "production.dr_failover_failure",
+      "signals": [
+        "chaos_scenario_failed_or_missing"
+      ]
+    },
+    {
+      "pack": "production.release_provenance_failure",
+      "signals": [
+        "release_checksum_mismatch",
+        "package_manifest_hash_mismatch",
+        "release_artifact_missing"
+      ]
+    },
+    {
+      "pack": "production.security_assurance_gap",
+      "signals": [
+        "independent_assessor_missing",
+        "security_assessment_stale",
+        "unresolved_security_findings_exceed_policy",
+        "security_assessment_scope_missing"
+      ]
+    },
+    {
+      "pack": "production.upgrade_rollback_failure",
+      "signals": [
+        "upgrade_assurance_requirement_failed"
+      ]
+    },
+    {
+      "pack": "production.network_segmentation_failure",
+      "signals": [
+        "kubernetes_hardening_control_missing",
+        "mutable_container_tag"
+      ]
+    }
+  ],
+  "schema": "ai-dfir/production-assurance-rules/v1.6"
+}

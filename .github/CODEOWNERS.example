@@ -1,0 +1,8 @@
+# Copy this file to .github/CODEOWNERS only after replacing the example owners.
+# GitHub CODEOWNERS requires real users or teams with repository access.
+* @your-github-user-or-team
+/.github/ @your-github-user-or-team
+/evidence_packs/ @your-github-user-or-team
+/deploy/ @your-github-user-or-team
+/migrations/ @your-github-user-or-team
+/scripts/ @your-github-user-or-team

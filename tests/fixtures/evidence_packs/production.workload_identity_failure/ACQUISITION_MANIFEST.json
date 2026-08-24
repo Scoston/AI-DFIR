@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "identity_probe",
+      "relative_path": "identity_probespiffeidentity_probemtlsidentity_probe.jsonidentity_probe",
+      "sha256": "0341e82d557b3749aa4808a328c634bad46e8f505744007b38d1f03828716745",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "trust_bundle",
+      "relative_path": "trust_bundletrusttrust_bundlebundletrust_bundle.jsontrust_bundle",
+      "sha256": "c24eaf1528bd115ecc1561b1a18d4f2e42fd014fdb20a0cc75f92d4b4233f708",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.workload_identity_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "conversation",
+      "relative_path": "conversationconversationconversation.jsonconversation",
+      "sha256": "2e5899c4c5c9edccb7ada9ad19a9a6ac57dd9dbab9fb6163f906505bd2bb3efd",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "retrieval_context",
+      "relative_path": "retrieval_contextretrievalretrieval_context.jsonretrieval_context",
+      "sha256": "1e42e224c4933295187c29fd110f946da8f747c1c0b7ed93f9a07d32bc842846",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_config",
+      "relative_path": "agent_configagent_configagent_config.jsonagent_config",
+      "sha256": "4a17f2c6c140d5eaa70a39cf5eecd8a16705be3fd7eb656a612b0f7d3b475dcd",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_trace",
+      "relative_path": "tool_traceagentic_eventstool_trace.jsonl",
+      "sha256": "817b3bbd0774afa1ae6c4bb2e47b0bb80c51c9332189b7a58fa0c428ccf30886",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "authority",
+      "relative_path": "authorityauthorityauthority.jsonauthority",
+      "sha256": "4a48c7e1979822b51a50b79d730e24576cfcee99e8fbab685fe7e38cb80c7a0c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "target_audit",
+      "relative_path": "target_auditaudittarget_audit.jsontarget_audit",
+      "sha256": "5739f0a65844495e4802283411b9883cb37582ec9646ab5bf381f5c4dce98cf5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi01",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

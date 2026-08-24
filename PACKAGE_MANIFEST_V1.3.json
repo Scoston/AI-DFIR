@@ -1,0 +1,1443 @@
+{
+  "evidence_pack_count": 68,
+  "file_count": 287,
+  "files": [
+    {
+      "path": "A2A_TRUST_ARCHITECTURE_V1.3.md",
+      "sha256": "52f490109663acd638423fd7a91e420d15419417d97c43e722500a8e07851b0b",
+      "size": 3622
+    },
+    {
+      "path": "AGENTIC_INCIDENT_EVIDENCE_MATRIX.md",
+      "sha256": "7ace87f85ba80c8957dc54d5f2ca4838479ff5d5378ae27068aaff6042c7bdfb",
+      "size": 2170
+    },
+    {
+      "path": "AGENTIC_THREAT_CROSSWALK.json",
+      "sha256": "13f92d95faa11fe06c691572c6e760adbd64d70e95ba598406cd51b0dd86a8d6",
+      "size": 3318
+    },
+    {
+      "path": "ATTACK_SURFACE_MATRIX_V1.1.md",
+      "sha256": "fa5217a82b53d96d6a44ff99ff0aeccb106886929cf7d5d252ed095bbb16744c",
+      "size": 3549
+    },
+    {
+      "path": "CHANGELOG_V0.4.md",
+      "sha256": "df2c2fa4d5bbf1c38d8a7e648d27b75746def4831b340a36dc169c791f8841aa",
+      "size": 930
+    },
+    {
+      "path": "CHANGELOG_V0.5.md",
+      "sha256": "e5378752ff350f94f4fe243160e4254af7c63c395bce1adb1a97ee7d8ec009ce",
+      "size": 1083
+    },
+    {
+      "path": "CHANGELOG_V0.6.md",
+      "sha256": "c3b67ac1c8150e590db76801aeb9ef61e71a0933b49784aec2aefb2d9c4fc785",
+      "size": 1052
+    },
+    {
+      "path": "CHANGELOG_V0.7.md",
+      "sha256": "28b40193613e367a5a3eb9e5b059922fc44d7c364002d5df6ca20fabf4b32e4c",
+      "size": 1300
+    },
+    {
+      "path": "CHANGELOG_V0.8.md",
+      "sha256": "b0e4830afb48e3d46b987c25cedd9874d7c4806eca0a743091b2ad913d744172",
+      "size": 732
+    },
+    {
+      "path": "CHANGELOG_V0.9.md",
+      "sha256": "dec1f373b041aac662af4cd2cefb5480ed4e5d0aa7c950900c1b833acd28b0ab",
+      "size": 1245
+    },
+    {
+      "path": "CHANGELOG_V1.0.md",
+      "sha256": "ebd661325016defc71718e428884c6377ee852692a80ca0c52ceb3510c195b1b",
+      "size": 1157
+    },
+    {
+      "path": "CHANGELOG_V1.1.md",
+      "sha256": "a9a7e59789345f0442712b001b501d185a289cce8588637ddf0f08bda5d98781",
+      "size": 1862
+    },
+    {
+      "path": "CHANGELOG_V1.2.md",
+      "sha256": "0a390d596445490f263e88c75d6101bea11006544074b399d7e2fcdef4663ac9",
+      "size": 2084
+    },
+    {
+      "path": "CHANGELOG_V1.3.md",
+      "sha256": "62aaa902f90ed14bb4a38867c56fc94f22139ec1d0af18c1315f1623011ee629",
+      "size": 1828
+    },
+    {
+      "path": "CRITICAL_ANALYSIS_V1.1.md",
+      "sha256": "bc525b41d565bf592ad464051ed4f0fac226dea8efa48b266b1c8396e012ffb5",
+      "size": 7521
+    },
+    {
+      "path": "ENTERPRISE_ARCHITECTURE_V1.0.md",
+      "sha256": "d0d2af55a12dda7c13eeda7f671f6bca213ded041d63c87d884c526c2c307626",
+      "size": 5028
+    },
+    {
+      "path": "EVIDENCE_PACK_SCHEMA.md",
+      "sha256": "aef79cd5d6d99231364a61932b9b9f0c14eb836540db7b698e0f7f242cb20731",
+      "size": 1277
+    },
+    {
+      "path": "EVIDENCE_PACK_SCHEMA_V1.1.md",
+      "sha256": "0497ea991c6028046b20d0d46fbc2202ee22febc768287b17492041886de71bc",
+      "size": 1373
+    },
+    {
+      "path": "EVIDENCE_PACK_SCHEMA_V1.2.md",
+      "sha256": "67daed606fcdd5f9d0fb9a5964a46c1d0627a423732313081bbfcf306a72d5da",
+      "size": 1589
+    },
+    {
+      "path": "EVIDENCE_QUALITY_MODEL_V1.1.md",
+      "sha256": "ee1fa79ac70b4c032067729e7e008b6392c8a54f4e0902275ab4a2a60a67c182",
+      "size": 1881
+    },
+    {
+      "path": "EVILFONT_DETECTION_GUIDE_V1.2.md",
+      "sha256": "50292c4a4ce1c1bbdca106a930c9bdcbdb6184ed2f410559d7309fb934436d9d",
+      "size": 5443
+    },
+    {
+      "path": "EXECUTION_INTEGRITY_ARCHITECTURE_V1.1.md",
+      "sha256": "29a2a1d2a6bee2cd4a5da6d77bc3fde32752f56079fb959b970a53ebc692b7c3",
+      "size": 2495
+    },
+    {
+      "path": "EXTRACTED_PACKAGE_TEST_V1.1.txt",
+      "sha256": "ae41cbcbdc8479e2c5ac7665023148d51096d68736b3284188d59d0496a0098a",
+      "size": 528
+    },
+    {
+      "path": "EXTRACTED_PACKAGE_TEST_V1.2.md",
+      "sha256": "3feb703ed7feb78f295597c398dd1e358d8aaf9ab3188c114e273b502127127d",
+      "size": 639
+    },
+    {
+      "path": "EXTRACTED_PACKAGE_TEST_V1.3.md",
+      "sha256": "6b348c63fbfe617e1cfb3cdb56f4b1b1ea2471fa89f0be49b131ed1e1205ad67",
+      "size": 503
+    },
+    {
+      "path": "GITHUB_RESEARCH_V1.2.md",
+      "sha256": "0d7fa11317d3964b3b7038edfc49ebac62e6278f64407130f97877c123625d74",
+      "size": 4973
+    },
+    {
+      "path": "LIVE_ATTESTATION_RUNBOOK.md",
+      "sha256": "abf24dca9413756f41b954cb6f7fccf3bb8c76a13fad7fc5bae46a42d7f4ff35",
+      "size": 5853
+    },
+    {
+      "path": "MICROSOFT_AGENTIC_CROSSWALK.json",
+      "sha256": "dedbb5530b031eaadf95dae9c2bc03efd8654ad1fb2eb5debe809d6428be009f",
+      "size": 3676
+    },
+    {
+      "path": "MICROSOFT_AI_ALERTS_AND_ARTIFACTS.md",
+      "sha256": "6e9558b583a09aa1f636c85503f8975a9dc231b28f5d87972dc309d5e2755f17",
+      "size": 3267
+    },
+    {
+      "path": "MICROSOFT_AI_ALERT_CATALOG.json",
+      "sha256": "4f0ffd07c90a7c401a5a0f3203a8d29636fb5a619dbd05f56248136ec7526012",
+      "size": 8131
+    },
+    {
+      "path": "PACKAGE_MANIFEST.json",
+      "sha256": "61d2b121466dac69cbdcff10cbf3475300c165f03e215222f8ee71482743e753",
+      "size": 5385
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V0.5.json",
+      "sha256": "63a7253e1f3f8501ebaae42b27a31b5cc626bc1ec86b9715ef6e520ebdf9f5ad",
+      "size": 8669
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V0.6.json",
+      "sha256": "d2fb5f2f4a7a814d2aedce3b6dd12a6660ed0ba408599c5ef11269290e65721a",
+      "size": 11685
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V0.7.json",
+      "sha256": "434229174403aa4e77b0344a618d5806c8c6dbaf1f961f3a0484f0c82b71f295",
+      "size": 13359
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V0.8.json",
+      "sha256": "ff74b4bc088c8d19fd37ee9b8fe10e68d61b57c8c734a36e0211ce47fd3ea00f",
+      "size": 21111
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V0.9.json",
+      "sha256": "e85d1fb668390d19e9239fd910879015dbd32a859959785e137d41405ee9d4f4",
+      "size": 26170
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V1.0.json",
+      "sha256": "8fde9ad44f9fb849ea2b4c48a9a5e6e43a1bea186241766945a6e3964953b914",
+      "size": 30722
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V1.1.json",
+      "sha256": "adc7f384dd6a70224c21006f76ed6c42132ebcc9ce9bf4222f3d0a42c088c061",
+      "size": 38604
+    },
+    {
+      "path": "PACKAGE_MANIFEST_V1.2.json",
+      "sha256": "c9774adb2e7c6089c7bdbeab6c02a8e346962bb195fd65e8f70ea2a9e2f36f0c",
+      "size": 44977
+    },
+    {
+      "path": "README.md",
+      "sha256": "02f35c492d36c6a10e62c6208001cec4bfbc7758c2795dcdaf2e561fa66cc597",
+      "size": 23288
+    },
+    {
+      "path": "REPRESENTATION_INTEGRITY_ARCHITECTURE_V1.2.md",
+      "sha256": "74ff969d98632034d9e8256edb3de1fb062628ad788034217943597372a4b3b3",
+      "size": 4197
+    },
+    {
+      "path": "SELFTEST_RESULT.txt",
+      "sha256": "ab7b04eefd6c9142bad5d72350b995829d60057a6132b1d1ecb7e6f6fd4fde80",
+      "size": 604
+    },
+    {
+      "path": "SOURCES_V0.8.md",
+      "sha256": "f107f992befa5564dda7464088ca22bd9c2ab97008d4729ae64ede27fdb0a0b0",
+      "size": 1192
+    },
+    {
+      "path": "SOURCES_V0.9.md",
+      "sha256": "6ea7cc9afba644456b529c63dc9c8ec6d69dfa97e497a153c9f791d610f9d295",
+      "size": 1230
+    },
+    {
+      "path": "SOURCES_V1.0.md",
+      "sha256": "5cb540df79882507f5f3fc3703f5d3b54b9a529b065d5401ffdc7cb44171e5b0",
+      "size": 1024
+    },
+    {
+      "path": "SOURCES_V1.1.md",
+      "sha256": "a0a24c0ca3c5c10d43d1d9acb007488746e953c88baec889e87cbced1227a079",
+      "size": 2287
+    },
+    {
+      "path": "SOURCES_V1.2.md",
+      "sha256": "34270f83c17e69cbead360e31beaf8a00088cb318c723831e5d1f9ccce4de830",
+      "size": 1509
+    },
+    {
+      "path": "SOURCES_V1.3.md",
+      "sha256": "79fc8556e12365cb6d03ed8aac88abdd8975574f643b06149f5a77eec72b18cd",
+      "size": 1819
+    },
+    {
+      "path": "UNIVERSAL_EVIDENCE_ARCHITECTURE.md",
+      "sha256": "3ff3335f24b3989c27cb81eb816a4e1f7fecefe86c28d8b5d607051cf10cc59a",
+      "size": 999
+    },
+    {
+      "path": "V0.3_SELFTEST_RESULT.txt",
+      "sha256": "e6839efdd5399d78370118e92628b5d592520d247e72207502e8211daae83042",
+      "size": 619
+    },
+    {
+      "path": "V0.4_RUNBOOK.md",
+      "sha256": "d46ead7b16705f3555874d8422efd0937211d939e639f7064288957453768033",
+      "size": 11848
+    },
+    {
+      "path": "V0.4_SELFTEST_RESULT.txt",
+      "sha256": "8cea036b24b5c6386214a9cacf556d1a2a0e0061cdb9caab31af42f811b2a03a",
+      "size": 1183
+    },
+    {
+      "path": "V0.5_RUNBOOK.md",
+      "sha256": "34b2c36cb787587d2abb5376a9403aceca281f7aebebfd30698fdc0a6f99c419",
+      "size": 13371
+    },
+    {
+      "path": "V0.5_SELFTEST_RESULT.txt",
+      "sha256": "6af1fb87aa7197d6f6bdb4628a1035f2312d97e2889dd9e731e6e20d94dbe934",
+      "size": 470
+    },
+    {
+      "path": "V0.6_RUNBOOK.md",
+      "sha256": "f784a95c5cad02b0ea4ae38a2bc47431f303f971356a3f47c405390ca2ae2466",
+      "size": 13617
+    },
+    {
+      "path": "V0.6_SELFTEST_RESULT.txt",
+      "sha256": "23ed0591b482e9851c14b9384bcd29eaa87dc1e9188817415b122ee8daee57e8",
+      "size": 833
+    },
+    {
+      "path": "V0.7_RUNBOOK.md",
+      "sha256": "ceeb11a0df35dfa83af0ef8b0dfe9375e8c42026b7696a8f30aaa783cb4397f3",
+      "size": 9195
+    },
+    {
+      "path": "V0.7_SELFTEST_RESULT.txt",
+      "sha256": "6ca33d665c3710ce8233460adffa23e61fac674876a3c5aba1e362cd5a37f170",
+      "size": 2222
+    },
+    {
+      "path": "V0.8_RUNBOOK.md",
+      "sha256": "e05f78f3a9193f0cb63fecb5a7e68bea1cd9f24aec8188b51274a4faf6d559bf",
+      "size": 5414
+    },
+    {
+      "path": "V0.8_SELFTEST_RESULT.txt",
+      "sha256": "7fa4224c0f8871c954e96a4590f1c36d0d9106973540a39cb8cfc324a36f627e",
+      "size": 1112
+    },
+    {
+      "path": "V0.9_RUNBOOK.md",
+      "sha256": "5b7dd3702975f0c0161bc9c5fe19ea7cb1f85cbcf055b7a3745fd28a2423f21f",
+      "size": 9720
+    },
+    {
+      "path": "V0.9_SELFTEST_RESULT.txt",
+      "sha256": "586abf277f89bfaaefad1288e58b033a9556a083ed56ff44f4207bac68718e5e",
+      "size": 2521
+    },
+    {
+      "path": "V1.0_RUNBOOK.md",
+      "sha256": "5f3e652a3376a53546fef897eb3234ec1f7e50e8b4e0142b55c89aabe8d935b4",
+      "size": 11393
+    },
+    {
+      "path": "V1.0_SELFTEST_RESULT.txt",
+      "sha256": "d36052a010525627372af1c47e7cf856efbdee04ee246943ad10bd040206c8b9",
+      "size": 3235
+    },
+    {
+      "path": "V1.1_RUNBOOK.md",
+      "sha256": "46078cc3472d7137058e792b99c6842475d8b3a0a2da4645d750aa57b22ae03b",
+      "size": 14393
+    },
+    {
+      "path": "V1.1_SELFTEST_RESULT.txt",
+      "sha256": "ebb8a6d6b8c5e6f30d3f806557737c4d825c153e3621e21efd300ad57f554849",
+      "size": 1740
+    },
+    {
+      "path": "V1.2_RUNBOOK.md",
+      "sha256": "2e0f35dbc6e06bc9b8221afe1435fab24dce1b96bd8172571c6337d8b6b4a6db",
+      "size": 9815
+    },
+    {
+      "path": "V1.2_SELFTEST_RESULT.txt",
+      "sha256": "4f43fc9321d3ee84d63b170d91e8317f1c50b171e7c8c80f66b4ef631d39c801",
+      "size": 2333
+    },
+    {
+      "path": "V1.3_RUNBOOK.md",
+      "sha256": "cd15a8cef41b9057d0617639121829a0c1e7a4ff28968bdf907405cd0b105f20",
+      "size": 7169
+    },
+    {
+      "path": "V1.3_SELFTEST_RESULT.txt",
+      "sha256": "7671ce50e2c70a7d57349417d32347c501b8d492d8b326790544be19fb0fdffa",
+      "size": 1187
+    },
+    {
+      "path": "a2a_agent_card_crypto.py",
+      "sha256": "e0e9f1d15286ab243b1ecc34dc80522159064ec966b795ea8e8a87e7c8e89014",
+      "size": 14782
+    },
+    {
+      "path": "a2a_card_history.py",
+      "sha256": "8323f87842cc999a8a978d78f794bd3e7f3d07590e36339f77dd8a35336af35f",
+      "size": 3246
+    },
+    {
+      "path": "a2a_execution_binding.py",
+      "sha256": "3c7ce5fccb4d491851fb93ceb66d9904a6ea3950ee24ec1b3b2b523ac54fc42a",
+      "size": 4830
+    },
+    {
+      "path": "a2a_forensics.py",
+      "sha256": "eefc8b85cc8aad4a4a8aba5ceb0d1c90e4b25d51db03adb8cd8404b9cd14126a",
+      "size": 6178
+    },
+    {
+      "path": "a2a_jcs.py",
+      "sha256": "6ed12d4c09c82d12f9c5cdfaef3c1de8e5521e5b0fd9c890a728460b4e217287",
+      "size": 8214
+    },
+    {
+      "path": "a2a_jcs_node.js",
+      "sha256": "03acbee00316f4fbbfb5908d1e7bb2deb9094723b6cbe78daa61c35931460098",
+      "size": 1110
+    },
+    {
+      "path": "a2a_trust_analyze.py",
+      "sha256": "48ebe8ab8356762eef4b85743088fa0f571fec13ff8d3d66d1f1e279f02b446c",
+      "size": 3161
+    },
+    {
+      "path": "a2a_trust_rules.json",
+      "sha256": "2b67d4931dade10473d0187e43d2a860438bfc70484b5aad2936c3bb8f3b8b53",
+      "size": 1610
+    },
+    {
+      "path": "a2a_trust_store.py",
+      "sha256": "2a1337b69f63083188beef32329ca4e4895a2be0cd0883a317725d8133a9c9ff",
+      "size": 4899
+    },
+    {
+      "path": "acquisition_manifest_v11.py",
+      "sha256": "87ec66764fa1e5a69a728c4e4e6adc393968f408a7d0349c22278f4790649b32",
+      "size": 3421
+    },
+    {
+      "path": "acquisition_manifest_v12.py",
+      "sha256": "1db37034be9e98c55a8c27d0613c09ded12e674f9d27143c326d663cf873eb83",
+      "size": 5579
+    },
+    {
+      "path": "activation_fingerprint.py",
+      "sha256": "29a687d29c414a6123f419d9bce5e77f85d9ef83792299130df16edd615bfa52",
+      "size": 28557
+    },
+    {
+      "path": "agent_lifecycle.py",
+      "sha256": "8602b1331d316f5865fb724c2aae379ed2c8b1d9cf68549de594a1c76fb96a26",
+      "size": 4033
+    },
+    {
+      "path": "agent_trace.py",
+      "sha256": "50f2608302b9eeee791bba005ae8fdc9e6c2d683f2326f5523861c40d337df9c",
+      "size": 2559
+    },
+    {
+      "path": "agentic_case_analyze.py",
+      "sha256": "7e94d753bcf9ed53ed9e57c3e9be09974848552cbe374105ce76a7da251a5683",
+      "size": 4329
+    },
+    {
+      "path": "agentic_detection_rules.json",
+      "sha256": "b06b278df2402ab08b87ae6533c115d0042e8d26f28f9c68280a2aa0fd58468c",
+      "size": 5400
+    },
+    {
+      "path": "agentic_graph.py",
+      "sha256": "6f8fc8344cfec6bb9e4d1c8519e5eb8a22e35930e75ee4e91c34ecd8736645bf",
+      "size": 4021
+    },
+    {
+      "path": "agentic_rules.py",
+      "sha256": "5d1a6ab9b55ed6f2c72c496241dc7e5155f72bb11aa49728dcec595ffc3fc470",
+      "size": 3305
+    },
+    {
+      "path": "agentic_trace_v2.py",
+      "sha256": "e22fdbf560f8a533e9f6ffc996f75ba25dcc63c24287afbb6f46c9c38cdc5e7c",
+      "size": 5602
+    },
+    {
+      "path": "analyst_annotations.py",
+      "sha256": "3844698945cb294174db7140b9a06e135d97a19daaac98f8f2e85062901853a9",
+      "size": 2985
+    },
+    {
+      "path": "analyst_dashboard.py",
+      "sha256": "6bd772601cbf5e174b0a34eb0fe3c19bf5f8cd75ad3526677d1345f81821a8f0",
+      "size": 30288
+    },
+    {
+      "path": "approval_integrity.py",
+      "sha256": "6eddd07111b464767e27b984128faabc77cee9859075ac425ef1163402149c51",
+      "size": 1753
+    },
+    {
+      "path": "archive_intake_forensics.py",
+      "sha256": "dab46f5c243ac4026a0629c42afd6f2ddde7fab0c0affdabf9f68f40ed7eeb0e",
+      "size": 4385
+    },
+    {
+      "path": "authority_engine.py",
+      "sha256": "a65460d142d5fb0a4fe4d83812c3690acb18fd0a6337382bf38800db512ea6e3",
+      "size": 3898
+    },
+    {
+      "path": "auto_responder.py",
+      "sha256": "0dda34da80d067f1db1611a4be3614da58bc436e2f79744090eb9fc9e69369a5",
+      "size": 6229
+    },
+    {
+      "path": "auto_responder_config.example.json",
+      "sha256": "bc40a1a74017c61e193f9b7e2c08b3db2d02faf3857ee3af89dd258c23e9d53a",
+      "size": 2040
+    },
+    {
+      "path": "baseline_engine.py",
+      "sha256": "fd3059b18489fc53b2681b86fa43247bc7b84a46580399fa673ead334652c0c8",
+      "size": 11750
+    },
+    {
+      "path": "browser_forensics.py",
+      "sha256": "83ac59d54813872659ec2438afa60f35c968f119edd108b6152ff3044a6f066d",
+      "size": 4022
+    },
+    {
+      "path": "cache_forensics.py",
+      "sha256": "cf1abd8d101c9448fe1a2eca864b9b577a5fb58046d2f3e4086bca6671c643f5",
+      "size": 2966
+    },
+    {
+      "path": "canary_runner.py",
+      "sha256": "cc8c21e722ea826fbbe1623c2f1c928198732201da33a55da78203dfb0cb3920",
+      "size": 1697
+    },
+    {
+      "path": "case_init.py",
+      "sha256": "9957b82ea031e0a9dc40b7db38ccd85d394623d883163cdc5f66a116c75ba272",
+      "size": 1247
+    },
+    {
+      "path": "case_model.py",
+      "sha256": "e286c6deb983bfa838fd5c1019b7cb63b6578d1e2c8eb61f2d9937716ee2cb54",
+      "size": 21797
+    },
+    {
+      "path": "case_search.py",
+      "sha256": "34718ae4b00b7a74aac2605efa912848eab43beb8f4ac8e064fc16051dfd7d33",
+      "size": 2018
+    },
+    {
+      "path": "closure_gate.py",
+      "sha256": "bd881aa511c596a2542a97dd1b4daa596a096a2d44fec8f2181ef53fdb6d84bd",
+      "size": 4200
+    },
+    {
+      "path": "collect_process_memory_linux.sh",
+      "sha256": "8309710db31a2622e028c4a3198aa8c26fe3a829dc9e98828599f5f8704f5e23",
+      "size": 1217
+    },
+    {
+      "path": "collect_runtime_ebpf.sh",
+      "sha256": "b5721f535dccac1165fa44b9c261f74bb741ec93a3fcae5a13c5fdf051a154fc",
+      "size": 1733
+    },
+    {
+      "path": "collect_runtime_linux.sh",
+      "sha256": "08e180ea1bc76dbbddd57afaee38665b6309793792c2da0a892fa955fa37e290",
+      "size": 2090
+    },
+    {
+      "path": "collector_bundle.py",
+      "sha256": "1e2191282c20c62be667d94ce9c127f404a7bc24e0dc7fdab2ad57ea603629fe",
+      "size": 3674
+    },
+    {
+      "path": "collector_registry.py",
+      "sha256": "45a22c2bc1115c64ff5c899f5eb6f036ae2d0b99a990dfe16ea5c78285b57a0b",
+      "size": 1470
+    },
+    {
+      "path": "consequence_reconciler.py",
+      "sha256": "c2aefc6068ab93fc87cf96b6ddcf6b33d31facc0edb6905baf7d7c135d54ee26",
+      "size": 2143
+    },
+    {
+      "path": "containment_audit.py",
+      "sha256": "e9025822390ee64e4bb8ecc8c0358875ab8a7305694113de496d83bc95fbcfb0",
+      "size": 1463
+    },
+    {
+      "path": "containment_control.py",
+      "sha256": "0ad92d6df18a40d84e22a9d37378e0edd88118127aa1bf04c7208978fd5ea8ee",
+      "size": 3655
+    },
+    {
+      "path": "containment_guard.py",
+      "sha256": "0e74fceb4ba8cf64a6794e5a152b6d788f2e355edddf2b3809d96a647a0db5af",
+      "size": 3282
+    },
+    {
+      "path": "containment_integration_example.py",
+      "sha256": "59bbaf4a8df640c88ce12dd4810bbc93569195f40741be898cb24296de608f3d",
+      "size": 695
+    },
+    {
+      "path": "containment_plan.py",
+      "sha256": "bfd37c9c2f1e07df9d59b71661b67c60fe39d23cc37afaebc87b159471a3c2da",
+      "size": 4442
+    },
+    {
+      "path": "content_intake_gate.py",
+      "sha256": "1d3f37091e67ec598bd8ff5edc212f913a81dfee6cf3d4071e5f62c59acb5103",
+      "size": 2856
+    },
+    {
+      "path": "content_pack_manager.py",
+      "sha256": "517f3674a320451354a78cb8bb6c5a2abaac3c21280ee94adad7f990c03165e8",
+      "size": 2883
+    },
+    {
+      "path": "correlate_evidence.py",
+      "sha256": "674ae76bef6f7617c3a1854bb1c590cdd137dd17add57bc7501706400eb2fefd",
+      "size": 4797
+    },
+    {
+      "path": "deploy/enterprise/Dockerfile",
+      "sha256": "069597e3bd4c23a10bbf8cd162ee4bebc1be3f3ab129c757b6891a9d4a03eee4",
+      "size": 329
+    },
+    {
+      "path": "deploy/enterprise/README.md",
+      "sha256": "fe802af66af74c6cc549b3db0aa537393ef38935c0ac9744bd884d162d62c548",
+      "size": 448
+    },
+    {
+      "path": "deploy/enterprise/REFERENCE_DEPLOYMENT_LIMITS.md",
+      "sha256": "3395cb614cb2004c55622f441964f7c660e31cefd1e66182185c59e117f7b383",
+      "size": 763
+    },
+    {
+      "path": "deploy/enterprise/ai-dfir-enterprise-api.service",
+      "sha256": "cd219b49b053baf8c4a95877e90947ef0adbff955e1b56c6d122893cd1b458e4",
+      "size": 602
+    },
+    {
+      "path": "deploy/enterprise/ai-dfir-enterprise-portal.service",
+      "sha256": "612b6d61a16ce75316442048f9832066dab1c10cb8ff692f9638fdebbae3e29b",
+      "size": 608
+    },
+    {
+      "path": "deploy/enterprise/docker-compose.reference.yml",
+      "sha256": "3472d622a6811fcfc31f38fc6cfaebb13f5e2032833166851e42f8bcd0a510c5",
+      "size": 1121
+    },
+    {
+      "path": "deploy/enterprise/reverse_proxy_auth_boundary.md",
+      "sha256": "3d0f9f1733ccf9d8505f7ef246f186421206274579cd4612e4aba3d8729aeede",
+      "size": 686
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-auto-responder.service",
+      "sha256": "f9688006ab1c2f79ca32b619b55ad4f19a8ea11cd715d3f5b8cdf585c016610b",
+      "size": 488
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-canary.service",
+      "sha256": "c1c66235238e49980118e1911c88bc1531f791a9be1d0abd3fdccddf30ac24d4",
+      "size": 217
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-canary.timer",
+      "sha256": "691922c693546299db0ee1a2b04dec2db70ced02c3ca7f9aca58b9d6df23e42b",
+      "size": 145
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-collector.service",
+      "sha256": "f30c5e05dada58c53299fd509d490e13d4a1da84fe8a94cdc797446a331acf9e",
+      "size": 578
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-fleet-agent.service",
+      "sha256": "dbb0c2f37d34e7ff4576183b1eba44e110312140e4593fff08da14c18c94b1af",
+      "size": 538
+    },
+    {
+      "path": "deploy/systemd/ai-dfir-workbench.service",
+      "sha256": "955fe8c5367c1a57a8982239e08a77a6fc7dd2e7e74a1de01089d6cb033e0d55",
+      "size": 431
+    },
+    {
+      "path": "download_reference.py",
+      "sha256": "d82ea331fdabcdf64dd676ab9fa4a2aadec5e2b152cc956b11da6528a3babd01",
+      "size": 1472
+    },
+    {
+      "path": "enterprise_api.py",
+      "sha256": "ef9c0af12dd5df842a190cf2e177cf37213af547a78416b35c6bc17a0ec436f3",
+      "size": 6295
+    },
+    {
+      "path": "enterprise_case.py",
+      "sha256": "f35d080d122973bf3ba793600a7f2532cfadd60f9647163038887f37f4e10e35",
+      "size": 5295
+    },
+    {
+      "path": "enterprise_exports.py",
+      "sha256": "64972fc19fa50128a66dd86e79dc42c196a6de06a2a82fe388a30a4f69ae7620",
+      "size": 2972
+    },
+    {
+      "path": "enterprise_ingest.py",
+      "sha256": "9c27cfef580e0de6ef2111d707d3f8bc86d92e1fb8b985f5a8aaac5973aeb2ed",
+      "size": 1850
+    },
+    {
+      "path": "enterprise_portal.py",
+      "sha256": "d55310ff400a5b073aba90f5e2a1d29da4484511a39b04402ff5d4ee10ee9eb2",
+      "size": 5124
+    },
+    {
+      "path": "enterprise_rbac.py",
+      "sha256": "2bed04fa1f7decad46b0930d63ae719e2bc412d21453916b345ab1709f7e0033",
+      "size": 2762
+    },
+    {
+      "path": "evidence_acquisition_plan.py",
+      "sha256": "5af7081ad162ad0a87dd0451074775c525246d3b9f1e9d12e9fc4275dccdaefc",
+      "size": 2636
+    },
+    {
+      "path": "evidence_anchor.py",
+      "sha256": "61616e16ebe1bcf04ff76da34d2fa0932ae7c38c43933739beaf9c1a743f6dae",
+      "size": 4142
+    },
+    {
+      "path": "evidence_pack_engine.py",
+      "sha256": "d526a05d4f27b9423217de2b729b7e298b424827e5df081e54c6f117e92a38ce",
+      "size": 8915
+    },
+    {
+      "path": "evidence_packs/README.md",
+      "sha256": "4dbc38472e7af5983fd63031bec4c4f46e70f33884197ee470ca623c96e9ff68",
+      "size": 416
+    },
+    {
+      "path": "evidence_packs/a2a_v13/a2a_execution_identity_binding.json",
+      "sha256": "2f8f9de7d6e59395869ff7874e16d3ccac9d5bc9cea1d09815a17af664b568e7",
+      "size": 4654
+    },
+    {
+      "path": "evidence_packs/a2a_v13/a2a_push_callback_identity.json",
+      "sha256": "06ab3ab60812feb96524083205121970c2c20fad62cf40d20c2a8848d767c8d5",
+      "size": 3915
+    },
+    {
+      "path": "evidence_packs/a2a_v13/a2a_signed_agent_card_trust.json",
+      "sha256": "f55c84570f4f2c1ba4d3bad8eff099cd338e43fca37e9d857876dffe4ec3c507",
+      "size": 4649
+    },
+    {
+      "path": "evidence_packs/a2a_v13/a2a_signing_key_lifecycle.json",
+      "sha256": "5e5202a7729b71a1097fde6ec09ab3080f4f78af1e57d5100cfc86b5c37c1449",
+      "size": 3885
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_a2a_protocol_compromise.json",
+      "sha256": "3da0aea1f78ba54fd1000cc604b9f0c998ce2180a2c25076ba62f921ca09542b",
+      "size": 4426
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_agent_harness_compromise.json",
+      "sha256": "3c888a9de92972db301663a0dd950aaa6ec3591cbf79ca7551497a0d6943aed5",
+      "size": 4964
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_agent_session_hijack.json",
+      "sha256": "c2ef908b2f99091ce7f558c9e263bf2e49a636b2f7ebe439a0349c4ad5debe24",
+      "size": 3580
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_ai_cache_poisoning.json",
+      "sha256": "9065ef1fef8fbd4b84915b0d6e169575092db1a1fc7e2396e97cf21a8a8375bb",
+      "size": 3515
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_browser_computer_use.json",
+      "sha256": "6d121162069a0cf2208942ccb11d414de71f251f1291de3d6c61419e4b3a5f89",
+      "size": 4671
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_cross_tenant_context_bleed.json",
+      "sha256": "584584468b58cb0b63e9cdc8cfb7d057c8a8d8c0d43933da84737267b558e0d5",
+      "size": 3413
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_model_router_drift.json",
+      "sha256": "51ae98dd8022a0ad9923bb16b6389675f791dbc330db259f2a29a51a06cd4c92",
+      "size": 3603
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_output_rendering_active_content.json",
+      "sha256": "6f603e2e2794241eb6a626f529fd47f246f35599661a695fd64e87cb88d167e7",
+      "size": 3632
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_outstanding_delegated_work.json",
+      "sha256": "14ddbe6e795ebd775fcb0d17e4226fef720cefab86f5732cf8fd084acc604f3c",
+      "size": 3522
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_prompt_self_replication.json",
+      "sha256": "6e772131815897bd93e29423f0c1be4d14981787dd50241e5053f8d774f54dbd",
+      "size": 3964
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_tool_identity_shadowing.json",
+      "sha256": "f49e910a0eb8e74ff2e4c00ef9f7f440e5b2fa30d464fefb87727e4e114b0c93",
+      "size": 3114
+    },
+    {
+      "path": "evidence_packs/advanced_v11/generic_workspace_instruction_poisoning.json",
+      "sha256": "023a8f09a3fb466afe658b8f22b5f364566a379fe1a30caae94e476a181e0b32",
+      "size": 3862
+    },
+    {
+      "path": "evidence_packs/advanced_v11/mcp_authorization_compromise.json",
+      "sha256": "bcb9d223f9dd37aecc64752427766f3a171ad830ef9558cd1f0aabe97705a8f0",
+      "size": 2535
+    },
+    {
+      "path": "evidence_packs/advanced_v11/mcp_catalog_cache_poisoning.json",
+      "sha256": "9bae24bea16b85f5a5354d0ef0f476b5be130c67b87264a309adf3e77e3cc4f1",
+      "size": 2570
+    },
+    {
+      "path": "evidence_packs/advanced_v11/mcp_instruction_poisoning.json",
+      "sha256": "38167af86f81b9cfd88e2b6767fb6ee57fca598cab2c2cb419bc561ff07f8562",
+      "size": 2780
+    },
+    {
+      "path": "evidence_packs/advanced_v11/mcp_root_escape.json",
+      "sha256": "e7cce1826e771932dc77464ed1014c4be6be39dbf8bbd60c638e66d226d82383",
+      "size": 2530
+    },
+    {
+      "path": "evidence_packs/advanced_v11/mcp_task_abuse.json",
+      "sha256": "f9be1f4d171c59d43995eed49f82f222aaab7f045e21e6ca07a18f9b2f4e8eaf",
+      "size": 2470
+    },
+    {
+      "path": "evidence_packs/anthropic/claude_code_prompt_injection.json",
+      "sha256": "30d6fc6a85ec5308a85247bb2fb25c83f2a8b60a1bfe20dbf9c5e30185a09062",
+      "size": 9842
+    },
+    {
+      "path": "evidence_packs/generic/api_model_incident.json",
+      "sha256": "01ae8c1c8806c4af27de9c531d8e44d7137cc2bb69bc82feb8b7479fa1d32b51",
+      "size": 2497
+    },
+    {
+      "path": "evidence_packs/generic/mcp_compromise.json",
+      "sha256": "50aa7e9a48c86b2923a028985027d610cb8bb6c5a9ebfcc2fb6a627ef4e7d862",
+      "size": 2541
+    },
+    {
+      "path": "evidence_packs/generic/mcp_protocol_compromise_v2026_07_28.json",
+      "sha256": "e3eb68170263406e3719027f86e4d20f5808b5938fa54447752e4461e1bda999",
+      "size": 4311
+    },
+    {
+      "path": "evidence_packs/generic/memory_poisoning.json",
+      "sha256": "9377f26d1582c03a7970c0d212b8561c1740404b57fbeebcfe2e9e15159499b5",
+      "size": 2015
+    },
+    {
+      "path": "evidence_packs/generic/rag_poisoning.json",
+      "sha256": "163b230911b0a1aac9d68a2d6c1d17fff594c5efed95a0a8f145f3fad0a5caf0",
+      "size": 2471
+    },
+    {
+      "path": "evidence_packs/microsoft/agent365/ai_threat_detection.json",
+      "sha256": "9e12336d21df80a2a74c26821b1d55a0f10fa67252bb2c274119af604c1a2254",
+      "size": 7628
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_endpoint/suspicious_ai_prompt_injection.json",
+      "sha256": "65a9c63aa3ae78b4020e157e72060f9b4c13945e6b8c283a07eb58cbe6547386",
+      "size": 4151
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.AIModelScan_MalwareDetected.json",
+      "sha256": "768d0e9fc19d37253d498ee3e04bde3c2fb47afade49f05ca008a6ac78831aaa",
+      "size": 8564
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_ASCIISmuggling.json",
+      "sha256": "30031cc399e7575f2e092e896fe41910f293bb3e8501e2794454be43b7acd078",
+      "size": 8190
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessAnomaly.json",
+      "sha256": "7e0869524b24958f987d8582f5b2ebabeee2e6d0868381bebfdbf96418218f0b",
+      "size": 7349
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessFromAnonymizedIP.json",
+      "sha256": "569bc4745018cdd5405e81765075113b86fd4578a09aca116ba9425acbeb1fbe",
+      "size": 7411
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessFromSuspiciousIP.json",
+      "sha256": "049534055a9353ac0576a6f602a49495a78f6e83d92c9990e1848bf3303092f9",
+      "size": 7437
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AccessFromSuspiciousUserAgent.json",
+      "sha256": "3b4497377d3a99e6b9c655c5721661ffa98a8e168cb01f1a1f5913ce3f3495eb",
+      "size": 7460
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AnomalousOperation.InitialAccess.json",
+      "sha256": "3f970a3b90877015fca67cb5a2b34463682f1f213aa25b05ce1d6622c6c10730",
+      "size": 7703
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_AnomalousToolInvocation.json",
+      "sha256": "d0c4d5045591e92b87f1fde43bf5d370078cbbf1b7638c3b48545c18c07125ed",
+      "size": 7963
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_CredentialTheftAttempt.json",
+      "sha256": "b0c78a637d580d65c1ccd89c311d79105107d11498c8b2bbe4a91052de27110b",
+      "size": 7928
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_DOWDuplicateRequests.json",
+      "sha256": "dd59e86e11012e4eb9dbe04a1c8da000d5fe477e5c11a9a4549ea8b0effbf63f",
+      "size": 7761
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_DOWVolumeAnomaly.json",
+      "sha256": "c082a50e66bb57df41b4e913bb8c3aa1b1b94b831f4b0e31151c236d1a5c4403",
+      "size": 7778
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt.json",
+      "sha256": "4ea6ea4a7c6089e37fd05ccfbcf2786b3eaebb69f328cff73a9a8359ded78cbe",
+      "size": 7654
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt.json",
+      "sha256": "761a84dca2fd33ebac401073cbda973f114afe1f15ab414195bd6602f82e9f07",
+      "size": 8082
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_LLMReconnaissance.json",
+      "sha256": "ebe6ff920469ecc068f6707a3f4a6df13a41bacc2b5fdcaddb6fb810451a469b",
+      "size": 7466
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_MaliciousUrl.ModelResponse.json",
+      "sha256": "3e84170b3b70c3456235194bdc383a73a61fbe5b1fcba12fbef4a5ab4bcaf83a",
+      "size": 7945
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_MaliciousUrl.UnknownSource.json",
+      "sha256": "179bdafa2484615d12bec5a1ec4824b5b10d9029e5345bec2f7e04626acb9e73",
+      "size": 7876
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_MaliciousUrl.UserPrompt.json",
+      "sha256": "ba277f6f99269f75695c97f809f82e74dd1f1e84a52d750fbcd3bb1809cbb1d6",
+      "size": 7909
+    },
+    {
+      "path": "evidence_packs/microsoft/defender_for_cloud/ExposedKubernetesService.AI.json",
+      "sha256": "047df4f7aa07db81da85fba3f5491360e938c984a18a83332e332d727b62cbf0",
+      "size": 7402
+    },
+    {
+      "path": "evidence_packs/microsoft/purview/ai_interaction.json",
+      "sha256": "525d00cbbff390e03f83128dda0339e8bdd77340e0a9cd22893fb5d8144e7ceb",
+      "size": 3652
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI01_agent_goal_hijack.json",
+      "sha256": "93710508559e14a23fa95527eda93300b38f627e498ec78b21a1096cd19be343",
+      "size": 4366
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI02_tool_misuse.json",
+      "sha256": "1dfe3e24c5c6e40ec5f92e6cba3078b96de699de7ad297ee3c482b6cae53e72b",
+      "size": 3958
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI03_identity_privilege_abuse.json",
+      "sha256": "746f01528c8e634ba80ba05e677c4825ad5ee02dc072e8f446b85b8f3c22271f",
+      "size": 3789
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI04_agentic_supply_chain.json",
+      "sha256": "362056bc725897ca8fd3820d4e9d81b082104ef9c1b1de4a9129d0ca7e5281c6",
+      "size": 3747
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI05_unexpected_code_execution.json",
+      "sha256": "9fbf713d5348881f71ebf14cc0ab3a6fb35bb303d5f016984f28759cedb057f4",
+      "size": 4187
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI06_memory_context_poisoning.json",
+      "sha256": "11f94fb18f9cf58c2853f16a60064caa30c94697e4899e9c282dc2dc01e9909c",
+      "size": 4288
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI07_insecure_inter_agent_communication.json",
+      "sha256": "3d87dbed37cc2fbb0d4a218f2272f4b0c1f2aa2a809e4d731202dff643cac1cc",
+      "size": 3889
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI08_cascading_failures.json",
+      "sha256": "69daad45aa16c97556c487351d7f40e27395ea30e4e9e74ac3d2538a3b375034",
+      "size": 3869
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI09_human_agent_trust_exploitation.json",
+      "sha256": "40697056a2e236f4c296b66c8a567393a13e685c94c7e740daad54f8e03bae67",
+      "size": 3837
+    },
+    {
+      "path": "evidence_packs/owasp_agentic/ASI10_rogue_agents.json",
+      "sha256": "6081eee611a87b98cd8ecdc4e7681fef7962bc12f8425bbe0e6205cea4d74a45",
+      "size": 4550
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_agent_exfil_channel.json",
+      "sha256": "fbd8f6748f49ee15d304306f7b0a2a687073d6848c901c7870e434191cec5c85",
+      "size": 3412
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_agent_workspace_archive_intake.json",
+      "sha256": "d1cc50582aaa398fd48c98f4c25344eccf10e641725ec6769928601c7d09c546",
+      "size": 3629
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_ai_ide_autoload_surface.json",
+      "sha256": "4c4b71532723a298c45f4533f82e158d056c29d70b77ade8f275d63496d59e4d",
+      "size": 3874
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_approval_trust_toctou.json",
+      "sha256": "31b54e832582b9cef2647583bab33cdf2ceb5e1f365f5a4f9bf0f9cbec7a316e",
+      "size": 3785
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_evil_font_glyph_deception.json",
+      "sha256": "6896f7459abdba8802839c41ba47efcfcf5e994dbe52b0c3fc88d3507ebfb606",
+      "size": 5664
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_hidden_document_representation.json",
+      "sha256": "cb51d8df90761f592de0f46305027f469bd2fc67e7b5a09d960b92c615436784",
+      "size": 4118
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_hidden_markup_source.json",
+      "sha256": "64b04a823370c5297ebed21be40585823a73024a60d24070277e54459ab26caa",
+      "size": 3310
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_session_history_tampering.json",
+      "sha256": "4b51d058df63cad4cf502e4a2d21e1c6dd2bac380e9af186fd1f2fb7357b32f1",
+      "size": 3898
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_terminal_control_deception.json",
+      "sha256": "1bd5712582fc5f0d524269854b4d75de29dcd91facf2cadc8b4c9bb57f7d33a4",
+      "size": 3315
+    },
+    {
+      "path": "evidence_packs/representation_v12/generic_unicode_representation_smuggling.json",
+      "sha256": "4f922b95ebfdc0666fdf950ace3b7327975606ec3d95f3e7bb81ca114048776f",
+      "size": 3324
+    },
+    {
+      "path": "evidence_quality.py",
+      "sha256": "93baad67b9196c34c4d444d08b593d712cec2aabc591d970532523e77acc7911",
+      "size": 14108
+    },
+    {
+      "path": "evidence_repository.py",
+      "sha256": "7652eb1e65dea80c17c9b08111878daadbad61cba790c88be2302bed70c2ce04",
+      "size": 17078
+    },
+    {
+      "path": "evidence_tasks.py",
+      "sha256": "f1dcdecb174e8ac3786994fac8fbfa29fe8a41c45882eac3f2e6759aab0d9475",
+      "size": 3109
+    },
+    {
+      "path": "evil_font_forensics.py",
+      "sha256": "4204056b496b9621610f65e6239e5f7691e37d4c3b8a34941175004928ac2d92",
+      "size": 17320
+    },
+    {
+      "path": "execute_containment.py",
+      "sha256": "a554cbfb72d27c2ac7ca4abf959deb200fe26795b4644eb779fd1e18988c67e2",
+      "size": 7350
+    },
+    {
+      "path": "execution_integrity_analyze.py",
+      "sha256": "6d8a57b971cb9047a770c89e315bd06641692a55a4ee0fd92ebe10fde2933db1",
+      "size": 7090
+    },
+    {
+      "path": "execution_integrity_rules.json",
+      "sha256": "1c1603f39f25c8a67b1fdfd0228ee73f0393919b51f28ac6abce0f38c10cf9da",
+      "size": 4804
+    },
+    {
+      "path": "failover_precheck.py",
+      "sha256": "af6c21572dff73aa1d80b207fff1afae7fc0de97042feb8c7cc44d3ca01ac9f1",
+      "size": 1672
+    },
+    {
+      "path": "fleet_agent.py",
+      "sha256": "c6ecc87c60e894d614ff5504f938709eb5c4eeff86126854dcdf7b8c581a524e",
+      "size": 10382
+    },
+    {
+      "path": "fleet_agent_config.example.json",
+      "sha256": "6a2a756e8f122445e90cfbc8e72c52069828279e205aff2aaf97552a8f55f265",
+      "size": 1573
+    },
+    {
+      "path": "fleet_collector.py",
+      "sha256": "a4f6375a7b69b62c32b1c07fc73c9be7d3c45b4971c408ddfbcb6e21627136bd",
+      "size": 14132
+    },
+    {
+      "path": "fleet_crypto.py",
+      "sha256": "c779735bd40162355d52bc8d6af7572d0592a4120a2fb231afc11358dca56663",
+      "size": 2988
+    },
+    {
+      "path": "fleet_policy.example.json",
+      "sha256": "49cc9fa108e4b0257c8efbf0c612a24913ecd76e0ffd2157865326fc24026b3c",
+      "size": 575
+    },
+    {
+      "path": "fleet_policy.py",
+      "sha256": "f6c5f5dfbf620f38b0df24a58d4a5034ee49fb965e50bfec42e89f806ccafd7a",
+      "size": 5559
+    },
+    {
+      "path": "fleet_policy_builder.py",
+      "sha256": "5e87fc7a6b6e75bc37f78a6e8b88880f531d743389973ef3830983290eb472a0",
+      "size": 1843
+    },
+    {
+      "path": "fleet_registry.py",
+      "sha256": "a6522423cba4f20c39d7b4c7e2b9143009007fe277988f8273797406f4d7f253",
+      "size": 3526
+    },
+    {
+      "path": "fleet_snapshot.py",
+      "sha256": "2a9a72a9722ebf9662bd5f41b19c66255c8e3d610d4af486683c0a68b37d0f33",
+      "size": 1233
+    },
+    {
+      "path": "fleet_status.py",
+      "sha256": "9757a49f4ff1bf346231e10d295ad90a32c09f1b274f3c584368c025d97d2c7c",
+      "size": 939
+    },
+    {
+      "path": "gpu_attestation_ingest.py",
+      "sha256": "c90d4ee79e9287528c50e8216ee3e30a951292ca1bdf1ee1cc832de8f30603b0",
+      "size": 2817
+    },
+    {
+      "path": "harness_forensics.py",
+      "sha256": "3d4bae0e326ecbbede25815e34e45e77040ad65ed3e671dab0f4e8f3827f1460",
+      "size": 4770
+    },
+    {
+      "path": "ide_surface_forensics.py",
+      "sha256": "16e92d781389ec9545322422a586670754ae36877473676991e449dd46e920ce",
+      "size": 5416
+    },
+    {
+      "path": "live_attestation.py",
+      "sha256": "9044365d99525c1ebc4c4e643b5c8a20c06c9fd228edc2f5494fa4ed97e13056",
+      "size": 30863
+    },
+    {
+      "path": "markup_representation_forensics.py",
+      "sha256": "524beff984b1b12a8f65c0c167889b967a616465574d9d3627de1ef81f98da73",
+      "size": 2906
+    },
+    {
+      "path": "materialize_case.py",
+      "sha256": "ebab08dce61a56172c626d87a1cc702b9e1803906e1d03eee3375be974f91ea9",
+      "size": 2445
+    },
+    {
+      "path": "mcp_execution_integrity.py",
+      "sha256": "032e9f74affb00de15f44504a607b4acc33371548caf42de2e964bbfd60560dd",
+      "size": 3054
+    },
+    {
+      "path": "mcp_forensics.py",
+      "sha256": "06788f2aed12e226b639e7e1149c5cf17d4dfa61af1465b815d0087c6426b043",
+      "size": 5769
+    },
+    {
+      "path": "memory_forensics.py",
+      "sha256": "07dc7ed022e5eff492dc4a7ff673d13ca9c682f1bab474ae3d6a100cc84e9406",
+      "size": 2918
+    },
+    {
+      "path": "model_adapters.py",
+      "sha256": "b1a4b3135794364ad239941c0d0172e23990c19a7c3786e8bc98f95076cb14a3",
+      "size": 1466
+    },
+    {
+      "path": "network_exfil_forensics.py",
+      "sha256": "1068ab41f4f5cc4e63bfef0c4ea5a0e6aa26c347adc7af9e11839a6814c9d2cc",
+      "size": 2999
+    },
+    {
+      "path": "ocsf_export.py",
+      "sha256": "867b5a8987b70e8f56025953c00d01f6b0bfdbb13beffe083b7760df0cd57ecd",
+      "size": 3824
+    },
+    {
+      "path": "otel_fleet_export.py",
+      "sha256": "f7c9cfab728661c47613046a10b27fdfce34b2626a9a8e3e3cf2c6733e7515b2",
+      "size": 1937
+    },
+    {
+      "path": "output_render_forensics.py",
+      "sha256": "d1bd24059f4e247f016209e3e9c810def692e0766487cf16395ad5a1292e4f53",
+      "size": 3277
+    },
+    {
+      "path": "preservation_engine.py",
+      "sha256": "d33b037d073322a052280b8685ded287bffa46a468a89f07ce9f2e3d9dd4ca5e",
+      "size": 7212
+    },
+    {
+      "path": "probe_client.py",
+      "sha256": "372fcdd0b24b48d3ab277ad435c46f57129758141a6a43c54628be0b5d8debbf",
+      "size": 3767
+    },
+    {
+      "path": "production_integration_example.py",
+      "sha256": "01ad2a179da8d156988371e2bb4c231e2c5e973f444f55816215682e7ad86a0a",
+      "size": 1874
+    },
+    {
+      "path": "prompt_replication.py",
+      "sha256": "9a2943e3a405b29c25ccf86f057ff7c3bbe1b54c851662fe825896241939a627",
+      "size": 3078
+    },
+    {
+      "path": "prompts/activation_probe.jsonl",
+      "sha256": "d575c365fb998db8238f1f95aa0afa235b1418ee57bfc0d34ca837068e67e0f3",
+      "size": 3280
+    },
+    {
+      "path": "prompts/behavioral_probe.jsonl",
+      "sha256": "f60ca8b54a712e69e0386ee85a3b4857c88097d623f79fc8b5631c85e81f28ed",
+      "size": 3759
+    },
+    {
+      "path": "prompts/synthetic_system_prompt.txt",
+      "sha256": "c8dfdfbb5941f9efffb602f4822096d7cc4efed459c0879bc271a9458ed45977",
+      "size": 289
+    },
+    {
+      "path": "provenance_bundle.py",
+      "sha256": "9255d2b3e8972ea2bdb1e7cb2260967975c79cef5e7812dbaa002200b644acf5",
+      "size": 14699
+    },
+    {
+      "path": "provider_adapters.json",
+      "sha256": "108b0d955e491d4f323988ef7c3c699358d034840e37f56853d07b7b5999a020",
+      "size": 21647
+    },
+    {
+      "path": "qwen_forensic_detector.py",
+      "sha256": "e79c10c2584e0a0807c3173b1754ee71c6d06987aee27d93e03cf05beda699f3",
+      "size": 20303
+    },
+    {
+      "path": "rag_forensics.py",
+      "sha256": "c7bf2bd1c21e12a5dd1cfca29f4678235de051f2b8ff97323eea8abb4640e296",
+      "size": 4310
+    },
+    {
+      "path": "recovery_gate.py",
+      "sha256": "f736354b64450a0ef9ba0e9301c7a40fb8280e6507e3f94f1b86bf95630287e2",
+      "size": 5597
+    },
+    {
+      "path": "replay_engine.py",
+      "sha256": "e3a5f26c6657c04e62dc9c035a93ff4c16cb31851cb3c7d4b46bbcee490fbcf6",
+      "size": 4138
+    },
+    {
+      "path": "report_generator.py",
+      "sha256": "34030514f313499cf565b13b4e734ebcb6684a806c7f21a749f55744b0c2e357",
+      "size": 15620
+    },
+    {
+      "path": "repository_checkpoint.py",
+      "sha256": "6a3256429e4d6f841822fd9b11fc168b1d7e98b93203ab9a03586ca41ccfbc85",
+      "size": 1847
+    },
+    {
+      "path": "representation_differential.py",
+      "sha256": "e64779393928f5e97cdef02d1bfb495834c37da2009231ca25836486d6a76e74",
+      "size": 2757
+    },
+    {
+      "path": "representation_integrity_analyze.py",
+      "sha256": "7a6ac635994ff25bfd5d69a6f7efe5262263d384512b7c55b90079e035e66a96",
+      "size": 4016
+    },
+    {
+      "path": "representation_integrity_rules.json",
+      "sha256": "b8898d5ebfa6153d8f5d51ae7e51748c6247ed7fe0d1cc0b6226b747c337ac18",
+      "size": 3135
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "6f0b515586921ae2a0c03b7bb476c45b78d5c58ccf6fd0da1e5557d21f661b5f",
+      "size": 222
+    },
+    {
+      "path": "router_forensics.py",
+      "sha256": "ace8976343ce07de0a6ac1517a8527bd6fcf9210dc57e5cb366632ea93217479",
+      "size": 2944
+    },
+    {
+      "path": "runtime_inventory.py",
+      "sha256": "91b065254f06d5df44f341b6b7aba355f5bd8e1e5b234c8e38e05d127272b200",
+      "size": 9637
+    },
+    {
+      "path": "runtime_model_inventory_example.py",
+      "sha256": "be75a826a84c58c0a6c21f0e78c9e9e41935e284c0272729c1463ed1d40950c7",
+      "size": 507
+    },
+    {
+      "path": "semantic_verdict_ingest.py",
+      "sha256": "ae912238ba065d59beebac49bfd2529a8c49208dccc67f1bd1e42978caa8a62d",
+      "size": 3629
+    },
+    {
+      "path": "session_state_integrity.py",
+      "sha256": "0e65fb9aadfefc3180d09c95bd4857a8f0250dbe2b983442fecbc3df78bbd9b2",
+      "size": 2957
+    },
+    {
+      "path": "session_task_forensics.py",
+      "sha256": "3d69abbced003fe030e975429d559f5522ec72e1743d1331c410ed76dc9283d1",
+      "size": 3196
+    },
+    {
+      "path": "summarize_live_attestation.py",
+      "sha256": "d87cef536f925a24383fe5097857af4f7156530fa61bffc4be3edbdfc6748b4a",
+      "size": 5031
+    },
+    {
+      "path": "taint_tracker.py",
+      "sha256": "60fead2192d59c5be02350eba61b18a64cacbc91fabb635eb1baf630ed4de1eb",
+      "size": 4119
+    },
+    {
+      "path": "terminal_render_forensics.py",
+      "sha256": "ee679259ee729c989eca6a76c109907630a3a88062347860f775306ec78f6256",
+      "size": 1983
+    },
+    {
+      "path": "timeline_builder.py",
+      "sha256": "23af109ce299eeea6e2342012c68468f1419165dfbcf88797be6275a2e11ab43",
+      "size": 6293
+    },
+    {
+      "path": "tool_identity.py",
+      "sha256": "07ce19087c2b7c97c47ec746a6cf51abf6ace1a82a25e94c309d50f704ccaacd",
+      "size": 2381
+    },
+    {
+      "path": "trusted_auth_context.py",
+      "sha256": "02696d0aec7b97c1e801b8deaccafcfc83176d97ec6f446a39547b9beed44224",
+      "size": 2258
+    },
+    {
+      "path": "unicode_forensics.py",
+      "sha256": "ae2747c611d774db7d15efd5b8e8ce7b7e1075dcb75af5ba75f700fec6768ca6",
+      "size": 3807
+    },
+    {
+      "path": "universal_provider_adapter.py",
+      "sha256": "428aed0a09041651697ab67a8eae1026d0fc8088c4b56ff9c8e1f93e18e8677e",
+      "size": 584
+    },
+    {
+      "path": "v04_selftest.py",
+      "sha256": "0264d02940ff845d2231d23a3c8d5c04acada6033aeb5efd69be8dab96421fa5",
+      "size": 6879
+    },
+    {
+      "path": "v05_selftest.py",
+      "sha256": "dfc18ab91e26916bc646e9494ad2af6512ec8aab48a701344d40e8d1432b5155",
+      "size": 7280
+    },
+    {
+      "path": "v06_selftest.py",
+      "sha256": "f04c633a9c229cee0f279c981e1c829be256026548036301786b0e200a94fd89",
+      "size": 9371
+    },
+    {
+      "path": "v07_selftest.py",
+      "sha256": "6d5e8ab1b5aa35ca5d42561443f400a4c7517b9ddf788cf17d4fd95b7b66060d",
+      "size": 11908
+    },
+    {
+      "path": "v08_selftest.py",
+      "sha256": "1b19e3b6ada0f00cad85e4c6a0fe5a8adb456254c16060fef0a0f5ada8a5e2f3",
+      "size": 6626
+    },
+    {
+      "path": "v09_selftest.py",
+      "sha256": "d1274fbc20616d22f4a1d027b1dbe4611c3903e73292cf7ef623381a86c822ee",
+      "size": 12219
+    },
+    {
+      "path": "v10_selftest.py",
+      "sha256": "6fed9ebaea188e7b603f263f96e415c2b17969af86fa863361fe98aea49b4c33",
+      "size": 11546
+    },
+    {
+      "path": "v11_selftest.py",
+      "sha256": "65df9494f01abe3a1a9f44e449935e900b170c8df256e90192a0b344b648fe6b",
+      "size": 16826
+    },
+    {
+      "path": "v12_selftest.py",
+      "sha256": "cb32575d62ad2e837fd43b932f21a0a0fe413567f245411e66c6c9d5453e0090",
+      "size": 14546
+    },
+    {
+      "path": "v13_selftest.py",
+      "sha256": "bb5a1fd950c61eb84739a6dbfbb1be9601568560562fabef73329945e46f737f",
+      "size": 9581
+    },
+    {
+      "path": "verify_attestation_log.py",
+      "sha256": "577fc9a2d94f0e4c9d9bf2f69c7fae502cda3ba4c8a12e6a46fded8f1ef4fbcb",
+      "size": 643
+    },
+    {
+      "path": "workspace_trust.py",
+      "sha256": "490f987eb726a6c399668fcb1d520e3179e3e5287af466607a089af47bd0a71e",
+      "size": 3507
+    }
+  ],
+  "package": "AI-DFIR A2A Identity, Signed Agent Cards & Delegation Trust",
+  "version": "1.3"
+}

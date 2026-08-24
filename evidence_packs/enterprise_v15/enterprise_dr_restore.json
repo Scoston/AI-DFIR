@@ -1,0 +1,88 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "backup",
+      "presence_patterns": [
+        "*dr*backup*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines expected backup contents.",
+      "title": "Signed backup manifest",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "restore",
+      "presence_patterns": [
+        "*dr*restore*validation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves recoverability and hashes.",
+      "title": "Restore validation result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "runbook",
+      "presence_patterns": [
+        "*dr*runbook*.json*",
+        "*change*control*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Attributes restore exercise.",
+      "title": "DR execution/change record",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "dr_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "backup",
+        "restore"
+      ],
+      "title": "Backup or restore integrity failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.dr_restore",
+  "incident_type": "dr_restore",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Backup / Disaster-Recovery Integrity Failure"
+    ],
+    "incident_types": [
+      "dr_restore"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Could the case/evidence store be restored hash-for-hash?",
+    "How recent was the tested restore?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Backup / Disaster-Recovery Integrity Failure",
+  "vendor": "Generic"
+}

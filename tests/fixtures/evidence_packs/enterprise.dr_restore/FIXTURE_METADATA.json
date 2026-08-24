@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "backupdrbackupbackupbackupmanifestbackup.jsonbackup",
+    "restoredrrestorerestorerestorevalidationrestore.jsonrestore",
+    "runbookdrrunbookrunbookrunbook.jsonrunbook"
+  ],
+  "pack_id": "enterprise.dr_restore",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_dr_restore.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

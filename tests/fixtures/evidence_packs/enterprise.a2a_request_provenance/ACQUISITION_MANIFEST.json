@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "envelope",
+      "relative_path": "envelopea2aenveloperequestenvelopeprovenanceenvelope.jsonenvelope",
+      "sha256": "215e85107f225b9d47af5e7551fb84fff52b58632c2a03bf732f5bc5eef00705",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_card",
+      "relative_path": "agent_cardagentagent_cardcardagent_cardverificationagent_card.jsonagent_card",
+      "sha256": "f1aba5716ed6f2c37613a600fa64260432b119b21e917091ec637c89cf2aca73",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "transport",
+      "relative_path": "transportoidctransportprincipaltransport.jsontransport",
+      "sha256": "c7bce3c2ec744bcce8703e649b8b741373a0e5afaacd574445291aaab01c766b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "task",
+      "relative_path": "taska2atask.jsonl",
+      "sha256": "8024cf1644fa9ba92c45800700e8309f2e831c5f57b419b2528dc6aac2fe90d0",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.a2a_request_provenance",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

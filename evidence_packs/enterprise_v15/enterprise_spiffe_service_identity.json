@@ -1,0 +1,91 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "svid",
+      "presence_patterns": [
+        "*spiffe*identity*.json*",
+        "*mtls*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Authenticates workload service identity.",
+      "title": "X.509-SVID verification result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "bundle",
+      "presence_patterns": [
+        "*trust*bundle*.pem",
+        "*ca*bundle*.pem"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines trust domain roots.",
+      "title": "SPIFFE trust bundle",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "collector_registry",
+      "presence_patterns": [
+        "*collector*registry*.json*",
+        "*fleet*registry*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds identity to allowed collector capabilities.",
+      "title": "Collector registry/capabilities",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "service_identity_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "svid",
+        "bundle",
+        "collector_registry"
+      ],
+      "title": "Collector/service identity failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.spiffe_service_identity",
+  "incident_type": "spiffe_service_identity",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "SPIFFE/mTLS Collector or Service Identity Failure"
+    ],
+    "incident_types": [
+      "spiffe_service_identity"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Did the certificate contain exactly one expected SPIFFE URI?",
+    "Was collector capability consistent with identity?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "SPIFFE/mTLS Collector or Service Identity Failure",
+  "vendor": "Generic"
+}

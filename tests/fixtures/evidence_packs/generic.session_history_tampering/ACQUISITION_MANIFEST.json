@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_file",
+      "relative_path": "session_filesessionsession_file.jsonl",
+      "sha256": "85dd4e9f3e0dd34796286a029ba798b2aac07398a024b6e459b31d8003a42ab7",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "signed_checkpoint",
+      "relative_path": "signed_checkpointsessionsigned_checkpointcheckpointsigned_checkpoint.jsonsigned_checkpoint",
+      "sha256": "bb79d0cb8242963d46adcb001ab87ec3c5a20141d44d11e79464642a9fe0dd1e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "integrity_analysis",
+      "relative_path": "integrity_analysissessionintegrity_analysisstateintegrity_analysisintegrityintegrity_analysis.jsonintegrity_analysis",
+      "sha256": "0f51c08fb313a38cb8f6e3514b346a03d369b379fc049ccafe4427c3c43163d7",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "resume_trace",
+      "relative_path": "resume_traceresumeresume_trace.jsonresume_trace",
+      "sha256": "e21a02381501cf2d55b39f24c0c170d7c7b370ac86f25f7f193f0d58c4d414a9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "downstream_action",
+      "relative_path": "downstream_actiontooldownstream_actioncalldownstream_action.jsondownstream_action",
+      "sha256": "a08d6d3d66dd6fc11fb9acb453df9fe406c64d70caf2da26836609b8925bf7a3",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.session_history_tampering",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

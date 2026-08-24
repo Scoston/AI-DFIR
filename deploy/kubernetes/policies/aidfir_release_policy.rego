@@ -1,0 +1,1 @@
+package aidfir.admission\n\ndefault allow := false\n\nallow if {\n  input.image_digest != ""\n  startswith(input.image_digest, "sha256:")\n  input.signature_verified == true\n  input.slsa_provenance_verified == true\n  input.environment == "production"\n}\n\ndeny_reason := "production image must be digest pinned, signed, and have verified SLSA provenance" if not allow\n

@@ -1,0 +1,144 @@
+{
+  "artifacts": [
+    {
+      "category": "a2a_trust",
+      "id": "push_config",
+      "presence_patterns": [
+        "*push*notification*config*.json*",
+        "*webhook*config*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines callback endpoint and required authentication.",
+      "title": "PushNotificationConfig and authentication metadata",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "callback_events",
+      "presence_patterns": [
+        "*callback*.jsonl",
+        "*webhook*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves task IDs, source, retries and payload hashes.",
+      "title": "Received callback/webhook events",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "agent_card_verification",
+      "presence_patterns": [
+        "*agent*card*verification*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds callback expectations to trusted agent identity.",
+      "title": "Verified sending Agent Card",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "transport_identity",
+      "presence_patterns": [
+        "*tls*.json*",
+        "*oauth*.json*",
+        "*mtls*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes callback source independently.",
+      "title": "TLS/OAuth/API-key/mTLS verification metadata",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "task_registry",
+      "presence_patterns": [
+        "*a2a*task*.json*",
+        "*task*registry*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects callbacks for unknown/mismatched tasks.",
+      "title": "Expected task/context registry",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "callback_identity_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "push_config",
+        "callback_events",
+        "agent_card_verification",
+        "transport_identity",
+        "task_registry"
+      ],
+      "title": "Callback source/task identity is invalid or inconsistent"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "a2a.push_callback_identity",
+  "incident_type": "a2a_push_callback_identity",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI03",
+      "ASI07",
+      "ASI08"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "A2A Push Notification / Callback Identity Failure"
+    ],
+    "incident_types": [
+      "a2a_push_callback_identity"
+    ]
+  },
+  "notes": [
+    "A valid Agent Card signature proves integrity under a key; enterprise trust additionally requires key lifecycle and identity-policy binding."
+  ],
+  "platform": "A2A v1.0",
+  "questions": [
+    "Did callback task ID match an expected task?",
+    "Was callback authentication the configured scheme?",
+    "Did duplicate/retry behavior remain idempotent?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.3",
+  "sources": [
+    {
+      "type": "spec",
+      "url": "https://a2a-protocol.org/latest/specification/",
+      "verified": "2026-08-24"
+    },
+    {
+      "type": "protocol",
+      "url": "https://a2a-protocol.org/latest/whats-new-v1/",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "A2A Push Notification / Callback Identity Failure",
+  "vendor": "Generic"
+}

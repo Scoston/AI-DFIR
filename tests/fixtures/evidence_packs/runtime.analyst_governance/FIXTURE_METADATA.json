@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "auditanalystauditactionauditauditaudit.jsonaudit",
+    "conclusionsconclusionsconclusions.jsonconclusions",
+    "reviewspeerreviewsreviewreviews.jsonreviews",
+    "gatepeergatereviewgategategate.jsongate"
+  ],
+  "pack_id": "runtime.analyst_governance",
+  "pack_source": "evidence_packs/runtime_v14/runtime_analyst_governance.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

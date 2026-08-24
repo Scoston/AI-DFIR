@@ -1,0 +1,90 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "raw",
+      "presence_patterns": [
+        "*otel*.json*",
+        "*otlp*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves original observability evidence.",
+      "title": "Raw OTLP/GenAI spans",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "normalized",
+      "presence_patterns": [
+        "*otel*genai*ingest*.json*",
+        "*otel*agentic*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Maps spans to forensic events.",
+      "title": "Normalized AI-DFIR events",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "coverage",
+      "presence_patterns": [
+        "*collector*health*.json*",
+        "*otel*coverage*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects missing instrumentation.",
+      "title": "Telemetry coverage/collector health",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "telemetry",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "raw",
+        "normalized",
+        "coverage"
+      ],
+      "title": "GenAI telemetry evidence is usable"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.otel_genai",
+  "incident_type": "otel_genai_coverage",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "OpenTelemetry GenAI Telemetry Integrity / Coverage"
+    ],
+    "incident_types": [
+      "otel_genai_coverage"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Which operations lack spans?",
+    "Are tool/memory/retrieval relationships connected by trace/span IDs?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "OpenTelemetry GenAI Telemetry Integrity / Coverage",
+  "vendor": "Generic"
+}

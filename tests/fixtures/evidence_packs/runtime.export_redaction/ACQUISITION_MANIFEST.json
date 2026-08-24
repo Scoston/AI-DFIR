@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "source",
+      "relative_path": "sourcesourcesourceexportsource.txt",
+      "sha256": "087160514e2343b9b110d703a2ed06985e7e341b78bd37534db6ea451692fa2a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "redacted",
+      "relative_path": "redactedredactedredacted.txt",
+      "sha256": "4bc14fbfc2c498927763b2d40f334fcadf80493519deff3803d8bb6e4a035582",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "manifest",
+      "relative_path": "manifestredactionmanifestmanifestmanifest.jsonmanifest",
+      "sha256": "1a40ba2ee8742985074319cf9dbe7ff02ad653b4faf8f25f3f14722378b34d07",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.export_redaction",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

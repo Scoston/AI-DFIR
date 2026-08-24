@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "storage_probeobjectstorage_probelockstorage_probeprobestorage_probe.jsonstorage_probe",
+    "hold_probelegalhold_probeholdhold_probevalidationhold_probe.jsonhold_probe"
+  ],
+  "pack_id": "production.immutable_storage_failure",
+  "pack_source": "evidence_packs/production_v16/production_immutable_storage_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

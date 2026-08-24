@@ -1,0 +1,180 @@
+{
+  "rules": [
+    {
+      "any_event_types": [
+        "tool_call",
+        "delegation"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi01",
+      "id": "AIR-ASI01-001",
+      "mitre_atlas": [
+        "LLM Prompt Injection",
+        "AI Agent Tool Invocation"
+      ],
+      "owasp_agentic": "ASI01",
+      "requires_signals": [
+        "suspected_goal_hijack"
+      ],
+      "severity": "high",
+      "statement": "A suspected goal-hijack signal co-occurs with downstream agent action; causal attribution still requires linked event IDs.",
+      "title": "Goal hijack followed by tool action"
+    },
+    {
+      "any_event_types": [
+        "tool_call"
+      ],
+      "any_signals": [
+        "unexpected_mcp_tool",
+        "mcp_tool_schema_changed",
+        "new_tool_reachability"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi02",
+      "id": "AIR-ASI02-001",
+      "mitre_atlas": [
+        "AI Agent Tool Invocation",
+        "AI Agent Tool Poisoning"
+      ],
+      "owasp_agentic": "ASI02",
+      "severity": "critical",
+      "statement": "Tool inventory/authority changed and tool activity exists.",
+      "title": "Unapproved or changed tool used"
+    },
+    {
+      "any_signals": [
+        "effective_authority_expanded",
+        "new_tool_reachability"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi03",
+      "id": "AIR-ASI03-001",
+      "mitre_atlas": [
+        "Valid Accounts",
+        "Use Alternate Authentication Material"
+      ],
+      "owasp_agentic": "ASI03",
+      "severity": "critical",
+      "statement": "The suspect authority graph exposes privileges or tool reachability absent from the approved state.",
+      "title": "Effective authority expansion"
+    },
+    {
+      "any_signals": [
+        "unexpected_mcp_server",
+        "unexpected_mcp_tool",
+        "mcp_tool_schema_changed"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi04",
+      "id": "AIR-ASI04-001",
+      "mitre_atlas": [
+        "AI Agent Tool Poisoning",
+        "AI Supply Chain Rug Pull"
+      ],
+      "owasp_agentic": "ASI04",
+      "severity": "critical",
+      "statement": "An unapproved agentic dependency or tool definition was observed.",
+      "title": "Agentic supply-chain/MCP component drift"
+    },
+    {
+      "any_event_types": [
+        "code_execution"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi05",
+      "id": "AIR-ASI05-001",
+      "mitre_atlas": [
+        "Command and Scripting Interpreter",
+        "Escape to Host"
+      ],
+      "owasp_agentic": "ASI05",
+      "severity": "critical",
+      "statement": "Normalized evidence includes an agent-associated code-execution event.",
+      "title": "Agent-associated code execution"
+    },
+    {
+      "any_signals": [
+        "memory_untrusted_writer",
+        "memory_cross_session_propagation"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi06",
+      "id": "AIR-ASI06-001",
+      "mitre_atlas": [
+        "AI Agent Context Poisoning"
+      ],
+      "owasp_agentic": "ASI06",
+      "requires_event_types": [
+        "memory_read"
+      ],
+      "severity": "high",
+      "statement": "Untrusted or persistent memory state was read after being introduced.",
+      "title": "Persistent memory propagation"
+    },
+    {
+      "any_event_types": [
+        "agent_message",
+        "delegation"
+      ],
+      "any_signals": [
+        "inter_agent_identity_mismatch",
+        "delegation_scope_violation"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi07",
+      "id": "AIR-ASI07-001",
+      "mitre_atlas": [
+        "Deploy AI Agent",
+        "AI Agent"
+      ],
+      "owasp_agentic": "ASI07",
+      "severity": "high",
+      "statement": "Inter-agent communication has an identity or delegation-control anomaly.",
+      "title": "Inter-agent identity/delegation anomaly"
+    },
+    {
+      "evidence_pack_id": "owasp.agentic.asi08",
+      "id": "AIR-ASI08-001",
+      "mitre_atlas": [
+        "AI Agent Tool Invocation",
+        "Impact"
+      ],
+      "owasp_agentic": "ASI08",
+      "requires_signals": [
+        "causal_cascade_detected"
+      ],
+      "severity": "critical",
+      "statement": "A causal path spans multiple agent/tool components and reaches consequence evidence.",
+      "title": "Multi-component causal cascade"
+    },
+    {
+      "any_event_types": [
+        "tool_call",
+        "consequence"
+      ],
+      "evidence_pack_id": "owasp.agentic.asi09",
+      "id": "AIR-ASI09-001",
+      "mitre_atlas": [
+        "User Execution",
+        "LLM Response Rendering"
+      ],
+      "owasp_agentic": "ASI09",
+      "requires_event_types": [
+        "approval_decision"
+      ],
+      "severity": "high",
+      "statement": "Human approval is present in a workflow that also contains downstream action; causal linkage must be verified.",
+      "title": "Human approval led to questioned action"
+    },
+    {
+      "evidence_pack_id": "owasp.agentic.asi10",
+      "id": "AIR-ASI10-001",
+      "mitre_atlas": [
+        "Deploy AI Agent",
+        "Persistence",
+        "AI Agent Tool Invocation"
+      ],
+      "owasp_agentic": "ASI10",
+      "requires_signals": [
+        "post_stop_agent_activity"
+      ],
+      "severity": "critical",
+      "statement": "Evidence indicates continued agent activity after a stop or containment control.",
+      "title": "Agent continued after containment/stop"
+    }
+  ],
+  "schema": "ai-dfir/agentic-detection-rules/v0.9"
+}

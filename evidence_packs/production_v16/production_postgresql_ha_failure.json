@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "db_probe",
+      "presence_patterns": [
+        "*postgres*ha*probe*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows replication, schema and RLS state.",
+      "title": "PostgreSQL HA/RLS probe",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "failover",
+      "presence_patterns": [
+        "*database*primary*loss*.json*",
+        "*failover*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Proves recovery behavior.",
+      "title": "Database failover drill",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "db_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "db_probe"
+      ],
+      "title": "Database assurance failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.postgresql_ha_failure",
+  "incident_type": "postgresql_ha_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "PostgreSQL HA / RLS Assurance Failure"
+    ],
+    "incident_types": [
+      "postgresql_ha_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Were RLS and FORCE RLS active?",
+    "Was failover within RTO/RPO?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "PostgreSQL HA / RLS Assurance Failure",
+  "vendor": "AI-DFIR"
+}

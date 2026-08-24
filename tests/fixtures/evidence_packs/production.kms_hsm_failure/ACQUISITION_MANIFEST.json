@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "kms_probe",
+      "relative_path": "kms_probekmskms_probeprobekms_probe.jsonkms_probe",
+      "sha256": "9dfa1feea3311bb886353bde91c6b3c7ed3e3c00c5792c0879e1e918850bbb41",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "rotation",
+      "relative_path": "rotationkeyrotationrotationrotation.jsonrotation",
+      "sha256": "bd92beb34bb39759eb211502e29ee4bd41ad6b979072452d189e16768499dab2",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.kms_hsm_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,16 @@
+{
+  "created_files": [
+    "agent_plan_stateagent_stateagent_plan_state.jsonagent_plan_state",
+    "stop_cancelcancelstop_cancel.jsonstop_cancel",
+    "tool_traceagentic_eventstool_trace.jsonl",
+    "authorityauthorityauthority.jsonauthority",
+    "persistencememorypersistence.jsonpersistence",
+    "endpoint_networkprocessendpoint_network.jsonendpoint_network",
+    "consequencesopen_consequencesconsequences.jsonconsequences"
+  ],
+  "pack_id": "owasp.agentic.asi10",
+  "pack_source": "evidence_packs/owasp_agentic/ASI10_rogue_agents.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

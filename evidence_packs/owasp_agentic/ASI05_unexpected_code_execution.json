@@ -1,0 +1,153 @@
+{
+  "artifacts": [
+    {
+      "category": "endpoint",
+      "id": "process_tree",
+      "presence_patterns": [
+        "*DeviceProcessEvents*.json*",
+        "*process*.json*",
+        "*processes.txt"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves unexpected code/process execution.",
+      "title": "Endpoint/container process tree and command lines"
+    },
+    {
+      "category": "agent",
+      "id": "agent_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Connects agent decision to code execution.",
+      "title": "Agent/tool trace leading to execution"
+    },
+    {
+      "category": "tool",
+      "id": "tool_schema",
+      "presence_patterns": [
+        "*tool_schema*.json*",
+        "*mcp*inventory*.json*",
+        "*config*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines legitimate execution surface.",
+      "title": "Tool/MCP schema and executable integration config"
+    },
+    {
+      "category": "endpoint",
+      "id": "filesystem",
+      "presence_patterns": [
+        "*DeviceFileEvents*.json*",
+        "*filesystem*.json*",
+        "*file*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes payload/script materialization.",
+      "title": "File create/write/execute evidence"
+    },
+    {
+      "category": "network",
+      "id": "network",
+      "presence_patterns": [
+        "*DeviceNetworkEvents*.json*",
+        "*network*.json*",
+        "*proxy*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Determines C2/exfiltration or downloaded payloads.",
+      "title": "Outbound/inbound network evidence"
+    },
+    {
+      "category": "cloud",
+      "id": "container_runtime",
+      "presence_patterns": [
+        "*kubernetes*.json*",
+        "*container*.json*",
+        "*audit*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Required for containerized agent execution.",
+      "title": "Container/Kubernetes runtime/audit"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "code_execution_confirmed",
+      "logic": "all",
+      "requires": [
+        "process_tree",
+        "filesystem"
+      ],
+      "title": "Unexpected code/process execution occurred"
+    },
+    {
+      "id": "agent_caused_execution",
+      "logic": "all",
+      "requires": [
+        "agent_trace",
+        "process_tree"
+      ],
+      "title": "Agent/tool path caused execution"
+    },
+    {
+      "id": "network_impact",
+      "logic": "all",
+      "requires": [
+        "process_tree",
+        "network"
+      ],
+      "title": "Execution communicated externally"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi05",
+  "incident_type": "unexpected_code_execution",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "Command and Scripting Interpreter",
+      "Escape to Host",
+      "AI Agent Tool Invocation"
+    ],
+    "owasp_agentic": "ASI05"
+  },
+  "match": {
+    "detection_families": [
+      "Unexpected Code Execution (RCE)"
+    ],
+    "incident_types": [
+      "unexpected_code_execution"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes unexpected code execution (rce)?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI05 \u2014 Unexpected Code Execution (RCE)",
+  "vendor": "OWASP"
+}

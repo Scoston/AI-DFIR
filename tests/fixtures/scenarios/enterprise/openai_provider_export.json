@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "model": "synthetic-model",
+      "request_id": "r1"
+    }
+  ],
+  "provider": "openai",
+  "synthetic": true
+}

@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "submission",
+      "presence_patterns": [
+        "*transparency*submission*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds evidence hashes for external anchoring.",
+      "title": "Signed transparency submission bundle",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "receipt",
+      "presence_patterns": [
+        "*transparency*receipt*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves external inclusion.",
+      "title": "Transparency-log receipt/inclusion proof",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "validation",
+      "presence_patterns": [
+        "*transparency*validation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects missing/mismatched inclusion.",
+      "title": "Receipt validation result",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "anchor",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "submission",
+        "receipt",
+        "validation"
+      ],
+      "title": "Evidence externally anchored"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.transparency_anchor",
+  "incident_type": "transparency_anchor_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "sigstore": "Rekor-compatible/private transparency log"
+  },
+  "match": {
+    "detection_families": [
+      "External Transparency / Evidence Anchor Failure"
+    ],
+    "incident_types": [
+      "transparency_anchor_failure"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Was the evidence digest externally included?",
+    "Is the log/receipt identity preserved?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "External Transparency / Evidence Anchor Failure",
+  "vendor": "Generic"
+}

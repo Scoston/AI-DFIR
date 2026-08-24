@@ -1,0 +1,19 @@
+{
+  "approved": {
+    "model_manifest_sha256": "replace",
+    "model_tree_content_sha256": "replace",
+    "fingerprint_sha256": "replace",
+    "approved_activations_sha256": "replace",
+    "runtime_inventory_sha256": "replace",
+    "container_image_digest": "sha256:replace",
+    "chat_template_sha256": "replace",
+    "tokenizer_sha256": "replace"
+  },
+  "allowed_adapters": [],
+  "approved_hook_fingerprints": [],
+  "high_robust_z": 5.0,
+  "critical_robust_z": 10.0,
+  "require_hardware_attestation": false,
+  "recovery_heartbeats": 3,
+  "expected_heartbeat_seconds": 300
+}

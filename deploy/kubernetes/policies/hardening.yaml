@@ -1,0 +1,28 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: {name: ai-dfir}
+spec: {minAvailable: 2, selector: {matchLabels: {app: ai-dfir}}}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: ai-dfir-default-deny}
+spec:
+  podSelector: {matchLabels: {app: ai-dfir}}
+  policyTypes: [Ingress, Egress]
+  ingress: []
+  egress: []
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: ai-dfir-security-context-reference}
+spec:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile: {type: RuntimeDefault}
+  containers:
+  - name: reference
+    image: ghcr.io/example/ai-dfir@sha256:0000000000000000000000000000000000000000000000000000000000000000
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities: {drop: ["ALL"]}

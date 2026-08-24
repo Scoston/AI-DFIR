@@ -1,0 +1,10 @@
+{
+  "case_id": "DEMO-001",
+  "created_utc": "2026-08-24T18:13:34.499259Z",
+  "schema": "ai-dfir/case/v1.6",
+  "severity": "high",
+  "status": "INVESTIGATING",
+  "summary": "Synthetic demo: representation deception, agent identity/authority drift, and incomplete provider telemetry.",
+  "title": "Synthetic Agentic AI Incident",
+  "tool_version": "1.6"
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "ai-dfir/provider-certification-profile/v1.6",
+  "provider": "github",
+  "adapter": "github_copilot",
+  "api_version": "2026-03-10",
+  "max_certification_age_days": 90,
+  "known_limitations": [
+    "Enterprise audit log does not replace local client/session evidence."
+  ]
+}

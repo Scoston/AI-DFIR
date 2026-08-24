@@ -1,0 +1,11 @@
+{
+  "additional_evidence_pack_ids": [
+    "a2a.execution_identity_binding",
+    "runtime.temporal_authority_violation",
+    "enterprise.provider_collection_gap"
+  ],
+  "alert_id": "DEMO-SYNTHETIC",
+  "evidence_pack_id": "generic.evil_font_glyph_deception",
+  "schema": "ai-dfir/incident-profile/v1.6",
+  "source": "synthetic-demo"
+}

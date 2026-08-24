@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "policyauthoritypolicypolicypolicy.jsonpolicy",
+    "actionsagentic_eventsactions.jsonl",
+    "credentialcredentialcredentiallineagecredential.jsoncredential",
+    "approvalsapprovalapprovals.jsonapprovals"
+  ],
+  "pack_id": "runtime.temporal_authority",
+  "pack_source": "evidence_packs/runtime_v14/runtime_temporal_authority.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

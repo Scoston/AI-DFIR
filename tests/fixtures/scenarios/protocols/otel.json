@@ -1,0 +1,24 @@
+{
+  "resourceSpans": [
+    {
+      "scopeSpans": [
+        {
+          "spans": [
+            {
+              "attributes": {
+                "gen_ai.agent.id": "a",
+                "gen_ai.operation.name": "execute_tool",
+                "gen_ai.tool.call.id": "tc",
+                "gen_ai.tool.name": "send_email"
+              },
+              "name": "execute tool",
+              "spanId": "s",
+              "startTimeUnixNano": "1",
+              "traceId": "t"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

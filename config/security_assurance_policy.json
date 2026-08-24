@@ -1,0 +1,19 @@
+{
+  "schema": "ai-dfir/security-assurance-policy/v1.6",
+  "max_age_days": 365,
+  "max_unresolved": {
+    "critical": 0,
+    "high": 0
+  },
+  "required_scope": [
+    "tenant_isolation",
+    "authentication",
+    "authorization",
+    "evidence_integrity",
+    "collector_impersonation",
+    "parser_fuzzing",
+    "ssrf",
+    "supply_chain",
+    "closure_bypass"
+  ]
+}

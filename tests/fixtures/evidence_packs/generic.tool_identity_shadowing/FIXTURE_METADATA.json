@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "tool_registrytooltool_registryidentitytool_registry.jsontool_registry",
+    "discovery_tracetooldiscovery_tracediscoverydiscovery_trace.jsondiscovery_trace",
+    "execution_tracetoolexecution_traceexecutionexecution_trace.jsonexecution_trace",
+    "tls_identitytlstls_identity.jsontls_identity"
+  ],
+  "pack_id": "generic.tool_identity_shadowing",
+  "pack_source": "evidence_packs/advanced_v11/generic_tool_identity_shadowing.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

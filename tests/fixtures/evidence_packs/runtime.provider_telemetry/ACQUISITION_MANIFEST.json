@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "provider_export",
+      "relative_path": "provider_exportproviderprovider_exportexportprovider_export.jsonprovider_export",
+      "sha256": "553c222939b498fd2dac2369f92ee5051552948455b1e385e2c8558cf3833030",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "normalized",
+      "relative_path": "normalizedprovidernormalizednormalizationnormalized.jsonnormalized",
+      "sha256": "836c006f4e742ab4d29a7101b761f0b1b183bb40c45a11e78001b68b9ba5ab4d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "app_trace",
+      "relative_path": "app_traceagentic_eventsapp_trace.jsonl",
+      "sha256": "149ad37cb3bae90b840ab58264df6bfa222b917554d168f60634306f4964e0dd",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.provider_telemetry",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

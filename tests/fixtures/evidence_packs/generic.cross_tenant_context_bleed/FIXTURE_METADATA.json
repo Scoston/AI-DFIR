@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "tenant_contexttenanttenant_contextcontexttenant_context.jsontenant_context",
+    "memory_cachememorymemory_cache.jsonmemory_cache",
+    "retrievalretrievalretrieval.jsonretrieval",
+    "responsesresponseresponses.jsonresponses",
+    "identityidentityidentity.jsonidentity"
+  ],
+  "pack_id": "generic.cross_tenant_context_bleed",
+  "pack_source": "evidence_packs/advanced_v11/generic_cross_tenant_context_bleed.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,12 @@
+AI-DFIR
+Copyright 2026 AI-DFIR contributors
+
+This product is licensed under the Apache License, Version 2.0.
+
+AI-DFIR can integrate with third-party libraries, cloud providers, AI providers,
+and security platforms. Those products and libraries remain subject to their
+own licenses and terms. See THIRD_PARTY_NOTICES.md and LICENSE_GUIDE.md.
+
+No third-party trademarks are claimed by this project. Microsoft, OpenAI,
+Anthropic, AWS, Google, GitHub, SPIFFE, OpenTelemetry, OWASP, MITRE, and other
+names are used only to describe interoperability, evidence sources, or standards.

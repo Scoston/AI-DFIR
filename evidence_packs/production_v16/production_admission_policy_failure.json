@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "admission",
+      "presence_patterns": [
+        "*admission*policy*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows unsigned/mutable images are denied.",
+      "title": "Admission policy test/decision",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "release",
+      "presence_patterns": [
+        "*release*integrity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds admission decision to verified release.",
+      "title": "Release/provenance validation",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "admission_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "admission",
+        "release"
+      ],
+      "title": "Admission policy failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.admission_policy_failure",
+  "incident_type": "admission_policy_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Artifact Admission / Image Signature Policy Failure"
+    ],
+    "incident_types": [
+      "admission_policy_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Can a mutable tag or unsigned image reach production?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Artifact Admission / Image Signature Policy Failure",
+  "vendor": "AI-DFIR"
+}

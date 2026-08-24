@@ -1,0 +1,91 @@
+{
+  "artifacts": [
+    {
+      "category": "enterprise_v15",
+      "id": "object_probe",
+      "presence_patterns": [
+        "*object*store*probe*.json*",
+        "*production*readiness*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves immutability control.",
+      "title": "Object-lock/WORM probe",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "object_index",
+      "presence_patterns": [
+        "*object*index*.json*",
+        "*repository*inventory*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Enumerates retained objects.",
+      "title": "Object SHA/version/retention index",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "enterprise_v15",
+      "id": "storage_audit",
+      "presence_patterns": [
+        "*s3*audit*.json*",
+        "*storage*audit*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Attributes storage changes.",
+      "title": "Object-store access/audit logs",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "storage_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "object_probe",
+        "object_index"
+      ],
+      "title": "Evidence storage immutability failure established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "enterprise.object_storage_integrity",
+  "incident_type": "object_storage_integrity",
+  "mandatory_min_quality": "VALIDATED",
+  "match": {
+    "detection_families": [
+      "Immutable Evidence Object-Store / WORM Failure"
+    ],
+    "incident_types": [
+      "object_storage_integrity"
+    ]
+  },
+  "notes": [
+    "v1.5 requires tenant-scoped, hash-bound evidence; unavailable provider telemetry remains an explicit evidence gap."
+  ],
+  "platform": "Enterprise AI-DFIR",
+  "questions": [
+    "Was Object Lock/WORM active when evidence was written?",
+    "Did retention or legal hold weaken?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.5",
+  "title": "Immutable Evidence Object-Store / WORM Failure",
+  "vendor": "Generic"
+}

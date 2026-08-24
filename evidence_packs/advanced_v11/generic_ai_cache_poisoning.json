@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "cache_records",
+      "locations": [],
+      "presence_patterns": [
+        "*cache*events*.jsonl",
+        "*cache*records*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs cached derived state.",
+      "title": "Cache read/write/invalidate records",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "cache_policy",
+      "locations": [],
+      "presence_patterns": [
+        "*cache*policy*.json*",
+        "*cache*config*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines expected isolation and lifetime.",
+      "title": "Cache namespace/tenant/TTL policy",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "source_manifest",
+      "locations": [],
+      "presence_patterns": [
+        "*source*manifest*.json*",
+        "*corpus*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether cached content is stale or detached from source.",
+      "title": "Source IDs and current hashes",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "writer_identity",
+      "locations": [],
+      "presence_patterns": [
+        "*cache*writer*.json*",
+        "*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes poisoning.",
+      "title": "Cache writer identity/trust evidence",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "consumer_trace",
+      "locations": [],
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*cache*consumer*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes blast radius.",
+      "title": "Model/tool sessions that consumed cached content",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "cache_poisoned",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "cache_records",
+        "cache_policy",
+        "source_manifest",
+        "writer_identity"
+      ],
+      "title": "Cache content/namespace/source integrity is violated"
+    },
+    {
+      "id": "cache_poison_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "cache_records",
+        "consumer_trace"
+      ],
+      "title": "Poisoned/stale cache was consumed by execution"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.ai_cache_poisoning",
+  "incident_type": "ai_cache_poisoning",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "AI Prompt / Context / RAG / Tool Cache Poisoning"
+    ],
+    "incident_types": [
+      "ai_cache_poisoning"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Was the cache cross-tenant?",
+    "Did the cached content still match its source?",
+    "Was an invalidated/expired item reused?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [],
+  "title": "AI Prompt / Context / RAG / Tool Cache Poisoning",
+  "vendor": "Generic"
+}

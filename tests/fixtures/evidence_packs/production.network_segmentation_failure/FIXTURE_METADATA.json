@@ -1,0 +1,11 @@
+{
+  "created_files": [
+    "network_policynetworknetwork_policypolicynetwork_policyvalidationnetwork_policy.jsonnetwork_policy",
+    "network_testnetworknetwork_testsegmentationnetwork_testtestnetwork_test.jsonnetwork_test"
+  ],
+  "pack_id": "production.network_segmentation_failure",
+  "pack_source": "evidence_packs/production_v16/production_network_segmentation_failure.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

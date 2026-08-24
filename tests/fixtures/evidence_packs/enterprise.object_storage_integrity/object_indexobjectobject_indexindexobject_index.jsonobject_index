@@ -1,0 +1,7 @@
+{
+  "artifact_id": "object_index",
+  "event_id": "SYN-object_index",
+  "schema": "ai-dfir/synthetic-evidence/v1.6",
+  "synthetic": true,
+  "timestamp_utc": "2026-08-24T16:00:00Z"
+}

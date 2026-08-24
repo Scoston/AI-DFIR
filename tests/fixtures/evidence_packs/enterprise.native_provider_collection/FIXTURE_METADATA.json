@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "rawproviderrawrawraw.jsonraw",
+    "receiptproviderreceiptcollectionreceiptreceiptreceipt.jsonreceipt",
+    "identitycollectoridentityidentityidentity.jsonidentity",
+    "normalizationprovidernormalizationnormalizednormalization.jsonnormalization"
+  ],
+  "pack_id": "enterprise.native_provider_collection",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_native_provider_collection.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

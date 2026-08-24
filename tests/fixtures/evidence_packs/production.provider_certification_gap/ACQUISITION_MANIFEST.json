@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "certification",
+      "relative_path": "certificationprovidercertificationcertificationcertification.jsoncertification",
+      "sha256": "aa9b7011bc3318ace7755cd42bda9fe6d0e0b2f2171d302349b6ec45d0d6bdd6",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "receipts",
+      "relative_path": "receiptsproviderreceiptscertreceiptsreceiptsreceipts.jsonreceipts",
+      "sha256": "ba3c1c7412dbaa4946280255c4ea7679304dbb238813766ca25ba6d142bd2672",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.provider_certification_gap",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

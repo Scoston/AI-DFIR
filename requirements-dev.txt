@@ -1,0 +1,4 @@
+-r requirements-enterprise.txt
+pytest>=8.4
+ruff>=0.12
+pip-audit>=2.9

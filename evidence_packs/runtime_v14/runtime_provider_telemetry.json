@@ -1,0 +1,91 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "provider_export",
+      "presence_patterns": [
+        "*provider*export*.json*",
+        "*copilot*.json*",
+        "*bedrock*.json*",
+        "*vertex*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Independent provider source.",
+      "title": "Provider-native exported logs",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "normalized",
+      "presence_patterns": [
+        "*provider*normalization*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Normalizes request/model/actor/tool hashes.",
+      "title": "AI-DFIR provider normalization",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "app_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*harness*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Allows cross-source comparison.",
+      "title": "Application/harness trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "provider",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "provider_export",
+        "normalized",
+        "app_trace"
+      ],
+      "title": "Provider and application telemetry can be correlated"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.provider_telemetry",
+  "incident_type": "provider_telemetry_gap",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Provider-Native AI Telemetry Gap / Disagreement"
+    ],
+    "incident_types": [
+      "provider_telemetry_gap"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Do provider request IDs match application claims?",
+    "Which model actually executed?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Provider-Native AI Telemetry Gap / Disagreement",
+  "vendor": "Generic"
+}

@@ -1,0 +1,69 @@
+{
+  "findings": [
+    {
+      "authority": {
+        "context": {
+          "purpose": null,
+          "resource": null,
+          "tenant": null
+        },
+        "denied_scopes": [],
+        "principal": "agent",
+        "scopes": [
+          "read"
+        ],
+        "sources": {
+          "read": [
+            "G"
+          ]
+        },
+        "timestamp_utc": "2026-08-24T16:00:00Z"
+      },
+      "event_id": "E",
+      "missing_scopes": [
+        "write"
+      ],
+      "principal": "agent",
+      "severity": "critical",
+      "type": "action_exceeded_temporal_authority"
+    }
+  ],
+  "maximum_reachable": {
+    "agent": {
+      "reachable_tools": [],
+      "scopes": [
+        "read"
+      ]
+    }
+  },
+  "observed_actions": [
+    {
+      "authority": {
+        "context": {
+          "purpose": null,
+          "resource": null,
+          "tenant": null
+        },
+        "denied_scopes": [],
+        "principal": "agent",
+        "scopes": [
+          "read"
+        ],
+        "sources": {
+          "read": [
+            "G"
+          ]
+        },
+        "timestamp_utc": "2026-08-24T16:00:00Z"
+      },
+      "authorized": false,
+      "event_id": "E",
+      "required_scopes": [
+        "write"
+      ],
+      "tool": "delete"
+    }
+  ],
+  "rule": "Authority is evaluated at action time with grant/deny, resource, tenant, purpose, credential, and approval context.",
+  "schema": "ai-dfir/temporal-authority/v1.4"
+}

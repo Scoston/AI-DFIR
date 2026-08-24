@@ -1,0 +1,19 @@
+[Unit]
+Description=AI-DFIR Enterprise Portal
+After=network-online.target
+
+[Service]
+Type=simple
+User=ai-dfir
+Group=ai-dfir
+EnvironmentFile=/etc/ai-dfir/enterprise.env
+ExecStart=/opt/ai-dfir/.venv/bin/python /opt/ai-dfir/enterprise_portal.py --cases-db /var/lib/ai-dfir/cases.db --repository /var/lib/ai-dfir/repository --auth-secret-hex ${AI_DFIR_AUTH_SECRET_HEX} --repository-key-hex ${AI_DFIR_REPOSITORY_KEY_HEX} --host 127.0.0.1 --port 8891
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/ai-dfir
+
+[Install]
+WantedBy=multi-user.target

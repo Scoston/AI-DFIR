@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "id": "a1",
+      "type": "usage"
+    }
+  ],
+  "provider": "anthropic",
+  "synthetic": true
+}

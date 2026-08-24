@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "category": "supply_chain",
+      "id": "component_inventory",
+      "presence_patterns": [
+        "*sbom*.json*",
+        "*mlbom*.json*",
+        "*inventory*.json*",
+        "*plugins*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines all dynamic code/data/tool dependencies.",
+      "title": "AI/agent/MCP/plugin component inventory"
+    },
+    {
+      "category": "supply_chain",
+      "id": "component_hashes",
+      "presence_patterns": [
+        "*manifest*.json*",
+        "*SHA256SUMS*",
+        "*provenance*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Allows comparison to approved artifacts.",
+      "title": "Component/package/container/model hashes"
+    },
+    {
+      "category": "mcp",
+      "id": "mcp_inventory",
+      "presence_patterns": [
+        "*mcp*inventory*.json*",
+        "*mcp*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Required when MCP is part of the dependency chain.",
+      "title": "MCP server/tool catalogs"
+    },
+    {
+      "category": "runtime",
+      "id": "deployment_history",
+      "presence_patterns": [
+        "*deployment*.json*",
+        "*install*.log",
+        "*package*.json*",
+        "*git*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes when the suspect component entered production.",
+      "title": "Deployment/install/update logs"
+    },
+    {
+      "category": "agent",
+      "id": "execution_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Links suspect dependency to observed behavior.",
+      "title": "Agent/tool execution using component"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "supply_chain_change",
+      "logic": "all",
+      "requires": [
+        "component_inventory",
+        "component_hashes",
+        "deployment_history"
+      ],
+      "title": "Unapproved component/change is established"
+    },
+    {
+      "id": "supply_chain_execution",
+      "logic": "all",
+      "requires": [
+        "component_hashes",
+        "execution_trace"
+      ],
+      "title": "Suspect component participated in execution"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi04",
+  "incident_type": "agentic_supply_chain",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "AI Supply Chain Rug Pull",
+      "AI Supply Chain Reputation Inflation",
+      "AI Agent Tool Poisoning"
+    ],
+    "owasp_agentic": "ASI04"
+  },
+  "match": {
+    "detection_families": [
+      "Agentic Supply Chain Vulnerabilities"
+    ],
+    "incident_types": [
+      "agentic_supply_chain"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes agentic supply chain vulnerabilities?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI04 \u2014 Agentic Supply Chain Vulnerabilities",
+  "vendor": "OWASP"
+}

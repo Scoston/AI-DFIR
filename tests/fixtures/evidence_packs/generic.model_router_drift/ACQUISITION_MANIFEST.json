@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "router_policy",
+      "relative_path": "router_policyrouterrouter_policypolicyrouter_policy.jsonrouter_policy",
+      "sha256": "49a210350a4dba964c2d43ab516726da4f440e089cf40b39104df73ace887553",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "routing_log",
+      "relative_path": "routing_logroutingrouting_log.jsonl",
+      "sha256": "3d33711051fa2f9388de946c26108c55394b34bc1c793e48dd48ffd38948873c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "model_catalog",
+      "relative_path": "model_catalogmodelmodel_catalogcatalogmodel_catalog.jsonmodel_catalog",
+      "sha256": "1e6118832ee49354b9f1338992c71a289517036d358e65c37e82afd7dee4b619",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "safety_policy",
+      "relative_path": "safety_policysafetysafety_policypolicysafety_policy.jsonsafety_policy",
+      "sha256": "b91717799a96ba666c3244d348a2ca1ad7a550ede12eed2d1d110138c84e99b5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "provider_audit",
+      "relative_path": "provider_auditproviderprovider_auditauditprovider_audit.jsonprovider_audit",
+      "sha256": "466fee588dad138aee00be0f98711ea3fafb7988c52a39c45b63eff5383a89dc",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.model_router_drift",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

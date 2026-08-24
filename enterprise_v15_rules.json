@@ -1,0 +1,67 @@
+{
+  "rules": [
+    {
+      "pack": "enterprise.oidc_identity",
+      "severity": "critical",
+      "signals": [
+        "oidc_tenant_claim_missing",
+        "oidc_token_expired_at_evaluation_time",
+        "oidc_token_not_yet_valid_at_evaluation_time",
+        "oidc_token_issued_after_evaluation_time"
+      ]
+    },
+    {
+      "pack": "enterprise.spiffe_service_identity",
+      "severity": "critical",
+      "signals": [
+        "svid_certificate_outside_validity",
+        "svid_chain_untrusted",
+        "svid_identity_mismatch",
+        "svid_trust_domain_mismatch",
+        "svid_eku_missing",
+        "svid_revoked_at_evaluation_time",
+        "svid_crl_validation_error"
+      ]
+    },
+    {
+      "pack": "enterprise.provider_collection_gap",
+      "severity": "critical",
+      "signals": [
+        "mandatory_provider_source_missing",
+        "mandatory_provider_source_unavailable"
+      ]
+    },
+    {
+      "pack": "enterprise.dr_restore",
+      "severity": "critical",
+      "signals": [
+        "restore_file_missing",
+        "restore_hash_mismatch"
+      ]
+    },
+    {
+      "pack": "enterprise.production_readiness",
+      "severity": "critical",
+      "signals": [
+        "production_control_unverified"
+      ]
+    },
+    {
+      "pack": "enterprise.distributed_collection",
+      "severity": "critical",
+      "signals": [
+        "slo_availability_breach",
+        "slo_ingest_lag_breach",
+        "slo_error_rate_breach"
+      ]
+    },
+    {
+      "pack": "enterprise.object_storage_integrity",
+      "severity": "critical",
+      "signals": [
+        "object_hash_mismatch"
+      ]
+    }
+  ],
+  "schema": "ai-dfir/enterprise-rules/v1.5"
+}

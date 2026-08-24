@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_events",
+      "relative_path": "memory_eventsagentic_eventsmemory_events.jsonl",
+      "sha256": "c9ffa4d47e38a9cd85de4b4c969aa96fd7c6a1004fa430bd786f5fe67587935a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_snapshot",
+      "relative_path": "memory_snapshotmemorymemory_snapshotsnapshotmemory_snapshot.jsonmemory_snapshot",
+      "sha256": "f4ef0f9582265236576f72ed472d177b4397934a343313550d76499bae9618dd",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "source_provenance",
+      "relative_path": "source_provenanceprovenancesource_provenance.jsonsource_provenance",
+      "sha256": "c3edd7c31ce84e495b76d6d569f9cb68193100eb3623591672159d361354aec7",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "session_history",
+      "relative_path": "session_historysessionsession_history.jsonl",
+      "sha256": "ffa91ed7c0bd8f4cbd4e9973b7596a014ca82797febf93f70d53abda86c599ce",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "downstream_trace",
+      "relative_path": "downstream_traceagentic_eventsdownstream_trace.jsonl",
+      "sha256": "3c896f502d151b78c261bf3631f90e56e8943a8364a95f9aba649e5ed7d824a5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_policy",
+      "relative_path": "memory_policymemorymemory_policypolicymemory_policy.jsonmemory_policy",
+      "sha256": "22a822be14a380d6ef9d9be54506a0f6d0eab50fd28e16fb9274d11cd3887319",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi06",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

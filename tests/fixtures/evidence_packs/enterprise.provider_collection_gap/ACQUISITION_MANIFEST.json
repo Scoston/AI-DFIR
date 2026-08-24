@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "gap",
+      "relative_path": "gapprovidergapevidencegapgapgap.jsongap",
+      "sha256": "5e37b68432dd85c4959025d57c0285074117098136e5dd3c01c3a8520c021ba4",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "receipts",
+      "relative_path": "receiptsproviderreceiptscollectionreceiptsreceiptreceipts.jsonreceipts",
+      "sha256": "ba3c1c7412dbaa4946280255c4ea7679304dbb238813766ca25ba6d142bd2672",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "health",
+      "relative_path": "healthcollectorhealthhealthhealth.jsonhealth",
+      "sha256": "3749b1cdb22177d503a1ff10dca97504f1d055e18d1a7e0dd09d3a6c0f815901",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.provider_collection_gap",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,74 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "assurance",
+      "presence_patterns": [
+        "*platform*assurance*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Aggregates current control health.",
+      "title": "Current platform assurance report",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "control_evidence",
+      "presence_patterns": [
+        "*production*probe*.json*",
+        "*readiness*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Prevents a summary from becoming self-authenticating.",
+      "title": "Underlying control probe evidence",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "platform_trust",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "assurance",
+        "control_evidence"
+      ],
+      "title": "Platform assurance degradation is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.platform_assurance_failure",
+  "incident_type": "platform_assurance_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "AI-DFIR Platform Assurance Degraded"
+    ],
+    "incident_types": [
+      "platform_assurance_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Which controls are failed, stale, or missing?",
+    "Could the failure affect evidence completeness or integrity?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "AI-DFIR Platform Assurance Degraded",
+  "vendor": "AI-DFIR"
+}

@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "token_verification",
+      "relative_path": "token_verificationoidctoken_verificationprincipaltoken_verification.jsontoken_verification",
+      "sha256": "3688cc94b9b396039e40b73576cf061ca150331f1e1b88be714b97be9aae5ebf",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "jwks",
+      "relative_path": "jwksjwksjwks.jsonjwks",
+      "sha256": "fcb8b36e196dd3cd66ea70a74c598b40cd3fcd476c4ce0dfea0b261fb3d5681d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "access_audit",
+      "relative_path": "access_auditanalystaccess_auditauditaccess_audit.jsonl",
+      "sha256": "eb4094e6ad1c5d2fe8ddd2331f0fa9086ab58458b268c785da5ca6d40a88df54",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.oidc_identity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

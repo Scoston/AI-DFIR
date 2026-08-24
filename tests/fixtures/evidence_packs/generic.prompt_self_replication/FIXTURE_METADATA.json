@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "message_corpuspromptmessage_corpuscorpusmessage_corpus.jsonmessage_corpus",
+    "agentic_traceagentic_eventsagentic_trace.jsonl",
+    "propagation_analysispromptpropagation_analysisreplicationpropagation_analysis.jsonpropagation_analysis",
+    "delivery_channelsemaildelivery_channelsauditdelivery_channels.jsondelivery_channels",
+    "downstream_consequencesopen_consequencesdownstream_consequences.jsondownstream_consequences"
+  ],
+  "pack_id": "generic.prompt_self_replication",
+  "pack_source": "evidence_packs/advanced_v11/generic_prompt_self_replication.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

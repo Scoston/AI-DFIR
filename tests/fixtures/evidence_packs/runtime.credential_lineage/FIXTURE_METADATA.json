@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "issuancecredentialissuancelineageissuance.jsonissuance",
+    "usestokenusesuseuses.jsonuses",
+    "revocationrevocationrevocation.jsonrevocation",
+    "workloadworkloadworkloadidentityworkload.jsonworkload"
+  ],
+  "pack_id": "runtime.credential_lineage",
+  "pack_source": "evidence_packs/runtime_v14/runtime_credential_lineage.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

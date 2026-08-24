@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_store",
+      "relative_path": "memory_storememorymemory_store.jsonmemory_store",
+      "sha256": "966394dea96d9443f84522fbe692312905d965e05ee4aa421f91662815831bd0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_provenance",
+      "relative_path": "memory_provenancememory_provenancememory_provenance.jsonmemory_provenance",
+      "sha256": "4a9cbffccfcb4f0e1ad5ba2cccb7a7bd3f1452a825f9d0058e71eb823aa9b967",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "memory_retrieval",
+      "relative_path": "memory_retrievalmemory_retrievalmemory_retrieval.jsonmemory_retrieval",
+      "sha256": "4027e96566d6b597921294128e3c70a45918b7665e54c4f27225a0aea602102a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_trace",
+      "relative_path": "agent_traceagent_traceagent_trace.jsonl",
+      "sha256": "86f78a9aca83b7dd41982143206cdfd693ee808f0c774b0b0c9bb5ce4c0a8f9c",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.memory_poisoning",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

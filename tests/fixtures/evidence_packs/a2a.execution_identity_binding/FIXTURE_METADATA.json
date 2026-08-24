@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "card_verificationagentcard_verificationcardcard_verificationverificationcard_verification.jsoncard_verification",
+    "a2a_eventsa2aa2a_events.jsonl",
+    "binding_analysisa2abinding_analysisexecutionbinding_analysisbindingbinding_analysis.jsonbinding_analysis",
+    "auth_transportoauthauth_transport.jsonauth_transport",
+    "authorityauthorityauthority.jsonauthority",
+    "target_audittargettarget_auditaudittarget_audit.jsontarget_audit"
+  ],
+  "pack_id": "a2a.execution_identity_binding",
+  "pack_source": "evidence_packs/a2a_v13/a2a_execution_identity_binding.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

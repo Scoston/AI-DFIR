@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "policy",
+      "relative_path": "policyauthoritypolicypolicypolicy.jsonpolicy",
+      "sha256": "02bb5e53a75e9a55976d8a8d10cc46e993ad641776325a8984d497338108bc43",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "actions",
+      "relative_path": "actionsagentic_eventsactions.jsonl",
+      "sha256": "06cc5b28da0267888be05a1f07995209f6c091f33cb6fc629de38f1614d74935",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "credential",
+      "relative_path": "credentialcredentialcredentiallineagecredential.jsoncredential",
+      "sha256": "bd8484b11868b4d204a854e52c79c712857529d5366a6229d421cd287fb3b46a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approvals",
+      "relative_path": "approvalsapprovalapprovals.jsonapprovals",
+      "sha256": "9cba0d978955f23d3810fbed197c2a62693f6daf1463e484bf912f591339ee5a",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.temporal_authority",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

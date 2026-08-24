@@ -1,0 +1,19 @@
+[Unit]
+Description=AI-DFIR Enterprise Metadata Gateway
+After=network.target
+
+[Service]
+Type=simple
+User=aidfir
+Group=aidfir
+WorkingDirectory=/opt/ai-dfir
+EnvironmentFile=/etc/ai-dfir/gateway.env
+ExecStart=/opt/ai-dfir/.venv/bin/python enterprise_gateway_v15.py --config /etc/ai-dfir/gateway.json --bind 127.0.0.1 --port 8890
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

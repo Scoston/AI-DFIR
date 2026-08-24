@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible AI-DFIR defect
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include credentials, private keys, or real incident evidence."
+  - type: input
+    id: version
+    attributes:
+      label: AI-DFIR version / package SHA-256
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior

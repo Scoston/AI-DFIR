@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "original_archive.zip",
+    "archive_analysisarchivearchive_analysisintakearchive_analysisanalysisarchive_analysis.jsonarchive_analysis",
+    "post_extract_inventoryworkspacepost_extract_inventoryinventorypost_extract_inventory.jsonpost_extract_inventory",
+    "execution_traceprocessexecution_trace.jsonexecution_trace"
+  ],
+  "pack_id": "generic.agent_workspace_archive_intake",
+  "pack_source": "evidence_packs/representation_v12/generic_agent_workspace_archive_intake.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

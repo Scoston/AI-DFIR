@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approval_record",
+      "relative_path": "approval_recordapprovalapproval_record.jsonapproval_record",
+      "sha256": "b57188e745fb1eb6c1065f9669b843ef2bf5f53f6c856f7684569b506ba150a9",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "current_resource",
+      "relative_path": "current_resourcemcpcurrent_resource.jsoncurrent_resource",
+      "sha256": "d27dfe64b887b88d115e3031458c20f1428eff4df6d43004453d1a09d19f4ff6",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "approval_integrity",
+      "relative_path": "approval_integrityapprovalapproval_integrityintegrityapproval_integrity.jsonapproval_integrity",
+      "sha256": "23a83703592140438bcc531874c8510d9df16180f7d90f550fddc5ad3fef3277",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "git_history",
+      "relative_path": "git_historygitgit_historyhistorygit_history.txt",
+      "sha256": "42561500d21ada0aca1b3b367ab1d8adf6cfac64b85dc85e020d58438715300d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "execution_trace",
+      "relative_path": "execution_traceprocessexecution_trace.jsonexecution_trace",
+      "sha256": "313cb8b1b61efd4b677c7c8736ff9a6bfc3831e1cdd87fd3550f58eaacb5fc96",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.approval_trust_toctou",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

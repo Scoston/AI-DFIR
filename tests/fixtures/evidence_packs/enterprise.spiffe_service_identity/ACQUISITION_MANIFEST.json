@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "svid",
+      "relative_path": "svidspiffesvididentitysvid.jsonsvid",
+      "sha256": "15b9054b3042b341c35f1eeb438194fa5abe2b81fde22f8b82e0093c73abd765",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "bundle",
+      "relative_path": "bundletrustbundlebundlebundle.pem",
+      "sha256": "f3e322b690619eaa456305199fb5d49c88306bd490583992fb8d035b682f135d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "collector_registry",
+      "relative_path": "collector_registrycollectorcollector_registryregistrycollector_registry.jsoncollector_registry",
+      "sha256": "8978772c5f4b5ab95f19e8003d0975e75500b25ae9da2a0db83e70e835d6f34b",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.spiffe_service_identity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

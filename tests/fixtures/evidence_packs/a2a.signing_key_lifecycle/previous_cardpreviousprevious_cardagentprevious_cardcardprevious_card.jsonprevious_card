@@ -1,0 +1,7 @@
+{
+  "artifact_id": "previous_card",
+  "event_id": "SYN-previous_card",
+  "schema": "ai-dfir/synthetic-evidence/v1.6",
+  "synthetic": true,
+  "timestamp_utc": "2026-08-24T16:00:00Z"
+}

@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "dashboard_javascript": {
+      "status": "PASS"
+    },
+    "evidence_pack_matrix": {
+      "packs": 111,
+      "status": "PASS"
+    },
+    "github_repository_surface": {
+      "status": "PASS"
+    },
+    "host_dependency_profile": {
+      "note": "CI installs requirements into a clean environment. Functional release tests exercise supported fallbacks where available.",
+      "requirements": 11,
+      "status": "WARN",
+      "unsatisfied_on_host": 1
+    },
+    "python_compile": {
+      "files": 178,
+      "status": "PASS"
+    },
+    "secret_scan": {
+      "status": "PASS"
+    },
+    "synthetic_scenarios": {
+      "components": 19,
+      "status": "PASS"
+    },
+    "test_corpus_generation": {
+      "status": "PASS"
+    },
+    "v11_execution_compatibility": {
+      "note": "v1.2+ signed-authority hardening semantics",
+      "status": "PASS"
+    },
+    "v12_representation_compatibility": {
+      "note": "current case/workbench version semantics",
+      "status": "PASS"
+    },
+    "v13_compatibility": {
+      "status": "PASS"
+    },
+    "v14_compatibility": {
+      "status": "PASS"
+    },
+    "v15_compatibility": {
+      "status": "PASS"
+    },
+    "v16_focused": {
+      "status": "PASS"
+    }
+  },
+  "mode": "full",
+  "schema": "ai-dfir/release-check/v1.6",
+  "status": "PASS"
+}

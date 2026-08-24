@@ -1,0 +1,53 @@
+AI-DFIR v1.4 — Runtime Trust Fabric & Stateful Agent Forensics
+
+Focused acceptance
+------------------
+- analyst_action_audit: PASS
+- case_initializer: PASS
+- case_model_runtime_trust: PASS
+- collector_health: PASS
+- credential_lineage: PASS
+- detection_validation_lab: PASS
+- evidence_pack_catalog_82: PASS
+- export_redaction: PASS
+- mcp_2026_07_28: PASS
+- memory_integrity: PASS
+- otel_genai_ingest: PASS
+- peer_review_gate: PASS
+- production_readiness_gate: PASS
+- provider_normalization: PASS
+- runtime_trust_orchestrator: PASS
+- safe_behavioral_sandbox: PASS
+- siem_stix_export: PASS
+- skill_supply_chain: PASS
+- temporal_authority: PASS
+- transparency_bundle: PASS
+- typed_causal_graph: PASS
+- workbench_runtime_trust: PASS
+- workload_identity: PASS
+- evidence_pack_count: 82
+
+Compatibility
+-------------
+- v1.3 A2A Identity / Signed Agent Card suite: PASS unchanged
+- v1.2 Representation Integrity / EvilFont suite: PASS under v1.4 case-version semantics
+
+Release checks
+--------------
+- all top-level Python entry points compile: PASS
+- Analyst Workbench JavaScript node --check: PASS
+- runtime-trust orchestrator Evidence Pack attachment: PASS
+- deterministic validation lab: PASS
+- behavioral sandbox module performs no suspect execution: PASS
+- production-readiness gate requires external enterprise controls: PASS
+
+Reference implementation note
+-----------------------------
+The package contains adapters, forensic engines, policy contracts and validation tooling. It does not deploy an organization's IdP, SPIRE infrastructure, PostgreSQL HA cluster, KMS/HSM, immutable cloud storage, external transparency service, or provider credentials. production_readiness.py makes those requirements explicit.
+
+Extracted ZIP validation
+------------------------
+- v1.4 focused Runtime Trust suite: PASS
+- 23/23 focused components: PASS
+- 82 Evidence Packs: PASS
+- Analyst Workbench JavaScript: PASS

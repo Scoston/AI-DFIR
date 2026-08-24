@@ -1,0 +1,97 @@
+{
+  "artifacts": [
+    {
+      "category": "mcp",
+      "id": "mcp_config",
+      "presence_patterns": [
+        "*.mcp.json",
+        "*mcp_config*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes server identity, command/URL, transport and environment.",
+      "title": "MCP server configuration"
+    },
+    {
+      "category": "mcp",
+      "id": "tool_schema",
+      "presence_patterns": [
+        "*tool_schema*.json*",
+        "*tools*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Tool-description poisoning or schema drift can manipulate model behavior.",
+      "title": "Tool names/descriptions/schemas/version"
+    },
+    {
+      "category": "supply_chain",
+      "id": "server_artifact",
+      "presence_patterns": [
+        "*package*.json*",
+        "*container_digest*.json*",
+        "*server_hash*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes server code provenance.",
+      "title": "MCP server package/image/source hash"
+    },
+    {
+      "category": "tool",
+      "id": "tool_trace",
+      "presence_patterns": [
+        "*tool_call*.json*",
+        "*tool_result*.json*",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs what the compromised server caused.",
+      "title": "Tool calls/results"
+    },
+    {
+      "category": "identity",
+      "id": "credentials_network",
+      "presence_patterns": [
+        "*oauth*.json*",
+        "*scope*.json*",
+        "*network*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines effective authority and exfiltration paths.",
+      "title": "Credentials/scopes/network destinations"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "event_reconstructed",
+      "logic": "all",
+      "requires": [
+        "mcp_config",
+        "tool_schema",
+        "server_artifact",
+        "tool_trace",
+        "credentials_network"
+      ],
+      "title": "Core event reconstructed"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box"
+  ],
+  "id": "generic.mcp_compromise",
+  "incident_type": "mcp_compromise",
+  "match": {
+    "incident_types": [
+      "mcp_compromise"
+    ]
+  },
+  "platform": "Any",
+  "questions": [
+    "What evidence entered the AI context?",
+    "What identity/authority was active?",
+    "What action followed?",
+    "What independent artifact confirms impact?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [],
+  "title": "MCP Server / Tool Poisoning Incident",
+  "vendor": "Generic"
+}

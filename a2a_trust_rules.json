@@ -1,0 +1,55 @@
+{
+  "rules": [
+    {
+      "pack": "a2a.signed_agent_card_trust",
+      "severity": "critical",
+      "signals": [
+        "a2a_agent_card_unsigned",
+        "a2a_agent_card_signature_invalid",
+        "a2a_signature_verification_error",
+        "a2a_signature_key_untrusted",
+        "a2a_signature_policy_unsatisfied",
+        "a2a_trust_policy_unsatisfied",
+        "a2a_provider_binding_mismatch",
+        "a2a_provider_url_binding_mismatch",
+        "a2a_interface_origin_binding_mismatch",
+        "a2a_jku_trust_source_mismatch"
+      ]
+    },
+    {
+      "pack": "a2a.signing_key_lifecycle",
+      "severity": "critical",
+      "signals": [
+        "a2a_signing_key_revoked",
+        "a2a_signing_key_expired",
+        "a2a_signing_key_not_yet_valid",
+        "a2a_card_signing_key_rotation",
+        "a2a_card_signing_key_full_replacement",
+        "a2a_card_content_changed_without_version_change"
+      ]
+    },
+    {
+      "pack": "a2a.execution_identity_binding",
+      "severity": "critical",
+      "signals": [
+        "a2a_execution_bound_to_untrusted_agent_card",
+        "a2a_execution_card_hash_mismatch",
+        "a2a_undeclared_skill_invoked",
+        "a2a_tenant_binding_mismatch",
+        "a2a_unapproved_authority_escalation",
+        "a2a_task_context_split",
+        "a2a_task_principal_drift"
+      ]
+    },
+    {
+      "pack": "a2a.push_callback_identity",
+      "severity": "critical",
+      "signals": [
+        "a2a_task_owner_mismatch",
+        "a2a_context_hijack",
+        "a2a_unapproved_push_notification_host"
+      ]
+    }
+  ],
+  "schema": "ai-dfir/a2a-trust-rules/v1.3"
+}

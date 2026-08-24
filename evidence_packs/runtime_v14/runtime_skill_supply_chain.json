@@ -1,0 +1,112 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "approved",
+      "presence_patterns": [
+        "*approved*skill*manifest*.json*",
+        "*skill*manifest*signed*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines trusted package.",
+      "title": "Approved signed skill manifest",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "suspect",
+      "presence_patterns": [
+        "*suspect*skill*manifest*.json*",
+        "*skill*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Captures current package.",
+      "title": "Suspect skill manifest",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "diff",
+      "presence_patterns": [
+        "*skill*supply*chain*diff*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects executable/dependency/endpoint/capability drift.",
+      "title": "Skill supply-chain diff",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "runtime",
+      "presence_patterns": [
+        "*behavioral*sandbox*.json*",
+        "*process*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Corroborates declared vs observed behavior.",
+      "title": "Sandbox/runtime behavior",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "skill",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "approved",
+        "suspect",
+        "diff"
+      ],
+      "title": "Skill supply-chain change established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.skill_supply_chain",
+  "incident_type": "skill_supply_chain",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic_skills": [
+      "AST01",
+      "AST02",
+      "AST03",
+      "AST05"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "Agent Skill Supply-Chain Compromise"
+    ],
+    "incident_types": [
+      "skill_supply_chain"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Did executable files change?",
+    "Did external instructions or endpoints drift?",
+    "Did capability expand?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Agent Skill Supply-Chain Compromise",
+  "vendor": "Generic"
+}

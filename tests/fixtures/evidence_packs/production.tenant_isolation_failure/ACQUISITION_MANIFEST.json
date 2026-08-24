@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "rls",
+      "relative_path": "rlstenantrlsisolationrls.jsonrls",
+      "sha256": "0e3a8ae5e117cb04228fc66ff07a7daf619a89b10f4310181b50cf8d08a64a75",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "security_assessment",
+      "relative_path": "security_assessmentsecuritysecurity_assessmentassurancesecurity_assessment.jsonsecurity_assessment",
+      "sha256": "1ec3b438a631adda29017ed0acd288ae38344ce536d113d498d3930efc80402f",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-production.tenant_isolation_failure",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

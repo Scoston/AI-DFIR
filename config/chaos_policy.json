@@ -1,0 +1,33 @@
+{
+  "schema": "ai-dfir/chaos-policy/v1.6",
+  "scenarios": {
+    "database_primary_loss": {
+      "max_recovery_seconds": 300,
+      "max_data_loss_events": 0
+    },
+    "collector_worker_loss": {
+      "max_recovery_seconds": 300,
+      "max_data_loss_events": 0
+    },
+    "provider_api_outage": {
+      "max_recovery_seconds": 300,
+      "max_data_loss_events": 0
+    },
+    "object_store_transient_failure": {
+      "max_recovery_seconds": 300,
+      "max_data_loss_events": 0
+    },
+    "kms_unavailable": {
+      "max_recovery_seconds": 300,
+      "max_data_loss_events": 0
+    },
+    "identity_provider_outage": {
+      "max_recovery_seconds": 300,
+      "max_data_loss_events": 0
+    },
+    "clock_skew": {
+      "max_recovery_seconds": 300,
+      "max_data_loss_events": 0
+    }
+  }
+}

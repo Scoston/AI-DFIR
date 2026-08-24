@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "restore",
+      "presence_patterns": [
+        "*restore*validation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves cases can be restored.",
+      "title": "Restore validation",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "chaos",
+      "presence_patterns": [
+        "*chaos*validation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves component-loss behavior.",
+      "title": "Failover drill results",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "dr_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "restore",
+        "chaos"
+      ],
+      "title": "DR assurance failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.dr_failover_failure",
+  "incident_type": "dr_failover_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Backup / DR / Failover Assurance Failure"
+    ],
+    "incident_types": [
+      "dr_failover_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Were RTO/RPO met?",
+    "Was any evidence lost or duplicated?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Backup / DR / Failover Assurance Failure",
+  "vendor": "AI-DFIR"
+}

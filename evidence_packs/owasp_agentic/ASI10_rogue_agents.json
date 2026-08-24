@@ -1,0 +1,165 @@
+{
+  "artifacts": [
+    {
+      "category": "agent",
+      "id": "agent_plan_state",
+      "presence_patterns": [
+        "*agent_state*.json*",
+        "*plan*.json*",
+        "*orchestrator*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows intended/current goal, task state and self-directed actions.",
+      "title": "Agent plan/state/reasoning-control telemetry"
+    },
+    {
+      "category": "control",
+      "id": "stop_cancel",
+      "presence_patterns": [
+        "*cancel*.json*",
+        "*stop*.json*",
+        "*containment*.json*",
+        "*task*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether the agent ignored or evaded termination.",
+      "title": "Stop/cancel/kill requests and acknowledgements"
+    },
+    {
+      "category": "agent",
+      "id": "tool_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows actions outside intended task.",
+      "title": "Full tool/delegation trace"
+    },
+    {
+      "category": "identity",
+      "id": "authority",
+      "presence_patterns": [
+        "*authority*.json*",
+        "*delegation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows what the rogue agent could reach and whether it expanded authority.",
+      "title": "Effective authority and privilege changes"
+    },
+    {
+      "category": "persistence",
+      "id": "persistence",
+      "presence_patterns": [
+        "*memory*.json*",
+        "*scheduler*.json*",
+        "*task*.json*",
+        "*agent*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects attempts to survive beyond the initiating task/session.",
+      "title": "Memory, scheduled tasks, spawned agents and persistence artifacts"
+    },
+    {
+      "category": "endpoint",
+      "id": "endpoint_network",
+      "presence_patterns": [
+        "*process*.json*",
+        "*network*.json*",
+        "*DeviceProcessEvents*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Required when agent can execute code or communicate externally.",
+      "title": "Process/network telemetry"
+    },
+    {
+      "category": "impact",
+      "id": "consequences",
+      "presence_patterns": [
+        "*open_consequences*.json*",
+        "*consequence*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes what escaped the rogue-agent boundary.",
+      "title": "Consequence ledger"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "rogue_behavior_supported",
+      "logic": "all",
+      "requires": [
+        "agent_plan_state",
+        "tool_trace"
+      ],
+      "title": "Agent acted outside approved plan/control"
+    },
+    {
+      "id": "termination_failure",
+      "logic": "all",
+      "requires": [
+        "stop_cancel",
+        "tool_trace"
+      ],
+      "title": "Agent continued despite stop/cancel/containment"
+    },
+    {
+      "id": "rogue_impact",
+      "logic": "all",
+      "requires": [
+        "tool_trace",
+        "consequences"
+      ],
+      "title": "Rogue activity produced downstream consequence"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi10",
+  "incident_type": "rogue_agents",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "Deploy AI Agent",
+      "AI Agent Tool Invocation",
+      "Persistence"
+    ],
+    "owasp_agentic": "ASI10"
+  },
+  "match": {
+    "detection_families": [
+      "Rogue Agents"
+    ],
+    "incident_types": [
+      "rogue_agents"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes rogue agents?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI10 \u2014 Rogue Agents",
+  "vendor": "OWASP"
+}

@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "message_corpus",
+      "relative_path": "message_corpuspromptmessage_corpuscorpusmessage_corpus.jsonmessage_corpus",
+      "sha256": "03cbb612c756e6c5b7c3c284365fb25d47e5e9a57e18e516ede05251ef6e1996",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agentic_trace",
+      "relative_path": "agentic_traceagentic_eventsagentic_trace.jsonl",
+      "sha256": "9e69f30a7f2084260006e358d1e5ec55703701bee780886faeabb2e9d30c2110",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "propagation_analysis",
+      "relative_path": "propagation_analysispromptpropagation_analysisreplicationpropagation_analysis.jsonpropagation_analysis",
+      "sha256": "d91f7e56a2702754e6f2c5a15ff6f44d15da104d749892605d39777b763ca5ca",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "delivery_channels",
+      "relative_path": "delivery_channelsemaildelivery_channelsauditdelivery_channels.jsondelivery_channels",
+      "sha256": "c6be63dfef9c4fa7d4a49533b4f0b2255606595670309bdc018f2f7fb580fb1b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "downstream_consequences",
+      "relative_path": "downstream_consequencesopen_consequencesdownstream_consequences.jsondownstream_consequences",
+      "sha256": "86480c4d5117e44f0699433f314516ca9618ba6b7f3af69b78e41a8243747426",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.prompt_self_replication",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

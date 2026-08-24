@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "session_registrysessionsession_registryregistrysession_registry.jsonsession_registry",
+    "session_authsessionsession_authtokensession_auth.jsonsession_auth",
+    "session_eventssessionsession_eventseventssession_events.jsonl",
+    "agent_authorityauthorityagent_authority.jsonagent_authority",
+    "downstream_actionsagentic_eventsdownstream_actions.jsonl"
+  ],
+  "pack_id": "generic.agent_session_hijack",
+  "pack_source": "evidence_packs/advanced_v11/generic_agent_session_hijack.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "source_documentsource_documentsource_document",
+    "retrieval_traceretrieval_traceretrieval_trace.jsonretrieval_trace",
+    "chunk_contentchunkschunk_content.jsonchunk_content",
+    "permissionspermissionspermissions.jsonpermissions",
+    "agent_traceagent_traceagent_trace.jsonl"
+  ],
+  "pack_id": "generic.rag_poisoning",
+  "pack_source": "evidence_packs/generic/rag_poisoning.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "raw_contentrawraw_content.txt",
+    "unicode_analysisunicodeunicode_analysisanalysisunicode_analysis.jsonunicode_analysis",
+    "normalized_contentnormalizednormalized_content.txt",
+    "ingestion_tracemodel_inputingestion_trace.jsoningestion_trace"
+  ],
+  "pack_id": "generic.unicode_representation_smuggling",
+  "pack_source": "evidence_packs/representation_v12/generic_unicode_representation_smuggling.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aidfir-workbench
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: aidfir-workbench}
+  template:
+    metadata:
+      labels: {app: aidfir-workbench}
+    spec:
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: workbench
+          image: REPLACE_WITH_SIGNED_IMAGE_DIGEST
+          args: ["--case-root", "/cases", "--host", "0.0.0.0", "--port", "8877"]
+          ports: [{containerPort: 8877}]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: cases, mountPath: /cases, readOnly: true}
+      volumes:
+        - name: cases
+          persistentVolumeClaim: {claimName: REPLACE_WITH_READ_ONLY_CASE_PVC}

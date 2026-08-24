@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "exportcaseexportexportexport.jsonexport",
+    "manifestCASE_EXPORT_MANIFESTmanifest.jsonmanifest",
+    "redactionredactionredactionmanifestredaction.jsonredaction",
+    "approvalanalystapprovalauditapproval.jsonl"
+  ],
+  "pack_id": "enterprise.case_export",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_case_export.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

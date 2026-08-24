@@ -1,0 +1,62 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_plan_state",
+      "relative_path": "agent_plan_stateagent_stateagent_plan_state.jsonagent_plan_state",
+      "sha256": "5f0c5e0a32e68e4709837f729e26ba113d4160d7eac52eeb19ea56e345fe09c8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "stop_cancel",
+      "relative_path": "stop_cancelcancelstop_cancel.jsonstop_cancel",
+      "sha256": "d4339117dc49079ddbf3bf1743283e7ba1df043e92c65c8654fecbb67eff241c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_trace",
+      "relative_path": "tool_traceagentic_eventstool_trace.jsonl",
+      "sha256": "817b3bbd0774afa1ae6c4bb2e47b0bb80c51c9332189b7a58fa0c428ccf30886",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "authority",
+      "relative_path": "authorityauthorityauthority.jsonauthority",
+      "sha256": "4a48c7e1979822b51a50b79d730e24576cfcee99e8fbab685fe7e38cb80c7a0c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "persistence",
+      "relative_path": "persistencememorypersistence.jsonpersistence",
+      "sha256": "8371bb95f52249a631a6afa680309048edd7103b6997fb40302405ea36ea17bf",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "endpoint_network",
+      "relative_path": "endpoint_networkprocessendpoint_network.jsonendpoint_network",
+      "sha256": "b3e84ec6b16ea69b5f91cd09e02c544df1da4d14450bb73b7a375cbf008e37e0",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "consequences",
+      "relative_path": "consequencesopen_consequencesconsequences.jsonconsequences",
+      "sha256": "0eaf87cd71fa759e17e4f31b436dd3db4e97f01c8332a51bac9faf4f15cb68af",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi10",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "backup",
+      "relative_path": "backupdrbackupbackupbackupmanifestbackup.jsonbackup",
+      "sha256": "aa4305aa464fd581d17a7a344feb2f8f2ecb5a451c4e9514df0a64c6fc1f9808",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "restore",
+      "relative_path": "restoredrrestorerestorerestorevalidationrestore.jsonrestore",
+      "sha256": "df1243896f5003def5370c958111849944e5ced7f8ab3a4822e0a77d0f002c8f",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "runbook",
+      "relative_path": "runbookdrrunbookrunbookrunbook.jsonrunbook",
+      "sha256": "0875ffdc99c2eb2eabe405ed3cb37c119cce72df9194063854ceb10e43a4a5b0",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-enterprise.dr_restore",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

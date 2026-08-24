@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "raw",
+      "relative_path": "rawotelraw.jsonraw",
+      "sha256": "8ffda26a4662e45f8bf3a0bfc949555d90474191aa05a8fdf7ec7374222fc0f3",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "normalized",
+      "relative_path": "normalizedotelnormalizedgenainormalizedingestnormalized.jsonnormalized",
+      "sha256": "836c006f4e742ab4d29a7101b761f0b1b183bb40c45a11e78001b68b9ba5ab4d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "coverage",
+      "relative_path": "coveragecollectorcoveragehealthcoverage.jsoncoverage",
+      "sha256": "9c18934d085500899c85839e1dcaefb05a7a87390579492ba654aa38672ae9a5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.otel_genai",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

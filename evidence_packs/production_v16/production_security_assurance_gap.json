@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "assessment",
+      "presence_patterns": [
+        "*security*assurance*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Validates independent assessment freshness/scope.",
+      "title": "Security assurance result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "report_meta",
+      "presence_patterns": [
+        "*security*assessment*report*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows assessor, scope and unresolved findings.",
+      "title": "Assessment metadata/report receipt",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "security_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "assessment",
+        "report_meta"
+      ],
+      "title": "Independent security assurance gap is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.security_assurance_gap",
+  "incident_type": "security_assurance_gap",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Independent Security Assurance Gap"
+    ],
+    "incident_types": [
+      "security_assurance_gap"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Is the assessment independent, current, and scoped to AI-DFIR trust boundaries?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Independent Security Assurance Gap",
+  "vendor": "AI-DFIR"
+}

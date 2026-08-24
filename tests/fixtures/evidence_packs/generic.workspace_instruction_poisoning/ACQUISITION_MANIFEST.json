@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "control_files",
+      "relative_path": "control_filesCLAUDE.md",
+      "sha256": "82abb339269abac86af0a8647374a4292bfea02c6de87fc07bf0674095d9a957",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "git_history",
+      "relative_path": "git_historygitgit_historyhistorygit_history.txt",
+      "sha256": "42561500d21ada0aca1b3b367ab1d8adf6cfac64b85dc85e020d58438715300d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_session",
+      "relative_path": "agent_sessionsessionagent_session.jsonl",
+      "sha256": "46e4b0d57da1550b82373e097be6aa291100bc7beccb670e473b0bea49e3c416",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "hooks_scripts",
+      "relative_path": "hooks_scriptspackage.json",
+      "sha256": "ce00541c18864f04e2036f929c9efd35c2351e0eacb990e52f7dc234ed8c2886",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "endpoint",
+      "relative_path": "endpointprocessendpoint.jsonendpoint",
+      "sha256": "be7fffb8c3c783a8cd2e5ca892ff98997bf3180e900ce2f5a1835d3dbf4eb893",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.workspace_instruction_poisoning",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

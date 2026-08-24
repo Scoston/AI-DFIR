@@ -1,0 +1,110 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "defender_alert",
+      "relative_path": "defender_alertAlertInfodefender_alert.jsondefender_alert",
+      "sha256": "d47eba7ced066c9bafffbf342f87ed6664ea3c0202e95f56acb1744c929f0d5a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "alert_evidence",
+      "relative_path": "alert_evidenceAlertEvidencealert_evidence.jsonalert_evidence",
+      "sha256": "1a343d9bd284392d23e3e76d17bd3df9b502f5908b0e79b4cae6ee35bd781e39",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "cloud_app_events",
+      "relative_path": "cloud_app_eventsCloudAppEventscloud_app_events.jsoncloud_app_events",
+      "sha256": "dee01bcf0e1be3b9efc0e779b3a6a05b73ed6e8d0afbe5ae7c2b12dbc948fc7b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agents_info",
+      "relative_path": "agents_infoAgentsInfoagents_info.jsonagents_info",
+      "sha256": "33d428c43b1fb09bbd735efc432ee1bc0cb0159f46c34187aec530cd0c251f99",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "behavior_info",
+      "relative_path": "behavior_infoBehaviorInfobehavior_info.jsonbehavior_info",
+      "sha256": "542803e3bbb99bcc0407f1feb6d68af6e1035e3594f827a273d5c833b28f97ab",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "behavior_entities",
+      "relative_path": "behavior_entitiesBehaviorEntitiesbehavior_entities.jsonbehavior_entities",
+      "sha256": "49b49fb8734d1c0eb60fff93661445ad5d00806a35189e90c4b2d9a3c3027ffe",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "identity",
+      "relative_path": "identitysigninidentity.jsonidentity",
+      "sha256": "91601f9bba44bd8e7263c037b9b2cd0ab656bae13d4700df829b74a91621c088",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "azure_activity",
+      "relative_path": "azure_activityAzureActivityazure_activity.jsonazure_activity",
+      "sha256": "36f80af3cd88527c657b47e4a13f7fb87e5005e062d38a00700d67b4fe85d18e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "request_response",
+      "relative_path": "request_responserequest_responserequest_response.jsonrequest_response",
+      "sha256": "4c35e5ca257a27e320dc15c65291f05ad3c73979d4340603fc67e6aad6add729",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "network",
+      "relative_path": "networkproxynetwork.jsonnetwork",
+      "sha256": "dada59776b02b816d4df7a64848755de254873061ba14927c960efcd2fff3ecb",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "url_artifact",
+      "relative_path": "url_artifacturlurl_artifact.jsonurl_artifact",
+      "sha256": "75d8f86133c2d0debe4e63a938bfd555e6954cd06fb1b0fc8f533f4c370a044d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "rag_sources",
+      "relative_path": "rag_sourcesretrievalrag_sources.jsonrag_sources",
+      "sha256": "ff44acabdfd96f57b60258d1270af879b00b1e02173a16a7868ab295b35e7a76",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "target_system",
+      "relative_path": "target_systembrowsertarget_system.jsontarget_system",
+      "sha256": "c14f9a3033427199c4e7e6c42c57ca87486cb47042d03769e51e7fd6db3dfb82",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-microsoft.AI.Azure_MaliciousUrl.UnknownSource",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

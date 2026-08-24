@@ -1,0 +1,75 @@
+{
+  "findings": [
+    {
+      "current_source_hashes": [
+        "H2"
+      ],
+      "record": {
+        "cache_key": "K",
+        "cache_type": "prompt",
+        "content_sha256": "C",
+        "event": "write",
+        "source_hashes": [
+          "H1"
+        ],
+        "source_ids": [
+          "D"
+        ],
+        "tenant_id": "A"
+      },
+      "severity": "high",
+      "type": "cache_source_hash_stale"
+    },
+    {
+      "cache_key": "K",
+      "cache_type": "prompt",
+      "severity": "critical",
+      "tenants": [
+        "A",
+        "B"
+      ],
+      "type": "cross_tenant_cache_key_reuse"
+    },
+    {
+      "current_source_hashes": [
+        "H2"
+      ],
+      "record": {
+        "cache_key": "K",
+        "cache_type": "prompt",
+        "content_sha256": "BAD",
+        "event": "read",
+        "expected_content_sha256": "C",
+        "source_hashes": [
+          "H1"
+        ],
+        "source_ids": [
+          "D"
+        ],
+        "tenant_id": "B"
+      },
+      "severity": "high",
+      "type": "cache_source_hash_stale"
+    },
+    {
+      "record": {
+        "cache_key": "K",
+        "cache_type": "prompt",
+        "content_sha256": "BAD",
+        "event": "read",
+        "expected_content_sha256": "C",
+        "source_hashes": [
+          "H1"
+        ],
+        "source_ids": [
+          "D"
+        ],
+        "tenant_id": "B"
+      },
+      "severity": "critical",
+      "type": "cache_content_mismatch"
+    }
+  ],
+  "records": 2,
+  "schema": "ai-dfir/cache-analysis/v1.1"
+}

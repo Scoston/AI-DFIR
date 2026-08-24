@@ -1,0 +1,22 @@
+name: Feature request
+description: Propose a forensic, provider, deployment, or analyst capability
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Incident-response problem
+      description: What forensic question cannot the platform answer today?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence needed
+      description: What artifacts would support or refute the conclusion?
+  - type: textarea
+    id: failclosed
+    attributes:
+      label: Missing-evidence behavior
+      description: How should the platform behave when the source is unavailable?

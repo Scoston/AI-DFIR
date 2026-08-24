@@ -1,0 +1,7 @@
+{
+  "artifact_id": "rotation",
+  "event_id": "SYN-rotation",
+  "schema": "ai-dfir/synthetic-evidence/v1.6",
+  "synthetic": true,
+  "timestamp_utc": "2026-08-24T16:00:00Z"
+}

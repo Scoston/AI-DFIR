@@ -1,0 +1,182 @@
+{
+  "rules": [
+    {
+      "pack": "generic.agent_harness_compromise",
+      "severity": "critical",
+      "signals": [
+        "harness_binary_sha256_changed",
+        "harness_prompt_assembly_sha256_changed",
+        "harness_middleware_sha256_changed",
+        "unexpected_harness_plugin",
+        "unexpected_harness_skill",
+        "post_stop_harness_activity",
+        "harness_approval_bypass"
+      ]
+    },
+    {
+      "pack": "generic.browser_computer_use",
+      "severity": "critical",
+      "signals": [
+        "browser_action_without_required_approval",
+        "unapproved_browser_script_eval",
+        "browser_unapproved_websocket_origin",
+        "browser_workspace_root_escape",
+        "hidden_dom_instruction",
+        "rendered_output_external_request"
+      ]
+    },
+    {
+      "pack": "generic.agent_session_hijack",
+      "severity": "critical",
+      "signals": [
+        "session_owner_changed",
+        "session_access_by_non_owner"
+      ]
+    },
+    {
+      "pack": "generic.outstanding_delegated_work",
+      "severity": "critical",
+      "signals": [
+        "delegated_work_still_active_after_agent_containment"
+      ]
+    },
+    {
+      "pack": "generic.a2a_protocol_compromise",
+      "severity": "critical",
+      "signals": [
+        "a2a_agent_card_signature_invalid",
+        "a2a_task_owner_mismatch",
+        "a2a_context_hijack",
+        "a2a_task_multiple_owners",
+        "a2a_unapproved_push_notification_host",
+        "a2a_skill_changed",
+        "a2a_unexpected_skill"
+      ]
+    },
+    {
+      "pack": "generic.model_router_drift",
+      "severity": "critical",
+      "signals": [
+        "unapproved_model_resolution",
+        "unapproved_provider",
+        "unapproved_model_failover",
+        "safety_policy_downgrade",
+        "router_policy_drift",
+        "unapproved_model_region"
+      ]
+    },
+    {
+      "pack": "generic.ai_cache_poisoning",
+      "severity": "critical",
+      "signals": [
+        "cross_tenant_cache_key_reuse",
+        "cache_written_by_untrusted_source",
+        "expired_cache_entry_read",
+        "cache_source_hash_stale",
+        "cache_content_mismatch",
+        "invalidated_cache_entry_reused"
+      ]
+    },
+    {
+      "pack": "generic.prompt_self_replication",
+      "severity": "high",
+      "signals": [
+        "prompt_replication_candidate",
+        "prompt_replication_fanout"
+      ]
+    },
+    {
+      "pack": "generic.outstanding_delegated_work",
+      "severity": "critical",
+      "signals": [
+        "agent_without_birth_certificate",
+        "unauthorized_child_agent",
+        "terminated_agent_has_open_children"
+      ]
+    },
+    {
+      "pack": "mcp.authorization_compromise",
+      "severity": "critical",
+      "signals": [
+        "mcp_authorization_failure",
+        "mcp_authorization_issuer_changed",
+        "mcp_client_id_changed"
+      ]
+    },
+    {
+      "pack": "generic.tool_identity_shadowing",
+      "severity": "critical",
+      "signals": [
+        "mcp_tool_schema_changed",
+        "unexpected_mcp_tool",
+        "unexpected_mcp_server"
+      ]
+    },
+    {
+      "pack": "generic.workspace_instruction_poisoning",
+      "severity": "critical",
+      "signals": [
+        "workspace_control_file_added",
+        "workspace_control_file_changed",
+        "workspace_control_symlink"
+      ]
+    },
+    {
+      "pack": "generic.output_rendering_active_content",
+      "severity": "critical",
+      "signals": [
+        "active_content_survived_sanitization",
+        "renderer_introduced_external_url",
+        "rendered_content_unapproved_network_request",
+        "rendered_content_session_token_access"
+      ]
+    },
+    {
+      "pack": "generic.tool_identity_shadowing",
+      "severity": "critical",
+      "signals": [
+        "tool_namespace_shadowing",
+        "tool_execution_identity_ambiguous",
+        "unapproved_tool_identity_executed"
+      ]
+    },
+    {
+      "pack": "mcp.root_escape",
+      "severity": "critical",
+      "signals": [
+        "mcp_root_boundary_escape"
+      ]
+    },
+    {
+      "pack": "mcp.task_abuse",
+      "severity": "critical",
+      "signals": [
+        "mcp_task_activity_after_cancel"
+      ]
+    },
+    {
+      "pack": "mcp.catalog_cache_poisoning",
+      "severity": "critical",
+      "signals": [
+        "mcp_expired_catalog_cache_read",
+        "mcp_cross_tenant_catalog_cache"
+      ]
+    },
+    {
+      "pack": "mcp.authorization_compromise",
+      "severity": "critical",
+      "signals": [
+        "mcp_authorization_issuer_validation_failed"
+      ]
+    },
+    {
+      "pack": "generic.cross_tenant_context_bleed",
+      "severity": "critical",
+      "signals": [
+        "cross_tenant_cache_key_reuse",
+        "mcp_cross_tenant_catalog_cache"
+      ]
+    }
+  ],
+  "schema": "ai-dfir/execution-integrity-rules/v1.1"
+}

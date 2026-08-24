@@ -1,0 +1,79 @@
+# GitHub Upload Checklist — AI-DFIR v1.6.0
+
+## Repository preparation
+
+1. Create the target GitHub repository **without** auto-generating another README or license.
+2. Upload the contents of the **AI-DFIR-v1.6.0 source archive**, not the outer administrative upload bundle.
+3. Keep `.github/CODEOWNERS.example` as a template until the real maintainer user/team is known. Copy it to `.github/CODEOWNERS` only after replacing every example owner.
+4. Configure branch protection/rulesets for `main`, required review, and required status checks.
+5. Enable Private Vulnerability Reporting, secret scanning/push protection, the dependency graph, Dependabot, CodeQL, and dependency review where available.
+6. Set GitHub variable `AI_DFIR_PYTHON_BASE_IMAGE_DIGEST` to a reviewed digest-pinned Python base image reference before enabling the production container workflow.
+7. Configure protected release environments/approvers if required by organization policy.
+8. Review GitHub Actions permissions and, where required by policy, pin third-party actions to reviewed commit SHAs.
+9. Merge through normal review; do not upload real incident evidence, credentials, private keys, provider tokens, or customer data.
+10. Tag `v1.6.0`. The release workflow should run the full release gate, build release assets, produce SLSA provenance, and publish assets.
+11. The container workflow should build from the immutable base reference and sign the pushed digest with Cosign.
+12. Verify release checksums, SBOM, license inventory, and provenance before promotion.
+13. Run deployment-specific `production_readiness_v16.py`; GitHub release success does not make a particular deployment production-ready.
+
+## Required repository files
+
+- `README.md`
+- `LICENSE` / `NOTICE` / `LICENSE_GUIDE.md` / `THIRD_PARTY_NOTICES.md`
+- `SECURITY.md` / `CONTRIBUTING.md` / `CODE_OF_CONDUCT.md` / `SUPPORT.md` / `GOVERNANCE.md`
+- `ROADMAP.md` / `CITATION.cff` / `AUTHORS.md`
+- `THREAT_MODEL.md` / `DATA_HANDLING.md`
+- `INSTALL.md` / `TESTING.md` / `V1.6_RUNBOOK.md`
+- `RELEASE_CHECKLIST.md`
+- `.github/ISSUE_TEMPLATE/*`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/dependabot.yml`
+- `.github/workflows/*`
+
+## Build release assets locally
+
+```bash
+python scripts/release_check.py --full
+python scripts/package_release.py --out-dir /tmp/AI-DFIR-v1.6.0-release
+```
+
+The packager performs an exact-archive clean-room regression.
+
+## Expected release assets
+
+- `AI-DFIR-v1.6.0.zip`
+- `AI-DFIR-v1.6.0.tar.gz`
+- `AI-DFIR-v1.6.0-Documentation.zip`
+- `AI-DFIR-v1.6.0-Test-Corpus.zip`
+- `AI-DFIR-v1.6.0-demo.mp4` when demo generation is enabled
+- `SHA256SUMS`
+- `SOURCE_RELEASE_CHECK.json`
+- `EXTRACTED_RELEASE_CHECK.json`
+- `RELEASE_VALIDATION_V1.6.json`
+- `PACKAGE_MANIFEST_V1.6.json`
+- `SBOM_CYCLONEDX_1.7.json`
+- `DEPENDENCY_LICENSE_INVENTORY.json`
+- `LICENSE` / `NOTICE`
+- `RELEASE_NOTES_V1.6.md`
+
+## Final publish gate
+
+- [ ] Source-tree full release gate PASS
+- [ ] Exact release ZIP extracted and full release gate PASS
+- [ ] `SHA256SUMS` verified
+- [ ] Secret scan PASS
+- [ ] **111/111 Evidence Pack matrix PASS**
+- [ ] **19/19 high-fidelity synthetic detector domains PASS**
+- [ ] v1.6 focused suite PASS
+- [ ] v1.5/v1.4/v1.3/v1.2/v1.1 compatibility PASS under current semantics
+- [ ] Workbench JavaScript syntax PASS
+- [ ] GitHub repository surface check PASS
+- [ ] SBOM generated and reviewed
+- [ ] Dependency license inventory reviewed
+- [ ] PyMuPDF remains optional and clearly documented
+- [ ] Security policy points to private vulnerability reporting
+- [ ] No unresolved repository-owner placeholders are active
+- [ ] Provider examples contain no real credentials or tenant data
+- [ ] Production-readiness claims remain evidence-backed, not configuration-only
+
+Recommended release tag: **`v1.6.0`**.

@@ -1,0 +1,39 @@
+{
+  "embedded_fonts": [],
+  "findings": [
+    {
+      "one_char_run_ratio": 1.0,
+      "run_count": 36,
+      "severity": "critical",
+      "type": "per_character_font_switching",
+      "unique_fonts": 12
+    },
+    {
+      "disagreement_ratio": 1.0,
+      "machine_text_sha256": "011fc2994e39d251141540f87a69092b3f22a86767f7283de7eeedb3897bedf6",
+      "mapped_characters": 36,
+      "reconstructed_visible_text_sha256": "9dec94ee21a0367a5f2675364c52c4ac1b9b813c5f0ee45e77713f55103daf76",
+      "severity": "critical",
+      "stealth_characters": 2,
+      "type": "machine_visible_text_disagreement_via_font_mapping"
+    },
+    {
+      "count": 2,
+      "severity": "critical",
+      "type": "stealth_font_machine_only_characters"
+    },
+    {
+      "font_count": 12,
+      "note": "Tool-specific IOC; generic glyph/remapping findings carry greater evidentiary weight.",
+      "severity": "high",
+      "type": "evilfonttool_style_font_family_pattern"
+    }
+  ],
+  "machine_text_sha256": "011fc2994e39d251141540f87a69092b3f22a86767f7283de7eeedb3897bedf6",
+  "note": "Reconstructed visible text uses only a tool-specific hex-suffix signal; generic glyph-collapse detection does not depend on EvilFontTool naming.",
+  "path": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/representation/evilfont_style.docx",
+  "run_count": 36,
+  "schema": "ai-dfir/evil-font-docx-analysis/v1.2",
+  "tool_reconstructed_visible_text_sha256": "9dec94ee21a0367a5f2675364c52c4ac1b9b813c5f0ee45e77713f55103daf76",
+  "unique_run_fonts": 12
+}

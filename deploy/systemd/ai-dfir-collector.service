@@ -1,0 +1,17 @@
+[Unit]
+Description=AI-DFIR Fleet Collector
+After=network-online.target
+
+[Service]
+Type=simple
+User=ai-dfir
+Group=ai-dfir
+ExecStart=/opt/ai-dfir/.venv/bin/python /opt/ai-dfir/fleet_collector.py --registry /etc/ai-dfir/fleet_registry.json --db /var/lib/ai-dfir/fleet.db --host 0.0.0.0 --port 8787 --collector-private-key /etc/ai-dfir/collector_ed25519.pem --tls-cert /etc/ai-dfir/tls/server.crt --tls-key /etc/ai-dfir/tls/server.key
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/ai-dfir
+
+[Install]
+WantedBy=multi-user.target

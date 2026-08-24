@@ -1,0 +1,40 @@
+{
+  "schema": "ai-dfir/provider-native-sources/v1.5",
+  "providers": {
+    "microsoft": {
+      "mandatory": ["graph_alerts_v2", "graph_incidents", "foundry_diagnostics", "foundry_agent_traces", "entra_signin_or_workload_identity"],
+      "conditional": ["purview_audit", "defender_endpoint", "app_genai_content", "api_management_gateway"],
+      "notes": ["Foundry request/response and trace evidence is not retroactive when logging was disabled or data expired."]
+    },
+    "openai": {
+      "mandatory": ["organization_usage", "organization_projects", "api_key_inventory", "application_request_ids"],
+      "conditional": ["organization_costs", "organization_certificates", "application_side_request_response_logs"],
+      "notes": ["Organization usage endpoints are aggregate telemetry, not a provider request-by-request audit feed.", "Zero Data Retention or Modified Abuse Monitoring may reduce provider-retained content; application-side provenance becomes more important."]
+    },
+    "anthropic": {
+      "mandatory": ["compliance_activity_feed", "organization_usage", "api_key_inventory", "claude_code_otel_or_local_session_evidence"],
+      "conditional": ["compliance_session_transcripts", "file_and_project_evidence", "workload_identity_federation_config"],
+      "notes": ["Compliance API Activity Feed has its own permissions and pagination; content retrieval may require a Compliance Access Key."]
+    },
+    "aws_bedrock": {
+      "mandatory": ["cloudtrail", "model_invocation_logging_configuration", "model_invocation_logs"],
+      "conditional": ["agent_data_events", "knowledge_base_data_events", "flow_data_events", "guardrail_events", "s3_large_payload_objects"],
+      "notes": ["Model invocation logging is disabled by default.", "Some Bedrock runtime and agent operations are CloudTrail data events and require explicit event selectors."]
+    },
+    "google": {
+      "mandatory": ["cloud_audit_logs", "data_access_audit_logs", "vertex_or_agent_platform_request_context"],
+      "conditional": ["model_armor_logs", "application_otel", "service_account_token_events"],
+      "notes": ["Data Access audit logging and retention are configuration dependent."]
+    },
+    "github_copilot": {
+      "mandatory": ["enterprise_audit_log", "agent_session_events", "enterprise_policy_state"],
+      "conditional": ["copilot_usage_record_stream", "client_otel", "cli_hooks"],
+      "notes": ["Ordinary enterprise audit logs do not include all local client prompt/session data; client OTel or custom hooks are separate sources."]
+    },
+    "cursor": {
+      "mandatory": ["local_workspace_config", "local_session_or_application_logs", "mcp_config", "ide_extensions_and_settings"],
+      "conditional": ["enterprise_gateway_logs", "network_proxy_logs"],
+      "notes": ["Provider-native enterprise audit coverage varies; local and gateway evidence may be required."]
+    }
+  }
+}

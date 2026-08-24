@@ -1,0 +1,119 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "raw_content",
+      "presence_patterns": [
+        "*raw*.txt",
+        "*message*.txt",
+        "*prompt*.txt",
+        "*document*.md"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves invisible/control codepoints.",
+      "title": "Exact raw content bytes/text",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "unicode_analysis",
+      "presence_patterns": [
+        "*unicode*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Decodes tag blocks and identifies bidi, variation selectors, zero-width and confusables.",
+      "title": "Unicode forensic analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "normalized_content",
+      "presence_patterns": [
+        "*normalized*.txt",
+        "*canonical*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows machine-relevant canonicalization delta.",
+      "title": "NFKC/canonicalized comparison artifact",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "ingestion_trace",
+      "presence_patterns": [
+        "*model_input*.json*",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows whether hidden representation reached model.",
+      "title": "AI/model input trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "unicode_smuggling",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "raw_content",
+        "unicode_analysis",
+        "normalized_content"
+      ],
+      "title": "Representation-smuggling codepoints are established"
+    },
+    {
+      "id": "unicode_ai_exposure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "unicode_analysis",
+        "ingestion_trace"
+      ],
+      "title": "Smuggled representation reached AI"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.unicode_representation_smuggling",
+  "incident_type": "unicode_representation_smuggling",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Unicode / ASCII Smuggling / Confusable Representation"
+    ],
+    "incident_types": [
+      "unicode_representation_smuggling"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Which codepoint channel was used?",
+    "What payload is revealed after deterministic decoding?",
+    "Did normalization change token-bearing content?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [],
+  "title": "Unicode / ASCII Smuggling / Confusable Representation",
+  "vendor": "Generic"
+}

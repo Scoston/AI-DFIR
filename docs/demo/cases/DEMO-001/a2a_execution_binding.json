@@ -1,0 +1,56 @@
+{
+  "card_name": "Synthetic Agent",
+  "findings": [
+    {
+      "event_id": "A1",
+      "expected": "expected",
+      "observed": "wrong",
+      "severity": "critical",
+      "type": "a2a_execution_card_hash_mismatch"
+    },
+    {
+      "event_id": "A1",
+      "severity": "critical",
+      "skill_id": "undeclared",
+      "type": "a2a_undeclared_skill_invoked"
+    },
+    {
+      "declared": [
+        "TENANT-A"
+      ],
+      "severity": "critical",
+      "tenant": "TENANT-B",
+      "type": "a2a_tenant_binding_mismatch"
+    },
+    {
+      "added": [
+        "write"
+      ],
+      "event_id": "A1",
+      "severity": "critical",
+      "type": "a2a_unapproved_authority_escalation"
+    }
+  ],
+  "limitation": "Agent Card JWS authenticates the card. Per-request sender authenticity requires transport/authentication evidence or a separate request-signature mechanism.",
+  "schema": "ai-dfir/a2a-execution-binding/v1.3",
+  "tasks": {
+    "T1": {
+      "agents": [
+        "agent"
+      ],
+      "contexts": [
+        "C1"
+      ],
+      "principals": [
+        "alice"
+      ],
+      "skills": [
+        "undeclared"
+      ],
+      "tenants": [
+        "TENANT-B"
+      ]
+    }
+  },
+  "trusted_agent_card": true
+}

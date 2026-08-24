@@ -1,0 +1,108 @@
+{
+  "approved": {
+    "external_urls": [],
+    "file_count": 1,
+    "files": [
+      {
+        "executable": false,
+        "external_urls": [],
+        "observed_capability_signals": [],
+        "path": "SKILL.md",
+        "sensitive_path_signals": [],
+        "sha256": "8403a3ab2c731506d50ec38764a1d009d44d8d24b7ddbe56a2d4dc2123ca6170",
+        "size": 10
+      }
+    ],
+    "merkle_root": "1cfff0d06801820fd65d5cce18eb0109cef9659894c5981fa0dea20d79751881",
+    "metadata_files": {
+      "SKILL.md": {
+        "sha256": "8403a3ab2c731506d50ec38764a1d009d44d8d24b7ddbe56a2d4dc2123ca6170",
+        "size": 10
+      }
+    },
+    "observed_capability_signals": [],
+    "root": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/runtime_trust/skill_approved",
+    "schema": "ai-dfir/skill-manifest/v1.4",
+    "sensitive_path_findings": []
+  },
+  "findings": [
+    {
+      "file": {
+        "executable": true,
+        "external_urls": [],
+        "observed_capability_signals": [],
+        "path": "run.sh",
+        "sensitive_path_signals": [],
+        "sha256": "9d576309922529fed81bd9f032e1149fe20f928c814b945d87372bd411f8a329",
+        "size": 14
+      },
+      "severity": "critical",
+      "type": "skill_file_added"
+    },
+    {
+      "approved_sha256": "8403a3ab2c731506d50ec38764a1d009d44d8d24b7ddbe56a2d4dc2123ca6170",
+      "path": "SKILL.md",
+      "severity": "high",
+      "suspect_sha256": "2072c49d7ddef06a11536b69d26c27ab0b947d19dd6b91fab4c2d5462de7f1c9",
+      "type": "skill_file_changed"
+    },
+    {
+      "added_urls": [
+        "https://synthetic.invalid/instructions"
+      ],
+      "severity": "critical",
+      "type": "skill_external_instruction_or_endpoint_drift"
+    },
+    {
+      "added_capabilities": [
+        "network"
+      ],
+      "severity": "critical",
+      "type": "skill_capability_expansion"
+    }
+  ],
+  "schema": "ai-dfir/skill-supply-chain-diff/v1.4",
+  "suspect": {
+    "external_urls": [
+      "https://synthetic.invalid/instructions"
+    ],
+    "file_count": 2,
+    "files": [
+      {
+        "executable": false,
+        "external_urls": [
+          "https://synthetic.invalid/instructions"
+        ],
+        "observed_capability_signals": [
+          "network"
+        ],
+        "path": "SKILL.md",
+        "sensitive_path_signals": [],
+        "sha256": "2072c49d7ddef06a11536b69d26c27ab0b947d19dd6b91fab4c2d5462de7f1c9",
+        "size": 53
+      },
+      {
+        "executable": true,
+        "external_urls": [],
+        "observed_capability_signals": [],
+        "path": "run.sh",
+        "sensitive_path_signals": [],
+        "sha256": "9d576309922529fed81bd9f032e1149fe20f928c814b945d87372bd411f8a329",
+        "size": 14
+      }
+    ],
+    "merkle_root": "a67bef440202a589aa4f65453833efa10e8431104ac477b04c640cc53b41486a",
+    "metadata_files": {
+      "SKILL.md": {
+        "sha256": "2072c49d7ddef06a11536b69d26c27ab0b947d19dd6b91fab4c2d5462de7f1c9",
+        "size": 53
+      }
+    },
+    "observed_capability_signals": [
+      "network"
+    ],
+    "root": "/mnt/data/AI-DFIR-v1.6.0/tests/fixtures/scenarios/runtime_trust/skill_suspect",
+    "schema": "ai-dfir/skill-manifest/v1.4",
+    "sensitive_path_findings": []
+  }
+}

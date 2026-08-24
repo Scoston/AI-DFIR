@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "rootsmcprootsrootsroots.jsonroots",
+    "file_accessfilefile_accessaccessfile_access.jsonl",
+    "filesystem_metafilesystemfilesystem_metametadatafilesystem_meta.jsonfilesystem_meta"
+  ],
+  "pack_id": "mcp.root_escape",
+  "pack_source": "evidence_packs/advanced_v11/mcp_root_escape.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,16 @@
+AI-DFIR Fleet Attestation v0.5 — Acceptance Test
+
+{
+  "components": {
+    "adapter_drift_detection": "PASS",
+    "alerts_and_metrics": "PASS",
+    "anti_replay": "PASS",
+    "healthy_signed_heartbeat": "PASS",
+    "model_content_tree_drift": "PASS",
+    "recovery_hysteresis": "PASS",
+    "stale_node_detection": "PASS"
+  },
+  "status": "PASS"
+}
+
+This validates the v0.5 fleet control logic with synthetic fixtures; it is not a production Qwen3.8 fleet certification.

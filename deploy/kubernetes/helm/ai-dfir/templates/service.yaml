@@ -1,0 +1,4 @@
+apiVersion: v1
+kind: Service
+metadata: {name: ai-dfir}
+spec: {selector: {app: ai-dfir}, ports: [{port: 8890, targetPort: 8890}]}

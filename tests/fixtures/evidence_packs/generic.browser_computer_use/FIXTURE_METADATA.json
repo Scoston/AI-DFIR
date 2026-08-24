@@ -1,0 +1,16 @@
+{
+  "created_files": [
+    "browser_runtimebrowserbrowser_runtimeruntimebrowser_runtime.jsonbrowser_runtime",
+    "navigationnavigationnavigation.jsonnavigation",
+    "domdomdom.jsondom",
+    "computer_actionscomputercomputer_actionsusecomputer_actions.jsonl",
+    "browser_networkharbrowser_network.jsonbrowser_network",
+    "approvalsapprovalapprovals.jsonapprovals",
+    "screenshotsscreenshotscreenshots.png"
+  ],
+  "pack_id": "generic.browser_computer_use",
+  "pack_source": "evidence_packs/advanced_v11/generic_browser_computer_use.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

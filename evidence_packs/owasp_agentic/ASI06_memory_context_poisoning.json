@@ -1,0 +1,151 @@
+{
+  "artifacts": [
+    {
+      "category": "memory",
+      "id": "memory_events",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*memory*events*.jsonl",
+        "*memory*lineage*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes when poisoned state was introduced and reused.",
+      "title": "Memory write/update/read/delete lineage"
+    },
+    {
+      "category": "memory",
+      "id": "memory_snapshot",
+      "presence_patterns": [
+        "*memory*snapshot*.json*",
+        "*memory*.db",
+        "*memory*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves content hashes, metadata and current state.",
+      "title": "Memory store snapshots/records"
+    },
+    {
+      "category": "provenance",
+      "id": "source_provenance",
+      "presence_patterns": [
+        "*provenance*.json*",
+        "*retrieval*.json*",
+        "*conversation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Attributes the poison to upload, prompt, RAG source, tool or peer agent.",
+      "title": "Source event/content that created memory"
+    },
+    {
+      "category": "interaction",
+      "id": "session_history",
+      "presence_patterns": [
+        "*session*.jsonl",
+        "*conversation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Demonstrates cross-session persistence and behavioral change.",
+      "title": "Sessions before/after memory write"
+    },
+    {
+      "category": "agent",
+      "id": "downstream_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*agent_trace*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Determines whether poisoned memory affected action.",
+      "title": "Tool/delegation/consequence trace after memory retrieval"
+    },
+    {
+      "category": "policy",
+      "id": "memory_policy",
+      "presence_patterns": [
+        "*memory*policy*.json*",
+        "*settings*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows who was allowed to persist memory and validation requirements.",
+      "title": "Memory trust/retention/write policy"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "memory_poison_present",
+      "logic": "all",
+      "requires": [
+        "memory_events",
+        "memory_snapshot",
+        "source_provenance"
+      ],
+      "title": "Untrusted/malicious content persisted in memory"
+    },
+    {
+      "id": "memory_reused",
+      "logic": "all",
+      "requires": [
+        "memory_events",
+        "session_history"
+      ],
+      "title": "Poisoned memory was retrieved later"
+    },
+    {
+      "id": "memory_caused_action",
+      "logic": "all",
+      "requires": [
+        "memory_events",
+        "downstream_trace"
+      ],
+      "title": "Memory retrieval causally led to action/impact"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "owasp.agentic.asi06",
+  "incident_type": "memory_context_poisoning",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "AI Agent Context Poisoning",
+      "AI Agent Tool Data Poisoning"
+    ],
+    "owasp_agentic": "ASI06"
+  },
+  "match": {
+    "detection_families": [
+      "Memory & Context Poisoning"
+    ],
+    "incident_types": [
+      "memory_context_poisoning"
+    ]
+  },
+  "notes": [
+    "Causal conclusions require explicit parent/cause links or equivalent provider transaction identifiers; temporal proximity alone is correlation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "What evidence establishes or refutes memory & context poisoning?",
+    "What was the initiating content/principal/component?",
+    "What authority was available at the time?",
+    "What causal path connects the initiating event to actions or consequences?",
+    "What evidence gaps prevent stronger attribution?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "standard",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "threat_framework",
+      "url": "https://atlas.mitre.org/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "ASI06 \u2014 Memory & Context Poisoning",
+  "vendor": "OWASP"
+}

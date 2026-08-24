@@ -1,0 +1,319 @@
+{
+  "artifacts": [
+    {
+      "category": "session",
+      "collection_guidance": "Acquire before cleanupPeriodDays removes older sessions; preserve original timestamps and SHA-256.",
+      "id": "session_transcript",
+      "locations": [
+        "~/.claude/projects/<project>/<session-id>.jsonl"
+      ],
+      "presence_patterns": [
+        "*projects*/*.jsonl",
+        "*session*.jsonl",
+        "*claude*transcript*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Contains the full conversation, tool calls and tool results needed to reconstruct the agent loop.",
+      "title": "Full Claude Code session transcript"
+    },
+    {
+      "category": "session",
+      "id": "prompt_history",
+      "locations": [
+        "~/.claude/history.jsonl"
+      ],
+      "presence_patterns": [
+        "*history.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Correlates typed prompts, timestamps and project path.",
+      "title": "Claude prompt history"
+    },
+    {
+      "category": "tool",
+      "id": "tool_results",
+      "locations": [
+        "~/.claude/projects/<project>/<session-id>/tool-results/"
+      ],
+      "presence_patterns": [
+        "*tool-results*/*",
+        "*tool_results*/*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Indirect prompt injection commonly enters via files/web/tool output; these preserve large results.",
+      "title": "Large tool-result spill files"
+    },
+    {
+      "category": "filesystem",
+      "condition": "Claude edited files.",
+      "id": "file_history",
+      "locations": [
+        "~/.claude/file-history/<session>/"
+      ],
+      "presence_patterns": [
+        "*file-history*/*",
+        "*file_history*/*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows file state before Claude edits and supports before/after attribution.",
+      "title": "Pre-edit file snapshots"
+    },
+    {
+      "category": "configuration",
+      "id": "claude_md",
+      "locations": [
+        "~/.claude/CLAUDE.md",
+        "<project>/CLAUDE.md",
+        "<project>/.claude/CLAUDE.md",
+        "<project>/CLAUDE.local.md"
+      ],
+      "presence_patterns": [
+        "*CLAUDE.md",
+        "*CLAUDE.local.md"
+      ],
+      "priority": "mandatory",
+      "rationale": "Persistent instructions can be the injection source or change how malicious content is interpreted.",
+      "title": "CLAUDE.md / CLAUDE.local.md instruction files"
+    },
+    {
+      "category": "configuration",
+      "id": "settings",
+      "locations": [
+        "~/.claude/settings.json",
+        "<project>/.claude/settings.json",
+        "<project>/.claude/settings.local.json",
+        "system managed-settings.json"
+      ],
+      "presence_patterns": [
+        "*settings.json",
+        "*settings.local.json",
+        "*managed-settings.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines permissions, hooks, environment and model defaults; precedence matters.",
+      "title": "Claude settings and managed settings"
+    },
+    {
+      "category": "configuration",
+      "id": "claude_state",
+      "locations": [
+        "~/.claude.json"
+      ],
+      "presence_patterns": [
+        "*.claude.json",
+        "*claude_state*.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "Contains OAuth/app state, trust choices and user/local MCP configurations.",
+      "title": "Claude application/global state"
+    },
+    {
+      "category": "mcp",
+      "id": "mcp_config",
+      "locations": [
+        "<project>/.mcp.json",
+        "~/.claude.json"
+      ],
+      "presence_patterns": [
+        "*.mcp.json",
+        "*mcp*.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes external tool servers, transports, commands, URLs and scopes available to Claude.",
+      "title": "MCP configuration"
+    },
+    {
+      "category": "tool",
+      "id": "hooks",
+      "presence_patterns": [
+        "*hooks*.json",
+        "*hooks*/*",
+        "*settings.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "Hooks can inspect, deny, transform or trigger actions around tool calls.",
+      "title": "Claude hook definitions/scripts"
+    },
+    {
+      "category": "agent",
+      "condition": "Custom skills, subagents, rules or memory are enabled.",
+      "id": "skills_agents_rules",
+      "presence_patterns": [
+        "*skills*/*",
+        "*agents*/*",
+        "*rules*/*",
+        "*agent-memory*/*"
+      ],
+      "priority": "conditional",
+      "rationale": "Additional instructions/subagents can create persistent or delegated injection paths.",
+      "title": "Skills, agents, rules and persistent agent memory"
+    },
+    {
+      "category": "runtime",
+      "condition": "Shell/Bash or environment-dependent action occurred.",
+      "id": "session_env",
+      "locations": [
+        "~/.claude/session-env/",
+        "~/.claude/shell-snapshots/"
+      ],
+      "presence_patterns": [
+        "*session-env*/*",
+        "*shell-snapshots*/*"
+      ],
+      "priority": "conditional",
+      "rationale": "Reconstructs shell/runtime context used by tools.",
+      "title": "Session environment/shell snapshots"
+    },
+    {
+      "category": "multimodal",
+      "condition": "Pasted or image input involved.",
+      "id": "paste_image_cache",
+      "presence_patterns": [
+        "*paste-cache*/*",
+        "*image-cache*/*"
+      ],
+      "priority": "conditional",
+      "rationale": "Preserves large pasted or image content that may contain the injected instruction.",
+      "title": "Paste/image cache"
+    },
+    {
+      "category": "agent",
+      "condition": "Available and relevant to suspicious execution.",
+      "id": "debug_plans_tasks",
+      "presence_patterns": [
+        "*debug*/*",
+        "*plans*/*",
+        "*tasks*/*"
+      ],
+      "priority": "conditional",
+      "rationale": "Shows planning/debug context and task decomposition.",
+      "title": "Debug logs, plans and task lists"
+    },
+    {
+      "category": "filesystem",
+      "condition": "Claude operated in a source repository.",
+      "id": "git_state",
+      "presence_patterns": [
+        "*.git/*",
+        "*git_status*.txt",
+        "*git_log*.txt",
+        "*git_diff*.patch"
+      ],
+      "priority": "conditional",
+      "rationale": "Provides independent evidence of code/file modifications.",
+      "title": "Git status/log/reflog/diff and affected repository"
+    },
+    {
+      "category": "endpoint",
+      "id": "endpoint_telemetry",
+      "presence_patterns": [
+        "*DeviceProcessEvents*.json*",
+        "*DeviceFileEvents*.json*",
+        "*DeviceNetworkEvents*.json*",
+        "*process_tree*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Confirms what commands/processes/network activity actually occurred outside the Claude transcript.",
+      "title": "Endpoint process/file/network telemetry"
+    },
+    {
+      "category": "provider",
+      "condition": "Enterprise provider/Purview audit integration is enabled.",
+      "id": "provider_audit",
+      "presence_patterns": [
+        "*purview*.json*",
+        "*anthropic_audit*.json*",
+        "*AIInteraction*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Provides an independent copy of prompt/response/file-reference evidence where enterprise logging is enabled.",
+      "title": "Anthropic/enterprise or Purview cloud-side interaction audit"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "injection_source_attributed",
+      "logic": "all",
+      "requires": [
+        "session_transcript",
+        "tool_results"
+      ],
+      "title": "Injection source attributed"
+    },
+    {
+      "id": "agent_behavior_affected",
+      "logic": "all",
+      "requires": [
+        "session_transcript",
+        "endpoint_telemetry"
+      ],
+      "title": "Injected content affected agent behavior"
+    },
+    {
+      "id": "tool_execution_confirmed",
+      "logic": "all",
+      "requires": [
+        "session_transcript",
+        "endpoint_telemetry"
+      ],
+      "title": "Tool execution confirmed"
+    },
+    {
+      "id": "impact_confirmed",
+      "logic": "all",
+      "requires": [
+        "endpoint_telemetry"
+      ],
+      "title": "Downstream impact confirmed"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box"
+  ],
+  "id": "anthropic.claude_code.prompt_injection",
+  "incident_type": "prompt_injection",
+  "match": {
+    "alert_titles": [
+      "Suspicious AI prompt injection"
+    ],
+    "incident_types": [
+      "prompt_injection",
+      "indirect_prompt_injection"
+    ],
+    "platforms": [
+      "Claude Code"
+    ]
+  },
+  "notes": [
+    "Claude Code application data is plaintext and may contain credentials or sensitive content; restrict evidence access.",
+    "Absence of a transcript can be caused by cleanupPeriodDays, CLAUDE_CODE_SKIP_PROMPT_HISTORY, --no-session-persistence, or custom CLAUDE_CONFIG_DIR and must not be interpreted as no activity."
+  ],
+  "platform": "Claude Code",
+  "questions": [
+    "Where did the malicious instruction originate?",
+    "Did the instruction enter Claude context?",
+    "What tool call or file operation followed?",
+    "Which permissions/MCP servers/hooks were available?",
+    "Did an external side effect or exfiltration occur?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.8",
+  "sources": [
+    {
+      "type": "vendor_documentation",
+      "url": "https://code.claude.com/docs/en/claude-directory",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "vendor_documentation",
+      "url": "https://code.claude.com/docs/en/settings",
+      "verified": "2026-08-23"
+    },
+    {
+      "type": "vendor_documentation",
+      "url": "https://code.claude.com/docs/en/mcp",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "Claude Code Prompt Injection / Indirect Prompt Injection",
+  "vendor": "Anthropic"
+}

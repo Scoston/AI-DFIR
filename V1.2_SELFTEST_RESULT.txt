@@ -1,0 +1,66 @@
+AI-DFIR v1.2 — Representation Integrity Release Acceptance
+
+Focused v1.2 suite
+------------------
+- agent_network_exfil_detection: PASS
+- ai_ide_surface_detection: PASS
+- approval_toctou_detection: PASS
+- archive_workspace_intake: PASS
+- deterministic_content_quarantine: PASS
+- evidence_pack_catalog: PASS
+- evilfont_docx_detection: PASS
+- evilfont_html_detection: PASS
+- generic_glyph_geometry_detection: PASS
+- hidden_markup_detection: PASS
+- human_machine_representation_diff: PASS
+- isolated_semantic_verdict_contract: PASS
+- representation_orchestrator_pack_attachment: PASS
+- session_state_integrity: PASS
+- signed_acquisition_quality_promotion: PASS
+- terminal_render_detection: PASS
+- unicode_representation_detection: PASS
+- v12_case_initializer: PASS
+- workbench_representation_integration: PASS
+- evidence_pack_count: 64
+
+Compatibility suites
+--------------------
+- v1.0 enterprise unchanged: PASS
+- v0.9 agentic IR unchanged: PASS
+- v0.7 analyst workbench unchanged: PASS
+- v0.6 containment/recovery unchanged: PASS
+- v1.1 capabilities under hardened v1.2 evidence-authority semantics: PASS
+
+Intentional evidence-semantic hardening
+---------------------------------------
+The original v1.1 acceptance test expected an unsigned acquisition metadata
+entry carrying `authoritative:true` to promote evidence to AUTHORITATIVE.
+
+v1.2 intentionally rejects that promotion.
+
+New behavior:
+- unsigned authoritative claim + valid artifact/hash -> at most VALIDATED
+- valid signed acquisition manifest + verified artifact hashes -> may promote to
+  AUTHORITATIVE/CORRELATED
+
+This is an intentional forensic correctness change.
+
+Additional release checks
+-------------------------
+- all top-level Python entry points compile: PASS
+- Analyst Workbench JavaScript `node --check`: PASS
+- synthetic EvilFont-style DOCX: PASS
+- synthetic EvilFont-style HTML: PASS
+- generic remapped-glyph font with no EvilFont naming dependency: PASS
+- deterministic content quarantine: PASS
+- end-to-end representation analyzer Evidence Pack attachment: PASS
+- v1.2 case initialization: PASS
+
+The unrelated spreadsheet-runtime warmup warning produced by this environment
+did not affect test return codes.
+
+Extracted ZIP validation
+------------------------
+- v1.2 focused suite: PASS
+- v1.0 enterprise suite: PASS
+- Analyst Workbench JavaScript: PASS

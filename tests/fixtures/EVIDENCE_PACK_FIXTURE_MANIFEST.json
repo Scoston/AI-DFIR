@@ -1,0 +1,561 @@
+{
+  "pack_count": 111,
+  "packs": [
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/a2a.execution_identity_binding",
+      "pack_id": "a2a.execution_identity_binding"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/a2a.push_callback_identity",
+      "pack_id": "a2a.push_callback_identity"
+    },
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/a2a.signed_agent_card_trust",
+      "pack_id": "a2a.signed_agent_card_trust"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/a2a.signing_key_lifecycle",
+      "pack_id": "a2a.signing_key_lifecycle"
+    },
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/generic.a2a_protocol_compromise",
+      "pack_id": "generic.a2a_protocol_compromise"
+    },
+    {
+      "artifact_count": 7,
+      "directory": "evidence_packs/generic.agent_harness_compromise",
+      "pack_id": "generic.agent_harness_compromise"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.agent_session_hijack",
+      "pack_id": "generic.agent_session_hijack"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.ai_cache_poisoning",
+      "pack_id": "generic.ai_cache_poisoning"
+    },
+    {
+      "artifact_count": 7,
+      "directory": "evidence_packs/generic.browser_computer_use",
+      "pack_id": "generic.browser_computer_use"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.cross_tenant_context_bleed",
+      "pack_id": "generic.cross_tenant_context_bleed"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.model_router_drift",
+      "pack_id": "generic.model_router_drift"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.output_rendering_active_content",
+      "pack_id": "generic.output_rendering_active_content"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.outstanding_delegated_work",
+      "pack_id": "generic.outstanding_delegated_work"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.prompt_self_replication",
+      "pack_id": "generic.prompt_self_replication"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/generic.tool_identity_shadowing",
+      "pack_id": "generic.tool_identity_shadowing"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.workspace_instruction_poisoning",
+      "pack_id": "generic.workspace_instruction_poisoning"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/mcp.authorization_compromise",
+      "pack_id": "mcp.authorization_compromise"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/mcp.catalog_cache_poisoning",
+      "pack_id": "mcp.catalog_cache_poisoning"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/mcp.instruction_poisoning",
+      "pack_id": "mcp.instruction_poisoning"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/mcp.root_escape",
+      "pack_id": "mcp.root_escape"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/mcp.task_abuse",
+      "pack_id": "mcp.task_abuse"
+    },
+    {
+      "artifact_count": 16,
+      "directory": "evidence_packs/anthropic.claude_code.prompt_injection",
+      "pack_id": "anthropic.claude_code.prompt_injection"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/enterprise.a2a_request_provenance",
+      "pack_id": "enterprise.a2a_request_provenance"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/enterprise.case_export",
+      "pack_id": "enterprise.case_export"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/enterprise.distributed_collection",
+      "pack_id": "enterprise.distributed_collection"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.dr_restore",
+      "pack_id": "enterprise.dr_restore"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.kms_envelope_integrity",
+      "pack_id": "enterprise.kms_envelope_integrity"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.legal_hold",
+      "pack_id": "enterprise.legal_hold"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.metadata_integrity",
+      "pack_id": "enterprise.metadata_integrity"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/enterprise.native_provider_collection",
+      "pack_id": "enterprise.native_provider_collection"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.object_storage_integrity",
+      "pack_id": "enterprise.object_storage_integrity"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.oidc_identity",
+      "pack_id": "enterprise.oidc_identity"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.production_readiness",
+      "pack_id": "enterprise.production_readiness"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.provider_collection_gap",
+      "pack_id": "enterprise.provider_collection_gap"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.scale_capacity",
+      "pack_id": "enterprise.scale_capacity"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/enterprise.spiffe_service_identity",
+      "pack_id": "enterprise.spiffe_service_identity"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.api_model_incident",
+      "pack_id": "generic.api_model_incident"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.mcp_compromise",
+      "pack_id": "generic.mcp_compromise"
+    },
+    {
+      "artifact_count": 7,
+      "directory": "evidence_packs/agentic.mcp.protocol_compromise.2026_07_28",
+      "pack_id": "agentic.mcp.protocol_compromise.2026_07_28"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/generic.memory_poisoning",
+      "pack_id": "generic.memory_poisoning"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.rag_poisoning",
+      "pack_id": "generic.rag_poisoning"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.agent365.ai_threat_detection",
+      "pack_id": "microsoft.agent365.ai_threat_detection"
+    },
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/microsoft.defender_endpoint.suspicious_ai_prompt_injection",
+      "pack_id": "microsoft.defender_endpoint.suspicious_ai_prompt_injection"
+    },
+    {
+      "artifact_count": 15,
+      "directory": "evidence_packs/microsoft.AI.AIModelScan_MalwareDetected",
+      "pack_id": "microsoft.AI.AIModelScan_MalwareDetected"
+    },
+    {
+      "artifact_count": 14,
+      "directory": "evidence_packs/microsoft.AI.Azure_ASCIISmuggling",
+      "pack_id": "microsoft.AI.Azure_ASCIISmuggling"
+    },
+    {
+      "artifact_count": 12,
+      "directory": "evidence_packs/microsoft.AI.Azure_AccessAnomaly",
+      "pack_id": "microsoft.AI.Azure_AccessAnomaly"
+    },
+    {
+      "artifact_count": 12,
+      "directory": "evidence_packs/microsoft.AI.Azure_AccessFromAnonymizedIP",
+      "pack_id": "microsoft.AI.Azure_AccessFromAnonymizedIP"
+    },
+    {
+      "artifact_count": 12,
+      "directory": "evidence_packs/microsoft.AI.Azure_AccessFromSuspiciousIP",
+      "pack_id": "microsoft.AI.Azure_AccessFromSuspiciousIP"
+    },
+    {
+      "artifact_count": 12,
+      "directory": "evidence_packs/microsoft.AI.Azure_AccessFromSuspiciousUserAgent",
+      "pack_id": "microsoft.AI.Azure_AccessFromSuspiciousUserAgent"
+    },
+    {
+      "artifact_count": 12,
+      "directory": "evidence_packs/microsoft.AI.Azure_AnomalousOperation.InitialAccess",
+      "pack_id": "microsoft.AI.Azure_AnomalousOperation.InitialAccess"
+    },
+    {
+      "artifact_count": 14,
+      "directory": "evidence_packs/microsoft.AI.Azure_AnomalousToolInvocation",
+      "pack_id": "microsoft.AI.Azure_AnomalousToolInvocation"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.AI.Azure_CredentialTheftAttempt",
+      "pack_id": "microsoft.AI.Azure_CredentialTheftAttempt"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.AI.Azure_DOWDuplicateRequests",
+      "pack_id": "microsoft.AI.Azure_DOWDuplicateRequests"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.AI.Azure_DOWVolumeAnomaly",
+      "pack_id": "microsoft.AI.Azure_DOWVolumeAnomaly"
+    },
+    {
+      "artifact_count": 12,
+      "directory": "evidence_packs/microsoft.AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt",
+      "pack_id": "microsoft.AI.Azure_Jailbreak.ContentFiltering.BlockedAttempt"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt",
+      "pack_id": "microsoft.AI.Azure_Jailbreak.ContentFiltering.DetectedAttempt"
+    },
+    {
+      "artifact_count": 12,
+      "directory": "evidence_packs/microsoft.AI.Azure_LLMReconnaissance",
+      "pack_id": "microsoft.AI.Azure_LLMReconnaissance"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.AI.Azure_MaliciousUrl.ModelResponse",
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.ModelResponse"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.AI.Azure_MaliciousUrl.UnknownSource",
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.UnknownSource"
+    },
+    {
+      "artifact_count": 13,
+      "directory": "evidence_packs/microsoft.AI.Azure_MaliciousUrl.UserPrompt",
+      "pack_id": "microsoft.AI.Azure_MaliciousUrl.UserPrompt"
+    },
+    {
+      "artifact_count": 14,
+      "directory": "evidence_packs/microsoft.ExposedKubernetesService.AI",
+      "pack_id": "microsoft.ExposedKubernetesService.AI"
+    },
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/microsoft.purview.ai_interaction",
+      "pack_id": "microsoft.purview.ai_interaction"
+    },
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/owasp.agentic.asi01",
+      "pack_id": "owasp.agentic.asi01"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/owasp.agentic.asi02",
+      "pack_id": "owasp.agentic.asi02"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/owasp.agentic.asi03",
+      "pack_id": "owasp.agentic.asi03"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/owasp.agentic.asi04",
+      "pack_id": "owasp.agentic.asi04"
+    },
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/owasp.agentic.asi05",
+      "pack_id": "owasp.agentic.asi05"
+    },
+    {
+      "artifact_count": 6,
+      "directory": "evidence_packs/owasp.agentic.asi06",
+      "pack_id": "owasp.agentic.asi06"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/owasp.agentic.asi07",
+      "pack_id": "owasp.agentic.asi07"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/owasp.agentic.asi08",
+      "pack_id": "owasp.agentic.asi08"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/owasp.agentic.asi09",
+      "pack_id": "owasp.agentic.asi09"
+    },
+    {
+      "artifact_count": 7,
+      "directory": "evidence_packs/owasp.agentic.asi10",
+      "pack_id": "owasp.agentic.asi10"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.admission_policy_failure",
+      "pack_id": "production.admission_policy_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.collection_slo_breach",
+      "pack_id": "production.collection_slo_breach"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.dr_failover_failure",
+      "pack_id": "production.dr_failover_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.environment_separation_failure",
+      "pack_id": "production.environment_separation_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.immutable_storage_failure",
+      "pack_id": "production.immutable_storage_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.kms_hsm_failure",
+      "pack_id": "production.kms_hsm_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.network_segmentation_failure",
+      "pack_id": "production.network_segmentation_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.platform_assurance_failure",
+      "pack_id": "production.platform_assurance_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.postgresql_ha_failure",
+      "pack_id": "production.postgresql_ha_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.provider_certification_gap",
+      "pack_id": "production.provider_certification_gap"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.release_provenance_failure",
+      "pack_id": "production.release_provenance_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.security_assurance_gap",
+      "pack_id": "production.security_assurance_gap"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.tenant_isolation_failure",
+      "pack_id": "production.tenant_isolation_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.upgrade_rollback_failure",
+      "pack_id": "production.upgrade_rollback_failure"
+    },
+    {
+      "artifact_count": 2,
+      "directory": "evidence_packs/production.workload_identity_failure",
+      "pack_id": "production.workload_identity_failure"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/generic.agent_exfil_channel",
+      "pack_id": "generic.agent_exfil_channel"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/generic.agent_workspace_archive_intake",
+      "pack_id": "generic.agent_workspace_archive_intake"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.ai_ide_autoload_surface",
+      "pack_id": "generic.ai_ide_autoload_surface"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.approval_trust_toctou",
+      "pack_id": "generic.approval_trust_toctou"
+    },
+    {
+      "artifact_count": 7,
+      "directory": "evidence_packs/generic.evil_font_glyph_deception",
+      "pack_id": "generic.evil_font_glyph_deception"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.hidden_document_representation",
+      "pack_id": "generic.hidden_document_representation"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/generic.hidden_markup_source",
+      "pack_id": "generic.hidden_markup_source"
+    },
+    {
+      "artifact_count": 5,
+      "directory": "evidence_packs/generic.session_history_tampering",
+      "pack_id": "generic.session_history_tampering"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/generic.terminal_control_deception",
+      "pack_id": "generic.terminal_control_deception"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/generic.unicode_representation_smuggling",
+      "pack_id": "generic.unicode_representation_smuggling"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.analyst_governance",
+      "pack_id": "runtime.analyst_governance"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.behavioral_sandbox",
+      "pack_id": "runtime.behavioral_sandbox"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/runtime.causal_graph",
+      "pack_id": "runtime.causal_graph"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/runtime.collector_health",
+      "pack_id": "runtime.collector_health"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.credential_lineage",
+      "pack_id": "runtime.credential_lineage"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/runtime.export_redaction",
+      "pack_id": "runtime.export_redaction"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.mcp_2026_integrity",
+      "pack_id": "runtime.mcp_2026_integrity"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.memory_integrity",
+      "pack_id": "runtime.memory_integrity"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/runtime.otel_genai",
+      "pack_id": "runtime.otel_genai"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/runtime.provider_telemetry",
+      "pack_id": "runtime.provider_telemetry"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.skill_supply_chain",
+      "pack_id": "runtime.skill_supply_chain"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.temporal_authority",
+      "pack_id": "runtime.temporal_authority"
+    },
+    {
+      "artifact_count": 3,
+      "directory": "evidence_packs/runtime.transparency_anchor",
+      "pack_id": "runtime.transparency_anchor"
+    },
+    {
+      "artifact_count": 4,
+      "directory": "evidence_packs/runtime.workload_identity",
+      "pack_id": "runtime.workload_identity"
+    }
+  ],
+  "schema": "ai-dfir/evidence-pack-fixture-manifest/v1.6"
+}

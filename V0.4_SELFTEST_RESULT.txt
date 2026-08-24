@@ -1,0 +1,36 @@
+AI-DFIR Model Integrity v0.4 — Acceptance Test
+
+Status: PASS
+
+Components:
+- activation_fingerprint: PASS
+- agent_trace: PASS
+- baseline_localization: PASS
+- case_init: PASS
+- evidence_correlation: PASS
+- gpu_attestation_ingest: PASS
+- live_attestation: PASS
+- live_summary: PASS
+- ocsf_export: PASS
+- python_compile: PASS
+- runtime_hook_inventory: PASS
+- signed_provenance: PASS
+- timeline: PASS
+
+Acceptance-test scenario:
+- synthetic approved baseline with sparse attestation depths
+- synthetic divergence beginning at depth 32
+- synthetic unexpected runtime forward hook
+- synthetic checkpoint/tensor change evidence
+- repeated synthetic low-rank delta signature
+- signed DSSE/in-toto-style provenance bundle
+- intentional provenance evidence tamper rejection
+- live attestation hash/HMAC chain verification
+- intentional event-chain corruption rejection
+- OCSF-aligned export
+- synthetic GPU token evidence ingestion (explicitly NOT signature-verified)
+- runtime/timeline change event
+- final evidence correlation reached Level 4
+
+This validates the toolchain logic against synthetic fixtures. It does not
+constitute validation against a real production Qwen3.8-27B deployment.

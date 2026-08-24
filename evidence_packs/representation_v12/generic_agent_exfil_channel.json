@@ -1,0 +1,122 @@
+{
+  "artifacts": [
+    {
+      "category": "representation_integrity",
+      "id": "network_logs",
+      "presence_patterns": [
+        "*dns*.json*",
+        "*proxy*.json*",
+        "*network*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves external destinations.",
+      "title": "DNS/proxy/HTTP/browser network logs",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "exfil_analysis",
+      "presence_patterns": [
+        "*network*exfil*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects data-like subdomains and agent-driven unapproved destinations.",
+      "title": "Encoded-subdomain/external-resource analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "source_data",
+      "presence_patterns": [
+        "*data*access*.json*",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Links outbound action to sensitive source.",
+      "title": "Sensitive source/hash access preceding network action",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "representation_integrity",
+      "id": "rendering_trace",
+      "presence_patterns": [
+        "*render*analysis*.json*",
+        "*browser*network*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Distinguishes rendering-driven from explicit tool network action.",
+      "title": "Markdown/image/webview/renderer trace",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "exfil_channel",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "network_logs",
+        "exfil_analysis"
+      ],
+      "title": "Suspicious AI-driven outbound channel is established"
+    },
+    {
+      "id": "exfil_correlation",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "exfil_analysis",
+        "source_data"
+      ],
+      "title": "Sensitive source and outbound channel are linked"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.agent_exfil_channel",
+  "incident_type": "agent_exfil_channel",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "AI Agent Renderer / DNS / URL Exfiltration Channel"
+    ],
+    "incident_types": [
+      "agent_exfil_channel"
+    ]
+  },
+  "notes": [
+    "Human-visible and machine-readable representations must be preserved separately. Presence alone is insufficient."
+  ],
+  "platform": "AI Content / Agent Execution",
+  "questions": [
+    "Was the outbound path DNS, rendered image, hyperlink, webview, or direct tool network?",
+    "Are subdomain labels data-like or high fan-out?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.2",
+  "sources": [
+    {
+      "type": "github",
+      "url": "https://github.com/Mindgard/ai-ide-vuln-patterns",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "AI Agent Renderer / DNS / URL Exfiltration Channel",
+  "vendor": "Generic"
+}

@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "process_tree",
+      "relative_path": "process_treeDeviceProcessEventsprocess_tree.jsonprocess_tree",
+      "sha256": "899a69757dce18c19cc2003791b580a6cffc8eed28e8a61703ba9744d6f6f5f2",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_trace",
+      "relative_path": "agent_traceagentic_eventsagent_trace.jsonl",
+      "sha256": "86f78a9aca83b7dd41982143206cdfd693ee808f0c774b0b0c9bb5ce4c0a8f9c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_schema",
+      "relative_path": "tool_schematool_schematool_schema.jsontool_schema",
+      "sha256": "ba7fc3e797127bb4327fcdec1b62e3b95fa1a74adb97d3f7a505f7dfe5d6b8be",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "filesystem",
+      "relative_path": "filesystemDeviceFileEventsfilesystem.jsonfilesystem",
+      "sha256": "02051994a1678b61f3902efdf62a6993e04577055fec0ff3aa8462d02595173d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "network",
+      "relative_path": "networkDeviceNetworkEventsnetwork.jsonnetwork",
+      "sha256": "dada59776b02b816d4df7a64848755de254873061ba14927c960efcd2fff3ecb",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "container_runtime",
+      "relative_path": "container_runtimekubernetescontainer_runtime.jsoncontainer_runtime",
+      "sha256": "7303c330d296a44e6a6b01e7367ac08879f5ea9a5abfb90c9b19e05301312034",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-owasp.agentic.asi05",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

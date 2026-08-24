@@ -1,0 +1,112 @@
+{
+  "rules": [
+    {
+      "pack": "runtime.workload_identity",
+      "signals": [
+        "workload_identity_used_after_expiry",
+        "workload_identity_used_after_revocation",
+        "unapproved_spiffe_trust_domain",
+        "unapproved_workload_identity",
+        "workload_attestation_selector_mismatch",
+        "workload_identity_changed_for_process"
+      ]
+    },
+    {
+      "pack": "runtime.credential_lineage",
+      "signals": [
+        "credential_used_after_expiry",
+        "credential_used_after_revocation",
+        "credential_exchange_scope_expansion",
+        "credential_shared_across_workloads",
+        "credential_audience_mismatch"
+      ]
+    },
+    {
+      "pack": "runtime.temporal_authority",
+      "signals": [
+        "action_exceeded_temporal_authority",
+        "temporal_authority_missing_required_approval",
+        "authority_backed_by_expired_credential"
+      ]
+    },
+    {
+      "pack": "runtime.memory_integrity",
+      "signals": [
+        "memory_version_regression_or_replay",
+        "memory_read_after_expiry",
+        "memory_read_after_tombstone",
+        "memory_cross_tenant_read",
+        "memory_read_content_hash_mismatch",
+        "memory_embedding_model_drift"
+      ]
+    },
+    {
+      "pack": "runtime.skill_supply_chain",
+      "signals": [
+        "skill_file_added",
+        "skill_file_changed",
+        "skill_external_instruction_or_endpoint_drift",
+        "skill_capability_expansion",
+        "skill_sensitive_identity_or_memory_access_signal"
+      ]
+    },
+    {
+      "pack": "runtime.mcp_2026_integrity",
+      "signals": [
+        "mcp_header_body_method_mismatch",
+        "mcp_authorization_issuer_mismatch",
+        "mcp_pkce_not_s256",
+        "mcp_protected_resource_metadata_missing",
+        "mcp_task_activity_after_cancel",
+        "mcp_mrtr_round_limit_exceeded",
+        "mcp_app_unapproved_external_origin",
+        "mcp_app_unapproved_host_rpc"
+      ]
+    },
+    {
+      "pack": "runtime.otel_genai",
+      "signals": [
+        "otel_genai_coverage_gap"
+      ]
+    },
+    {
+      "pack": "runtime.causal_graph",
+      "signals": [
+        "causal_claim_unsupported",
+        "unknown_causal_edge_type"
+      ]
+    },
+    {
+      "pack": "runtime.collector_health",
+      "signals": [
+        "mandatory_evidence_source_unavailable",
+        "evidence_source_degraded"
+      ]
+    },
+    {
+      "pack": "runtime.transparency_anchor",
+      "signals": [
+        "transparency_receipt_subject_mismatch",
+        "transparency_inclusion_not_verified"
+      ]
+    },
+    {
+      "pack": "runtime.behavioral_sandbox",
+      "signals": [
+        "sandbox_undeclared_file_access",
+        "sandbox_undeclared_network_destination",
+        "sandbox_undeclared_sensitive_behavior",
+        "sandbox_declared_observed_capability_mismatch"
+      ]
+    },
+    {
+      "pack": "runtime.analyst_governance",
+      "signals": [
+        "critical_conclusion_peer_review_incomplete",
+        "analyst_audit_chain_break",
+        "analyst_audit_signature_untrusted"
+      ]
+    }
+  ],
+  "schema": "ai-dfir/runtime-trust-rules/v1.4"
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "ai-dfir/provider-certification-profile/v1.6",
+  "provider": "anthropic",
+  "adapter": "anthropic_compliance",
+  "api_version": "deployment-pinned",
+  "max_certification_age_days": 90,
+  "known_limitations": [
+    "Compliance content access requires specific enterprise permissions."
+  ]
+}

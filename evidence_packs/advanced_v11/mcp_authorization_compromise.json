@@ -1,0 +1,104 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "auth_flow",
+      "locations": [],
+      "presence_patterns": [
+        "*mcp*auth*.json*",
+        "*oauth*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs authorization issuer/client binding.",
+      "title": "OAuth/CIMD/issuer/client/redirect evidence",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "mcp_requests",
+      "locations": [],
+      "presence_patterns": [
+        "*mcp*.jsonl",
+        "*gateway*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Links auth context to requests.",
+      "title": "MCP method/name/request logs",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "token_use",
+      "locations": [],
+      "presence_patterns": [
+        "*token*.json*",
+        "*identity*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects cross-issuer/client reuse.",
+      "title": "Credential/token issuance and use",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "mcp_auth_compromise",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "auth_flow",
+        "mcp_requests",
+        "token_use"
+      ],
+      "title": "MCP authorization binding was violated"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box",
+    "black-box"
+  ],
+  "id": "mcp.authorization_compromise",
+  "incident_type": "mcp_authorization_compromise",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI01",
+      "ASI02",
+      "ASI03",
+      "ASI04"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "MCP Authorization / Issuer / Client Confusion"
+    ],
+    "incident_types": [
+      "mcp_authorization_compromise"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Was issuer validation correct?",
+    "Was a credential reused across authorization servers?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [
+    {
+      "type": "protocol",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "MCP Authorization / Issuer / Client Confusion",
+  "vendor": "Generic"
+}

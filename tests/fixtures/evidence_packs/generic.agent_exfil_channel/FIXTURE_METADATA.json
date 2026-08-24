@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "network_logsdnsnetwork_logs.jsonnetwork_logs",
+    "exfil_analysisnetworkexfil_analysisexfilexfil_analysisanalysisexfil_analysis.jsonexfil_analysis",
+    "source_datadatasource_dataaccesssource_data.jsonsource_data",
+    "rendering_tracerenderrendering_traceanalysisrendering_trace.jsonrendering_trace"
+  ],
+  "pack_id": "generic.agent_exfil_channel",
+  "pack_source": "evidence_packs/representation_v12/generic_agent_exfil_channel.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

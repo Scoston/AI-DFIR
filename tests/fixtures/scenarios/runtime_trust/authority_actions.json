@@ -1,0 +1,11 @@
+{
+  "events": [
+    {
+      "actor_id": "agent",
+      "event_id": "E",
+      "event_type": "tool_call",
+      "timestamp_utc": "2026-08-24T16:00:00Z",
+      "tool_id": "delete"
+    }
+  ]
+}

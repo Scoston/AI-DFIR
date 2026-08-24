@@ -1,0 +1,88 @@
+{
+  "findings": [
+    {
+      "route": {
+        "fallback_reason": null,
+        "provider": "other-provider",
+        "region": "eu",
+        "request_id": "R",
+        "requested_model": null,
+        "resolved_model": "other-model",
+        "router_version": null,
+        "safety_profile": "basic"
+      },
+      "severity": "critical",
+      "type": "unapproved_model_resolution"
+    },
+    {
+      "route": {
+        "fallback_reason": null,
+        "provider": "other-provider",
+        "region": "eu",
+        "request_id": "R",
+        "requested_model": null,
+        "resolved_model": "other-model",
+        "router_version": null,
+        "safety_profile": "basic"
+      },
+      "severity": "critical",
+      "type": "unapproved_provider"
+    },
+    {
+      "route": {
+        "fallback_reason": null,
+        "provider": "other-provider",
+        "region": "eu",
+        "request_id": "R",
+        "requested_model": null,
+        "resolved_model": "other-model",
+        "router_version": null,
+        "safety_profile": "basic"
+      },
+      "severity": "high",
+      "type": "unapproved_model_region"
+    },
+    {
+      "minimum": "strict",
+      "route": {
+        "fallback_reason": null,
+        "provider": "other-provider",
+        "region": "eu",
+        "request_id": "R",
+        "requested_model": null,
+        "resolved_model": "other-model",
+        "router_version": null,
+        "safety_profile": "basic"
+      },
+      "severity": "critical",
+      "type": "safety_policy_downgrade"
+    },
+    {
+      "route": {
+        "fallback_reason": null,
+        "provider": "other-provider",
+        "region": "eu",
+        "request_id": "R",
+        "requested_model": null,
+        "resolved_model": "other-model",
+        "router_version": null,
+        "safety_profile": "basic"
+      },
+      "severity": "critical",
+      "type": "router_policy_drift"
+    }
+  ],
+  "routes": [
+    {
+      "fallback_reason": null,
+      "provider": "other-provider",
+      "region": "eu",
+      "request_id": "R",
+      "requested_model": null,
+      "resolved_model": "other-model",
+      "router_version": null,
+      "safety_profile": "basic"
+    }
+  ],
+  "schema": "ai-dfir/model-router-analysis/v1.1"
+}

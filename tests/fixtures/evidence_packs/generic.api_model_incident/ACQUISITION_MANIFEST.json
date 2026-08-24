@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "provider_request_ids",
+      "relative_path": "provider_request_idsrequest_idsprovider_request_ids.jsonprovider_request_ids",
+      "sha256": "14a4ecb2fc5331c30eaea68c4ab1d57217139120ea92581c02a2c17758de3f5a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "model_metadata",
+      "relative_path": "model_metadatamodel_metadatamodel_metadata.jsonmodel_metadata",
+      "sha256": "c63509cd986cef8e08bc6dc987d5d48f6ef750d8ef59188f33f8134655e4924c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "prompt_response",
+      "relative_path": "prompt_responseprompt_responseprompt_response.jsonprompt_response",
+      "sha256": "c02defd29108eaeed7a14d4f704ee8a4e31a0104745a02f83f6cc977d7b9e5f2",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "tool_trace",
+      "relative_path": "tool_tracetooltool_trace.jsontool_trace",
+      "sha256": "59bebd6691c5f78f48a4148603716722e6bd8ba41cdaa2a098b7f776515bf55d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "identity",
+      "relative_path": "identityidentityidentity.jsonidentity",
+      "sha256": "91601f9bba44bd8e7263c037b9b2cd0ab656bae13d4700df829b74a91621c088",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.api_model_incident",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

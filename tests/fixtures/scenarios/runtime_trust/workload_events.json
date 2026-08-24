@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "expires_utc": "2026-08-24T15:00:00Z",
+      "host_id": "H",
+      "process_id": 1,
+      "spiffe_id": "spiffe://corp/agent/a",
+      "timestamp_utc": "2026-08-24T16:00:00Z",
+      "trust_domain": "corp"
+    },
+    {
+      "host_id": "H",
+      "process_id": 1,
+      "spiffe_id": "spiffe://corp/agent/b",
+      "timestamp_utc": "2026-08-24T16:01:00Z",
+      "trust_domain": "corp"
+    }
+  ]
+}

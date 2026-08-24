@@ -1,0 +1,25 @@
+{
+  "components": {
+    "a2a_binding": "PASS",
+    "approval": "PASS",
+    "authority": "PASS",
+    "browser": "PASS",
+    "cache": "PASS",
+    "causal": "PASS",
+    "collector_health": "PASS",
+    "credentials": "PASS",
+    "evilfont_docx": "PASS",
+    "mcp": "PASS",
+    "memory": "PASS",
+    "network_exfil": "PASS",
+    "otel": "PASS",
+    "provider_normalization": "PASS",
+    "router": "PASS",
+    "skills": "PASS",
+    "terminal": "PASS",
+    "unicode": "PASS",
+    "workload": "PASS"
+  },
+  "schema": "ai-dfir/synthetic-scenario-result/v1.6",
+  "status": "PASS"
+}

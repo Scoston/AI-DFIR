@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "raw_outputrawraw_outputresponseraw_output.jsonraw_output",
+    "sanitized_outputsanitizedsanitized_output.html",
+    "rendererrendererrendererconfigrenderer.jsonrenderer",
+    "dom_networkrendereddom_networkdomdom_network.jsondom_network",
+    "session_securitysessionsession_securitysecuritysession_security.jsonsession_security"
+  ],
+  "pack_id": "generic.output_rendering_active_content",
+  "pack_source": "evidence_packs/advanced_v11/generic_output_rendering_active_content.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "agent_cards",
+      "relative_path": "agent_cardsagentagent_cardscardagent_cards.jsonagent_cards",
+      "sha256": "3e3244b04d2142a7f780b35ebe518657b07c211ea1c44261bcb351b648783b4b",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "a2a_messages",
+      "relative_path": "a2a_messagesa2aa2a_messages.jsonl",
+      "sha256": "5b7c0025617c927afeebcd8be0d21fb3ae89fd9694aa7dd47c806dd719b528f8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "a2a_security",
+      "relative_path": "a2a_securitya2aa2a_securitysecuritya2a_security.jsona2a_security",
+      "sha256": "df0bee64f0b62a27555c8300cea9668c440b6248953c9f9e8af20ced0ef42a77",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "task_context",
+      "relative_path": "task_contexta2atask_contexttasktask_context.jsontask_context",
+      "sha256": "e90d5e27fbada2020ae54c70318fdd90e4dd88baa62c970a34cc4d4ad9e7940e",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "push_notifications",
+      "relative_path": "push_notificationspushpush_notificationsnotificationpush_notifications.jsonpush_notifications",
+      "sha256": "23e133666e07faae5dd64d8be05857ecf52d2e294151f461d82708b15e530eb4",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "downstream_trace",
+      "relative_path": "downstream_traceagentic_eventsdownstream_trace.jsonl",
+      "sha256": "3c896f502d151b78c261bf3631f90e56e8943a8364a95f9aba649e5ed7d824a5",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.a2a_protocol_compromise",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

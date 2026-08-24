@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "task_log",
+      "relative_path": "task_logmcptask_logtasktask_log.jsonl",
+      "sha256": "0172b86efec99485d8fd0831e8a93270eae7dc818cbb20c69b0f20f9a865968f",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "mcp_requests",
+      "relative_path": "mcp_requestsmcpmcp_requests.jsonl",
+      "sha256": "ec6518c2cdfb1164bb6a8705fd466b73454f8ae1ca9509867edd4bb9e2651b79",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "containment",
+      "relative_path": "containmentcontainmentcontainment.jsoncontainment",
+      "sha256": "460643ecdc8ccbcf40b9e3f235806a5c4982bed8693b28523c0dcdcd98beca75",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-mcp.task_abuse",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "category": "production_assurance",
+      "id": "separation",
+      "presence_patterns": [
+        "*environment*separation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects shared trust domains, DBs, KMS keys or buckets.",
+      "title": "Environment separation validation",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "production_assurance",
+      "id": "environment_config",
+      "presence_patterns": [
+        "*environments*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves declared environment boundaries.",
+      "title": "Environment configuration",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "environment_assurance",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "separation",
+        "environment_config"
+      ],
+      "title": "Environment separation failure is established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box"
+  ],
+  "id": "production.environment_separation_failure",
+  "incident_type": "environment_separation_failure",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Lab / Staging / Production Separation Failure"
+    ],
+    "incident_types": [
+      "environment_separation_failure"
+    ]
+  },
+  "notes": [
+    "This pack assesses trustworthiness of the forensic platform or deployment. It is not proof of incident absence or presence."
+  ],
+  "platform": "Production Assurance",
+  "questions": [
+    "Are production trust roots, KMS keys, databases and evidence buckets unique?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.6",
+  "title": "Lab / Staging / Production Separation Failure",
+  "vendor": "AI-DFIR"
+}

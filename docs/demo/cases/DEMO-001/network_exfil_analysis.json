@@ -1,0 +1,38 @@
+{
+  "findings": [
+    {
+      "entropy": 1.0,
+      "hostname": "4141414141414141414141414141414141414141.synthetic.invalid",
+      "label_length": 40,
+      "severity": "high",
+      "type": "dns_data_like_subdomain_label"
+    },
+    {
+      "event": {
+        "channel": "dns",
+        "hostname": "4141414141414141414141414141414141414141.synthetic.invalid",
+        "metadata": {
+          "contains_sensitive_source_hash": true
+        },
+        "source": "agent"
+      },
+      "hostname": "4141414141414141414141414141414141414141.synthetic.invalid",
+      "severity": "high",
+      "type": "agent_network_to_unapproved_domain"
+    },
+    {
+      "event": {
+        "channel": "dns",
+        "hostname": "4141414141414141414141414141414141414141.synthetic.invalid",
+        "metadata": {
+          "contains_sensitive_source_hash": true
+        },
+        "source": "agent"
+      },
+      "hostname": "4141414141414141414141414141414141414141.synthetic.invalid",
+      "severity": "critical",
+      "type": "dns_query_correlated_with_sensitive_source"
+    }
+  ],
+  "schema": "ai-dfir/network-exfil-analysis/v1.2"
+}

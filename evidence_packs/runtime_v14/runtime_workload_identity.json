@@ -1,0 +1,110 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "identity_events",
+      "presence_patterns": [
+        "*workload*identity*.json*",
+        "*spire*.json*",
+        "*svid*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes workload identity at execution time.",
+      "title": "Workload/SVID identity timeline",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "attestation",
+      "presence_patterns": [
+        "*attestation*.json*",
+        "*selectors*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Binds identity to workload/node conditions.",
+      "title": "Node/workload attestation selectors",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "process",
+      "presence_patterns": [
+        "*process*.json*",
+        "*runtime*inventory*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Links SVID identity to executing process.",
+      "title": "Process/container/runtime identity evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "transport",
+      "presence_patterns": [
+        "*mtls*.json*",
+        "*tls*.json*",
+        "*jwt*svid*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Corroborates identity observed by peers.",
+      "title": "mTLS/JWT-SVID peer evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "identity",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "identity_events",
+        "attestation",
+        "process"
+      ],
+      "title": "Workload identity anomaly established"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.workload_identity",
+  "incident_type": "workload_identity_anomaly",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "spiffe": "SPIFFE/SPIRE"
+  },
+  "match": {
+    "detection_families": [
+      "Workload Identity / SPIFFE-SVID Anomaly"
+    ],
+    "incident_types": [
+      "workload_identity_anomaly"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Was the SVID valid at event time?",
+    "Did workload selectors match?",
+    "Did a process identity change without restart?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Workload Identity / SPIFFE-SVID Anomaly",
+  "vendor": "Generic"
+}

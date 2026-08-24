@@ -1,0 +1,14 @@
+{
+  "created_files": [
+    "identity_logssigninidentity_logs.jsonidentity_logs",
+    "authorityauthorityauthority.jsonauthority",
+    "token_evidencetokentoken_evidence.jsontoken_evidence",
+    "agent_traceagentic_eventsagent_trace.jsonl",
+    "target_audittargettarget_auditaudittarget_audit.jsontarget_audit"
+  ],
+  "pack_id": "owasp.agentic.asi03",
+  "pack_source": "evidence_packs/owasp_agentic/ASI03_identity_privilege_abuse.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

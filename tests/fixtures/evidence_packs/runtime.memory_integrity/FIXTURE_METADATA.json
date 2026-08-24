@@ -1,0 +1,13 @@
+{
+  "created_files": [
+    "snapshotmemorysnapshotsnapshotsnapshot.jsonsnapshot",
+    "eventsmemoryeventseventsevents.jsonevents",
+    "analysismemoryanalysisintegrityanalysis.jsonanalysis",
+    "retrievalretrievalretrieval.jsonretrieval"
+  ],
+  "pack_id": "runtime.memory_integrity",
+  "pack_source": "evidence_packs/runtime_v14/runtime_memory_integrity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

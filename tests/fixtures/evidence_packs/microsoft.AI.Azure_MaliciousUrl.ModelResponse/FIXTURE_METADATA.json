@@ -1,0 +1,22 @@
+{
+  "created_files": [
+    "defender_alertAlertInfodefender_alert.jsondefender_alert",
+    "alert_evidenceAlertEvidencealert_evidence.jsonalert_evidence",
+    "cloud_app_eventsCloudAppEventscloud_app_events.jsoncloud_app_events",
+    "agents_infoAgentsInfoagents_info.jsonagents_info",
+    "behavior_infoBehaviorInfobehavior_info.jsonbehavior_info",
+    "behavior_entitiesBehaviorEntitiesbehavior_entities.jsonbehavior_entities",
+    "identitysigninidentity.jsonidentity",
+    "azure_activityAzureActivityazure_activity.jsonazure_activity",
+    "request_responserequest_responserequest_response.jsonrequest_response",
+    "networkproxynetwork.jsonnetwork",
+    "url_artifacturlurl_artifact.jsonurl_artifact",
+    "rag_sourcesretrievalrag_sources.jsonrag_sources",
+    "target_systembrowsertarget_system.jsontarget_system"
+  ],
+  "pack_id": "microsoft.AI.Azure_MaliciousUrl.ModelResponse",
+  "pack_source": "evidence_packs/microsoft/defender_for_cloud/AI.Azure_MaliciousUrl.ModelResponse.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

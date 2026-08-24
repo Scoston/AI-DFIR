@@ -1,0 +1,142 @@
+{
+  "artifacts": [
+    {
+      "category": "execution_integrity",
+      "id": "control_files",
+      "locations": [],
+      "presence_patterns": [
+        "*CLAUDE.md",
+        "*AGENTS.md",
+        "*.github/copilot-instructions.md",
+        "*.cursor/rules*",
+        "*.mcp.json",
+        "*.vscode/*.json"
+      ],
+      "priority": "mandatory",
+      "rationale": "Preserves repository-delivered instructions and configuration.",
+      "title": "Workspace instruction/control files and hashes",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "git_history",
+      "locations": [],
+      "presence_patterns": [
+        "*git*history*.txt",
+        "*git*diff*.txt",
+        "*reflog*.txt"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes who/when control files changed.",
+      "title": "Git log/reflog/diff around introduction",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "agent_session",
+      "locations": [],
+      "presence_patterns": [
+        "*session*.jsonl",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows whether poisoned workspace instructions were consumed.",
+      "title": "Agent session/tool trace",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "hooks_scripts",
+      "locations": [],
+      "presence_patterns": [
+        "*package.json",
+        "*Makefile",
+        "*.github/workflows/*.yml",
+        "*.git/hooks/*",
+        "*.devcontainer/*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Captures executable workspace-controlled behavior.",
+      "title": "Package scripts, hooks, CI/workflow/devcontainer files",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    },
+    {
+      "category": "execution_integrity",
+      "id": "endpoint",
+      "locations": [],
+      "presence_patterns": [
+        "*process*.json*",
+        "*file*events*.json*",
+        "*network*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Confirms downstream execution/impact.",
+      "title": "Process/file/network telemetry",
+      "validation": {
+        "min_size_bytes": 1
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "workspace_poisoning",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "control_files",
+        "git_history",
+        "agent_session"
+      ],
+      "title": "Unapproved instruction/control file influenced the agent"
+    },
+    {
+      "id": "workspace_execution",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "agent_session",
+        "hooks_scripts",
+        "endpoint"
+      ],
+      "title": "Workspace-delivered behavior led to code/tool/network action"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "generic.workspace_instruction_poisoning",
+  "incident_type": "workspace_instruction_poisoning",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Coding-Agent Workspace Instruction / Control-File Poisoning"
+    ],
+    "incident_types": [
+      "workspace_instruction_poisoning"
+    ]
+  },
+  "notes": [
+    "Presence alone does not satisfy this pack. Evidence must meet v1.1 quality validation."
+  ],
+  "platform": "Agentic AI",
+  "questions": [
+    "Which repository-controlled file influenced the agent?",
+    "Was it present before clone or modified locally?",
+    "Did it cause execution beyond text generation?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.1",
+  "sources": [],
+  "title": "Coding-Agent Workspace Instruction / Control-File Poisoning",
+  "vendor": "Generic"
+}

@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "original_document",
+      "relative_path": "original_document.pdf",
+      "sha256": "6cec096ee876e126de5ef9d8eec2f2d037d425f610d1ebc920bdba64c45abc1a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "structural_scan",
+      "relative_path": "structural_scandocumentstructural_scanrepresentationstructural_scan.jsonstructural_scan",
+      "sha256": "e33d7bd18d49f8a3ae80a78b032668ed88c071fca1636170e11df5422ee0164d",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "representation_diff",
+      "relative_path": "representation_diffrepresentationrepresentation_diffdifferentialrepresentation_diff.jsonrepresentation_diff",
+      "sha256": "cae071e67225cff086740cb06c4f0dcca6f3112720be59175060e0763808b722",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "visible_representation",
+      "relative_path": "visible_representationvisible_textvisible_representation.txt",
+      "sha256": "126b14441ffbd929fc7c1b576fd3635a2e0a4830b39a23e84d761296b8a26938",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "ingestion_trace",
+      "relative_path": "ingestion_traceingestioningestion_trace.jsoningestion_trace",
+      "sha256": "b4097fc9d839476f7270fb02c1eb6bbe5bb51f754d859f0455007ed8b61a2171",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.hidden_document_representation",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

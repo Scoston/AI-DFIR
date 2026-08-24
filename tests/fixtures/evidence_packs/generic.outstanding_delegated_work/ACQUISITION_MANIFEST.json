@@ -1,0 +1,46 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "task_registry",
+      "relative_path": "task_registrytasktask_registryregistrytask_registry.jsontask_registry",
+      "sha256": "367e731c3d6963b30fc0b5a4b67c966d904495484d5aa8faf890151a09e2a06a",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "containment_timeline",
+      "relative_path": "containment_timelinecontainment_auditcontainment_timeline.jsonl",
+      "sha256": "9d32a11d05d3b2e4b9f1ef38db434394fe8d99a75e52e7fbbf175f1ebcea837c",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "task_state",
+      "relative_path": "task_statetasktask_stateeventstask_state.jsonl",
+      "sha256": "a7069a6c23da590792eba66c2b44d420c0706735ce7d20371f3950c8e7ff55d8",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "child_agents",
+      "relative_path": "child_agentsagentchild_agentsbirthchild_agents.jsonchild_agents",
+      "sha256": "faec4a4c9dbe14859f9a292c646c4cd02a7c70f48edab780ad94c5a0cddd0edb",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "consequences",
+      "relative_path": "consequencesopen_consequencesconsequences.jsonconsequences",
+      "sha256": "0eaf87cd71fa759e17e4f31b436dd3db4e97f01c8332a51bac9faf4f15cb68af",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-generic.outstanding_delegated_work",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,156 @@
+{
+  "artifacts": [
+    {
+      "category": "mcp",
+      "id": "server_inventory",
+      "presence_patterns": [
+        "*mcp*inventory*.json*",
+        "*mcp*servers*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes which MCP servers were trusted and reachable.",
+      "title": "MCP server identities/endpoints/protocol versions"
+    },
+    {
+      "category": "mcp",
+      "id": "tool_catalog",
+      "presence_patterns": [
+        "*tools*list*.json*",
+        "*mcp*inventory*.json*",
+        "*tool_schema*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects tool addition or schema/description poisoning.",
+      "title": "tools/list schemas and hashes"
+    },
+    {
+      "category": "mcp",
+      "id": "mcp_logs",
+      "presence_patterns": [
+        "*mcp*.jsonl",
+        "*gateway*.json*",
+        "*mcp*log*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs Mcp-Method/Mcp-Name routing and tools/call activity.",
+      "title": "MCP request/response and gateway logs"
+    },
+    {
+      "category": "identity",
+      "id": "auth_metadata",
+      "presence_patterns": [
+        "*oauth*.json*",
+        "*authorization*.json*",
+        "*issuer*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects issuer/client mix-up and credential misuse.",
+      "title": "OAuth issuer/client metadata and validation logs"
+    },
+    {
+      "category": "mcp",
+      "id": "tasks",
+      "presence_patterns": [
+        "*task*.json*",
+        "*mcp*.jsonl"
+      ],
+      "priority": "conditional",
+      "rationale": "Required for long-running tool calls using Tasks extension.",
+      "title": "Tasks extension lifecycle"
+    },
+    {
+      "category": "mcp",
+      "id": "cache_catalog",
+      "presence_patterns": [
+        "*cache*.json*",
+        "*tools*list*.json*",
+        "*resources*list*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Determines whether stale or poisoned cached discovery data influenced execution.",
+      "title": "Cached tools/prompts/resources catalogs and ttl metadata"
+    },
+    {
+      "category": "impact",
+      "id": "downstream_trace",
+      "presence_patterns": [
+        "*agentic_events*.jsonl",
+        "*target*audit*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Proves whether suspect MCP behavior caused action.",
+      "title": "Tool execution and target audit"
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "mcp_change_established",
+      "logic": "all",
+      "requires": [
+        "server_inventory",
+        "tool_catalog",
+        "auth_metadata"
+      ],
+      "title": "MCP server/tool/auth state materially changed"
+    },
+    {
+      "id": "mcp_execution_impact",
+      "logic": "all",
+      "requires": [
+        "mcp_logs",
+        "downstream_trace"
+      ],
+      "title": "Suspect MCP state participated in downstream action"
+    }
+  ],
+  "forensic_modes": [
+    "gray-box",
+    "black-box"
+  ],
+  "id": "agentic.mcp.protocol_compromise.2026_07_28",
+  "incident_type": "mcp_compromise",
+  "mappings": {
+    "mitre_atlas_techniques": [
+      "AI Agent Tool Poisoning",
+      "AI Agent Tool Invocation",
+      "AI Agent Tool Data Poisoning"
+    ],
+    "owasp_agentic": [
+      "ASI02",
+      "ASI03",
+      "ASI04",
+      "ASI07"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "MCP",
+      "tool poisoning",
+      "MCP server compromise"
+    ],
+    "incident_types": [
+      "mcp_compromise",
+      "tool_poisoning"
+    ]
+  },
+  "notes": [
+    "MCP 2026-07-28 uses a stateless protocol core and includes authorization hardening, header-based routing, cacheable list results, and the Tasks extension."
+  ],
+  "platform": "MCP",
+  "questions": [
+    "Which MCP server and tool definition was used?",
+    "Did authorization issuer/client metadata match approved state?",
+    "Did cached catalog state differ?",
+    "Did a tool call produce downstream impact?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v0.9",
+  "sources": [
+    {
+      "type": "spec_release",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "verified": "2026-08-23"
+    }
+  ],
+  "title": "MCP Server / Tool / Authorization Compromise (2026-07-28 spec)",
+  "vendor": "Model Context Protocol"
+}

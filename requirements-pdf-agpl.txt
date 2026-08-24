@@ -1,0 +1,4 @@
+# OPTIONAL. PyMuPDF is AGPL-3.0-or-later or commercially licensed by Artifex.
+# Installing this profile may impose obligations that differ from AI-DFIR's
+# Apache-2.0 license. Review LICENSE_GUIDE.md and upstream licensing before use.
+pymupdf>=1.26

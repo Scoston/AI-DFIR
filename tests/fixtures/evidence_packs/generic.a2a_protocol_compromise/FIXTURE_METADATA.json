@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "agent_cardsagentagent_cardscardagent_cards.jsonagent_cards",
+    "a2a_messagesa2aa2a_messages.jsonl",
+    "a2a_securitya2aa2a_securitysecuritya2a_security.jsona2a_security",
+    "task_contexta2atask_contexttasktask_context.jsontask_context",
+    "push_notificationspushpush_notificationsnotificationpush_notifications.jsonpush_notifications",
+    "downstream_traceagentic_eventsdownstream_trace.jsonl"
+  ],
+  "pack_id": "generic.a2a_protocol_compromise",
+  "pack_source": "evidence_packs/advanced_v11/generic_a2a_protocol_compromise.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

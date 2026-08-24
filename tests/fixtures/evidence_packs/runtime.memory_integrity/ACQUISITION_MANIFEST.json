@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "snapshot",
+      "relative_path": "snapshotmemorysnapshotsnapshotsnapshot.jsonsnapshot",
+      "sha256": "c373ccf6abf64011d679fb1fd8e23abacb11949e723b27442be99fbb2cfa90ee",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "events",
+      "relative_path": "eventsmemoryeventseventsevents.jsonevents",
+      "sha256": "f92c79c3500e0f335399c927028841b28b08c39a92ba7e51d96b7f0e34359c03",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "analysis",
+      "relative_path": "analysismemoryanalysisintegrityanalysis.jsonanalysis",
+      "sha256": "cf8844f78c8fadfa63b20871939be8c79b60277f2fe6dbd500d64b819d8d7c54",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "retrieval",
+      "relative_path": "retrievalretrievalretrieval.jsonretrieval",
+      "sha256": "02e0b03f0a99b122c77e1280281cbaf7fcfdcff31f4126157a6a1277dcdb53d0",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.memory_integrity",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,169 @@
+{
+  "artifacts": [
+    {
+      "category": "a2a_trust",
+      "id": "card_verification",
+      "presence_patterns": [
+        "*agent*card*verification*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Defines the verified agent identity and declared skills/interfaces.",
+      "title": "Trusted Agent Card verification result",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "a2a_events",
+      "presence_patterns": [
+        "*a2a*.jsonl",
+        "*agentic_events*.jsonl"
+      ],
+      "priority": "mandatory",
+      "rationale": "Reconstructs actual execution.",
+      "title": "A2A message/task/delegation events",
+      "validation": {
+        "format": "jsonl",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "binding_analysis",
+      "presence_patterns": [
+        "*a2a*execution*binding*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Detects undeclared skills, tenant mismatch, authority escalation and card-hash mismatch.",
+      "title": "Execution-to-card binding analysis",
+      "validation": {
+        "format": "json",
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "auth_transport",
+      "presence_patterns": [
+        "*oauth*.json*",
+        "*mtls*.json*",
+        "*transport*auth*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Establishes sender authentication separately from Agent Card integrity.",
+      "title": "OAuth/mTLS/transport authentication evidence",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "authority",
+      "presence_patterns": [
+        "*authority*.json*",
+        "*delegation*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows what privileges were actually delegated.",
+      "title": "Effective authority/delegation records",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "a2a_trust",
+      "id": "target_audit",
+      "presence_patterns": [
+        "*target*audit*.json*",
+        "*consequence*.json*"
+      ],
+      "priority": "conditional",
+      "rationale": "Confirms impact.",
+      "title": "Downstream target-system audit",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "execution_binding_failure",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "card_verification",
+        "a2a_events",
+        "binding_analysis",
+        "auth_transport",
+        "authority"
+      ],
+      "title": "A2A execution violated trusted identity/delegation policy"
+    },
+    {
+      "id": "execution_impact",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "binding_analysis",
+        "target_audit"
+      ],
+      "title": "Binding failure resulted in downstream consequence"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "a2a.execution_identity_binding",
+  "incident_type": "a2a_execution_identity_binding",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {
+    "owasp_agentic": [
+      "ASI03",
+      "ASI07",
+      "ASI08"
+    ]
+  },
+  "match": {
+    "detection_families": [
+      "A2A Execution / Delegation Identity Binding Failure"
+    ],
+    "incident_types": [
+      "a2a_execution_identity_binding"
+    ]
+  },
+  "notes": [
+    "A valid Agent Card signature proves integrity under a key; enterprise trust additionally requires key lifecycle and identity-policy binding."
+  ],
+  "platform": "A2A v1.0",
+  "questions": [
+    "Was the invoked skill declared by the trusted card?",
+    "Did tenant/context/task identity remain stable?",
+    "Did effective authority increase without approval?",
+    "Does transport authentication independently identify the sender?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.3",
+  "sources": [
+    {
+      "type": "spec",
+      "url": "https://a2a-protocol.org/latest/specification/",
+      "verified": "2026-08-24"
+    },
+    {
+      "type": "protocol",
+      "url": "https://a2a-protocol.org/latest/whats-new-v1/",
+      "verified": "2026-08-24"
+    }
+  ],
+  "title": "A2A Execution / Delegation Identity Binding Failure",
+  "vendor": "Generic"
+}

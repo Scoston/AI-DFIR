@@ -1,0 +1,105 @@
+{
+  "artifacts": [
+    {
+      "category": "runtime_trust",
+      "id": "plan",
+      "presence_patterns": [
+        "*behavioral*sandbox*plan*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Shows safe test constraints.",
+      "title": "Isolation/canary plan",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "declared",
+      "presence_patterns": [
+        "*declared*capabilities*.json*",
+        "*skill*manifest*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Expected behavior.",
+      "title": "Declared capability manifest",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "telemetry",
+      "presence_patterns": [
+        "*sandbox*telemetry*.json*",
+        "*behavioral*observed*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Observed behavior.",
+      "title": "Sandbox observation telemetry",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    },
+    {
+      "category": "runtime_trust",
+      "id": "analysis",
+      "presence_patterns": [
+        "*behavioral*sandbox*analysis*.json*"
+      ],
+      "priority": "mandatory",
+      "rationale": "Highlights undeclared access/egress.",
+      "title": "Declared-vs-observed analysis",
+      "validation": {
+        "min_size_bytes": 1,
+        "require_acquisition_hash": true
+      }
+    }
+  ],
+  "conclusion_gates": [
+    {
+      "id": "behavior",
+      "logic": "all",
+      "min_quality": "VALIDATED",
+      "requires": [
+        "plan",
+        "declared",
+        "telemetry",
+        "analysis"
+      ],
+      "title": "Observed behavior exceeds declaration"
+    }
+  ],
+  "forensic_modes": [
+    "white-box",
+    "gray-box",
+    "black-box"
+  ],
+  "id": "runtime.behavioral_sandbox",
+  "incident_type": "behavioral_sandbox_drift",
+  "mandatory_min_quality": "VALIDATED",
+  "mappings": {},
+  "match": {
+    "detection_families": [
+      "Skill / Agent Declared-vs-Observed Behavior Drift"
+    ],
+    "incident_types": [
+      "behavioral_sandbox_drift"
+    ]
+  },
+  "notes": [
+    "Incident-time state is authoritative; current state must not be substituted for historical validity."
+  ],
+  "platform": "AI Runtime / Agentic Systems",
+  "questions": [
+    "Did skill read undeclared files?",
+    "Did it access credentials or identity files?",
+    "Did it attempt unapproved egress?"
+  ],
+  "schema": "ai-dfir/evidence-pack/v1.4",
+  "title": "Skill / Agent Declared-vs-Observed Behavior Drift",
+  "vendor": "Generic"
+}

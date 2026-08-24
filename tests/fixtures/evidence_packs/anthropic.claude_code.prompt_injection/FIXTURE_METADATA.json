@@ -1,0 +1,25 @@
+{
+  "created_files": [
+    "session_transcriptprojectssession_transcript/session_transcript.jsonl",
+    "prompt_historyhistory.jsonl",
+    "tool_resultstool-resultstool_results/tool_results",
+    "file_historyfile-historyfile_history/file_history",
+    "claude_mdCLAUDE.md",
+    "settingssettings.json",
+    "claude_state.claude.json",
+    "mcp_config.mcp.json",
+    "hookshookshooks.json",
+    "skills_agents_rulesskillsskills_agents_rules/skills_agents_rules",
+    "session_envsession-envsession_env/session_env",
+    "paste_image_cachepaste-cachepaste_image_cache/paste_image_cache",
+    "debug_plans_tasksdebugdebug_plans_tasks/debug_plans_tasks",
+    "git_state.git/git_state",
+    "endpoint_telemetryDeviceProcessEventsendpoint_telemetry.jsonendpoint_telemetry",
+    "provider_auditpurviewprovider_audit.jsonprovider_audit"
+  ],
+  "pack_id": "anthropic.claude_code.prompt_injection",
+  "pack_source": "evidence_packs/anthropic/claude_code_prompt_injection.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}

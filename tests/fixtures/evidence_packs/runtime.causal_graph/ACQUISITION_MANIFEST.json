@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "events",
+      "relative_path": "eventsagentic_eventsevents.jsonl",
+      "sha256": "3c3959d5ae9eaccbc9d725c9a74859ef5ab1407ebce018930eb1de6a1fef2cd5",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "graph",
+      "relative_path": "graphtypedgraphcausalgraphgraphgraph.jsongraph",
+      "sha256": "2f810ebcea814a3b3e8378fc1e5c430cb0902cbd80bba4ba5575591d579d0afb",
+      "source_type": "synthetic-test"
+    },
+    {
+      "coverage_end_utc": "2026-08-24T17:00:00Z",
+      "coverage_start_utc": "2026-08-24T15:00:00Z",
+      "logical_name": "claims",
+      "relative_path": "claimscausalclaimsclaimsclaims.jsonclaims",
+      "sha256": "038d7aed7834439810174af729a9cc124191c105f5142c363c8621fa5a93104e",
+      "source_type": "synthetic-test"
+    }
+  ],
+  "case_id": "SYN-runtime.causal_graph",
+  "schema": "ai-dfir/acquisition-manifest/v1.2"
+}

@@ -1,0 +1,18 @@
+{
+  "allowed_models": [
+    "approved-model"
+  ],
+  "allowed_providers": [
+    "approved-provider"
+  ],
+  "allowed_regions": [
+    "us-east"
+  ],
+  "minimum_safety_profile": "strict",
+  "router_policy_sha256": "P1",
+  "safety_profile_order": [
+    "off",
+    "basic",
+    "strict"
+  ]
+}

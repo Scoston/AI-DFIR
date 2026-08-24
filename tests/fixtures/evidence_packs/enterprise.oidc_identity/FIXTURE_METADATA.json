@@ -1,0 +1,12 @@
+{
+  "created_files": [
+    "token_verificationoidctoken_verificationprincipaltoken_verification.jsontoken_verification",
+    "jwksjwksjwks.jsonjwks",
+    "access_auditanalystaccess_auditauditaccess_audit.jsonl"
+  ],
+  "pack_id": "enterprise.oidc_identity",
+  "pack_source": "evidence_packs/enterprise_v15/enterprise_oidc_identity.json",
+  "schema": "ai-dfir/test-fixture/v1.6",
+  "scope": "Evidence Pack discovery and quality-gate validation; not a real attack simulation.",
+  "synthetic": true
+}
