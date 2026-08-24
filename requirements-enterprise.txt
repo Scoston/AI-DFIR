@@ -1,5 +1,5 @@
 -r requirements-model.txt
-psycopg[binary]>=3.3
+psycopg[binary]>=3.3.4
 boto3>=1.40
 azure-identity>=1.24
 azure-keyvault-keys>=4.11
