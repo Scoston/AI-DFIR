@@ -1,4 +1,4 @@
-﻿name: Production Container
+name: Production Container
 
 on:
   workflow_dispatch:
