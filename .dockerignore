@@ -1,0 +1,63 @@
+# Source control
+.git
+.git/**
+.github
+.github/**
+
+# Python virtual environments and caches
+.venv
+.venv/**
+venv
+venv/**
+__pycache__
+**/__pycache__/**
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.pytest_cache/**
+.ruff_cache
+.ruff_cache/**
+.coverage
+htmlcov
+htmlcov/**
+
+# Local secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local databases
+*.sqlite
+*.db
+
+# Editor / operating system metadata
+.DS_Store
+.vscode
+.vscode/**
+.idea
+.idea/**
+
+# Build and release output
+dist
+dist/**
+build
+build/**
+release-output
+release-output/**
+dist-release
+dist-release/**
+.release-test
+.release-test/**
+
+# Temporary files
+*.log
+*.tmp
+tmp*.py
+
+# Local verification/download directories
+AI-DFIR-v1.6.0-verify
+AI-DFIR-v1.6.0-verify/**

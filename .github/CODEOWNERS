@@ -1,0 +1,9 @@
+# Default repository owner
+* @Scoston
+
+# Security-sensitive repository areas
+/.github/ @Scoston
+/evidence_packs/ @Scoston
+/deploy/ @Scoston
+/migrations/ @Scoston
+/scripts/ @Scoston
