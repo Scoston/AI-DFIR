@@ -1,53 +1,143 @@
 name: Release + SLSA Provenance
+
 on:
   push:
     tags: ['v*']
+
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing release tag to package and publish
+        required: true
+        default: v1.6.0
+        type: string
+
 permissions:
   contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
+      release_tag: ${{ steps.meta.outputs.release_tag }}
+
     steps:
+      - name: Resolve release tag
+        id: meta
+        shell: bash
+        env:
+          REQUESTED_TAG: ${{ inputs.release_tag }}
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            echo "release_tag=$REQUESTED_TAG" >> "$GITHUB_OUTPUT"
+          else
+            echo "release_tag=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v7
-        with: {persist-credentials: false, fetch-depth: 0}
+        with:
+          ref: ${{ steps.meta.outputs.release_tag }}
+          persist-credentials: false
+          fetch-depth: 0
+
       - uses: actions/setup-python@v7
-        with: {python-version: '3.12', cache: pip}
-      - run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install release dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
       - name: Full release gate
         run: python scripts/release_check.py --full
-      - name: Build release assets
-        run: python scripts/package_release.py --out-dir dist-release --skip-source-check
+
+      - name: Show disk before packaging
+        shell: bash
+        run: df -h
+
+      - name: Build release assets outside repository workspace
+        shell: bash
+        run: |
+          python scripts/package_release.py \
+            --out-dir "$RUNNER_TEMP/dist-release" \
+            --skip-source-check
+
+      - name: Show disk after packaging
+        shell: bash
+        run: |
+          df -h
+          du -sh "$RUNNER_TEMP/dist-release"
+
       - name: Generate SLSA subjects
         id: hash
         shell: bash
         run: |
-          cd dist-release
+          cd "$RUNNER_TEMP/dist-release"
           echo "hashes=$(sha256sum AI-DFIR-v1.6.0.zip AI-DFIR-v1.6.0.tar.gz | base64 -w0)" >> "$GITHUB_OUTPUT"
+
       - uses: actions/upload-artifact@v7
         with:
           name: release-assets
-          path: dist-release/
+          path: ${{ runner.temp }}/dist-release/
           if-no-files-found: error
+
   provenance:
     needs: [build]
+
     permissions:
       actions: read
       id-token: write
       contents: write
+
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
+
     with:
       base64-subjects: "${{ needs.build.outputs.hashes }}"
       upload-assets: true
+      upload-tag-name: ${{ needs.build.outputs.release_tag }}
+
   publish:
     needs: [build, provenance]
+
     runs-on: ubuntu-latest
-    permissions: {contents: write}
+
+    permissions:
+      contents: write
+
     steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.build.outputs.release_tag }}
+          persist-credentials: false
+
       - uses: actions/download-artifact@v7
-        with: {name: release-assets, path: release-assets}
+        with:
+          name: release-assets
+          path: release-assets
+
+      - name: Apply release title and notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.build.outputs.release_tag }}
+        shell: bash
+        run: |
+          gh release edit "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "AI-DFIR v1.6.0 — Production Assurance & Hardened Enterprise Deployment" \
+            --notes-file RELEASE_NOTES_V1.6.md
+
       - name: Publish GitHub release assets
-        env: {GH_TOKEN: '${{ github.token }}'}
-        run: gh release upload "${GITHUB_REF_NAME}" release-assets/* --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.build.outputs.release_tag }}
+        shell: bash
+        run: |
+          gh release upload "$RELEASE_TAG" \
+            release-assets/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --clobber
