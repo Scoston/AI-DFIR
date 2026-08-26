@@ -1,0 +1,58 @@
+name: Production Container Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Build production container
+        env:
+          PYTHON_IMAGE: ${{ vars.AI_DFIR_PYTHON_BASE_IMAGE_DIGEST }}
+        run: |
+          test -n "$PYTHON_IMAGE"
+          docker build \
+            --build-arg "PYTHON_IMAGE=$PYTHON_IMAGE" \
+            --file deploy/production/Dockerfile \
+            --tag ai-dfir:production-check \
+            .
+
+      - name: Verify non-root runtime
+        run: |
+          uid="$(docker run --rm --entrypoint id ai-dfir:production-check -u)"
+          test "$uid" = "10001"
+          echo "Production UID: $uid"
+
+      - name: Verify gateway imports
+        run: |
+          docker run --rm \
+            --entrypoint python \
+            ai-dfir:production-check \
+            -c "import enterprise_gateway_v15; print('Gateway import: PASS')"
+
+      - name: Verify dependency consistency
+        run: |
+          docker run --rm \
+            --entrypoint python \
+            ai-dfir:production-check \
+            -m pip check
+
+      - name: Verify model and GPU runtimes are excluded
+        run: |
+          docker run --rm \
+            --entrypoint python \
+            ai-dfir:production-check \
+            -c "import importlib.util; blocked=['torch','transformers','accelerate']; found=[p for p in blocked if importlib.util.find_spec(p)]; assert not found, f'Unexpected production packages: {found}'; print('Model/GPU exclusion: PASS')"
