@@ -3,19 +3,28 @@ import re
 import sys
 
 WORKFLOW_DIR = Path(".github/workflows")
+LOCAL_ACTION_DIR = Path(".github/actions")
 
 USES_RE = re.compile(r"^\s*(?:-\s*)?uses:\s*([^\s#]+)")
 PINNED_RE = re.compile(r"^[^@\s]+@[0-9a-fA-F]{40}$")
+
+
+def candidate_files():
+    for path in sorted(WORKFLOW_DIR.glob("*")):
+        if path.suffix in {".yml", ".yaml"}:
+            yield path
+
+    if LOCAL_ACTION_DIR.exists():
+        for path in sorted(LOCAL_ACTION_DIR.rglob("*")):
+            if path.name in {"action.yml", "action.yaml"}:
+                yield path
 
 
 def main() -> int:
     failures = []
     external_refs = 0
 
-    for path in sorted(WORKFLOW_DIR.glob("*")):
-        if path.suffix not in {".yml", ".yaml"}:
-            continue
-
+    for path in candidate_files():
         text = path.read_text(encoding="utf-8-sig")
 
         for line_number, line in enumerate(text.splitlines(), start=1):
