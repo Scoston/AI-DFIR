@@ -21,8 +21,7 @@ RUN python -m pip install \
 
 COPY --chown=10001:10001 . .
 
-RUN chmod -R go-w /opt/ai-dfir
-
+# CI rejects any production path that is group- or other-writable.
 USER 10001:10001
 
 EXPOSE 8890
