@@ -36,6 +36,28 @@ jobs:
           test "$uid" = "10001"
           echo "Production UID: $uid"
 
+      - name: Verify production ownership and permissions
+        run: |
+          docker run --rm -i \
+            --entrypoint sh \
+            ai-dfir:production-check \
+            -s <<'CHECK'
+          set -eu
+
+          test "$(stat -c '%u:%g' /opt/ai-dfir)" = "10001:10001"
+
+          unexpected_user="$(find /opt/ai-dfir ! -user 10001 -print -quit)"
+          test -z "$unexpected_user"
+
+          unexpected_group="$(find /opt/ai-dfir ! -group 10001 -print -quit)"
+          test -z "$unexpected_group"
+
+          writable="$(find /opt/ai-dfir -perm /022 -print -quit)"
+          test -z "$writable"
+
+          echo "Production ownership and permissions: PASS"
+          CHECK
+
       - name: Verify gateway imports
         run: |
           docker run --rm \
