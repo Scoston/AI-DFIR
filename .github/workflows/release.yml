@@ -9,7 +9,6 @@ on:
       release_tag:
         description: Existing release tag to package and publish
         required: true
-        default: v1.6.0
         type: string
 
 permissions:
@@ -23,6 +22,7 @@ jobs:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
       release_tag: ${{ steps.meta.outputs.release_tag }}
+      version: ${{ steps.meta.outputs.version }}
 
     steps:
       - name: Resolve release tag
@@ -31,11 +31,22 @@ jobs:
         env:
           REQUESTED_TAG: ${{ inputs.release_tag }}
         run: |
+          set -euo pipefail
+
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
-            echo "release_tag=$REQUESTED_TAG" >> "$GITHUB_OUTPUT"
+            release_tag="$REQUESTED_TAG"
           else
-            echo "release_tag=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+            release_tag="$GITHUB_REF_NAME"
           fi
+
+          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: $release_tag" >&2
+            exit 1
+          fi
+
+          version="${release_tag#v}"
+          echo "release_tag=$release_tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -62,6 +73,8 @@ jobs:
 
       - name: Build release assets outside repository workspace
         shell: bash
+        env:
+          AI_DFIR_RELEASE_TAG: ${{ steps.meta.outputs.release_tag }}
         run: |
           python scripts/package_release.py \
             --out-dir "$RUNNER_TEMP/dist-release" \
@@ -76,9 +89,20 @@ jobs:
       - name: Generate SLSA subjects
         id: hash
         shell: bash
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
         run: |
+          set -euo pipefail
           cd "$RUNNER_TEMP/dist-release"
-          echo "hashes=$(sha256sum AI-DFIR-v1.6.0.zip AI-DFIR-v1.6.0.tar.gz | base64 -w0)" >> "$GITHUB_OUTPUT"
+
+          zip_name="AI-DFIR-v${VERSION}.zip"
+          tar_name="AI-DFIR-v${VERSION}.tar.gz"
+
+          test -f "$zip_name"
+          test -f "$tar_name"
+
+          hashes="$(sha256sum "$zip_name" "$tar_name" | base64 -w0)"
+          echo "hashes=$hashes" >> "$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
@@ -126,10 +150,26 @@ jobs:
           RELEASE_TAG: ${{ needs.build.outputs.release_tag }}
         shell: bash
         run: |
+          set -euo pipefail
+
+          version="${RELEASE_TAG#v}"
+          exact_notes="RELEASE_NOTES_V${version}.md"
+          series="${version%.*}"
+          series_notes="RELEASE_NOTES_V${series}.md"
+
+          if [[ -f "$exact_notes" ]]; then
+            notes_file="$exact_notes"
+          elif [[ -f "$series_notes" ]]; then
+            notes_file="$series_notes"
+          else
+            echo "No release notes found for $RELEASE_TAG" >&2
+            exit 1
+          fi
+
           gh release edit "$RELEASE_TAG" \
             --repo "$GITHUB_REPOSITORY" \
-            --title "AI-DFIR v1.6.0 — Production Assurance & Hardened Enterprise Deployment" \
-            --notes-file RELEASE_NOTES_V1.6.md
+            --title "AI-DFIR $RELEASE_TAG — Production Assurance & Hardened Enterprise Deployment" \
+            --notes-file "$notes_file"
 
       - name: Publish GitHub release assets
         env:
