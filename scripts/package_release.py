@@ -1,12 +1,24 @@
 #!/usr/bin/env python3
-"""Build an AI-DFIR v1.6 GitHub release after full offline verification."""
+"""Build an AI-DFIR GitHub release after full offline verification."""
 from __future__ import annotations
-import argparse, hashlib, json, os, shutil, subprocess, sys, tarfile, tempfile, zipfile
+import argparse, hashlib, json, os, re, shutil, subprocess, sys, tarfile, tempfile, zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-VERSION="1.6.0"
+DEFAULT_VERSION="1.6.0"
+
+
+def resolve_version():
+    tag=os.environ.get("AI_DFIR_RELEASE_TAG","").strip()
+    if not tag:
+        return DEFAULT_VERSION
+    if not re.fullmatch(r"v[0-9]+\.[0-9]+\.[0-9]+",tag):
+        raise ValueError(f"Invalid AI_DFIR_RELEASE_TAG: {tag!r}")
+    return tag[1:]
+
+
+VERSION=resolve_version()
 NAME=f"AI-DFIR-v{VERSION}"
 EXCLUDES={"__pycache__",".release-test",".git",".venv"}
 
@@ -34,7 +46,7 @@ def manifest():
     for p,rel in included_files(ROOT):rows.append({"path":str(rel).replace(os.sep,"/"),"size":p.stat().st_size,"sha256":sha(p)})
     return {"schema":"ai-dfir/package-manifest/v1.6","package":"AI-DFIR","version":VERSION,"created_utc":utc(),"file_count":len(rows),"evidence_pack_count":len(list((ROOT/"evidence_packs").rglob("*.json"))),"files":rows,"note":"Manifest intentionally excludes itself to avoid recursive self-hashing."}
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument("--out-dir",default="/mnt/data/AI-DFIR-v1.6.0-release");ap.add_argument("--skip-source-check",action="store_true");a=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument("--out-dir",default=f"/mnt/data/{NAME}-release");ap.add_argument("--skip-source-check",action="store_true");a=ap.parse_args()
     out=Path(a.out_dir).resolve();shutil.rmtree(out,ignore_errors=True);out.mkdir(parents=True)
     source_result=out/"SOURCE_RELEASE_CHECK.json"
     if not a.skip_source_check:run_check(ROOT,True,source_result)
@@ -57,8 +69,15 @@ def main():
         extract_result=out/"EXTRACTED_RELEASE_CHECK.json"
         run_check(extracted,True,extract_result)
     # Release assets.
-    for rel in ["LICENSE","NOTICE","RELEASE_NOTES_V1.6.md","V1.6_RUNBOOK.md","SBOM_CYCLONEDX_1.7.json","DEPENDENCY_LICENSE_INVENTORY.json","PACKAGE_MANIFEST_V1.6.json","V1.6_SELFTEST_RESULT.txt","PRODUCTION_ASSURANCE_IMPLEMENTATION_MATRIX_V1.6.md","SOURCES_V1.6.md"]:
+    release_notes=ROOT/f"RELEASE_NOTES_V{VERSION}.md"
+    if not release_notes.exists():
+        release_notes=ROOT/"RELEASE_NOTES_V1.6.md"
+    if not release_notes.exists():
+        raise FileNotFoundError(f"No release notes found for {VERSION}")
+
+    for rel in ["LICENSE","NOTICE","V1.6_RUNBOOK.md","SBOM_CYCLONEDX_1.7.json","DEPENDENCY_LICENSE_INVENTORY.json","PACKAGE_MANIFEST_V1.6.json","V1.6_SELFTEST_RESULT.txt","PRODUCTION_ASSURANCE_IMPLEMENTATION_MATRIX_V1.6.md","SOURCES_V1.6.md"]:
         if (ROOT/rel).exists():shutil.copy2(ROOT/rel,out/rel)
+    shutil.copy2(release_notes,out/release_notes.name)
     demo_video=ROOT/"docs/demo/AI-DFIR-v1.6.0-demo.mp4"
     if demo_video.exists():shutil.copy2(demo_video,out/demo_video.name)
     # Documentation and synthetic test-corpus handoff assets.
@@ -66,7 +85,7 @@ def main():
     with zipfile.ZipFile(docs_zip,"w",zipfile.ZIP_DEFLATED,allowZip64=True) as z:
         for base in [ROOT/"docs",ROOT]:
             if base==ROOT:
-                names=["README.md","INSTALL.md","SECURITY.md","THREAT_MODEL.md","DATA_HANDLING.md","V1.6_RUNBOOK.md","PRODUCTION_READINESS_V1.6.md","PLATFORM_ASSURANCE_V1.6.md","HUMAN_IN_THE_LOOP_PRODUCTION_V1.6.md","RELEASE_NOTES_V1.6.md","GITHUB_PRODUCTION_GUIDE_V1.6.md","PRODUCTION_ASSURANCE_IMPLEMENTATION_MATRIX_V1.6.md","SOURCES_V1.6.md"]
+                names=["README.md","INSTALL.md","SECURITY.md","THREAT_MODEL.md","DATA_HANDLING.md","V1.6_RUNBOOK.md","PRODUCTION_READINESS_V1.6.md","PLATFORM_ASSURANCE_V1.6.md","HUMAN_IN_THE_LOOP_PRODUCTION_V1.6.md",release_notes.name,"GITHUB_PRODUCTION_GUIDE_V1.6.md","PRODUCTION_ASSURANCE_IMPLEMENTATION_MATRIX_V1.6.md","SOURCES_V1.6.md"]
                 for n in names:
                     p=ROOT/n
                     if p.exists():z.write(p,arcname=str(Path(NAME)/n))
