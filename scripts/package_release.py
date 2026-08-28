@@ -78,7 +78,7 @@ def main():
     for rel in ["LICENSE","NOTICE","V1.6_RUNBOOK.md","SBOM_CYCLONEDX_1.7.json","DEPENDENCY_LICENSE_INVENTORY.json","PACKAGE_MANIFEST_V1.6.json","V1.6_SELFTEST_RESULT.txt","PRODUCTION_ASSURANCE_IMPLEMENTATION_MATRIX_V1.6.md","SOURCES_V1.6.md"]:
         if (ROOT/rel).exists():shutil.copy2(ROOT/rel,out/rel)
     shutil.copy2(release_notes,out/release_notes.name)
-    demo_video=ROOT/"docs/demo/AI-DFIR-v1.6.0-demo.mp4"
+    demo_video=ROOT/f"docs/demo/{NAME}-demo.mp4"
     if demo_video.exists():shutil.copy2(demo_video,out/demo_video.name)
     # Documentation and synthetic test-corpus handoff assets.
     docs_zip=out/f"{NAME}-Documentation.zip"
