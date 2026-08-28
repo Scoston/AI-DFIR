@@ -56,7 +56,9 @@ def compatibility(script, replacements, name):
     with tempfile.NamedTemporaryFile("w",suffix=".py",dir=ROOT,delete=False,encoding="utf-8") as f:
         f.write(source); tmp=Path(f.name)
     try:
-        out=clean_dir(name)
+        out=ROOT/".release-test"/name
+        shutil.rmtree(out,ignore_errors=True)
+        out.parent.mkdir(parents=True,exist_ok=True)
         run([sys.executable,str(tmp),"--out",str(out)],timeout=420)
         return out
     finally: tmp.unlink(missing_ok=True)
