@@ -98,9 +98,11 @@ def main():
     py("tests/generate_test_corpus.py",timeout=300); results["test_corpus_generation"]={"status":"PASS"}
     py("tests/test_evidence_pack_matrix.py",timeout=420); results["evidence_pack_matrix"]={"status":"PASS","packs":111}
     py("tests/run_synthetic_scenarios.py",timeout=420); results["synthetic_scenarios"]={"status":"PASS","components":19}
+    py("v17_selftest.py",timeout=60); results["v17_integrity_selftest"]={"status":"PASS"}
     out=ROOT/".release-test"/f"v16-{uuid.uuid4().hex}"; out.parent.mkdir(parents=True,exist_ok=True); py("v16_selftest.py","--out",out,timeout=420); results["v16_focused"]={"status":"PASS"}
     compatibility("v15_selftest.py",[("version':'1.5","version':'1.6"),("meta['tool_version']=='1.5'","meta['tool_version']=='1.6'")],"v15"); results["v15_compatibility"]={"status":"PASS"}
     if full:
+        run([sys.executable,"-m","pytest","tests/test_v17_investigation_integrity.py","-q"],timeout=120); results["v17_integrity_regression"]={"status":"PASS","tests":11}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}
         compatibility("v12_selftest.py",[
