@@ -1,9 +1,9 @@
-# GitHub Upload Checklist — AI-DFIR v1.6.0
+# GitHub Upload Checklist - AI-DFIR Releases
 
 ## Repository preparation
 
 1. Create the target GitHub repository **without** auto-generating another README or license.
-2. Upload the contents of the **AI-DFIR-v1.6.0 source archive**, not the outer administrative upload bundle.
+2. Upload the contents of the **versioned AI-DFIR source archive**, not the outer administrative upload bundle.
 3. Keep `.github/CODEOWNERS.example` as a template until the real maintainer user/team is known. Copy it to `.github/CODEOWNERS` only after replacing every example owner.
 4. Configure branch protection/rulesets for `main`, required review, and required status checks.
 5. Enable Private Vulnerability Reporting, secret scanning/push protection, the dependency graph, Dependabot, CodeQL, and dependency review where available.
@@ -11,7 +11,7 @@
 7. Configure protected release environments/approvers if required by organization policy.
 8. Review GitHub Actions permissions and, where required by policy, pin third-party actions to reviewed commit SHAs.
 9. Merge through normal review; do not upload real incident evidence, credentials, private keys, provider tokens, or customer data.
-10. Tag `v1.6.0`. The release workflow should run the full release gate, build release assets, produce SLSA provenance, and publish assets.
+10. Tag the intended semantic release version. The release workflow should run the full release gate, build release assets, produce SLSA provenance, and publish assets.
 11. The container workflow should build from the immutable base reference and sign the pushed digest with Cosign.
 12. Verify release checksums, SBOM, license inventory, and provenance before promotion.
 13. Run deployment-specific `production_readiness_v16.py`; GitHub release success does not make a particular deployment production-ready.
@@ -34,18 +34,19 @@
 
 ```bash
 python scripts/release_check.py --full
-python scripts/package_release.py --out-dir /tmp/AI-DFIR-v1.6.0-release
+RELEASE_TAG=vX.Y.Z
+AI_DFIR_RELEASE_TAG="$RELEASE_TAG" python scripts/package_release.py --out-dir "/tmp/AI-DFIR-${RELEASE_TAG}-release"
 ```
 
 The packager performs an exact-archive clean-room regression.
 
 ## Expected release assets
 
-- `AI-DFIR-v1.6.0.zip`
-- `AI-DFIR-v1.6.0.tar.gz`
-- `AI-DFIR-v1.6.0-Documentation.zip`
-- `AI-DFIR-v1.6.0-Test-Corpus.zip`
-- `AI-DFIR-v1.6.0-demo.mp4` when demo generation is enabled
+- `AI-DFIR-vX.Y.Z.zip`
+- `AI-DFIR-vX.Y.Z.tar.gz`
+- `AI-DFIR-vX.Y.Z-Documentation.zip`
+- `AI-DFIR-vX.Y.Z-Test-Corpus.zip`
+- `AI-DFIR-vX.Y.Z-demo.mp4` when an exact-version demo exists
 - `SHA256SUMS`
 - `SOURCE_RELEASE_CHECK.json`
 - `EXTRACTED_RELEASE_CHECK.json`
@@ -54,7 +55,7 @@ The packager performs an exact-archive clean-room regression.
 - `SBOM_CYCLONEDX_1.7.json`
 - `DEPENDENCY_LICENSE_INVENTORY.json`
 - `LICENSE` / `NOTICE`
-- `RELEASE_NOTES_V1.6.md`
+- `RELEASE_NOTES_VX.Y.Z.md` or the documented series fallback
 
 ## Final publish gate
 
@@ -62,7 +63,7 @@ The packager performs an exact-archive clean-room regression.
 - [ ] Exact release ZIP extracted and full release gate PASS
 - [ ] `SHA256SUMS` verified
 - [ ] Secret scan PASS
-- [ ] **111/111 Evidence Pack matrix PASS**
+- [ ] complete Evidence Pack matrix PASS
 - [ ] **19/19 high-fidelity synthetic detector domains PASS**
 - [ ] v1.6 focused suite PASS
 - [ ] v1.5/v1.4/v1.3/v1.2/v1.1 compatibility PASS under current semantics
@@ -76,4 +77,4 @@ The packager performs an exact-archive clean-room regression.
 - [ ] Provider examples contain no real credentials or tenant data
 - [ ] Production-readiness claims remain evidence-backed, not configuration-only
 
-Recommended release tag: **`v1.6.0`**.
+Recommended release tag: a reviewed semantic version matching the intended release.

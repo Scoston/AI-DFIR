@@ -8,7 +8,7 @@ A release candidate must satisfy all items before the tag is published.
 - [ ] Analyst Workbench JavaScript passes `node --check`;
 - [ ] `v15_selftest.py` passes;
 - [ ] v1.4/v1.3/v1.2 compatibility suites pass;
-- [ ] all 96 Evidence Pack synthetic fixture assessments pass;
+- [ ] all cataloged Evidence Pack synthetic fixture assessments pass;
 - [ ] high-fidelity synthetic scenario smoke tests pass;
 - [ ] no test writes outside its temporary workspace;
 - [ ] no production network access is required for default tests.
