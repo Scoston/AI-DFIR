@@ -124,6 +124,7 @@ jobs:
       base64-subjects: "${{ needs.build.outputs.hashes }}"
       upload-assets: true
       upload-tag-name: ${{ needs.build.outputs.release_tag }}
+      compile-generator: true
 
   publish:
     needs: [build, provenance]
