@@ -58,9 +58,15 @@ def make_html(path):
 
 def make_collapsed_font(out):
     from fontTools.ttLib import TTFont
+    windows_fonts=Path(os.environ.get("WINDIR","C:/Windows"))/"Fonts"
     candidates=[
+      windows_fonts/"arial.ttf",
+      windows_fonts/"segoeui.ttf",
+      windows_fonts/"calibri.ttf",
       Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
       Path("/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf"),
+      Path("/System/Library/Fonts/Supplemental/Arial.ttf"),
+      Path("/Library/Fonts/Arial.ttf"),
     ]
     src=next((p for p in candidates if p.exists()),None)
     if not src:
