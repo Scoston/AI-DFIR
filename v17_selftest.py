@@ -1,6 +1,14 @@
+from cryptography.hazmat.primitives.asymmetric.ed25519 import (
+    Ed25519PrivateKey,
+)
+
 from v17_integrity import (
     EvidenceArtifact,
     InvestigationLedger,
+)
+from v17_signing import (
+    SignedLedgerCheckpoint,
+    verify_signed_checkpoint,
 )
 
 
@@ -50,6 +58,34 @@ def main() -> int:
         checkpoint
     )
 
+    private_key = Ed25519PrivateKey.from_private_bytes(
+        bytes(range(1, 33))
+    )
+
+    signed_checkpoint = SignedLedgerCheckpoint.sign(
+        checkpoint=checkpoint,
+        private_key=private_key,
+        signed_at="2026-08-28T18:00:03Z",
+    )
+
+    trusted_public_key = bytes.fromhex(
+        signed_checkpoint.public_key_hex
+    )
+
+    signed_valid, signed_errors = verify_signed_checkpoint(
+        ledger=ledger,
+        signed_checkpoint=signed_checkpoint,
+        trusted_public_keys={
+            signed_checkpoint.key_id: trusted_public_key
+        },
+    )
+
+    untrusted_valid, untrusted_errors = verify_signed_checkpoint(
+        ledger=ledger,
+        signed_checkpoint=signed_checkpoint,
+        trusted_public_keys={},
+    )
+
     print("AI-DFIR v1.7 Investigation Integrity Self-Test")
     print()
 
@@ -83,6 +119,16 @@ def main() -> int:
         "PASS" if not truncation_valid else "FAIL",
     )
 
+    print(
+        "Signed checkpoint:",
+        "PASS" if signed_valid else "FAIL",
+    )
+
+    print(
+        "Trusted signer enforcement:",
+        "PASS" if not untrusted_valid else "FAIL",
+    )
+
     print(f"Ledger events: {len(ledger.events)}")
     print(f"Ledger head: {ledger.head_hash}")
     print(f"Checkpoint hash: {checkpoint.checkpoint_hash}")
@@ -94,6 +140,19 @@ def main() -> int:
 
     if truncation_valid or not truncation_errors:
         print("ERROR: tail truncation was not detected")
+        return 1
+
+    if signed_errors:
+        for error in signed_errors:
+            print(f"ERROR: {error}")
+        return 1
+
+    if not signed_valid:
+        print("ERROR: signed checkpoint verification failed")
+        return 1
+
+    if untrusted_valid or not untrusted_errors:
+        print("ERROR: untrusted signer was not rejected")
         return 1
 
     print()
