@@ -20,7 +20,9 @@ v1.7 is an in-development integrity and verification layer. It extends the v1.5 
 - CycloneDX application-version binding for release candidates;
 - deterministic release-candidate known-answer verification;
 - extracted-package enforcement of all 56 v1.7 regression tests;
-- dedicated v1.7 release-candidate assurance verification.
+- dedicated v1.7 release-candidate assurance verification;
+- published-release verification that permits only the known post-packaging SLSA provenance sidecar while rejecting arbitrary extra assets;
+- clean re-download and verification of the final GitHub release surface after publication.
 
 ## Compatibility
 

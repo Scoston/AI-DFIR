@@ -204,3 +204,27 @@ jobs:
             release-assets/* \
             --repo "$GITHUB_REPOSITORY" \
             --clobber
+
+      - name: Verify published v1.7 release surface
+        if: startsWith(needs.build.outputs.version, '1.7.')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.build.outputs.release_tag }}
+          VERSION: ${{ needs.build.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          published_dir="$RUNNER_TEMP/published-release"
+          rm -rf "$published_dir"
+          mkdir -p "$published_dir"
+
+          gh release download "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir "$published_dir"
+
+          test -s "$published_dir/multiple.intoto.jsonl"
+
+          python scripts/verify_release_candidate_v17.py \
+            --release-dir "$published_dir" \
+            --version "$VERSION"
