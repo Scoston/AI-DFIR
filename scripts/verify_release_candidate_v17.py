@@ -17,6 +17,9 @@ VALIDATION_SCHEMA = "ai-dfir/release-validation/v1.7"
 VERSION_RE = re.compile(r"^1\.7\.[0-9]+(?:-rc[1-9][0-9]*)?$")
 HEX64_RE = re.compile(r"^[0-9a-f]{64}$")
 
+SLSA_PROVENANCE_ASSET = "multiple.intoto.jsonl"
+ALLOWED_EXTERNAL_RELEASE_ASSETS = {SLSA_PROVENANCE_ASSET}
+
 REQUIRED_PACKAGE_PATHS = {
     "CHANGELOG_V1.7.md",
     "RELEASE_NOTES_V1.7.md",
@@ -65,32 +68,95 @@ def load_json(path: Path) -> dict[str, Any]:
     return value
 
 
+def _validate_external_release_asset(path: Path) -> None:
+    """Validate structure only; this does not cryptographically verify SLSA provenance."""
+    if path.name not in ALLOWED_EXTERNAL_RELEASE_ASSETS:
+        raise ReleaseCandidateError(f"unexpected external release asset: {path.name}")
+
+    try:
+        lines = [
+            line
+            for line in path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+    except (OSError, UnicodeDecodeError) as exc:
+        raise ReleaseCandidateError(
+            f"external release asset is unreadable: {path.name}"
+        ) from exc
+
+    if not lines:
+        raise ReleaseCandidateError(f"external release asset is empty: {path.name}")
+
+    for number, line in enumerate(lines, start=1):
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise ReleaseCandidateError(
+                f"external provenance is not valid JSONL: {path.name}:{number}"
+            ) from exc
+
+        if not isinstance(value, dict):
+            raise ReleaseCandidateError(
+                f"external provenance row must be an object: {path.name}:{number}"
+            )
+
+
 def verify_sha256sums(release_dir: Path) -> dict[str, str]:
     sums_path = release_dir / "SHA256SUMS"
     if not sums_path.is_file():
         raise ReleaseCandidateError("SHA256SUMS is missing")
+
     expected: dict[str, str] = {}
-    for number, raw in enumerate(sums_path.read_text(encoding="utf-8").splitlines(), start=1):
+    for number, raw in enumerate(
+        sums_path.read_text(encoding="utf-8").splitlines(),
+        start=1,
+    ):
         if not raw.strip():
             continue
+
         match = re.fullmatch(r"([0-9a-f]{64})  ([^/\\]+)", raw)
         if match is None:
             raise ReleaseCandidateError(f"invalid SHA256SUMS row {number}")
+
         digest, name = match.groups()
         if name in expected:
-            raise ReleaseCandidateError(f"duplicate SHA256SUMS entry: {name}")
-        path = release_dir / name
-        if not path.is_file():
-            raise ReleaseCandidateError(f"SHA256SUMS references missing file: {name}")
-        actual = sha256_file(path)
+            raise ReleaseCandidateError(
+                f"duplicate SHA256SUMS entry: {name}"
+            )
+
+        asset_path = release_dir / name
+        if not asset_path.is_file():
+            raise ReleaseCandidateError(
+                f"SHA256SUMS references missing file: {name}"
+            )
+
+        actual = sha256_file(asset_path)
         if actual != digest:
             raise ReleaseCandidateError(f"SHA256 mismatch: {name}")
+
         expected[name] = digest
-    actual_files = {path.name for path in release_dir.iterdir() if path.is_file() and path.name != "SHA256SUMS"}
-    if set(expected) != actual_files:
-        missing = sorted(actual_files - set(expected))
-        extra = sorted(set(expected) - actual_files)
-        raise ReleaseCandidateError(f"SHA256SUMS coverage mismatch; unlisted={missing}, missing={extra}")
+
+    actual_files = {
+        asset_path.name
+        for asset_path in release_dir.iterdir()
+        if asset_path.is_file()
+        and asset_path.name != "SHA256SUMS"
+    }
+
+    checksummed_files = set(expected)
+    missing = checksummed_files - actual_files
+    unlisted = actual_files - checksummed_files
+    unexpected = unlisted - ALLOWED_EXTERNAL_RELEASE_ASSETS
+
+    if unexpected or missing:
+        raise ReleaseCandidateError(
+            "SHA256SUMS coverage mismatch; "
+            f"unlisted={sorted(unexpected)}, missing={sorted(missing)}"
+        )
+
+    for name in sorted(unlisted):
+        _validate_external_release_asset(release_dir / name)
+
     return expected
 
 
@@ -195,6 +261,13 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         if not path.is_file():
             raise ReleaseCandidateError(f"required release asset missing: {path.name}")
     sums = verify_sha256sums(release_dir)
+    external_assets = sorted(
+        path.name
+        for path in release_dir.iterdir()
+        if path.is_file()
+        and path.name in ALLOWED_EXTERNAL_RELEASE_ASSETS
+        and path.name not in sums
+    )
     zip_result = verify_package_zip(zip_path, version)
     validation = load_json(validation_path)
     assurance = load_json(assurance_path)
@@ -242,6 +315,9 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         "source_commit": zip_result["source_commit"],
         "network_required": False,
         "sha256sum_assets": len(sums),
+        "external_release_assets": external_assets,
+        "slsa_provenance_present": SLSA_PROVENANCE_ASSET in external_assets,
+        "slsa_provenance_cryptographically_verified": False,
         "manifest_files": zip_result["manifest_files"],
         "evidence_packs": zip_result["evidence_packs"],
         "zip_sha256": validation["zip_sha256"],

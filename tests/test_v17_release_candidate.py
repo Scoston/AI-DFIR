@@ -101,12 +101,53 @@ def test_package_manifest_uses_v17_schema_and_source_commit(tmp_path: Path):
 def test_sha256sums_detects_modified_asset(tmp_path: Path):
     asset = tmp_path / "asset.bin"
     asset.write_bytes(b"one")
+
     import hashlib
 
     digest = hashlib.sha256(asset.read_bytes()).hexdigest()
-    (tmp_path / "SHA256SUMS").write_text(f"{digest}  asset.bin\n", encoding="utf-8")
+    (tmp_path / "SHA256SUMS").write_text(
+        f"{digest}  asset.bin\n",
+        encoding="utf-8",
+    )
+
+    provenance = tmp_path / "multiple.intoto.jsonl"
+    provenance.write_text(
+        '{"test": "synthetic-provenance"}\n',
+        encoding="utf-8",
+    )
+
+    # Known post-packaging SLSA sidecar is permitted.
+    verify_sha256sums(tmp_path)
+
+    # Arbitrary unlisted assets remain fail-closed.
+    unexpected = tmp_path / "unexpected.bin"
+    unexpected.write_bytes(b"unexpected")
+    with pytest.raises(
+        ReleaseCandidateError,
+        match="coverage mismatch",
+    ):
+        verify_sha256sums(tmp_path)
+    unexpected.unlink()
+
+    # Known provenance sidecar must be valid non-empty JSONL.
+    provenance.write_text("not-json\n", encoding="utf-8")
+    with pytest.raises(
+        ReleaseCandidateError,
+        match="valid JSONL",
+    ):
+        verify_sha256sums(tmp_path)
+
+    provenance.write_text(
+        '{"test": "synthetic-provenance"}\n',
+        encoding="utf-8",
+    )
+
+    # Checksummed assets still fail if any byte changes.
     asset.write_bytes(b"two")
-    with pytest.raises(ReleaseCandidateError, match="SHA256 mismatch"):
+    with pytest.raises(
+        ReleaseCandidateError,
+        match="SHA256 mismatch",
+    ):
         verify_sha256sums(tmp_path)
 
 

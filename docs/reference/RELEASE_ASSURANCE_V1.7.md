@@ -129,13 +129,19 @@ No network access is required by the v1.7 release verifier.
 
 ## SHA-256 coverage
 
-`SHA256SUMS` is generated after release validation and release-candidate assurance metadata. Every file in the release directory except `SHA256SUMS` itself must appear exactly once. The independent verifier rejects missing entries, duplicate entries, extra files, or mismatched hashes.
+`SHA256SUMS` is generated after release validation and release-candidate assurance metadata. Every packager-owned file in the release directory except `SHA256SUMS` itself must appear exactly once.
+
+The SLSA provenance job runs after packaging and may attach exactly one additional release asset, `multiple.intoto.jsonl`. That provenance sidecar is therefore intentionally outside the packager-generated `SHA256SUMS` boundary. The independent verifier permits only that explicitly named post-packaging asset, requires it to be non-empty valid JSONL, and reports that its SLSA provenance has not been cryptographically verified by the Python release verifier.
+
+Any other unlisted release asset remains a verification failure. Missing checksum entries, duplicate checksum entries, mismatched hashes, malformed provenance JSONL, or arbitrary additional release files also fail closed.
 
 The outer administrative upload bundle is created after `SHA256SUMS` and lives outside the release directory. It is separately hashed in the packager's console result.
 
 ## GitHub workflow
 
 For v1.7 tags, `.github/workflows/release.yml` runs the normal full release gate, builds release assets, and then runs `scripts/verify_release_candidate_v17.py` against the packaged release directory before generating SLSA subjects.
+
+After SLSA provenance and release assets are published, the workflow downloads the complete GitHub release surface into a clean directory and runs the verifier again. This second verification checks the actual third-party download surface rather than only the pre-publication staging directory.
 
 Tags matching `v1.7.x-rcN` are treated as prereleases when release metadata is applied. Stable v1.7 promotion remains a separate decision and must not bypass the stable metadata gate.
 
