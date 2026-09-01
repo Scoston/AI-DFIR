@@ -13,7 +13,14 @@ v1.7 is an in-development integrity and verification layer. It extends the v1.5 
 - third-party assurance CLI with text and JSON reports;
 - explicit verifier exit-code contract for automation;
 - detached-working-directory and network-guard assurance testing;
-- documented independent-review workflow and trust-boundary interpretation.
+- documented independent-review workflow and trust-boundary interpretation;
+- committed-HEAD-only release staging that excludes untracked working-tree residue;
+- version-aware v1.7 package manifests and release-validation reports;
+- packaged-artifact SHA-256 coverage and source-commit binding;
+- CycloneDX application-version binding for release candidates;
+- deterministic release-candidate known-answer verification;
+- extracted-package enforcement of all 56 v1.7 regression tests;
+- dedicated v1.7 release-candidate assurance verification.
 
 ## Compatibility
 
@@ -25,4 +32,4 @@ The exported package does not establish its own outer trust anchor. A reviewer m
 
 ## Release status
 
-This changelog documents the v1.7 development line. The repository's production-release designation remains v1.6.0 until the v1.7 release process is completed.
+This changelog documents the v1.7 release-candidate hardening line. The repository's stable production-release designation remains v1.6.0 until the v1.7 stable-promotion process is completed. Candidate packaging should use an `-rcN` version until stable publication metadata is deliberately updated.

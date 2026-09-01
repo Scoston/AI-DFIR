@@ -39,7 +39,7 @@ jobs:
             release_tag="$GITHUB_REF_NAME"
           fi
 
-          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-rc[1-9][0-9]*)?$ ]]; then
             echo "Invalid release tag: $release_tag" >&2
             exit 1
           fi
@@ -85,6 +85,16 @@ jobs:
         run: |
           df -h
           du -sh "$RUNNER_TEMP/dist-release"
+
+      - name: Verify v1.7 packaged release assurance
+        if: startsWith(steps.meta.outputs.version, '1.7.')
+        shell: bash
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          python scripts/verify_release_candidate_v17.py \
+            --release-dir "$RUNNER_TEMP/dist-release" \
+            --version "$VERSION"
 
       - name: Generate SLSA subjects
         id: hash
@@ -167,10 +177,22 @@ jobs:
             exit 1
           fi
 
+          if [[ "$series" == "1.7" ]]; then
+            title="AI-DFIR $RELEASE_TAG — Investigation Integrity & Offline Verification"
+          else
+            title="AI-DFIR $RELEASE_TAG — Production Assurance & Hardened Enterprise Deployment"
+          fi
+
+          prerelease_args=()
+          if [[ "$version" =~ -rc[1-9][0-9]*$ ]]; then
+            prerelease_args+=(--prerelease)
+          fi
+
           gh release edit "$RELEASE_TAG" \
             --repo "$GITHUB_REPOSITORY" \
-            --title "AI-DFIR $RELEASE_TAG — Production Assurance & Hardened Enterprise Deployment" \
-            --notes-file "$notes_file"
+            --title "$title" \
+            --notes-file "$notes_file" \
+            "${prerelease_args[@]}"
 
       - name: Publish GitHub release assets
         env:

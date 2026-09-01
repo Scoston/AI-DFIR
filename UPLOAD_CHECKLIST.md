@@ -78,3 +78,29 @@ The packager performs an exact-archive clean-room regression.
 - [ ] Production-readiness claims remain evidence-backed, not configuration-only
 
 Recommended release tag: a reviewed semantic version matching the intended release.
+
+## v1.7 release-candidate assurance
+
+For the v1.7 development line, use an `-rcN` tag until the stable version metadata is deliberately promoted. Example:
+
+```bash
+RELEASE_TAG=v1.7.0-rc1
+AI_DFIR_RELEASE_TAG="$RELEASE_TAG" python scripts/package_release.py \
+  --out-dir "/tmp/AI-DFIR-${RELEASE_TAG}-release"
+python scripts/verify_release_candidate_v17.py \
+  --release-dir "/tmp/AI-DFIR-${RELEASE_TAG}-release" \
+  --version "${RELEASE_TAG#v}"
+```
+
+The v1.7 packager stages only files exported from committed `HEAD` plus generated release metadata. Untracked working-tree files are not release inputs. A v1.7 candidate additionally requires:
+
+- `PACKAGE_MANIFEST_V1.7.json` with the source commit and exact packaged-file hashes;
+- `RELEASE_VALIDATION_V1.7.json` with exact ZIP/TAR/manifest hashes;
+- `RELEASE_CANDIDATE_ASSURANCE_V1.7.json`;
+- `RELEASE_NOTES_V1.7.md` (or an exact-version notes file);
+- CycloneDX 1.7 SBOM metadata whose AI-DFIR application version matches the candidate version;
+- all 56 v1.7 regression tests passing from the extracted release ZIP;
+- the deterministic v1.7 release-candidate known-answer self-test passing from the extracted ZIP;
+- `SHA256SUMS` covering every release-directory asset except `SHA256SUMS` itself.
+
+A stable v1.7 package must fail closed until stable publication metadata, including `CITATION.cff`, is intentionally updated to the stable release version.

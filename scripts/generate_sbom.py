@@ -78,7 +78,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=str(Path(__file__).resolve().parents[1]))
     ap.add_argument("--out", required=True)
+    ap.add_argument("--app-version", default="1.6.0")
     a = ap.parse_args()
+    if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-rc[1-9][0-9]*)?", a.app_version):
+        raise ValueError(f"invalid AI-DFIR application version: {a.app_version!r}")
     root = Path(a.root).resolve()
     deps = parse_requirements(root)
     comps = sorted((component(x) for x in deps), key=lambda x: x["name"].lower())
@@ -91,7 +94,7 @@ def main():
         "version": 1,
         "metadata": {
             "timestamp": utc(),
-            "component": {"type": "application", "name": "AI-DFIR", "version": "1.6.0"},
+            "component": {"type": "application", "name": "AI-DFIR", "version": a.app_version},
             "properties": [
                 {"name": "ai-dfir:sbom-generation", "value": "offline requirement/install metadata"},
                 {"name": "ai-dfir:license-review", "value": "See LICENSE_GUIDE.md and THIRD_PARTY_NOTICES.md; upstream license files remain authoritative."},
@@ -100,7 +103,7 @@ def main():
         "components": comps,
     }
     Path(a.out).write_text(json.dumps(sbom, indent=2, sort_keys=True), encoding="utf-8")
-    print(json.dumps({"status": "PASS", "components": len(comps), "out": str(Path(a.out).resolve())}, indent=2))
+    print(json.dumps({"status": "PASS", "components": len(comps), "out": str(Path(a.out).resolve()), "app_version": a.app_version}, indent=2))
 
 if __name__ == "__main__":
     main()

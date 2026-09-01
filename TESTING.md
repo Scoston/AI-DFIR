@@ -87,3 +87,26 @@ python v17_verification_assurance_selftest.py
 The assurance self-test invokes `verify_case_v17.py` from a detached working directory with a network guard, validates both text and JSON reports, and checks the verifier exit-code contract: `0` verified, `1` verification failure, `2` malformed/unsupported package, and `3` runtime/configuration error.
 
 See `docs/reference/OFFLINE_VERIFICATION_V1.7.md`.
+
+## 9. v1.7 release-candidate hardening
+
+The release-candidate layer adds version-aware packaging, committed-HEAD-only staging, source-commit binding, packaged-artifact verification, and a deterministic known-answer test:
+
+```bash
+python -m pytest tests/test_v17_release_candidate.py -q
+python v17_release_candidate_selftest.py
+```
+
+The full v1.7 regression gate now contains **56 tests**. To exercise the actual packaged artifact without changing the repository's stable v1.6.0 publication metadata:
+
+```bash
+AI_DFIR_RELEASE_TAG=v1.7.0-rc1 python scripts/package_release.py \
+  --out-dir /tmp/AI-DFIR-v1.7.0-rc1-release
+python scripts/verify_release_candidate_v17.py \
+  --release-dir /tmp/AI-DFIR-v1.7.0-rc1-release \
+  --version 1.7.0-rc1
+```
+
+The packaged ZIP is extracted and subjected to the full release gate. The v1.7 release verifier independently validates `SHA256SUMS`, the package manifest, source-commit binding, SBOM application version, release-validation metadata, and release-candidate assurance metadata.
+
+See `docs/reference/RELEASE_ASSURANCE_V1.7.md`.
