@@ -1,5 +1,5 @@
 # AI-DFIR production gateway runtime.
 # Model/GPU and cloud-provider SDKs are intentionally excluded.
-cryptography==50.0.0
+cryptography==50.0.1
 PyJWT[crypto]==2.13.0
 psycopg[binary]==3.3.4
