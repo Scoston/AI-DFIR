@@ -170,7 +170,7 @@ Use [docs/README.md](docs/README.md) as the documentation index. Key release doc
 
 The repository includes issue/PR templates, Dependabot, CI, CodeQL, dependency review, OpenSSF Scorecard, release/provenance, container-signing, and documentation checks under `.github/`.
 
-Before publishing, follow [UPLOAD_CHECKLIST.md](UPLOAD_CHECKLIST.md). A `CODEOWNERS` file is intentionally **not activated with a fake owner**; use `.github/CODEOWNERS.example` once the actual GitHub user/team is known.
+Before publishing, follow [UPLOAD_CHECKLIST.md](UPLOAD_CHECKLIST.md). Repository ownership is defined in [`.github/CODEOWNERS`](.github/CODEOWNERS), including security-sensitive repository paths.
 
 ## Licensing
 

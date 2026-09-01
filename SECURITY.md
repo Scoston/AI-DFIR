@@ -8,8 +8,8 @@ production software.
 
 | Version | Supported |
 |---|---|
-| 1.6.x | Yes |
-| <= 1.5 | Reference/research only |
+| 1.7.x | Yes |
+| <= 1.6 | Reference/research only |
 
 ## Reporting a vulnerability
 
@@ -30,7 +30,7 @@ and publish a coordinated advisory after a fix is available.
 
 ## Security-sensitive areas
 
-Changes to the following require independent review and negative tests:
+Changes to the following require explicit security review and negative tests. When a second trusted reviewer is available, use independent review:
 
 - evidence hashing/signing/encryption;
 - acquisition and provider collectors;

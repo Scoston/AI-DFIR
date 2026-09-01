@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AI-DFIR v1.6 release-candidate verification.
+"""AI-DFIR release verification and compatibility gate.
 
 Quick checks validate current release code and synthetic fixtures.
 Full checks additionally execute major compatibility suites.

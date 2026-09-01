@@ -1,4 +1,4 @@
-# AI-DFIR v1.6 default feature set.
+# AI-DFIR default feature set.
 # PyMuPDF is intentionally NOT installed by default because it is AGPL/commercial.
 cryptography>=42
 requests>=2.32
