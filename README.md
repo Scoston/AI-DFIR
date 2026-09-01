@@ -1,8 +1,8 @@
-# AI-DFIR v1.6.0 — Production Assurance & Hardened Enterprise Deployment
+# AI-DFIR v1.7.0 - Investigation Integrity & Offline Verification
 
 **AI-DFIR** is a defensive AI incident-response and digital-forensics platform for investigating models, agents, runtimes, identity, memory, skills, MCP/A2A, representation attacks, provider telemetry, evidence custody, and production assurance.
 
-> **Release status:** the v1.6.0 source tree and exact packaged archive passed the project release gates, including **111/111 Evidence Packs**, the v1.6 focused suite, and compatibility through the major prior forensic layers. A specific enterprise deployment is only production-ready after its own `production_readiness_v16.py` evidence gate passes.
+> **Release status:** v1.7.0 extends the v1.5 signed case-export architecture with investigation-ledger integrity, signed checkpoints, explicit signer-trust semantics, and offline verification. Stable promotion follows successful v1.7.0-rc2 validation of **111/111 Evidence Packs**, all **56 v1.7 regression tests**, committed-source packaging, known-answer verification, and independent verification of the final published GitHub release surface. A GitHub release passing these controls does not by itself certify a specific enterprise deployment as production-ready.
 
 ## Why AI-DFIR
 

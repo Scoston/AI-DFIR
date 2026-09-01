@@ -1,6 +1,6 @@
 # AI-DFIR v1.7 — Investigation Integrity & Offline Verification
 
-v1.7 is an in-development integrity and verification layer. It extends the v1.5 signed case-export format rather than replacing it.
+v1.7 is the stable investigation-integrity and offline-verification layer. It extends the v1.5 signed case-export format rather than replacing it.
 
 ## Added
 
@@ -34,4 +34,4 @@ The exported package does not establish its own outer trust anchor. A reviewer m
 
 ## Release status
 
-This changelog documents the v1.7 release-candidate hardening line. The repository's stable production-release designation remains v1.6.0 until the v1.7 stable-promotion process is completed. Candidate packaging should use an `-rcN` version until stable publication metadata is deliberately updated.
+v1.7.0 is the stable release of the investigation-integrity and offline-verification line. Stable promotion follows successful v1.7.0-rc2 validation of committed-source packaging, offline verification, release assurance, SLSA provenance separation, and independent verification of the final published GitHub release surface.

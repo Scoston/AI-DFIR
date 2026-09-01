@@ -1,6 +1,6 @@
 # AI-DFIR v1.7 — Investigation Integrity & Offline Verification
 
-> **Release-candidate status:** v1.7 is being hardened as a release candidate. The repository's stable production-release designation remains v1.6.0 until a separate stable-promotion change updates the published version metadata.
+> **Release status:** v1.7.0 is the stable investigation-integrity and offline-verification release line. Stable promotion follows successful RC2 release assurance and independent verification of the final published GitHub release surface.
 
 v1.7 adds an investigation-integrity and independent-verification layer without replacing the v1.5 signed case-export trust model.
 
@@ -19,7 +19,7 @@ v1.7 adds an investigation-integrity and independent-verification layer without 
 - version-aware v1.7 package manifest, release-validation, and release-candidate assurance metadata;
 - source-commit binding for packaged release content;
 - CycloneDX 1.7 SBOM application-version binding;
-- deterministic release-candidate known-answer verification;
+- deterministic release known-answer verification;
 - clean-room extracted-package enforcement of all 56 v1.7 regression tests.
 
 ## Compatibility
@@ -34,11 +34,11 @@ A v1.7 case package does not establish its own outer trust anchor. The reviewer 
 
 A valid checkpoint signature is not sufficient by itself. The signer must also be trusted.
 
-## Release-candidate packaging boundary
+## Release packaging boundary
 
-A v1.7 release candidate should use a semantic prerelease tag such as `v1.7.0-rc1`. The packager fails closed if required v1.7 release inputs are missing and refuses stable v1.7 packaging while `CITATION.cff` still identifies the stable v1.6.0 release.
+Stable v1.7 packaging requires the published version metadata in `CITATION.cff` to match the exact stable release version. The packager fails closed if required v1.7 release inputs are missing or stable publication metadata is inconsistent.
 
-The v1.7 release-candidate gate verifies the actual packaged ZIP, its package manifest, SBOM application version, source commit, `SHA256SUMS`, release-validation report, and release-candidate assurance report. Passing source-tree tests alone is not considered sufficient release evidence.
+The v1.7 release gate verifies the actual packaged ZIP, its package manifest, SBOM application version, source commit, `SHA256SUMS`, release-validation report, and release-assurance report. The GitHub release workflow also verifies the complete published release surface after SLSA provenance is attached. Passing source-tree tests alone is not considered sufficient release evidence.
 
 ## Important boundary
 
