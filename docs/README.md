@@ -7,6 +7,7 @@
 - [v1.6 Runbook](../V1.6_RUNBOOK.md)
 - [Production Readiness](../PRODUCTION_READINESS_V1.6.md)
 - [Platform Assurance](../PLATFORM_ASSURANCE_V1.6.md)
+- [v1.7 Offline Verification](reference/OFFLINE_VERIFICATION_V1.7.md)
 - [Demo](demo/README.md)
 
 ## Analyst
@@ -23,4 +24,4 @@ The [`operations/`](operations/) directory covers collector enrollment, provider
 
 ## Reference
 
-The [`reference/`](reference/) directory contains CLI/event/log schemas, Evidence Pack catalog, provider capability matrix, test scenario catalog, GitHub release guidance, security model, and glossary.
+The [`reference/`](reference/) directory contains CLI/event/log schemas, Evidence Pack catalog, provider capability matrix, test scenario catalog, GitHub release guidance, security model, offline-verification guidance, and glossary.

@@ -73,3 +73,17 @@ See `PRODUCTION_READINESS_V1.6.md`.
 ## 7. Demo and analyst training
 
 See `docs/demo/README.md` and `docs/reference/TEST_SCENARIO_CATALOG.md` for a reproducible synthetic walkthrough.
+
+
+## 8. v1.7 development: offline verification assurance
+
+The v1.7 development line adds a separate assurance layer for third-party verification of signed case exports. Run:
+
+```bash
+python -m pytest tests/test_v17_verification_assurance.py -q
+python v17_verification_assurance_selftest.py
+```
+
+The assurance self-test invokes `verify_case_v17.py` from a detached working directory with a network guard, validates both text and JSON reports, and checks the verifier exit-code contract: `0` verified, `1` verification failure, `2` malformed/unsupported package, and `3` runtime/configuration error.
+
+See `docs/reference/OFFLINE_VERIFICATION_V1.7.md`.
