@@ -19,10 +19,16 @@ active/retired/revoked states, validity windows, tenant/case scope, rotation
 overlap, and optional policy digest pinning. See
 [Checkpoint key policy](docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md).
 
+External checkpoint anchoring has an implemented RFC 3161 profile: local request
+preparation, retained nonce/request binding, independently pinned TSA certificate
+and CA trust, offline cryptographic receipt verification, and case/replay gates.
+See [Checkpoint timestamps](docs/reference/CHECKPOINT_TIMESTAMPS_V1.7.md).
+Acceptance uses an ephemeral synthetic TSA; no external service is deployed.
+
 ## Future work
 
 - authenticated checkpoint-policy distribution and independently timestamped historical key-trust decisions;
-- external checkpoint anchoring and independently operated timestamp services;
+- independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
 
 - additional provider-specific raw-export parsers as vendors expose telemetry;

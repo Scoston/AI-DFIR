@@ -142,7 +142,7 @@ python -m pytest tests/test_v17_key_policy.py -q
 ```
 
 The quick gate includes the offline acceptance self-test. The full gate adds 57
-focused key-policy tests, for 143 v1.7 tests in total. They cover active/retired/
+focused key-policy tests, bringing the pre-timestamp v1.7 total to 143. They cover active/retired/
 revoked keys, rotation overlap, exact validity boundaries, inconsistent signing
 time claims, current clock evaluation, tenant/case scope, pinned-policy rollback
 attempts, embedded-policy rejection, missing required policy, bounded strict
@@ -153,3 +153,30 @@ key trust, require reconstruction to stop on policy failure, and verify that a
 passing policy cannot override invalid evidence or manifest signer trust.
 New extracted release packages must carry the same test and self-test results.
 See [Checkpoint key policy](docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md).
+
+## 12. Unreleased external checkpoint timestamps
+
+Install the default Python requirements and a maintained OpenSSL 3 executable.
+The timestamp profile adds `asn1crypto` for ASN.1 parsing. Existing verification
+with no timestamp options does not invoke OpenSSL.
+
+```bash
+python v17_timestamp_selftest.py
+python -m pytest tests/test_v17_timestamps.py -q
+```
+
+The quick gate generates ephemeral CA/TSA keys and issues a real RFC 3161
+response using OpenSSL in temporary storage. No live authority is contacted.
+The full gate adds 68 timestamp tests, for 211 v1.7 tests: 56 integrity, 30
+provenance/replay, 57 key-policy, and 68 timestamps. Tests include correctly
+signed hostile cases, wrong imprints/nonces/pins, unavailable crypto tooling,
+exclusive timestamp certificate purpose, expiry and future times, incorrect
+CA roots, input bounds, and external trust enforcement across every CLI.
+Positive controls verify that the modified synthetic certificates/tokens are
+cryptographically valid before testing rejected purposes and time windows.
+
+Case tests require timestamp failure to block reconstruction and export, while
+preserving existing destinations and separate signature/key-policy results.
+Published older package contracts remain supported; new extracted releases
+must include the timestamp files and their acceptance results. See
+[Checkpoint timestamps](docs/reference/CHECKPOINT_TIMESTAMPS_V1.7.md).

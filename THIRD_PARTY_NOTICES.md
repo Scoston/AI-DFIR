@@ -10,6 +10,8 @@ substitute for the upstream license text.
 | requests | HTTP provider collection | Apache-2.0 | yes |
 | PyJWT | OIDC/JWT verification | MIT | yes |
 | rfc8785 | A2A JCS canonicalization | Apache-2.0 | yes |
+| asn1crypto | RFC 3161 request/response ASN.1 parsing | MIT | yes |
+| OpenSSL 3 executable | offline timestamp signature and certificate-chain verification | Apache-2.0 | operator-installed for timestamps |
 | fontTools | font/glyph analysis | MIT | yes |
 | NumPy | numeric analysis | BSD-3-Clause | yes |
 | pandas | data analysis | BSD-3-Clause | yes |
