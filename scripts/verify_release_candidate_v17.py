@@ -38,6 +38,12 @@ REQUIRED_PACKAGE_PATHS = {
     "scripts/verify_release_candidate_v17.py",
 }
 
+PROVENANCE_PACKAGE_PATHS = {
+    "v17_provenance.py", "v17_reconstruction.py", "replay_case_v17.py",
+    "v17_provenance_selftest.py", "tests/test_v17_provenance_replay.py",
+    "docs/reference/INVESTIGATION_REPLAY_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -213,6 +219,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         if not REQUIRED_PACKAGE_PATHS.issubset(expected):
             missing = sorted(REQUIRED_PACKAGE_PATHS - set(expected))
             raise ReleaseCandidateError("required v1.7 package paths missing: " + ", ".join(missing))
+        has_provenance = bool(PROVENANCE_PACKAGE_PATHS & set(expected))
+        if has_provenance and not PROVENANCE_PACKAGE_PATHS.issubset(expected):
+            raise ReleaseCandidateError("incomplete provenance/replay package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -241,6 +250,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             raise ReleaseCandidateError("SBOM application version does not match release version")
         return {
             "source_commit": source_commit,
+            "has_provenance": has_provenance,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -299,6 +309,10 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         "v17_offline_verification_selftest": "PASS",
         "v17_verification_assurance_selftest": "PASS",
     }
+    # Published v1.7.0 archives predate this optional profile. Preserve their
+    # verification contract, while requiring the new gates when it is shipped.
+    if zip_result.get("has_provenance"):
+        required_assurance.update(v17_provenance_selftest="PASS", v17_provenance_regression_tests=30)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")

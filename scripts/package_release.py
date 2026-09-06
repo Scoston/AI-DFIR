@@ -145,6 +145,12 @@ def required_v17_paths() -> set[str]:
         "verify_case_v17.py",
         "v17_integrity.py",
         "v17_signing.py",
+        "v17_provenance.py",
+        "v17_reconstruction.py",
+        "replay_case_v17.py",
+        "v17_provenance_selftest.py",
+        "tests/test_v17_provenance_replay.py",
+        "docs/reference/INVESTIGATION_REPLAY_V1.7.md",
         "v17_offline_selftest.py",
         "v17_verification_assurance_selftest.py",
         "v17_release_candidate_selftest.py",
@@ -229,6 +235,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_offline_case_verification_selftest": "PASS",
         "v17_verification_assurance_selftest": "PASS",
         "v17_release_candidate_selftest": "PASS",
+        "v17_provenance_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -237,6 +244,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     regression = checks.get("v17_integrity_regression")
     if not isinstance(regression, dict) or regression.get("status") != "PASS" or regression.get("tests") != 56:
         raise RuntimeError("extracted package must pass all 56 v1.7 regression tests")
+    provenance = checks.get("v17_provenance_regression")
+    if not isinstance(provenance, dict) or provenance.get("status") != "PASS" or provenance.get("tests") != 30:
+        raise RuntimeError("extracted package must pass all 30 provenance/replay regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -449,6 +459,8 @@ def main() -> None:
                 "v17_known_answer_selftest": "PASS",
                 "v17_offline_verification_selftest": "PASS",
                 "v17_verification_assurance_selftest": "PASS",
+                "v17_provenance_selftest": "PASS",
+                "v17_provenance_regression_tests": 30,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

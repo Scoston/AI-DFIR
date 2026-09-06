@@ -102,10 +102,12 @@ def main():
     py("v17_offline_selftest.py",timeout=60); results["v17_offline_case_verification_selftest"]={"status":"PASS"}
     py("v17_verification_assurance_selftest.py",timeout=90); results["v17_verification_assurance_selftest"]={"status":"PASS"}
     py("v17_release_candidate_selftest.py",timeout=90); results["v17_release_candidate_selftest"]={"status":"PASS"}
+    py("v17_provenance_selftest.py",timeout=90); results["v17_provenance_selftest"]={"status":"PASS"}
     out=ROOT/".release-test"/f"v16-{uuid.uuid4().hex}"; out.parent.mkdir(parents=True,exist_ok=True); py("v16_selftest.py","--out",out,timeout=420); results["v16_focused"]={"status":"PASS"}
     compatibility("v15_selftest.py",[("version':'1.5","version':'1.6"),("meta['tool_version']=='1.5'","meta['tool_version']=='1.6'")],"v15"); results["v15_compatibility"]={"status":"PASS"}
     if full:
         run([sys.executable,"-m","pytest","tests/test_v17_investigation_integrity.py","tests/test_v17_signed_checkpoints.py","tests/test_v17_offline_case_verification.py","tests/test_v17_verification_assurance.py","tests/test_v17_release_candidate.py","-q"],timeout=300); results["v17_integrity_regression"]={"status":"PASS","tests":56}
+        run([sys.executable,"-m","pytest","tests/test_v17_provenance_replay.py","-q"],timeout=300); results["v17_provenance_regression"]={"status":"PASS","tests":30}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}
         compatibility("v12_selftest.py",[

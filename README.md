@@ -6,6 +6,12 @@
 
 ## Why AI-DFIR
 
+The current development branch also supports validated investigation provenance
+and offline recorded replay. This extension is **not included in the published
+v1.7.0 assets**. See [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md)
+for evidence-reference validation, AI/tool/analyst reconstruction, supported pure
+transforms, and the synthetic acceptance case.
+
 AI incidents cross boundaries that conventional DFIR tools often treat separately. AI-DFIR is designed to answer:
 
 1. **What actually executed?** Model, agent, harness, tool implementation, workload, and provider.

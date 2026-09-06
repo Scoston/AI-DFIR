@@ -50,6 +50,7 @@ def render_verification_report(report: dict[str, Any]) -> str:
         f"Artifact integrity: {_display(report.get('artifact_integrity'), 'NOT_RUN')}",
         f"Ledger integrity: {_display(report.get('ledger_integrity'), 'NOT_RUN')}",
         f"Checkpoint integrity: {_display(report.get('checkpoint_integrity'), 'NOT_RUN')}",
+        f"Provenance integrity: {_display(report.get('provenance_integrity'), 'NOT_RUN')}",
         f"Checkpoint signature: {_pass_fail(report.get('signature_valid'))}",
         f"Checkpoint signer trust: {_pass_fail(report.get('signer_trusted'))}",
         f"Signer key ID: {_display(report.get('signer_key_id'))}",
@@ -128,6 +129,7 @@ def main() -> int:
     parser.add_argument("--case")
     parser.add_argument("--format", choices=("json", "text"), default="text")
     parser.add_argument("--out")
+    parser.add_argument("--require-provenance", action="store_true")
     parser.add_argument("--max-members", type=int, default=DEFAULT_MAX_MEMBERS)
     parser.add_argument(
         "--max-total-uncompressed-gib",
@@ -152,6 +154,7 @@ def main() -> int:
             args.export_public_key,
             expected_tenant=args.tenant,
             expected_case=args.case,
+            require_provenance=args.require_provenance,
             max_members=args.max_members,
             max_total_uncompressed=int(args.max_total_uncompressed_gib * 1024**3),
             max_member_uncompressed=int(args.max_member_uncompressed_gib * 1024**3),
