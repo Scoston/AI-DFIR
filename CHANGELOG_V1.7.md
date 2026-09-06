@@ -4,6 +4,17 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: online policy and issuer-root delivery
+
+- explicit HTTPS synchronization into an existing independently anchored governed store;
+- signed full-chain catch-up across missed rotations, with atomic final-root/policy activation and independent recovery floors;
+- publisher bundle preparation that checks the complete chain and final policy before writing;
+- certificate/hostname verification, explicit CA support, bounded JSON/framing, and a response deadline;
+- no redirects, implicit proxy credentials, remotely supplied trust anchors, or network access during case verification;
+- separate transport hashes/TLS receipt and offline authority report, with no global-latest or trusted-time claim;
+- 139 focused tests, temporary loopback TLS acceptance, operator guide, and extracted-package assurance;
+- no new dependencies, deployed publisher, scheduled synchronization service, or historical authorization proof.
+
 ### Unreleased: signed issuer-root governance
 
 - sequential issuer-root rotations approved by both previous and replacement quorums;

@@ -3,7 +3,7 @@
 
 Quick checks validate current release code and synthetic fixtures.
 Full checks additionally execute major compatibility suites.
-No network access is required.
+No external network access is required; synthetic services bind loopback.
 """
 from __future__ import annotations
 import argparse, json, py_compile, re, shutil, subprocess, sys, tempfile, uuid
@@ -108,6 +108,7 @@ def main():
     py("v17_policy_distribution_selftest.py",timeout=90); results["v17_policy_distribution_selftest"]={"status":"PASS"}
     py("v17_policy_quorum_selftest.py",timeout=90); results["v17_policy_quorum_selftest"]={"status":"PASS"}
     py("v17_policy_governance_selftest.py",timeout=90); results["v17_policy_governance_selftest"]={"status":"PASS"}
+    py("v17_policy_delivery_selftest.py",timeout=90); results["v17_policy_delivery_selftest"]={"status":"PASS"}
     out=ROOT/".release-test"/f"v16-{uuid.uuid4().hex}"; out.parent.mkdir(parents=True,exist_ok=True); py("v16_selftest.py","--out",out,timeout=420); results["v16_focused"]={"status":"PASS"}
     compatibility("v15_selftest.py",[("version':'1.5","version':'1.6"),("meta['tool_version']=='1.5'","meta['tool_version']=='1.6'")],"v15"); results["v15_compatibility"]={"status":"PASS"}
     if full:
@@ -118,6 +119,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_policy_distribution.py","-q"],timeout=300); results["v17_policy_distribution_regression"]={"status":"PASS","tests":66}
         run([sys.executable,"-m","pytest","tests/test_v17_policy_quorum.py","-q"],timeout=300); results["v17_policy_quorum_regression"]={"status":"PASS","tests":67}
         run([sys.executable,"-m","pytest","tests/test_v17_policy_governance.py","-q"],timeout=300); results["v17_policy_governance_regression"]={"status":"PASS","tests":87}
+        run([sys.executable,"-m","pytest","tests/test_v17_policy_delivery.py","-q"],timeout=300); results["v17_policy_delivery_regression"]={"status":"PASS","tests":139}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}
         compatibility("v12_selftest.py",[

@@ -236,7 +236,7 @@ python scripts/release_check.py --full
 ```
 
 The quick gate runs a dual-quorum rotation and atomic activation self-test. The
-full gate adds 87 tests, bringing the v1.7 total to 431. Tests verify the entire
+full gate adds 87 tests, bringing the pre-delivery v1.7 total to 431. Tests verify the entire
 retained chain from an independent anchor; reject partial, duplicate, altered,
 wrong-role, skipped-version, and forked approvals; and exercise concurrent
 rotations, failed writes, migration rollback, expired-root/policy recovery,
@@ -248,3 +248,30 @@ All fixtures are synthetic and temporary. No live authority is contacted.
 Packaging repeats the full gate on extracted committed source and requires the
 new profile's files and assurance results. See
 [Signed issuer governance](docs/reference/CHECKPOINT_POLICY_GOVERNANCE_V1.7.md).
+
+## 16. Unreleased online policy and issuer-root delivery
+
+```bash
+python v17_policy_delivery_selftest.py
+python -m pytest tests/test_v17_policy_delivery.py -q
+python scripts/release_check.py --full
+```
+
+The quick gate uses a temporary loopback HTTPS server and ephemeral synthetic
+CA/private keys to deliver a signed rotation and policy, reject a tampered
+download, and then verify the case with network calls blocked. The full gate
+adds 139 tests, for 570 v1.7 regression tests alongside all 111 Evidence Packs,
+19 synthetic domains, and historical compatibility checks.
+
+Tests cover complete-chain catch-up, expired intermediate/local state recovery,
+preserved prefixes and revision floors, rollback after both database writes,
+competing online updates, local preflight and post-download state checks,
+TLS trust/hostname/expiry failures, redirects, proxy environment isolation,
+strict URL and HTTP framing, malformed or truncated JSON, slow headers/bodies,
+CLI preparation/sync, output preservation, and offline verification afterward.
+
+No public service or real authority is contacted. Local loopback sockets must
+be available to the test process. Packaging requires every delivery file and
+passing source/extracted regression and self-test assurance. Older published
+releases keep their original verification contract. See
+[Online policy delivery](docs/reference/CHECKPOINT_POLICY_DELIVERY_V1.7.md).

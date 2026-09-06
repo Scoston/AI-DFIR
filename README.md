@@ -42,6 +42,12 @@ rotation. It activates the new root and policy in one transaction, retains the
 signed chain, and verifies it against an independent starting anchor on each
 use. Existing quorum stores can migrate without resetting their policy revision.
 
+The unreleased [online policy delivery](docs/reference/CHECKPOINT_POLICY_DELIVERY_V1.7.md)
+profile adds explicit HTTPS synchronization from an operator-configured endpoint.
+It checks the complete signed chain against the existing anchor and atomically
+activates the final root and policy, including catch-up across missed rotations.
+Downloads cannot introduce trust anchors, and case verification stays offline.
+
 AI incidents cross boundaries that conventional DFIR tools often treat separately. AI-DFIR is designed to answer:
 
 1. **What actually executed?** Model, agent, harness, tool implementation, workload, and provider.

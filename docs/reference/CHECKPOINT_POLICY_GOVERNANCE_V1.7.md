@@ -212,10 +212,17 @@ separate; valid governance cannot rescue their failures or current key revocatio
 
 Python APIs include `validate_root`, `load_root`, `sign_root_rotation`,
 `cosign_root_rotation`, `verify_root_rotation`, `initialize_governed_store`,
-`migrate_governed_store`, `accept_governed_update`, `load_governed_store`, and
+`migrate_governed_store`, `accept_governed_update`, `accept_governed_chain`, `load_governed_store`, and
 `inspect_governed_root`. Rotation verification checks continuity/signatures;
 store acceptance additionally checks the active root, current policy, and
 revision. Case APIs add `policy_root_anchor` and `minimum_root_version`.
+
+The separate [online delivery profile](CHECKPOINT_POLICY_DELIVERY_V1.7.md)
+uses `accept_governed_chain` to activate a final policy with the complete signed
+chain from the independent anchor. The chain must preserve the exact accepted
+prefix. Multiple missed rotations can activate atomically without installing
+intermediate policies. Final root/policy freshness and independent minimum
+root/policy versions are checked under the transaction lock.
 
 The CLI exits 0 for success, 1 for rejected authority/state, 2 for argument errors,
 and 3 for file/configuration errors. All commands are offline. Root expiry and
@@ -241,7 +248,8 @@ focused tests cover full-chain verification, role/domain binding, downgrade and
 fork rejection, migration, atomic failure, concurrent updates, expiry recovery,
 strict input limits, independent backup floors, embedded-anchor rejection, all
 affected CLIs, and composition with evidence and timestamp checks. The full gate
-now runs 431 v1.7 tests alongside 111 Evidence Packs and historical compatibility.
+at this milestone runs 431 v1.7 tests alongside 111 Evidence Packs and historical compatibility;
+the subsequent delivery profile raises the current total to 570.
 Packaging repeats it on extracted committed source and requires this profile's
 files and assurance results. Published v1.7.0 package verification keeps its
 original contract. No new dependency or licensing change is required.

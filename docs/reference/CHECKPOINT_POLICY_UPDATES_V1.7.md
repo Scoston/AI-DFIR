@@ -178,8 +178,10 @@ which also uses an independently provisioned starting anchor.
 Current key revocation still denies historical checkpoints. The separate
 [timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md) can authenticate a retained TSA
 receipt; it does not make a revoked key acceptable or authenticate historical
-policy decisions. Online delivery, organizational key custody, archival
-TSA revocation evidence, and historical authorization remain separate work.
+policy decisions. The separate [online delivery profile](CHECKPOINT_POLICY_DELIVERY_V1.7.md)
+supplies explicit HTTPS synchronization into governed stores. Organizational key
+custody, archival TSA revocation evidence, and historical authorization remain
+separate work.
 
 ## Reports and Python API
 
@@ -211,7 +213,7 @@ issuer rotation, concurrent/conflicting updates, restart persistence, backup
 recovery with an independent floor, malformed JSON/stores, strict validity,
 embedded trust rejection, tampering, export preservation, CLI parity, and
 composition with external timestamps. This milestone brought the total to 277
-v1.7 tests; subsequent quorum and governance profiles bring the total to 431. Packaging repeats
+v1.7 tests; subsequent quorum, governance, and delivery profiles bring the total to 570. Packaging repeats
 the full gate on extracted committed source and requires
 the new profile's files and assurance results. Published v1.7.0 package
 verification retains its original contract. No new dependency is required.

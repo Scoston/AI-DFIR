@@ -379,3 +379,44 @@ def accept_governed_update(path: str | Path, root_anchor: Any, signed_policy: An
             status = "ACCEPTED"
         result = _report(authenticated, anchor, state)
     return {"status": status, "authentication": result["authentication"]}
+
+
+def accept_governed_chain(path: str | Path, root_anchor: Any, signed_policy: Any, rotations: Any,
+                          *, minimum_revision=None, minimum_root_version=None) -> dict:
+    """Atomically accept a complete chain from the anchor and its final policy.
+
+    A delivery may catch up across multiple expired intermediate roots. Its
+    authenticated chain must preserve the exact already accepted prefix. Only
+    the final root/policy become active; no intermediate policy is installed.
+    """
+    anchor, envelope = validate_root(root_anchor), validate_quorum_envelope(signed_policy)
+    root, chain, approvals = _chain(anchor, rotations)
+    with _transaction(path) as connection:
+        state = _stored(connection, anchor)
+        previous, retained = state["policy_row"], state["chain"]
+        _require(len(chain) >= len(retained), "root_chain_rollback", "delivery omits already accepted root rotations")
+        _require(sha256_object(chain[:len(retained)]) == sha256_object(retained),
+                 "root_chain_conflict", "delivery replaces an already accepted root transition")
+        extended = len(chain) > len(retained)
+        authenticated = distribution.authenticate_key_policy(envelope, root["issuer_trust"])
+        now = _current(root)
+        revision = authenticated["policy"]["revision"]
+        _require(revision >= previous["revision"], "policy_revision_rollback", "delivered policy revision cannot decrease")
+        if revision == previous["revision"]:
+            _require(not extended and authenticated["authentication"]["envelope_sha256"] == previous["envelope_sha256"],
+                     "policy_revision_conflict", "changed policy or root chain requires a higher policy revision")
+            status = "UNCHANGED"
+        else:
+            state["policy_row"] = {"accepted_at": authenticated["authentication"]["evaluated_at"]}
+            status = "ACCEPTED"
+        state.update(root=root, chain=chain, approvals=approvals)
+        if extended:
+            state["root_accepted_at"] = now
+        # Validate independent recovery floors before either table is changed.
+        result = _report(authenticated, anchor, state, minimum_revision=minimum_revision,
+                         minimum_root_version=minimum_root_version)
+        if status == "ACCEPTED":
+            _write_policy(connection, authenticated)
+            if extended:
+                _write_root(connection, anchor, root, chain, now)
+    return {"status": status, "authentication": result["authentication"]}

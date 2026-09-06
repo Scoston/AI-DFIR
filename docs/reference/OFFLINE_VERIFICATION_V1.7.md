@@ -43,6 +43,13 @@ and root/policy activation is atomic. `--minimum-root-version` complements the
 independent policy revision floor. An expired active root blocks acceptance;
 caller-supplied evaluation time cannot backdate the root check.
 
+The separate [online delivery command](CHECKPOINT_POLICY_DELIVERY_V1.7.md)
+can synchronize that store explicitly before verification. It fetches one HTTPS
+bundle, authenticates the complete chain from the existing anchor, and commits
+the final root/policy together. Verification commands never invoke delivery or
+fall back to the network. A delivery receipt is not a trusted timestamp or proof
+that no newer policy exists.
+
 The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
 accepts retained RFC 3161 requests/responses plus verifier-controlled TSA trust.
 Use `--require-checkpoint-timestamp` where external anchoring is mandatory. Its
