@@ -25,7 +25,7 @@ from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.x509.oid import ExtendedKeyUsageOID, NameOID
 
 from case_export_v17 import verify_case
-from v17_integrity import canonical_json_bytes
+from v17_integrity import canonical_json_bytes, sha256_bytes
 from v17_key_policy_selftest import synthetic_export
 from v17_policy_delivery import PolicyDeliveryError, prepare_delivery_bundle, sync_policy
 from v17_policy_governance import initialize_governed_store
@@ -60,7 +60,8 @@ def synthetic_tls_material(path: Path, *, wrong_host=False, expired=False) -> di
 
 
 @contextmanager
-def synthetic_https(path: Path, body: bytes, *, status=200, headers=None, responder=None, wrong_host=False, expired=False):
+def synthetic_https(path: Path, body: bytes, *, status=200, headers=None, responder=None, wrong_host=False, expired=False,
+                    client_ca_file=None):
     material = synthetic_tls_material(path, wrong_host=wrong_host, expired=expired)
 
     class Handler(BaseHTTPRequestHandler):
@@ -70,7 +71,9 @@ def synthetic_https(path: Path, body: bytes, *, status=200, headers=None, respon
             pass
 
         def do_GET(self):
-            self.server.requests.append({"path": self.path, "headers": dict(self.headers)})
+            peer = self.connection.getpeercert(binary_form=True)
+            self.server.requests.append({"path": self.path, "headers": dict(self.headers),
+                                         "client_certificate_sha256": sha256_bytes(peer) if peer else None})
             try:
                 if responder is not None:
                     responder(self)
@@ -90,6 +93,9 @@ def synthetic_https(path: Path, body: bytes, *, status=200, headers=None, respon
     server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     context.minimum_version = ssl.TLSVersion.TLSv1_2
+    if client_ca_file is not None:
+        context.load_verify_locations(cafile=str(client_ca_file))
+        context.verify_mode = ssl.CERT_REQUIRED
     context.load_cert_chain(material["server.pem"], material["server-key.pem"])
     server.socket = context.wrap_socket(server.socket, server_side=True)
     server.body, server.requests = body, []

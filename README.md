@@ -47,6 +47,10 @@ profile adds explicit HTTPS synchronization from an operator-configured endpoint
 It checks the complete signed chain against the existing anchor and atomically
 activates the final root and policy, including catch-up across missed rotations.
 Downloads cannot introduce trust anchors, and case verification stays offline.
+The [client certificate authentication profile](docs/reference/POLICY_DELIVERY_MTLS_V1.7.md)
+adds explicit, protected TLS client credentials for endpoints that restrict
+delivery to approved verifier systems. Transport authentication does not replace
+the independent issuer signatures or policy rollback controls.
 
 The unreleased [historical key-trust records](docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md)
 profile timestamps a retained signed policy, issuer chain, checkpoint, and trust

@@ -5,6 +5,12 @@ published v1.7.0 assets. It adds an explicit HTTPS synchronization command to
 [signed issuer governance](CHECKPOINT_POLICY_GOVERNANCE_V1.7.md). It supplies a
 client and publisher bundle format, not an operated distribution service.
 
+The separate [client certificate authentication profile](POLICY_DELIVERY_MTLS_V1.7.md)
+adds explicit mTLS credentials for endpoints that restrict access to approved
+verifier systems. It validates protected credential files before network use and
+preserves the existing independent issuer and rollback checks. A configured client
+certificate is not proof that the publisher enforced client authorization.
+
 ## What a successful synchronization establishes
 
 The client received one bounded response over certificate- and hostname-verified

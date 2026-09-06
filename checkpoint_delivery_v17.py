@@ -23,6 +23,10 @@ def main() -> int:
     sync.add_argument("--store", required=True)
     sync.add_argument("--url", required=True, help="Operator-approved HTTPS endpoint; no query, credentials, or redirects")
     sync.add_argument("--ca-file", help="Operator-provisioned PEM CA bundle; defaults to system TLS trust")
+    sync.add_argument("--client-cert-file", help="Explicit PEM certificate chain for TLS client authentication")
+    sync.add_argument("--client-key-file", help="Protected PKCS8 PEM private key matching the client certificate")
+    sync.add_argument("--client-key-password-file", help="Protected single-line password file for an encrypted PKCS8 key")
+    sync.add_argument("--expected-client-certificate-sha256", help="Independent SHA-256 pin of the client leaf certificate DER")
     sync.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT)
     sync.add_argument("--minimum-policy-revision", type=int)
     sync.add_argument("--minimum-root-version", type=int)
@@ -42,7 +46,10 @@ def main() -> int:
                       "acceptance_performed": False, "network_performed": False}
         else:
             result = sync_policy(args.store, anchor, args.url, ca_file=args.ca_file, timeout=args.timeout,
-                                 minimum_revision=args.minimum_policy_revision, minimum_root_version=args.minimum_root_version)
+                                 minimum_revision=args.minimum_policy_revision, minimum_root_version=args.minimum_root_version,
+                                 client_cert_file=args.client_cert_file, client_key_file=args.client_key_file,
+                                 client_key_password_file=args.client_key_password_file,
+                                 expected_client_certificate_sha256=args.expected_client_certificate_sha256)
         print(json.dumps(result, indent=2, sort_keys=True))
         return 0
     except PolicyDeliveryError as exc:

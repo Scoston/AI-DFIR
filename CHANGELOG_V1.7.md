@@ -4,6 +4,16 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: policy delivery client certificate authentication
+
+- explicit TLS client certificate/key/password-file options and independent client leaf pinning;
+- current client-only X.509 purpose, strong key/digest profile, bounded PEM input, and matching PKCS8 validation;
+- protected secret-file checks, exact private snapshots for OpenSSL loading, cleanup, and no interactive password prompts;
+- credential metadata separated from issuer authority and unproven publisher-side client authorization;
+- TLS session secret logging disabled; server trust, redirect rejection, policy signatures, rollback, and offline verification preserved;
+- 80 focused regressions, including malformed-PEM runtime bounds, synthetic mutual-TLS acceptance, operator guide, and source/extracted-package assurance;
+- no new dependency, deployed publisher, credential issuance/revocation service, or scheduled synchronization.
+
 ### Unreleased: timestamped historical key-trust records
 
 - offline capture of authenticated policy, complete issuer chain, signed checkpoint, and reproducible ALLOW/DENY;
