@@ -81,6 +81,10 @@ establishing that data existed before a stated time. See
 The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
 can authenticate that attestation. It does not override retired/revoked states
 or implement historical key authorization; current policy still applies.
+The separate [historical record profile](CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md)
+binds a retained signed policy, issuer chain, checkpoint, and reproducible result
+to an independent timestamp. It preserves current authenticated policy as a
+mandatory case gate and makes no global policy-completeness claim.
 
 For rotation, provision the replacement key through the trusted policy process,
 allow a deliberate overlap of active keys, then publish a new policy revision

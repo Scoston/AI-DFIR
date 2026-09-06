@@ -4,6 +4,16 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: timestamped historical key-trust records
+
+- offline capture of authenticated policy, complete issuer chain, signed checkpoint, and reproducible ALLOW/DENY;
+- domain-separated RFC 3161 requests binding the full record with independent anchor/TSA trust and optional retained digests;
+- strict historical root/policy and decision checks across signed TSA accuracy intervals, including interior validity boundaries;
+- mandatory current authenticated policy for case use, preserving current revocation, evidence integrity, and other independent gates;
+- capture/prepare/verify CLI, case/export/replay integration, explicit historical-result limits, and exclusive output creation;
+- 85 focused regressions, synthetic offline acceptance, operator guide, and source/extracted-package assurance;
+- no new dependencies, operated TSA, global policy-completeness claim, or proof of actual prior verifier execution.
+
 ### Unreleased: online policy and issuer-root delivery
 
 - explicit HTTPS synchronization into an existing independently anchored governed store;

@@ -9,6 +9,7 @@ from typing import Any
 
 from v17_key_policy import add_key_policy_arguments, key_policy_options
 from v17_timestamp import add_timestamp_arguments, timestamp_options
+from v17_key_trust_history import add_key_trust_history_arguments, key_trust_history_options
 
 from case_export_v17 import (
     DEFAULT_MAX_COMPRESSION_RATIO,
@@ -58,6 +59,7 @@ def render_verification_report(report: dict[str, Any]) -> str:
         f"Checkpoint signer trust: {_pass_fail(report.get('signer_trusted'))}",
         f"External checkpoint key policy: {_display(report.get('checkpoint_key_policy', {}).get('status'), 'NOT_CONFIGURED')}",
         f"External checkpoint timestamp: {_display(report.get('checkpoint_timestamp', {}).get('status'), 'NOT_CONFIGURED')}",
+        f"Historical key-trust record: {_display(report.get('checkpoint_key_trust_history', {}).get('status'), 'NOT_CONFIGURED')}",
         f"Signer key ID: {_display(report.get('signer_key_id'))}",
         f"Checkpoint hash: {_display(report.get('checkpoint_hash'))}",
         f"Combined checkpoint verification: {_pass_fail(report.get('combined_checkpoint_verification'))}",
@@ -72,7 +74,7 @@ def render_verification_report(report: dict[str, Any]) -> str:
             f"Policy SHA-256: {_display(policy.get('policy_sha256'))}",
             f"Policy evaluated at: {_display(policy.get('evaluated_at'))} ({_display(policy.get('evaluation_time_source'))})",
             f"Policy key state: {_display(policy.get('key_state'))}",
-            "Historical key authorization: NOT EVALUATED (current key policy applies)",
+            "Current key policy applies independently of historical records",
         ])
 
     timestamp = report.get("checkpoint_timestamp") or {}
@@ -103,6 +105,18 @@ def render_verification_report(report: dict[str, Any]) -> str:
             f"TSA certificate SHA-256: {_display(timestamp.get('tsa_certificate_sha256'))}",
             f"TSA generation time: {_display(timestamp.get('tsa_gen_time'))}",
             "TSA revocation: NOT CHECKED; operator independence: NOT ASSESSED",
+        ])
+
+    history = report.get("checkpoint_key_trust_history") or {}
+    if history.get("status") in {"PASS", "FAIL"}:
+        interval = history.get("tsa_interval") or {}
+        decision = history.get("recorded_decision") or {}
+        lines.extend([
+            f"Historical record SHA-256: {_display(history.get('record_sha256'))}",
+            f"Retained policy revision: {_display(history.get('policy_revision'))}",
+            f"Historical decision: {_display(decision.get('status'))}",
+            f"Attested interval: {_display(interval.get('earliest'))} through {_display(interval.get('latest'))}",
+            "Historical result covers the retained policy; global latestness and prior verifier execution are not proven",
         ])
 
     if findings:
@@ -177,6 +191,7 @@ def main() -> int:
     parser.add_argument("--require-provenance", action="store_true")
     add_key_policy_arguments(parser)
     add_timestamp_arguments(parser)
+    add_key_trust_history_arguments(parser)
     parser.add_argument("--max-members", type=int, default=DEFAULT_MAX_MEMBERS)
     parser.add_argument(
         "--max-total-uncompressed-gib",
@@ -204,6 +219,7 @@ def main() -> int:
             require_provenance=args.require_provenance,
             **key_policy_options(args),
             **timestamp_options(args),
+            **key_trust_history_options(args),
             max_members=args.max_members,
             max_total_uncompressed=int(args.max_total_uncompressed_gib * 1024**3),
             max_member_uncompressed=int(args.max_member_uncompressed_gib * 1024**3),

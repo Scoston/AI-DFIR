@@ -51,9 +51,17 @@ synchronization. Acceptance uses a temporary loopback TLS server and synthetic
 CA; no external publisher or scheduled service is deployed. See
 [Online policy delivery](docs/reference/CHECKPOINT_POLICY_DELIVERY_V1.7.md).
 
+Timestamped historical key-trust records have an implemented bounded profile:
+authenticated store capture, complete issuer-chain/policy/checkpoint binding,
+independently pinned RFC 3161 receipt verification, and decision replay across
+the signed TSA accuracy interval. Current authorization remains a separate
+mandatory gate for case use. Acceptance uses a synthetic TSA; global historical
+policy completeness and actual prior verifier execution are not proven. See
+[Historical key-trust records](docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md).
+
 ## Future work
 
-- independently timestamped historical key-trust decisions;
+- complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
 - operated policy delivery services, deployment authentication profiles, and organizational synchronization scheduling;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;

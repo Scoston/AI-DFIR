@@ -44,6 +44,9 @@ from v17_key_policy import (
 from v17_timestamp import (
     add_timestamp_arguments, evaluate_checkpoint_timestamp, timestamp_options, timestamp_report,
 )
+from v17_key_trust_history import (
+    add_key_trust_history_arguments, evaluate_history_options, history_accepts, history_report, key_trust_history_options,
+)
 
 
 OFFLINE_EXPORT_SCHEMA = "ai-dfir/offline-case-export/v1.7"
@@ -408,6 +411,8 @@ def export_case(
     minimum_policy_revision: int | None = None,
     policy_root_anchor: Mapping[str, Any] | None = None,
     minimum_root_version: int | None = None,
+    key_trust_history: Mapping[str, Any] | None = None,
+    require_key_trust_history: bool = False,
     timestamp_request: bytes | None = None,
     timestamp_response: bytes | None = None,
     tsa_ca_pem: bytes | None = None,
@@ -457,13 +462,20 @@ def export_case(
         expected_policy_sha256=expected_key_policy_sha256,
         required=require_checkpoint_key_policy,
         policy_store=checkpoint_policy_store, issuer_trust=policy_issuer_trust,
-        require_authenticated=require_authenticated_key_policy, minimum_revision=minimum_policy_revision,
+        require_authenticated=require_authenticated_key_policy or key_trust_history is not None or require_key_trust_history,
+        minimum_revision=minimum_policy_revision,
         root_anchor=policy_root_anchor, minimum_root_version=minimum_root_version,
     )
     if policy_result["status"] == "FAIL":
         raise ValueError("checkpoint key policy rejected export: " + "; ".join(
             item["code"] for item in policy_result["findings"]
         ))
+
+    history_result = evaluate_history_options(options=key_trust_history, required=require_key_trust_history,
+                                              signed_checkpoint=signed_checkpoint, tenant_id=tenant_id, case_id=case_id)
+    if not history_accepts(history_result):
+        raise ValueError("historical key trust rejected export: " + ("; ".join(
+            item["code"] for item in history_result["findings"]) or "retained decision denies this key"))
 
     source = Path(case_root).resolve()
     if not source.is_dir():
@@ -520,6 +532,7 @@ def export_case(
         "checkpoint_key_id": signed_checkpoint.key_id,
         "checkpoint_key_policy": policy_result,
         "checkpoint_timestamp": timestamp_result,
+        "checkpoint_key_trust_history": history_result,
         "v15_compatible_manifest": True,
         "network_required_for_verification": False,
     }
@@ -682,6 +695,7 @@ def _failure_report(
         "provenance_integrity": "NOT_RUN",
         "checkpoint_key_policy": key_policy_report(),
         "checkpoint_timestamp": timestamp_report(),
+        "checkpoint_key_trust_history": history_report(),
         "signature_valid": False,
         "signer_trusted": False,
         "findings": findings,
@@ -711,6 +725,8 @@ def verify_case(
     minimum_policy_revision: int | None = None,
     policy_root_anchor: Mapping[str, Any] | None = None,
     minimum_root_version: int | None = None,
+    key_trust_history: Mapping[str, Any] | None = None,
+    require_key_trust_history: bool = False,
     timestamp_request: bytes | None = None,
     timestamp_response: bytes | None = None,
     tsa_ca_pem: bytes | None = None,
@@ -867,7 +883,8 @@ def verify_case(
             expected_policy_sha256=expected_key_policy_sha256,
             required=require_checkpoint_key_policy,
             policy_store=checkpoint_policy_store, issuer_trust=policy_issuer_trust,
-            require_authenticated=require_authenticated_key_policy, minimum_revision=minimum_policy_revision,
+            require_authenticated=require_authenticated_key_policy or key_trust_history is not None or require_key_trust_history,
+            minimum_revision=minimum_policy_revision,
             root_anchor=policy_root_anchor, minimum_root_version=minimum_root_version,
         )
         policy_valid = policy_result["status"] in {"PASS", "NOT_CONFIGURED"}
@@ -885,6 +902,14 @@ def verify_case(
         timestamp_valid = timestamp_result["status"] in {"PASS", "NOT_CONFIGURED"}
         combined_valid = combined_valid and timestamp_valid
         timestamp_errors = [item["code"] for item in timestamp_result["findings"]]
+
+        history_result = evaluate_history_options(options=key_trust_history, required=require_key_trust_history,
+                                                  signed_checkpoint=signed, tenant_id=payload.get("tenant_id"), case_id=case_id)
+        history_valid = history_accepts(history_result)
+        combined_valid = combined_valid and history_valid
+        history_errors = [item["code"] for item in history_result["findings"]]
+        if history_result["status"] == "PASS" and not history_result["historical_key_trusted"]:
+            history_errors.append("historical_key_trust_denied")
 
         checkpoint_errors: list[str] = []
         if checkpoint != signed.checkpoint:
@@ -923,6 +948,7 @@ def verify_case(
             _finding("checkpoint_timestamp_failed", code=item["code"], error=item["detail"])
             for item in timestamp_result["findings"]
         )
+        findings.extend(_finding("checkpoint_key_trust_history_failed", code=code, error=code) for code in history_errors)
 
         checkpoint_valid = not checkpoint_errors
         provenance_status = "NOT_PRESENT"
@@ -1002,11 +1028,12 @@ def verify_case(
             "signer_trust_source": "export-manifest-and-external-policy" if checkpoint_key_policy is not None or checkpoint_policy_store is not None else "export-manifest",
             "checkpoint_key_policy": policy_result,
             "checkpoint_timestamp": timestamp_result,
+            "checkpoint_key_trust_history": history_result,
             "signer_key_id": signed.key_id,
             "combined_checkpoint_verification": combined_valid,
             "findings": findings,
             "verification_errors": sorted(
-                set(ledger_errors + checkpoint_errors + signature_errors + combined_errors + policy_errors + timestamp_errors)
+                set(ledger_errors + checkpoint_errors + signature_errors + combined_errors + policy_errors + timestamp_errors + history_errors)
             ),
         }
         if overall and reconstruction is not None:
@@ -1051,6 +1078,7 @@ def main() -> int:
     create.add_argument("--provenance", help="Optional validated investigation provenance JSON")
     add_key_policy_arguments(create)
     add_timestamp_arguments(create)
+    add_key_trust_history_arguments(create)
 
     verify = sub.add_parser("verify")
     verify.add_argument("--zip", required=True)
@@ -1061,6 +1089,7 @@ def main() -> int:
     verify.add_argument("--require-provenance", action="store_true")
     add_key_policy_arguments(verify)
     add_timestamp_arguments(verify)
+    add_key_trust_history_arguments(verify)
     verify.add_argument(
         "--max-members",
         type=int,
@@ -1105,6 +1134,7 @@ def main() -> int:
                 provenance=strict_json(Path(args.provenance).read_bytes()) if args.provenance else None,
                 **key_policy_options(args),
                 **timestamp_options(args),
+                **key_trust_history_options(args),
             )
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0
@@ -1117,6 +1147,7 @@ def main() -> int:
             require_provenance=args.require_provenance,
             **key_policy_options(args),
             **timestamp_options(args),
+            **key_trust_history_options(args),
             max_members=args.max_members,
             max_total_uncompressed=int(
                 args.max_total_uncompressed_gib

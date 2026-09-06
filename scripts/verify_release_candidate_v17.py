@@ -75,6 +75,11 @@ POLICY_DELIVERY_PACKAGE_PATHS = {
     "tests/test_v17_policy_delivery.py", "docs/reference/CHECKPOINT_POLICY_DELIVERY_V1.7.md",
 }
 
+KEY_TRUST_HISTORY_PACKAGE_PATHS = {
+    "v17_key_trust_history.py", "checkpoint_history_v17.py", "v17_key_trust_history_selftest.py",
+    "tests/test_v17_key_trust_history.py", "docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -271,6 +276,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_policy_delivery = bool(POLICY_DELIVERY_PACKAGE_PATHS & set(expected))
         if has_policy_delivery and not (POLICY_DELIVERY_PACKAGE_PATHS | POLICY_GOVERNANCE_PACKAGE_PATHS | POLICY_QUORUM_PACKAGE_PATHS | POLICY_DISTRIBUTION_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete online policy delivery package support")
+        has_key_trust_history = bool(KEY_TRUST_HISTORY_PACKAGE_PATHS & set(expected))
+        if has_key_trust_history and not (KEY_TRUST_HISTORY_PACKAGE_PATHS | POLICY_GOVERNANCE_PACKAGE_PATHS | POLICY_QUORUM_PACKAGE_PATHS | POLICY_DISTRIBUTION_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS | TIMESTAMP_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete timestamped historical key-trust package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -306,6 +314,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_policy_quorum": has_policy_quorum,
             "has_policy_governance": has_policy_governance,
             "has_policy_delivery": has_policy_delivery,
+            "has_key_trust_history": has_key_trust_history,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -380,6 +389,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_policy_governance_selftest="PASS", v17_policy_governance_regression_tests=87)
     if zip_result.get("has_policy_delivery"):
         required_assurance.update(v17_policy_delivery_selftest="PASS", v17_policy_delivery_regression_tests=139)
+    if zip_result.get("has_key_trust_history"):
+        required_assurance.update(v17_key_trust_history_selftest="PASS", v17_key_trust_history_regression_tests=85)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")
