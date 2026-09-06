@@ -402,6 +402,10 @@ def export_case(
     require_checkpoint_key_policy: bool = False,
     key_policy_evaluated_at: str | None = None,
     expected_key_policy_sha256: str | None = None,
+    checkpoint_policy_store: str | Path | None = None,
+    policy_issuer_trust: Mapping[str, Any] | None = None,
+    require_authenticated_key_policy: bool = False,
+    minimum_policy_revision: int | None = None,
     timestamp_request: bytes | None = None,
     timestamp_response: bytes | None = None,
     tsa_ca_pem: bytes | None = None,
@@ -450,6 +454,8 @@ def export_case(
         tenant_id=tenant_id, case_id=case_id, evaluated_at=key_policy_evaluated_at,
         expected_policy_sha256=expected_key_policy_sha256,
         required=require_checkpoint_key_policy,
+        policy_store=checkpoint_policy_store, issuer_trust=policy_issuer_trust,
+        require_authenticated=require_authenticated_key_policy, minimum_revision=minimum_policy_revision,
     )
     if policy_result["status"] == "FAIL":
         raise ValueError("checkpoint key policy rejected export: " + "; ".join(
@@ -696,6 +702,10 @@ def verify_case(
     require_checkpoint_key_policy: bool = False,
     key_policy_evaluated_at: str | None = None,
     expected_key_policy_sha256: str | None = None,
+    checkpoint_policy_store: str | Path | None = None,
+    policy_issuer_trust: Mapping[str, Any] | None = None,
+    require_authenticated_key_policy: bool = False,
+    minimum_policy_revision: int | None = None,
     timestamp_request: bytes | None = None,
     timestamp_response: bytes | None = None,
     tsa_ca_pem: bytes | None = None,
@@ -851,6 +861,8 @@ def verify_case(
             evaluated_at=key_policy_evaluated_at,
             expected_policy_sha256=expected_key_policy_sha256,
             required=require_checkpoint_key_policy,
+            policy_store=checkpoint_policy_store, issuer_trust=policy_issuer_trust,
+            require_authenticated=require_authenticated_key_policy, minimum_revision=minimum_policy_revision,
         )
         policy_valid = policy_result["status"] in {"PASS", "NOT_CONFIGURED"}
         trusted_valid = trusted_valid and policy_valid
@@ -981,7 +993,7 @@ def verify_case(
             "signature_valid": signature_valid,
             "signer_trusted": trusted_valid,
             "manifest_signer_trusted": manifest_signer_trusted,
-            "signer_trust_source": "export-manifest-and-external-policy" if checkpoint_key_policy is not None else "export-manifest",
+            "signer_trust_source": "export-manifest-and-external-policy" if checkpoint_key_policy is not None or checkpoint_policy_store is not None else "export-manifest",
             "checkpoint_key_policy": policy_result,
             "checkpoint_timestamp": timestamp_result,
             "signer_key_id": signed.key_id,

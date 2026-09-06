@@ -4,6 +4,17 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: authenticated checkpoint policy updates
+
+- scoped Ed25519 policy envelopes authenticated against independent issuer trust;
+- separate issuer/checkpoint keys, strict bounded parsing, and current-clock freshness;
+- transactional verifier-owned revision store with lower-revision and equal-revision conflict rejection;
+- reauthentication on every use, explicit initialization, and issuer rotation without resetting the revision floor;
+- optional independent minimum revision for recovery from older whole-store backups;
+- export, verification, and replay enforcement with separate authentication reports;
+- offline sign/trust/accept/show CLI, synthetic self-test, and 66 focused tests;
+- extracted-package assurance gates; no new dependencies or deployed update service.
+
 ### Unreleased: external checkpoint timestamps
 
 - RFC 3161 SHA-256 requests binding the complete signed checkpoint and tenant/case identity;

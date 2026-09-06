@@ -122,6 +122,7 @@ def load_key_policy(path: str | Path) -> dict[str, Any]:
 
 
 def key_policy_report(status: str = "NOT_RUN") -> dict[str, Any]:
+    from v17_policy_distribution import authentication_report
     return {
         "schema": KEY_POLICY_REPORT_SCHEMA, "status": status,
         "trust_source": "verifier-supplied-policy", "policy_id": None,
@@ -129,6 +130,7 @@ def key_policy_report(status: str = "NOT_RUN") -> dict[str, Any]:
         "evaluated_at": None, "evaluation_time_source": None,
         "key_id": None, "key_state": None, "signature_valid": None,
         "historical_signing_time_proven": False, "findings": [],
+        "authentication": authentication_report(status),
     }
 
 
@@ -136,6 +138,8 @@ def evaluate_key_policy(
     policy: Any, *, signed_checkpoint: SignedLedgerCheckpoint,
     tenant_id: str, case_id: str, evaluated_at: str | None = None,
     expected_policy_sha256: str | None = None, required: bool = False,
+    policy_store: str | Path | None = None, issuer_trust: Any = None,
+    require_authenticated: bool = False, minimum_revision: int | None = None,
 ) -> dict[str, Any]:
     """Intersect key identity, scope, current state, validity, and signature.
 
@@ -147,6 +151,29 @@ def evaluate_key_policy(
 
     def fail(code, detail):
         report["findings"].append({"code": code, "detail": detail})
+
+    from v17_policy_distribution import PolicyUpdateError, authentication_report, load_policy_store
+    if policy_store is not None:
+        try:
+            _require(policy is None, "raw key policy and authenticated policy store are mutually exclusive")
+            authenticated = load_policy_store(policy_store, issuer_trust, minimum_revision=minimum_revision)
+            policy = authenticated["policy"]
+            report["authentication"] = authenticated["authentication"]
+            report["trust_source"] = "authenticated-policy-store"
+        except (OSError, ValueError, TypeError) as exc:
+            code = exc.code if isinstance(exc, PolicyUpdateError) else "policy_store_unavailable"
+            report["authentication"] = authentication_report("FAIL")
+            report["authentication"]["findings"].append({"code": code, "detail": str(exc)})
+            fail("key_policy_authentication_failed", code)
+            report["status"] = "FAIL"
+            return report
+    elif require_authenticated or issuer_trust is not None or minimum_revision is not None:
+        report["authentication"] = authentication_report("FAIL")
+        fail("authenticated_policy_required", "an authenticated policy store and issuer trust are required")
+        report["status"] = "FAIL"
+        return report
+    else:
+        report["authentication"] = authentication_report("NOT_CONFIGURED")
 
     if policy is None:
         if required or expected_policy_sha256 is not None or evaluated_at is not None:
@@ -208,16 +235,26 @@ def evaluate_key_policy(
 
 
 def add_key_policy_arguments(parser) -> None:
-    parser.add_argument("--checkpoint-key-policy", help="External verifier-controlled checkpoint key policy JSON")
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument("--checkpoint-key-policy", help="External verifier-controlled checkpoint key policy JSON")
+    source.add_argument("--checkpoint-policy-store", help="External authenticated checkpoint-policy SQLite store")
+    parser.add_argument("--policy-issuer-trust", help="Independently approved issuer keys and policy scope JSON")
+    parser.add_argument("--require-authenticated-key-policy", action="store_true")
+    parser.add_argument("--minimum-policy-revision", type=int, help="Independent minimum accepted policy revision")
     parser.add_argument("--require-checkpoint-key-policy", action="store_true")
     parser.add_argument("--policy-evaluation-time", help="Explicit UTC evaluation time; default: current system UTC")
     parser.add_argument("--expected-key-policy-sha256", help="Pin the canonical SHA-256 of the externally approved policy")
 
 
 def key_policy_options(args) -> dict[str, Any]:
+    from v17_policy_distribution import load_issuer_trust
     return {
         "checkpoint_key_policy": load_key_policy(args.checkpoint_key_policy) if args.checkpoint_key_policy else None,
         "require_checkpoint_key_policy": args.require_checkpoint_key_policy,
         "key_policy_evaluated_at": args.policy_evaluation_time,
         "expected_key_policy_sha256": args.expected_key_policy_sha256,
+        "checkpoint_policy_store": args.checkpoint_policy_store,
+        "policy_issuer_trust": load_issuer_trust(args.policy_issuer_trust) if args.policy_issuer_trust else None,
+        "require_authenticated_key_policy": args.require_authenticated_key_policy,
+        "minimum_policy_revision": args.minimum_policy_revision,
     }

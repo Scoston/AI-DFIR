@@ -54,6 +54,12 @@ TIMESTAMP_PACKAGE_PATHS = {
     "tests/test_v17_timestamps.py", "docs/reference/CHECKPOINT_TIMESTAMPS_V1.7.md",
 }
 
+POLICY_DISTRIBUTION_PACKAGE_PATHS = {
+    "v17_policy_distribution.py", "checkpoint_policy_v17.py",
+    "v17_policy_distribution_selftest.py", "tests/test_v17_policy_distribution.py",
+    "docs/reference/CHECKPOINT_POLICY_UPDATES_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -238,6 +244,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_timestamps = bool(TIMESTAMP_PACKAGE_PATHS & set(expected))
         if has_timestamps and not TIMESTAMP_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint timestamp package support")
+        has_policy_distribution = bool(POLICY_DISTRIBUTION_PACKAGE_PATHS & set(expected))
+        if has_policy_distribution and not POLICY_DISTRIBUTION_PACKAGE_PATHS.issubset(expected):
+            raise ReleaseCandidateError("incomplete authenticated policy update package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -269,6 +278,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_provenance": has_provenance,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
+            "has_policy_distribution": has_policy_distribution,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -335,6 +345,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):
         required_assurance.update(v17_timestamp_selftest="PASS", v17_timestamp_regression_tests=68)
+    if zip_result.get("has_policy_distribution"):
+        required_assurance.update(v17_policy_distribution_selftest="PASS", v17_policy_distribution_regression_tests=66)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")

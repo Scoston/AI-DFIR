@@ -39,13 +39,17 @@ its ID, revision, canonical SHA-256, evaluation time, and time source. An option
 expected SHA-256 pins the exact approved snapshot, preventing substitution of
 an older active-key policy when a newer revoked-key policy was expected.
 
-The revision is audit metadata, not an automatically enforced monotonic counter.
-There is no online revocation lookup, persisted revision database, or signed
-policy distribution service. A still-unexpired old snapshot can be accepted if
-the caller supplies it without a current hash pin. Deployments must protect and
-refresh policy inputs and the expected digest through their own trusted process.
+For a raw policy supplied directly, revision is audit metadata without an
+automatically enforced monotonic counter. A still-unexpired old snapshot can be
+accepted if the caller supplies it without a current hash pin. Deployments must
+protect and refresh raw inputs and expected digests through their trusted process.
 Computing the expected digest from an untrusted file at verification time does
 not create an independent approval.
+
+The separate unreleased [authenticated policy update profile](CHECKPOINT_POLICY_UPDATES_V1.7.md)
+adds independent issuer signatures and a persisted transactional revision store.
+Use its store and authentication requirement when signed updates and rollback
+rejection are mandatory. Neither profile retrieves revocation data online.
 
 ## Lifecycle and time semantics
 
@@ -179,5 +183,6 @@ CLIs. The synthetic self-test participates in the quick and full release gates.
 New release candidates must include the module, tests, documentation, and passing
 policy assurance results. Already published packages retain their prior contract.
 
-This profile does not manage private keys, configure an HSM, authenticate policy
-distribution, claim a trusted timestamp, or refresh revocation data over a network.
+This base profile does not manage private keys, configure an HSM, claim a trusted
+timestamp, or refresh revocation data over a network. Authentication of delivered
+policy packages is provided by the separate update profile linked above.

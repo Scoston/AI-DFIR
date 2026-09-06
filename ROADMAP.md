@@ -25,9 +25,15 @@ and CA trust, offline cryptographic receipt verification, and case/replay gates.
 See [Checkpoint timestamps](docs/reference/CHECKPOINT_TIMESTAMPS_V1.7.md).
 Acceptance uses an ephemeral synthetic TSA; no external service is deployed.
 
+Authenticated policy packages and persistent revision rollback protection are
+implemented in development. An independent issuer signs scoped policies; a
+verifier-owned transactional store rejects older/conflicting revisions and
+reauthenticates each use. Backup recovery can require an independently retained
+revision floor. See [Authenticated policy updates](docs/reference/CHECKPOINT_POLICY_UPDATES_V1.7.md).
+
 ## Future work
 
-- authenticated checkpoint-policy distribution and independently timestamped historical key-trust decisions;
+- online checkpoint-policy delivery, issuer governance/quorum, and independently timestamped historical key-trust decisions;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
 

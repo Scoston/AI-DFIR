@@ -76,6 +76,15 @@ def render_verification_report(report: dict[str, Any]) -> str:
         ])
 
     timestamp = report.get("checkpoint_timestamp") or {}
+    authentication = policy.get("authentication") or {}
+    if authentication.get("status") in {"PASS", "FAIL"}:
+        lines.extend([
+            f"Key-policy authentication: {_display(authentication.get('status'))}",
+            f"Policy issuer key ID: {_display(authentication.get('issuer_key_id'))}",
+            f"Signed policy SHA-256: {_display(authentication.get('envelope_sha256'))}",
+            f"Policy accepted at: {_display(authentication.get('accepted_at'))}",
+            f"Policy rollback protection: {_display(authentication.get('rollback_protection'))}",
+        ])
     if timestamp.get("status") in {"PASS", "FAIL"}:
         lines.extend([
             f"Timestamp request SHA-256: {_display(timestamp.get('request_sha256'))}",
