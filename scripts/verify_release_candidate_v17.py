@@ -85,6 +85,11 @@ DELIVERY_IDENTITY_PACKAGE_PATHS = {
     "tests/test_v17_delivery_identity.py", "docs/reference/POLICY_DELIVERY_MTLS_V1.7.md",
 }
 
+POLICY_SYNC_PACKAGE_PATHS = {
+    "v17_policy_sync.py", "checkpoint_sync_v17.py", "v17_policy_sync_selftest.py",
+    "tests/test_v17_policy_sync.py", "docs/reference/POLICY_SYNC_SCHEDULING_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -287,6 +292,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_delivery_identity = bool(DELIVERY_IDENTITY_PACKAGE_PATHS & set(expected))
         if has_delivery_identity and not (DELIVERY_IDENTITY_PACKAGE_PATHS | POLICY_DELIVERY_PACKAGE_PATHS | POLICY_GOVERNANCE_PACKAGE_PATHS | POLICY_QUORUM_PACKAGE_PATHS | POLICY_DISTRIBUTION_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete policy delivery client-identity package support")
+        has_policy_sync = bool(POLICY_SYNC_PACKAGE_PATHS & set(expected))
+        if has_policy_sync and not (POLICY_SYNC_PACKAGE_PATHS | DELIVERY_IDENTITY_PACKAGE_PATHS | POLICY_DELIVERY_PACKAGE_PATHS | POLICY_GOVERNANCE_PACKAGE_PATHS | POLICY_QUORUM_PACKAGE_PATHS | POLICY_DISTRIBUTION_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete policy synchronization scheduling package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -324,6 +332,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_policy_delivery": has_policy_delivery,
             "has_key_trust_history": has_key_trust_history,
             "has_delivery_identity": has_delivery_identity,
+            "has_policy_sync": has_policy_sync,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -402,6 +411,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_key_trust_history_selftest="PASS", v17_key_trust_history_regression_tests=85)
     if zip_result.get("has_delivery_identity"):
         required_assurance.update(v17_delivery_identity_selftest="PASS", v17_delivery_identity_regression_tests=80)
+    if zip_result.get("has_policy_sync"):
+        required_assurance.update(v17_policy_sync_selftest="PASS", v17_policy_sync_regression_tests=85)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")

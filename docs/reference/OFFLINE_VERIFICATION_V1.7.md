@@ -50,6 +50,13 @@ the final root/policy together. Verification commands never invoke delivery or
 fall back to the network. A delivery receipt is not a trusted timestamp or proof
 that no newer policy exists.
 
+The separate [scheduling profile](POLICY_SYNC_SCHEDULING_V1.7.md) can run approved
+updates before or alongside verification. Case verification never starts or
+waits for a scheduler and still authenticates the local store on every use.
+An offline configuration check or a scheduler's clean shutdown does not prove
+current policy freshness or successful delivery; inspect the individual attempt
+and the case verifier's own current-authority result.
+
 The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
 accepts retained RFC 3161 requests/responses plus verifier-controlled TSA trust.
 Use `--require-checkpoint-timestamp` where external anchoring is mandatory. Its

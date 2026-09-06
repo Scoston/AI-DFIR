@@ -59,6 +59,14 @@ all signed-policy controls. The receipt distinguishes configured credentials
 from proof of publisher enforcement. See
 [Client certificate authentication](docs/reference/POLICY_DELIVERY_MTLS_V1.7.md).
 
+Controlled policy synchronization scheduling is implemented in development:
+operator-owned JSON jobs, independent per-store anchor pins, offline preflight,
+explicit single-pass/watch commands, completion-based monotonic deadlines,
+bounded backoff/jitter, per-job results, and graceful shutdown. Timing state is
+process-local; accepted policy remains persistent. Acceptance uses synthetic
+loopback services; deployment and supervision remain operator responsibilities.
+See [Policy synchronization scheduling](docs/reference/POLICY_SYNC_SCHEDULING_V1.7.md).
+
 Timestamped historical key-trust records have an implemented bounded profile:
 authenticated store capture, complete issuer-chain/policy/checkpoint binding,
 independently pinned RFC 3161 receipt verification, and decision replay across
@@ -70,7 +78,7 @@ policy completeness and actual prior verifier execution are not proven. See
 ## Future work
 
 - complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
-- operated policy delivery services, additional deployment identity profiles beyond mTLS, and organizational synchronization scheduling;
+- operated policy delivery services, additional deployment identity profiles beyond mTLS, and durable/HA coordination beyond the controlled local scheduling profile;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
 

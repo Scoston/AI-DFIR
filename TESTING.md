@@ -331,3 +331,30 @@ The certificate and private keys exist only in temporary fixture storage.
 Release packaging requires the module, acceptance case, tests, guide, and their
 source/extracted results. Existing published release contracts remain intact.
 See [Client certificate authentication](docs/reference/POLICY_DELIVERY_MTLS_V1.7.md).
+
+## 19. Unreleased controlled policy synchronization scheduling
+
+```bash
+python v17_policy_sync_selftest.py
+python -m pytest tests/test_v17_policy_sync.py -q
+python scripts/release_check.py --full
+```
+
+The acceptance case runs an encrypted mTLS identity against a temporary loopback
+publisher, checks configuration without network access, accepts an authenticated
+update, rejects tampered policy through repeated retries, and recovers without
+resetting the governed store. It then verifies the case offline.
+
+The full gate adds 85 focused tests, bringing the v1.7 total to 820. Coverage
+includes independent anchor pins and revision floors, strict bounded/owned
+configuration, duplicate store aliases, monotonic completion deadlines, capped
+backoff/jitter, per-job failure isolation, configuration snapshots, credential
+revalidation, disabled jobs, restart behavior, nonoverlapping rounds, immediate
+attempt output, interrupted waits, and CLI result/exit semantics. POSIX file-mode
+and signal cases are explicitly skipped where those facilities are unsupported.
+
+All authorities, client keys, and endpoints are synthetic and temporary. No
+production schedule or external service is started. Release packaging requires
+the scheduler, CLI, self-test, tests, guide, and matching source/extracted-package
+assurance; earlier published package contracts remain valid. See
+[Policy synchronization scheduling](docs/reference/POLICY_SYNC_SCHEDULING_V1.7.md).

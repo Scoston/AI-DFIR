@@ -11,6 +11,10 @@ verifier systems. It validates protected credential files before network use and
 preserves the existing independent issuer and rollback checks. A configured client
 certificate is not proof that the publisher enforced client authorization.
 
+The separate [scheduling profile](POLICY_SYNC_SCHEDULING_V1.7.md) adds approved
+per-store jobs, offline configuration checks, and explicit recurring execution
+with bounded failure backoff. It calls the same authenticated acceptance path.
+
 ## What a successful synchronization establishes
 
 The client received one bounded response over certificate- and hostname-verified
