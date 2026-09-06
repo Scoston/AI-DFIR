@@ -1,10 +1,24 @@
 # Roadmap
 
-## Current release: v1.6.0
+## Current release: v1.7.0
 
-v1.6.0 delivers production-assurance controls on top of the model, runtime, agent, representation, A2A, stateful-agent, and distributed-enterprise layers. The current release includes evidence-backed platform assurance, provider certification, environment separation, chaos/failover result evaluation, hardened Kubernetes/container deployment patterns, release integrity/provenance controls, upgrade/rollback assurance, independent security-assessment gates, and 111 Evidence Packs.
+v1.7.0 adds signed investigation checkpoints, offline case verification, and
+committed-source release assurance to the earlier production-assurance controls.
+The current catalog contains 111 Evidence Packs.
+
+## Implemented in development, unreleased
+
+Investigation provenance/reference validation, evidence lineage validation,
+recorded AI/tool/analyst reconstruction, preserved-execution comparison, and two
+pure deterministic replay adapters. See
+[Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
+implemented profile and acceptance requirements.
 
 ## Future work
+
+- trusted checkpoint-key lifecycle and revocation policy;
+- external checkpoint anchoring and independently operated timestamp services;
+- additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
 
 - additional provider-specific raw-export parsers as vendors expose telemetry;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;

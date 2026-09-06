@@ -1,4 +1,4 @@
-# Testing AI-DFIR v1.6.0
+# Testing AI-DFIR
 
 AI-DFIR ships complementary validation layers. All bundled fixtures are synthetic and must not contain production credentials or customer evidence.
 
@@ -75,9 +75,9 @@ See `PRODUCTION_READINESS_V1.6.md`.
 See `docs/demo/README.md` and `docs/reference/TEST_SCENARIO_CATALOG.md` for a reproducible synthetic walkthrough.
 
 
-## 8. v1.7 development: offline verification assurance
+## 8. v1.7 offline verification assurance
 
-The v1.7 development line adds a separate assurance layer for third-party verification of signed case exports. Run:
+The v1.7 line includes a separate assurance layer for third-party verification of signed case exports. Run:
 
 ```bash
 python -m pytest tests/test_v17_verification_assurance.py -q
@@ -97,14 +97,15 @@ python -m pytest tests/test_v17_release_candidate.py -q
 python v17_release_candidate_selftest.py
 ```
 
-The full v1.7 regression gate now contains **56 tests**. To exercise the actual packaged artifact without changing the repository's stable v1.6.0 publication metadata:
+The published v1.7 integrity/release baseline contains **56 tests**. To exercise
+packaging of committed development changes under a local candidate version:
 
 ```bash
-AI_DFIR_RELEASE_TAG=v1.7.0-rc1 python scripts/package_release.py \
-  --out-dir /tmp/AI-DFIR-v1.7.0-rc1-release
+AI_DFIR_RELEASE_TAG=v1.7.1-rc1 python scripts/package_release.py \
+  --out-dir /tmp/AI-DFIR-v1.7.1-rc1-release
 python scripts/verify_release_candidate_v17.py \
-  --release-dir /tmp/AI-DFIR-v1.7.0-rc1-release \
-  --version 1.7.0-rc1
+  --release-dir /tmp/AI-DFIR-v1.7.1-rc1-release \
+  --version 1.7.1-rc1
 ```
 
 The packaged ZIP is extracted and subjected to the full release gate. The v1.7 release verifier independently validates `SHA256SUMS`, the package manifest, source-commit binding, SBOM application version, release-validation metadata, and release-candidate assurance metadata.
@@ -116,3 +117,19 @@ See `docs/reference/RELEASE_ASSURANCE_V1.7.md`.
 The packager-generated `SHA256SUMS` covers the packager-owned release assets. GitHub's SLSA provenance job subsequently adds `multiple.intoto.jsonl`, so published-release verification treats that exact filename as a separately scoped external provenance sidecar.
 
 The verifier still rejects arbitrary unlisted files, malformed provenance JSONL, missing checksum entries, and modified checksummed assets. The release workflow re-downloads the complete published v1.7 release and verifies that final surface after asset publication.
+
+## 10. Unreleased investigation provenance and replay
+
+```bash
+python v17_provenance_selftest.py
+python -m pytest tests/test_v17_provenance_replay.py -q
+```
+
+The quick gate includes the self-test. The full gate additionally requires all
+30 provenance/replay regressions (86 v1.7 tests in total). Cases cover broken
+references, record modification, cross-case substitution, missing ledger
+commitments, cyclic lineage, UTC timestamps, sensitive-context controls,
+duplicate JSON keys, omitted profiles, offline reconstruction, recorded comparison,
+and failed/unsupported deterministic replay. The extracted-package gate requires
+the same acceptance results. See
+[Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md).

@@ -4,6 +4,20 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: investigation provenance and replay
+
+- typed, domain-separated provenance records bound to the signed ledger;
+- exported evidence hashes, acyclic lineage, AI/tool references, and analyst target validation;
+- references-only context policy with explicit review for retained structured output;
+- offline recorded reconstruction and comparison of separately preserved AI executions;
+- fixed local RFC 8785 and provider-normalization replay adapters;
+- fail-closed handling of missing profiles, modified records, and unsupported replay;
+- synthetic acceptance self-test and 30 provenance/replay regression tests;
+- quick/full gate and extracted-package assurance integration;
+- analyst instructions and corrected architecture/roadmap status.
+
+### Published v1.7.0
+
 - append-only investigation ledger integrity with deterministic checkpoint hashing;
 - Ed25519-signed investigation checkpoints;
 - explicit separation of signature validity from signer trust;

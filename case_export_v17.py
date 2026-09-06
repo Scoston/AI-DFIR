@@ -34,6 +34,10 @@ from v17_signing import (
     key_id_from_public_key_bytes,
     verify_signed_checkpoint,
 )
+from v17_provenance import (
+    MAX_PROVENANCE_BYTES, PROVENANCE_PATH, ProvenanceError, validate_provenance,
+)
+from v17_reconstruction import reconstruct, strict_json
 
 
 OFFLINE_EXPORT_SCHEMA = "ai-dfir/offline-case-export/v1.7"
@@ -387,6 +391,7 @@ def export_case(
     signed_checkpoint: SignedLedgerCheckpoint,
     trusted_public_keys: Mapping[str, bytes],
     include_evidence: bool = False,
+    provenance: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Create a v1.5-compatible signed export containing v1.7 verification state."""
     if ledger.case_id != case_id:
@@ -426,6 +431,26 @@ def export_case(
             signed_checkpoint=signed_checkpoint,
             trusted_public_keys=trusted_public_keys,
         )
+        provenance_path = staged / PROVENANCE_PATH
+        if provenance is not None:
+            provenance_path.write_text(json.dumps(provenance, ensure_ascii=False), encoding="utf-8")
+        if provenance_path.exists():
+            if provenance_path.stat().st_size > MAX_PROVENANCE_BYTES:
+                raise ProvenanceError("provenance exceeds size limit")
+            profile = strict_json(provenance_path.read_bytes())
+            inventory = {}
+            for item in staged.rglob("*"):
+                if not item.is_file() or "__pycache__" in item.parts:
+                    continue
+                rel = item.relative_to(staged).as_posix()
+                # Match v1.5 export selection so omitted evidence cannot be
+                # represented as verified simply because it exists locally.
+                if not include_evidence and any(x in rel for x in ("02_checkpoint", "04_activations", "17_representation_intake")):
+                    continue
+                inventory[rel] = {"sha256": _sha256_file(item)}
+            validate_provenance(profile, case_id=case_id, ledger=ledger, files=inventory)
+        elif any("provenance_type" in event.payload for event in ledger.events):
+            raise ProvenanceError("ledger commitments require an investigation provenance profile")
         base = export_case_v15(
             staged,
             tenant_id,
@@ -605,6 +630,7 @@ def _failure_report(
         "artifact_integrity": "NOT_RUN",
         "ledger_integrity": "NOT_RUN",
         "checkpoint_integrity": "NOT_RUN",
+        "provenance_integrity": "NOT_RUN",
         "signature_valid": False,
         "signer_trusted": False,
         "findings": findings,
@@ -621,6 +647,9 @@ def verify_case(
     max_total_uncompressed: int = DEFAULT_MAX_TOTAL_UNCOMPRESSED,
     max_member_uncompressed: int = DEFAULT_MAX_MEMBER_UNCOMPRESSED,
     max_compression_ratio: float = DEFAULT_MAX_COMPRESSION_RATIO,
+    require_provenance: bool = False,
+    include_reconstruction: bool = False,
+    replay_transforms: bool = False,
 ) -> dict[str, Any]:
     """Verify a v1.7 case export using local files only."""
     path = Path(zip_path)
@@ -791,6 +820,44 @@ def verify_case(
             )
 
         checkpoint_valid = not checkpoint_errors
+        provenance_status = "NOT_PRESENT"
+        reconstruction = None
+        if PROVENANCE_PATH in names:
+            provenance_status = "NOT_RUN"
+            # Interpret records only after the manifest, bytes, and signed
+            # ledger pass, using this same archive handle and parsed ledger.
+            if export_status == "PASS" and combined_valid and checkpoint_valid:
+                try:
+                    verified_files = {row["path"]: row for row in payload["files"]}
+
+                    def read_verified_member(member):
+                        info = archive.getinfo(member)
+                        if info.file_size > MAX_PROVENANCE_BYTES:
+                            raise ProvenanceError("provenance/replay member exceeds size limit")
+                        raw = archive.read(info)
+                        if hashlib.sha256(raw).hexdigest() != verified_files[member]["sha256"]:
+                            raise ProvenanceError("member changed after inventory verification")
+                        return raw
+
+                    profile = strict_json(read_verified_member(PROVENANCE_PATH))
+                    index = validate_provenance(
+                        profile, case_id=case_id, ledger=ledger,
+                        files=verified_files,
+                    )
+                    provenance_status = "PASS"
+                    if include_reconstruction or replay_transforms:
+                        reconstruction = reconstruct(
+                            profile, index, ledger, read_artifact=read_verified_member,
+                            replay_transforms=replay_transforms,
+                        )
+                except (ProvenanceError, ValueError, TypeError, KeyError, RecursionError) as exc:
+                    provenance_status = "FAIL"
+                    findings.append(_finding("investigation_provenance_invalid", error=str(exc)))
+        elif (require_provenance or include_reconstruction or replay_transforms
+              or any("provenance_type" in event.payload for event in ledger.events)):
+            provenance_status = "FAIL"
+            findings.append(_finding("investigation_provenance_missing"))
+
         overall = (
             export_status == "PASS"
             and ledger_valid
@@ -798,9 +865,10 @@ def verify_case(
             and signature_valid
             and trusted_valid
             and combined_valid
+            and provenance_status in {"PASS", "NOT_PRESENT"}
         )
 
-        return {
+        report = {
             "schema": OFFLINE_VERIFICATION_SCHEMA,
             "status": "PASS" if overall else "FAIL",
             "valid": overall,
@@ -821,6 +889,7 @@ def verify_case(
             ),
             "ledger_integrity": "PASS" if ledger_valid else "FAIL",
             "checkpoint_integrity": "PASS" if checkpoint_valid else "FAIL",
+            "provenance_integrity": provenance_status,
             "checkpoint_hash": signed.checkpoint.checkpoint_hash,
             "signature_valid": signature_valid,
             "signer_trusted": trusted_valid,
@@ -831,6 +900,9 @@ def verify_case(
                 set(ledger_errors + checkpoint_errors + signature_errors + combined_errors)
             ),
         }
+        if overall and reconstruction is not None:
+            report["reconstruction"] = reconstruction
+        return report
 
 
 def _load_ledger(path: Path, case_id: str) -> InvestigationLedger:
@@ -867,6 +939,7 @@ def main() -> int:
     create.add_argument("--trusted-signers", required=True)
     create.add_argument("--out", required=True)
     create.add_argument("--include-evidence", action="store_true")
+    create.add_argument("--provenance", help="Optional validated investigation provenance JSON")
 
     verify = sub.add_parser("verify")
     verify.add_argument("--zip", required=True)
@@ -874,6 +947,7 @@ def main() -> int:
     verify.add_argument("--tenant")
     verify.add_argument("--case")
     verify.add_argument("--out")
+    verify.add_argument("--require-provenance", action="store_true")
     verify.add_argument(
         "--max-members",
         type=int,
@@ -915,6 +989,7 @@ def main() -> int:
                 signed_checkpoint=_load_signed_checkpoint(Path(args.signed_checkpoint)),
                 trusted_public_keys=_load_trust_store(Path(args.trusted_signers)),
                 include_evidence=args.include_evidence,
+                provenance=strict_json(Path(args.provenance).read_bytes()) if args.provenance else None,
             )
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0
@@ -924,6 +999,7 @@ def main() -> int:
             args.export_public_key,
             expected_tenant=args.tenant,
             expected_case=args.case,
+            require_provenance=args.require_provenance,
             max_members=args.max_members,
             max_total_uncompressed=int(
                 args.max_total_uncompressed_gib
