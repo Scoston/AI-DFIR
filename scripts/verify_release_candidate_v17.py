@@ -44,6 +44,11 @@ PROVENANCE_PACKAGE_PATHS = {
     "docs/reference/INVESTIGATION_REPLAY_V1.7.md",
 }
 
+PACK_REPLAY_PACKAGE_PATHS = {
+    "v17_pack_replay.py", "pack_replay_v17.py", "v17_pack_replay_selftest.py",
+    "tests/test_v17_pack_replay.py", "docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -268,6 +273,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_provenance = bool(PROVENANCE_PACKAGE_PATHS & set(expected))
         if has_provenance and not PROVENANCE_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete provenance/replay package support")
+        has_pack_replay = bool(PACK_REPLAY_PACKAGE_PATHS & set(expected))
+        if has_pack_replay and not (PACK_REPLAY_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"evidence_quality.py", "evidence_pack_engine.py"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete Evidence Pack gate-replay package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -324,6 +332,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         return {
             "source_commit": source_commit,
             "has_provenance": has_provenance,
+            "has_pack_replay": has_pack_replay,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -395,6 +404,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
     # verification contract, while requiring the new gates when it is shipped.
     if zip_result.get("has_provenance"):
         required_assurance.update(v17_provenance_selftest="PASS", v17_provenance_regression_tests=30)
+    if zip_result.get("has_pack_replay"):
+        required_assurance.update(v17_pack_replay_selftest="PASS", v17_pack_replay_regression_tests=96)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):

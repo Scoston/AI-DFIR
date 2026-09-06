@@ -2,6 +2,11 @@
 
 ## Purpose
 
+The unreleased [Evidence Pack gate replay](EVIDENCE_PACK_REPLAY_V1.7.md) adapter
+can compare retained rules and recorded quality states during signed-case
+reconstruction. It never reacquires evidence. A case can pass integrity checks
+while its recorded gate calculation fails replay; inspect both results.
+
 AI-DFIR v1.7 extends the v1.5 signed case-export ZIP format with an investigation ledger, checkpoint, signed checkpoint, and checkpoint-signer trust state that can be verified without network access.
 
 The assurance goal is not merely that AI-DFIR can reopen its own export. The goal is that a separate reviewer can receive the exported ZIP and an independently obtained export public key, run the verifier from a detached working directory, and produce a durable verification report.

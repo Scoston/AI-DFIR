@@ -115,7 +115,7 @@
     {
       "category": "network",
       "condition": "Impact, exfiltration, URL, suspicious-IP, or tool-network activity is in scope.",
-      "id": "network",
+      "id": "network_context",
       "presence_patterns": [
         "*proxy*.json*",
         "*dns*.json*",

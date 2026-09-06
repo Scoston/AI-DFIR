@@ -4,6 +4,16 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: recorded Evidence Pack conclusion-gate replay
+
+- a fixed offline adapter reproduces the existing gate calculation from exact retained pack rules and complete recorded quality states;
+- explicit canonical pack/case binding, bounded schemas, alias/quality-threshold handling, and separate replay-versus-conclusion status;
+- prepare/verify CLI, immutable retained assessments, exclusive snapshot creation, and signed-case reconstruction integration;
+- shared pure gate calculation preserves existing assessment behavior without rescanning files or executing pack-supplied code;
+- 96 focused tests, all-111-pack catalog coverage, synthetic signed-case acceptance, and source/extracted-package assurance;
+- the Kubernetes exposure pack now uses `network_context` for its conditional network artifact, removing a duplicate ID while keeping the mandatory `network` gate binding;
+- no new dependencies or raw-evidence quality revalidation; historical ambiguous snapshots are rejected rather than silently rewritten.
+
 ### Unreleased: controlled policy synchronization scheduling
 
 - strict operator-owned job definitions with separate store paths, approved anchor pins, HTTPS endpoints, and optional mTLS inputs;

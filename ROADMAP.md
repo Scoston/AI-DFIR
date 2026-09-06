@@ -10,9 +10,17 @@ The current catalog contains 111 Evidence Packs.
 
 Investigation provenance/reference validation, evidence lineage validation,
 recorded AI/tool/analyst reconstruction, preserved-execution comparison, and two
-pure deterministic replay adapters. See
+pure deterministic replay adapters, plus the recorded Evidence Pack gate adapter
+below. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
+
+Evidence Pack conclusion-gate replay is implemented in development: retained pack
+rules, complete recorded quality states, canonical pack binding, strict bounded
+inputs, and offline comparison within signed case reconstruction. Its pure gate
+calculation is shared with the assessment engine. All 111 current catalog packs
+fit the profile; raw evidence quality is not reassessed or implicitly approved.
+See [Evidence Pack gate replay](docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md).
 
 Verifier-controlled checkpoint key lifecycle is also implemented in development:
 active/retired/revoked states, validity windows, tenant/case scope, rotation
@@ -80,7 +88,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
 - operated policy delivery services, additional deployment identity profiles beyond mTLS, and durable/HA coordination beyond the controlled local scheduling profile;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
-- additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
+- additional deterministic parser and raw-evidence reassessment adapters beyond recorded gate replay, plus authorized live comparison orchestration;
 
 - additional provider-specific raw-export parsers as vendors expose telemetry;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;

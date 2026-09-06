@@ -75,9 +75,9 @@
     {
       "coverage_end_utc": "2026-08-24T17:00:00Z",
       "coverage_start_utc": "2026-08-24T15:00:00Z",
-      "logical_name": "network",
-      "relative_path": "networkproxynetwork.jsonnetwork",
-      "sha256": "dada59776b02b816d4df7a64848755de254873061ba14927c960efcd2fff3ecb",
+      "logical_name": "network_context",
+      "relative_path": "network_contextproxynetwork_context.jsonnetwork_context",
+      "sha256": "8d30ec9e21e3295680fb4b97aeb539b2f76a4b1dcd67da9d69025fc3eaeb5f13",
       "source_type": "synthetic-test"
     },
     {
