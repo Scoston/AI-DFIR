@@ -4,6 +4,7 @@ import copy
 import json
 import socket
 import sqlite3
+import ssl
 import subprocess
 import sys
 import time
@@ -71,6 +72,7 @@ def cli(*args):
 def test_https_update_records_transport_and_preserves_offline_case_verification(fixture, tmp_path, monkeypatch):
     raw = canonical_json_bytes(bundle(fixture))
     with synthetic_https(tmp_path / "tls", raw) as server:
+        assert server.socket.context.minimum_version >= ssl.TLSVersion.TLSv1_2
         result = sync(fixture, server)
         assert result["status"] == "ACCEPTED" and result["network_performed"]
         receipt = result["delivery"]
