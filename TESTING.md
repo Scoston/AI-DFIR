@@ -126,10 +126,30 @@ python -m pytest tests/test_v17_provenance_replay.py -q
 ```
 
 The quick gate includes the self-test. The full gate additionally requires all
-30 provenance/replay regressions (86 v1.7 tests in total). Cases cover broken
+30 provenance/replay regressions (86 integrity/provenance tests). Cases cover broken
 references, record modification, cross-case substitution, missing ledger
 commitments, cyclic lineage, UTC timestamps, sensitive-context controls,
 duplicate JSON keys, omitted profiles, offline reconstruction, recorded comparison,
 and failed/unsupported deterministic replay. The extracted-package gate requires
 the same acceptance results. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md).
+
+## 11. Unreleased checkpoint key lifecycle policy
+
+```bash
+python v17_key_policy_selftest.py
+python -m pytest tests/test_v17_key_policy.py -q
+```
+
+The quick gate includes the offline acceptance self-test. The full gate adds 57
+focused key-policy tests, for 143 v1.7 tests in total. They cover active/retired/
+revoked keys, rotation overlap, exact validity boundaries, inconsistent signing
+time claims, current clock evaluation, tenant/case scope, pinned-policy rollback
+attempts, embedded-policy rejection, missing required policy, bounded strict
+parsing, export refusal, and enforcement across all verification CLIs.
+
+Negative cases require valid signatures to remain distinguishable from denied
+key trust, require reconstruction to stop on policy failure, and verify that a
+passing policy cannot override invalid evidence or manifest signer trust.
+New extracted release packages must carry the same test and self-test results.
+See [Checkpoint key policy](docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md).

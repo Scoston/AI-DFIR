@@ -4,6 +4,17 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: checkpoint key lifecycle policy
+
+- external verifier-controlled key policy with active, retired, and revoked states;
+- UTC validity windows, tenant/case scope, deliberate rotation overlap, and optional canonical policy hash pinning;
+- separate cryptographic validity, manifest signer trust, and external policy decisions;
+- export and reconstruction refusal when required key policy fails;
+- consistent policy options across export, verification, and replay CLIs;
+- bounded, strict policy parsing and 57 focused positive/negative tests;
+- quick/full release gates and extracted-package assurance for the new profile;
+- explicit current-policy semantics without claiming historical signing-time proof.
+
 ### Unreleased: investigation provenance and replay
 
 - typed, domain-separated provenance records bound to the signed ledger;

@@ -14,9 +14,14 @@ pure deterministic replay adapters. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
 
+Verifier-controlled checkpoint key lifecycle is also implemented in development:
+active/retired/revoked states, validity windows, tenant/case scope, rotation
+overlap, and optional policy digest pinning. See
+[Checkpoint key policy](docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md).
+
 ## Future work
 
-- trusted checkpoint-key lifecycle and revocation policy;
+- authenticated checkpoint-policy distribution and independently timestamped historical key-trust decisions;
 - external checkpoint anchoring and independently operated timestamp services;
 - additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
 

@@ -44,6 +44,11 @@ PROVENANCE_PACKAGE_PATHS = {
     "docs/reference/INVESTIGATION_REPLAY_V1.7.md",
 }
 
+KEY_POLICY_PACKAGE_PATHS = {
+    "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
+    "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -222,6 +227,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_provenance = bool(PROVENANCE_PACKAGE_PATHS & set(expected))
         if has_provenance and not PROVENANCE_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete provenance/replay package support")
+        has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
+        if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
+            raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -251,6 +259,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         return {
             "source_commit": source_commit,
             "has_provenance": has_provenance,
+            "has_key_policy": has_key_policy,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -313,6 +322,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
     # verification contract, while requiring the new gates when it is shipped.
     if zip_result.get("has_provenance"):
         required_assurance.update(v17_provenance_selftest="PASS", v17_provenance_regression_tests=30)
+    if zip_result.get("has_key_policy"):
+        required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")

@@ -145,6 +145,10 @@ def required_v17_paths() -> set[str]:
         "verify_case_v17.py",
         "v17_integrity.py",
         "v17_signing.py",
+        "v17_key_policy.py",
+        "v17_key_policy_selftest.py",
+        "tests/test_v17_key_policy.py",
+        "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
         "v17_provenance.py",
         "v17_reconstruction.py",
         "replay_case_v17.py",
@@ -236,6 +240,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_verification_assurance_selftest": "PASS",
         "v17_release_candidate_selftest": "PASS",
         "v17_provenance_selftest": "PASS",
+        "v17_key_policy_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -247,6 +252,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     provenance = checks.get("v17_provenance_regression")
     if not isinstance(provenance, dict) or provenance.get("status") != "PASS" or provenance.get("tests") != 30:
         raise RuntimeError("extracted package must pass all 30 provenance/replay regression tests")
+    key_policy = checks.get("v17_key_policy_regression")
+    if not isinstance(key_policy, dict) or key_policy.get("status") != "PASS" or key_policy.get("tests") != 57:
+        raise RuntimeError("extracted package must pass all 57 checkpoint key-policy regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -461,6 +469,8 @@ def main() -> None:
                 "v17_verification_assurance_selftest": "PASS",
                 "v17_provenance_selftest": "PASS",
                 "v17_provenance_regression_tests": 30,
+                "v17_key_policy_selftest": "PASS",
+                "v17_key_policy_regression_tests": 57,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

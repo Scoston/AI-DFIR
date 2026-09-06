@@ -12,6 +12,11 @@ v1.7.0 assets**. See [Investigation replay](docs/reference/INVESTIGATION_REPLAY_
 for evidence-reference validation, AI/tool/analyst reconstruction, supported pure
 transforms, and the synthetic acceptance case.
 
+The unreleased [checkpoint key policy](docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md)
+adds verifier-controlled key rotation, retirement, revocation, validity windows,
+and tenant/case scope. It reports cryptographic validity separately from current
+key trust and can require an independently supplied, pinned policy snapshot.
+
 AI incidents cross boundaries that conventional DFIR tools often treat separately. AI-DFIR is designed to answer:
 
 1. **What actually executed?** Model, agent, harness, tool implementation, workload, and provider.

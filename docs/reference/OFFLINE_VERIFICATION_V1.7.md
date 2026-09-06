@@ -8,12 +8,20 @@ The assurance goal is not merely that AI-DFIR can reopen its own export. The goa
 
 ## Trust model
 
-A v1.7 verification decision has two trust layers.
+A published v1.7 verification decision has two trust layers.
 
 1. **Export trust anchor.** The reviewer supplies the v1.5 export public key independently of the package. That key verifies `CASE_EXPORT_MANIFEST.signed.json`, which binds the exported files and the v1.7 verification metadata.
 2. **Checkpoint signer trust.** The manifest-bound v1.7 trust store identifies checkpoint public keys that are trusted for the investigation checkpoint. The checkpoint signature must be cryptographically valid and its signer must also be trusted.
 
 A valid signature is not the same thing as a trusted signer. The verifier reports those states separately.
+
+The unreleased [checkpoint key-policy extension](CHECKPOINT_KEY_POLICY_V1.7.md)
+adds an optional, independently supplied verifier policy. It can narrow the
+manifest-bound signer trust using lifecycle state, validity intervals, and
+tenant/case scope. Its identity, digest, and evaluation time are included in the
+report. An embedded policy cannot grant this authority. Deployments requiring
+this control must use `--require-checkpoint-key-policy` and provide an approved
+external policy; historical signing-time proof remains outside this profile.
 
 The package is not self-trusting. A public key copied from inside the package is not a substitute for the independently obtained export public key.
 
