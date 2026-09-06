@@ -57,6 +57,14 @@ result appears under `checkpoint_timestamp`, and a failed configured timestamp
 prevents reconstruction. TSA receipts do not override key revocation or evidence
 integrity failures. This profile is not present in published v1.7.0 assets.
 
+The unreleased [historical key-trust record profile](CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md)
+can additionally require a timestamped retained policy/issuer-chain decision.
+Its independent historical anchor and TSA inputs populate
+`checkpoint_key_trust_history`. Configuring it also requires a current
+authenticated policy store. A historical ALLOW never overrides current
+revocation, other verification gates, or a separately required checkpoint
+timestamp. A valid historical DENY is preserved but blocks reconstruction.
+
 The package is not self-trusting. A public key copied from inside the package is not a substitute for the independently obtained export public key.
 
 ## Package verification chain

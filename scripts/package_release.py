@@ -173,6 +173,11 @@ def required_v17_paths() -> set[str]:
         "v17_policy_delivery_selftest.py",
         "tests/test_v17_policy_delivery.py",
         "docs/reference/CHECKPOINT_POLICY_DELIVERY_V1.7.md",
+        "v17_key_trust_history.py",
+        "checkpoint_history_v17.py",
+        "v17_key_trust_history_selftest.py",
+        "tests/test_v17_key_trust_history.py",
+        "docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md",
         "v17_provenance.py",
         "v17_reconstruction.py",
         "replay_case_v17.py",
@@ -270,6 +275,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_policy_quorum_selftest": "PASS",
         "v17_policy_governance_selftest": "PASS",
         "v17_policy_delivery_selftest": "PASS",
+        "v17_key_trust_history_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -299,6 +305,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     delivery = checks.get("v17_policy_delivery_regression")
     if not isinstance(delivery, dict) or delivery.get("status") != "PASS" or delivery.get("tests") != 139:
         raise RuntimeError("extracted package must pass all 139 online policy delivery regression tests")
+    history = checks.get("v17_key_trust_history_regression")
+    if not isinstance(history, dict) or history.get("status") != "PASS" or history.get("tests") != 85:
+        raise RuntimeError("extracted package must pass all 85 historical key-trust regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -525,6 +534,8 @@ def main() -> None:
                 "v17_policy_governance_regression_tests": 87,
                 "v17_policy_delivery_selftest": "PASS",
                 "v17_policy_delivery_regression_tests": 139,
+                "v17_key_trust_history_selftest": "PASS",
+                "v17_key_trust_history_regression_tests": 85,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

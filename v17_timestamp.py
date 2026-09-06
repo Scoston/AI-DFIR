@@ -26,6 +26,8 @@ from v17_signing import SignedLedgerCheckpoint
 
 STATEMENT_SCHEMA = "ai-dfir/checkpoint-timestamp-statement/v1.7"
 RESULT_SCHEMA = "ai-dfir/checkpoint-timestamp-result/v1.7"
+SUBJECT_RESULT_SCHEMA = "ai-dfir/statement-timestamp-result/v1.7"
+MAX_STATEMENT_BYTES = 16 * 1024
 MAX_REQUEST_BYTES = 4096
 MAX_RESPONSE_BYTES = 1024 * 1024
 MAX_CA_BYTES = 256 * 1024
@@ -83,6 +85,12 @@ def prepare_timestamp_request(*, signed_checkpoint: SignedLedgerCheckpoint,
                               tsa_policy_oid: str | None = None) -> bytes:
     statement = checkpoint_timestamp_statement(signed_checkpoint=signed_checkpoint,
                                                tenant_id=tenant_id, case_id=case_id)
+    return prepare_statement_timestamp_request(statement=statement, tsa_policy_oid=tsa_policy_oid)
+
+
+def prepare_statement_timestamp_request(*, statement: bytes, tsa_policy_oid: str | None = None) -> bytes:
+    """Prepare this RFC 3161 request profile for an explicitly bound statement."""
+    statement = _bounded(statement, MAX_STATEMENT_BYTES, "statement")
     fields: dict[str, Any] = {
         "version": "v1", "message_imprint": {
             "hash_algorithm": {"algorithm": "sha256"},
@@ -131,7 +139,7 @@ def _imprint(value: Any, digest: bytes) -> None:
     _require(value["hash_algorithm"]["algorithm"].native == "sha256"
              and value["hash_algorithm"]["parameters"].native is None
              and value["hashed_message"].native == digest,
-             "timestamp_imprint_mismatch", "SHA-256 imprint does not bind this signed checkpoint and case")
+             "timestamp_imprint_mismatch", "SHA-256 imprint does not bind the expected statement")
 
 
 def _request(data: bytes, digest: bytes) -> Any:
@@ -235,12 +243,41 @@ def evaluate_checkpoint_timestamp(*, signed_checkpoint: SignedLedgerCheckpoint,
                                   expected_tsa_certificate_sha256: str | None = None,
                                   expected_timestamp_request_sha256: str | None = None,
                                   require_checkpoint_timestamp: bool = False) -> dict[str, Any]:
+    return _evaluate_timestamp(
+        lambda: checkpoint_timestamp_statement(signed_checkpoint=signed_checkpoint, tenant_id=tenant_id, case_id=case_id),
+        timestamp_request=timestamp_request, timestamp_response=timestamp_response, tsa_ca_pem=tsa_ca_pem,
+        expected_tsa_certificate_sha256=expected_tsa_certificate_sha256,
+        expected_timestamp_request_sha256=expected_timestamp_request_sha256,
+        require_timestamp=require_checkpoint_timestamp,
+    )
+
+
+def evaluate_statement_timestamp(*, statement: bytes, timestamp_request: bytes | None = None,
+                                 timestamp_response: bytes | None = None, tsa_ca_pem: bytes | None = None,
+                                 expected_tsa_certificate_sha256: str | None = None,
+                                 expected_timestamp_request_sha256: str | None = None) -> dict[str, Any]:
+    """Authenticate a timestamp on caller-bound bytes; this grants no policy authority."""
+    report = _evaluate_timestamp(
+        lambda: _bounded(statement, MAX_STATEMENT_BYTES, "statement"),
+        timestamp_request=timestamp_request, timestamp_response=timestamp_response, tsa_ca_pem=tsa_ca_pem,
+        expected_tsa_certificate_sha256=expected_tsa_certificate_sha256,
+        expected_timestamp_request_sha256=expected_timestamp_request_sha256, require_timestamp=True,
+    )
+    report["schema"] = SUBJECT_RESULT_SCHEMA
+    report["subject_binding_valid"] = report.pop("checkpoint_binding_valid")
+    report["subject_existence_attested"] = report.pop("checkpoint_existence_attested")
+    return report
+
+
+def _evaluate_timestamp(statement_factory, *, timestamp_request, timestamp_response, tsa_ca_pem,
+                        expected_tsa_certificate_sha256, expected_timestamp_request_sha256,
+                        require_timestamp) -> dict[str, Any]:
     report = timestamp_report()
     configured = any(value is not None for value in (
         timestamp_request, timestamp_response, tsa_ca_pem, expected_tsa_certificate_sha256,
         expected_timestamp_request_sha256,
     ))
-    if not configured and not require_checkpoint_timestamp:
+    if not configured and not require_timestamp:
         report["status"] = "NOT_CONFIGURED"
         return report
     try:
@@ -250,8 +287,7 @@ def evaluate_checkpoint_timestamp(*, signed_checkpoint: SignedLedgerCheckpoint,
         _require(isinstance(expected_tsa_certificate_sha256, str)
                  and _HEX.fullmatch(expected_tsa_certificate_sha256) is not None,
                  "timestamp_pin_invalid", "TSA certificate pin must be lowercase SHA-256 of its DER bytes")
-        statement = checkpoint_timestamp_statement(signed_checkpoint=signed_checkpoint,
-                                                   tenant_id=tenant_id, case_id=case_id)
+        statement = statement_factory()
         report["statement_sha256"] = sha256_bytes(statement)
         request = _request(timestamp_request, bytes.fromhex(report["statement_sha256"]))
         report["request_sha256"] = sha256_bytes(timestamp_request)

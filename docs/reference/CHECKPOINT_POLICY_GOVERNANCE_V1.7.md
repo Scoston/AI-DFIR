@@ -232,6 +232,12 @@ custodians; compromise of enough current issuer keys can still authorize a
 malicious successor. This profile adds no independent TSA, HSM, or human review
 service and does not establish historical checkpoint-key authorization.
 
+The separate [timestamped historical record profile](CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md)
+retains this signed chain with an approved policy and checkpoint decision, then
+verifies those inputs against an independent timestamp interval. It preserves
+current-policy checks for case use and does not prove complete historical
+revocation evidence or actual prior verifier execution.
+
 Protect both database and anchor. Restoring an older whole database is not
 detectable without an independently retained root or policy version floor; keep
 those floors outside the backup being restored. Retain both when tracking both

@@ -207,8 +207,8 @@ keys. It accepts a signed rotation, rejects a corrupted download without changin
 state, and verifies the case afterward with networking blocked. The 139 new
 regression tests cover transport failures, strict framing/parsing, signed-chain
 catch-up, expired-state recovery, conflicts/floors, atomic write failure,
-concurrency, CLI workflows, and offline composition. The full release gate now
-runs 570 v1.7 tests alongside 111 Evidence Packs and historical compatibility.
+concurrency, CLI workflows, and offline composition. At the delivery milestone,
+the full gate runs 570 v1.7 tests alongside 111 Evidence Packs and historical compatibility.
 Packaging repeats the gate from extracted committed source and requires delivery
 files and passing assurance; earlier published releases keep their old contract.
 

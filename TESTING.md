@@ -260,7 +260,7 @@ python scripts/release_check.py --full
 The quick gate uses a temporary loopback HTTPS server and ephemeral synthetic
 CA/private keys to deliver a signed rotation and policy, reject a tampered
 download, and then verify the case with network calls blocked. The full gate
-adds 139 tests, for 570 v1.7 regression tests alongside all 111 Evidence Packs,
+adds 139 tests, for a pre-history total of 570 v1.7 regression tests alongside all 111 Evidence Packs,
 19 synthetic domains, and historical compatibility checks.
 
 Tests cover complete-chain catch-up, expired intermediate/local state recovery,
@@ -275,3 +275,32 @@ be available to the test process. Packaging requires every delivery file and
 passing source/extracted regression and self-test assurance. Older published
 releases keep their original verification contract. See
 [Online policy delivery](docs/reference/CHECKPOINT_POLICY_DELIVERY_V1.7.md).
+
+## 17. Unreleased timestamped historical key-trust records
+
+```bash
+python v17_key_trust_history_selftest.py
+python -m pytest tests/test_v17_key_trust_history.py -q
+python scripts/release_check.py --full
+```
+
+The synthetic offline acceptance case timestamps an authenticated policy/root
+record, verifies it with independent trust, and then proves that a later current
+revocation blocks reconstruction. The full gate adds 85 tests, bringing the v1.7
+total to 655 alongside the 111 Evidence Packs and 19 synthetic detector domains.
+
+Correctly signed adversarial TSA responses exercise policy/root/key validity
+boundaries, subsecond accuracy, absent accuracy, interior decision changes, and
+future capture claims. Other cases cover modified or validly reissued policies,
+root quorum tampering, scope/checkpoint substitution, independent pins, nonce
+mixing, ordinary-checkpoint timestamp separation, and expired historical authority.
+Case/export/replay tests preserve current-policy, signer-trust, evidence-integrity,
+and checkpoint-timestamp gates; rejected exports preserve existing destinations.
+Strict bounded input parsing, partial configuration, empty explicit paths,
+capture/prepare/verify commands, and exclusive output creation are also covered.
+
+All authorities and signatures are synthetic; no external service is contacted.
+Packaging repeats the full gate on extracted committed source and requires all
+profile files and assurance fields, while keeping earlier published release
+contracts intact. See
+[Historical key-trust records](docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md).

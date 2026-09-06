@@ -10,6 +10,7 @@ from case_export_v17 import verify_case
 from verify_case_v17 import _runtime_report, exit_code_for_report
 from v17_key_policy import add_key_policy_arguments, key_policy_options
 from v17_timestamp import add_timestamp_arguments, timestamp_options
+from v17_key_trust_history import add_key_trust_history_arguments, key_trust_history_options
 
 
 def main() -> int:
@@ -22,6 +23,7 @@ def main() -> int:
     parser.add_argument("--replay-transforms", action="store_true", help="Replay supported pure transforms from preserved bytes")
     add_key_policy_arguments(parser)
     add_timestamp_arguments(parser)
+    add_key_trust_history_arguments(parser)
     args = parser.parse_args()
     try:
         report = verify_case(
@@ -30,6 +32,7 @@ def main() -> int:
             include_reconstruction=True, replay_transforms=args.replay_transforms,
             **key_policy_options(args),
             **timestamp_options(args),
+            **key_trust_history_options(args),
         )
     except (OSError, ValueError, TypeError, KeyError) as exc:
         report = _runtime_report(exc)

@@ -30,6 +30,13 @@ reactivates a retired/revoked key. Historical authorization needs a defined
 historical policy and preserved revocation evidence; this profile does not
 implement that decision.
 
+The separate [historical key-trust record profile](CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md)
+uses a distinct timestamp statement to bind retained issuer-approved policy and
+decision inputs, then reproduces that result throughout the signed accuracy
+interval. It does not establish complete historical revocation/custody evidence
+or replace current case authorization. Receipts for these two statement schemas
+are not interchangeable.
+
 ## Bound statement and request
 
 The local statement is RFC 8785 canonical JSON with these exact fields:
