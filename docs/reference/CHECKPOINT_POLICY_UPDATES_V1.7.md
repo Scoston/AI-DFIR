@@ -5,6 +5,10 @@ published v1.7.0 assets. It extends [checkpoint key policy](CHECKPOINT_KEY_POLIC
 with issuer signatures and a verifier-owned revision store. It does not add
 model detector coverage or deploy a policy distribution service.
 
+The separate unreleased [issuer quorum profile](CHECKPOINT_POLICY_QUORUM_V1.7.md)
+adds a configurable threshold of distinct issuer approvals and offline
+co-signing. The single-issuer format below retains its existing behavior.
+
 ## Assurance and trust inputs
 
 A revoked checkpoint key must not become authorized because an evidence supplier
@@ -56,7 +60,7 @@ hexadecimal characters. Duplicate or mismatched IDs fail. An empty list denies
 all issuers. Unknown fields are rejected in both formats.
 
 JSON must be UTF-8 with no duplicate members or non-finite numbers. Signed
-documents are bounded to 1 MiB plus 4 KiB, enclosed policies to 1 MiB, issuer
+documents are bounded to 1 MiB plus 16 KiB (including quorum signatures), enclosed policies to 1 MiB, issuer
 trust to 64 KiB and 32 keys, and stores to 16 MiB. CLI PEM inputs are bounded to
 16 KiB. Revision numbers are positive integers no larger than `2**53 - 1`.
 
@@ -160,8 +164,9 @@ and every use. Acceptance rechecks freshness after obtaining the write lock.
 `--policy-evaluation-time` cannot backdate signed-policy authentication. Signed
 expiry limits use of stale packages, but the verifier cannot know that a newer
 policy exists before it receives one. There is no update polling, worldwide
-latest-revision proof, threshold issuer quorum, root-update protocol, or trusted
-clock. This is not an implementation of The Update Framework.
+latest-revision proof, root-update protocol, or trusted clock. The separate
+quorum extension supplies signature thresholds; this is not an implementation
+of The Update Framework.
 
 Current key revocation still denies historical checkpoints. The separate
 [timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md) can authenticate a retained TSA
@@ -198,7 +203,8 @@ rejects rollback, and blocks reconstruction. The 66 focused tests also cover
 issuer rotation, concurrent/conflicting updates, restart persistence, backup
 recovery with an independent floor, malformed JSON/stores, strict validity,
 embedded trust rejection, tampering, export preservation, CLI parity, and
-composition with external timestamps. The full release gate now runs 277 v1.7
-tests. Packaging repeats that gate on extracted committed source and requires
+composition with external timestamps. This milestone brought the total to 277
+v1.7 tests; the subsequent quorum profile adds 67, for 344. Packaging repeats
+the full gate on extracted committed source and requires
 the new profile's files and assurance results. Published v1.7.0 package
 verification retains its original contract. No new dependency is required.

@@ -60,6 +60,11 @@ POLICY_DISTRIBUTION_PACKAGE_PATHS = {
     "docs/reference/CHECKPOINT_POLICY_UPDATES_V1.7.md",
 }
 
+POLICY_QUORUM_PACKAGE_PATHS = {
+    "v17_policy_quorum.py", "v17_policy_quorum_selftest.py",
+    "tests/test_v17_policy_quorum.py", "docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -247,6 +252,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_policy_distribution = bool(POLICY_DISTRIBUTION_PACKAGE_PATHS & set(expected))
         if has_policy_distribution and not POLICY_DISTRIBUTION_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete authenticated policy update package support")
+        has_policy_quorum = bool(POLICY_QUORUM_PACKAGE_PATHS & set(expected))
+        if has_policy_quorum and not (POLICY_QUORUM_PACKAGE_PATHS | POLICY_DISTRIBUTION_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete policy issuer quorum package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -279,6 +287,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
+            "has_policy_quorum": has_policy_quorum,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -347,6 +356,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_timestamp_selftest="PASS", v17_timestamp_regression_tests=68)
     if zip_result.get("has_policy_distribution"):
         required_assurance.update(v17_policy_distribution_selftest="PASS", v17_policy_distribution_regression_tests=66)
+    if zip_result.get("has_policy_quorum"):
+        required_assurance.update(v17_policy_quorum_selftest="PASS", v17_policy_quorum_regression_tests=67)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")

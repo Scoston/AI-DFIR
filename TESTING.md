@@ -189,8 +189,8 @@ python -m pytest tests/test_v17_policy_distribution.py -q
 python scripts/release_check.py --full
 ```
 
-The self-test is part of the quick and full gates. The full gate adds 66 tests,
-bringing the v1.7 total to 277. Coverage includes issuer authority and rotation,
+The self-test is part of the quick and full gates. That milestone adds 66 tests,
+bringing the pre-quorum v1.7 total to 277. Coverage includes issuer authority and rotation,
 key separation, signature/scope tampering, current-clock expiry, persisted
 rollback rejection, equal-revision conflicts, concurrent updates, failed
 transactions, malformed or missing stores, and all affected CLIs. A backup
@@ -203,3 +203,26 @@ destinations on failure, and compose with timestamp requirements. The tests use
 ephemeral keys and local files; they deploy no authority or update service.
 Packaging requires all profile files and repeats the full gate on extracted
 committed source. See [Authenticated policy updates](docs/reference/CHECKPOINT_POLICY_UPDATES_V1.7.md).
+
+## 14. Unreleased checkpoint policy issuer quorum
+
+```bash
+python v17_policy_quorum_selftest.py
+python -m pytest tests/test_v17_policy_quorum.py -q
+python scripts/release_check.py --full
+```
+
+The quick gate runs a synthetic two-of-three approval and revocation case. The
+full gate adds 67 tests, for 344 v1.7 tests in total. Tests reject partial quorum,
+duplicate votes, mixed revisions, altered governance configurations, untrusted
+or invalid extra signatures, and fallback to single-issuer approval. They also
+cover the maximum issuer set, strict input bounds, current-clock validity,
+rotation/migration with the existing revision floor, concurrent updates,
+stored-signature reauthentication, all affected CLIs, destination preservation,
+and composition with timestamp and evidence-integrity checks.
+
+Tests use ephemeral synthetic keys and make no live authority requests. They
+establish distinct-key approval, not independent human or organizational custody.
+Packaging requires the new module, self-test, regression suite, reference, and
+their passing extracted-source assurance. See
+[Policy issuer quorum](docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md).
