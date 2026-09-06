@@ -4,6 +4,16 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: controlled policy synchronization scheduling
+
+- strict operator-owned job definitions with separate store paths, approved anchor pins, HTTPS endpoints, and optional mTLS inputs;
+- offline preflight, explicit single-pass/watch commands, per-job JSON results, and graceful SIGINT/SIGTERM handling;
+- monotonic completion-based deadlines, bounded exponential backoff/jitter, sequential execution, and overlapping-round rejection;
+- approved configuration snapshots and per-attempt anchor/credential checks; accepted store state survives scheduler restarts;
+- existing quorum, root-chain, rollback/floor, atomic activation, and offline verification controls preserved;
+- 85 focused regressions, synthetic scheduled mTLS acceptance, operator guide, and source/extracted-package assurance;
+- no new dependency; persistent timing state, multi-process coordination, publisher deployment, and service supervision remain outside this profile.
+
 ### Unreleased: policy delivery client certificate authentication
 
 - explicit TLS client certificate/key/password-file options and independent client leaf pinning;
@@ -12,7 +22,7 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 - credential metadata separated from issuer authority and unproven publisher-side client authorization;
 - TLS session secret logging disabled; server trust, redirect rejection, policy signatures, rollback, and offline verification preserved;
 - 80 focused regressions, including malformed-PEM runtime bounds, synthetic mutual-TLS acceptance, operator guide, and source/extracted-package assurance;
-- no new dependency, deployed publisher, credential issuance/revocation service, or scheduled synchronization.
+- no new dependency, deployed publisher, or credential issuance/revocation service; scheduling is provided by the separate profile above.
 
 ### Unreleased: timestamped historical key-trust records
 
@@ -33,7 +43,7 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 - no redirects, implicit proxy credentials, remotely supplied trust anchors, or network access during case verification;
 - separate transport hashes/TLS receipt and offline authority report, with no global-latest or trusted-time claim;
 - 139 focused tests, temporary loopback TLS acceptance, operator guide, and extracted-package assurance;
-- no new dependencies, deployed publisher, scheduled synchronization service, or historical authorization proof.
+- no new dependencies, deployed publisher, or historical authorization proof; scheduling is provided by the separate profile above.
 
 ### Unreleased: signed issuer-root governance
 

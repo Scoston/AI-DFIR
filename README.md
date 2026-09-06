@@ -52,6 +52,12 @@ adds explicit, protected TLS client credentials for endpoints that restrict
 delivery to approved verifier systems. Transport authentication does not replace
 the independent issuer signatures or policy rollback controls.
 
+The unreleased [policy synchronization scheduler](docs/reference/POLICY_SYNC_SCHEDULING_V1.7.md)
+adds operator-approved jobs with separate pinned anchors, offline preflight,
+explicit single-pass or recurring execution, and bounded retry backoff. Each
+store retains its own authenticated policy history; scheduling never starts as
+a side effect of case verification.
+
 The unreleased [historical key-trust records](docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md)
 profile timestamps a retained signed policy, issuer chain, checkpoint, and trust
 decision together. Offline verification reproduces that decision throughout the

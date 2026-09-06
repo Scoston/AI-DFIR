@@ -124,7 +124,9 @@ Keep signing/issuer private keys out of the delivery service: it serves already
 approved bundles created by the existing bundle command. Disable public fallback
 routes and use publisher audit records to record the authenticated identity and
 policy response. Certificate issuance, revocation, renewal, gateway hardening,
-availability, and any synchronization schedule remain operator responsibilities.
+availability, and schedule approval/supervision remain operator responsibilities.
+The separate [scheduling profile](POLICY_SYNC_SCHEDULING_V1.7.md) can execute
+approved recurring jobs and reloads these credential files before each attempt.
 This profile adds no CRL/OCSP fetching, hardware-backed key integration, or
 organization-wide identity inventory. Case verification stays offline and uses
 the latest locally accepted policy rather than contacting the publisher.

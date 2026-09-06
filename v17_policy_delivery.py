@@ -190,16 +190,11 @@ def _fetch(url: str, endpoint: tuple, timeout: float, context: ssl.SSLContext, c
                  "http_requests": 1, "redirects_followed": 0, "network_performed": True}
 
 
-def sync_policy(path: str | Path, root_anchor: Any, url: str, *, ca_file: str | Path | None = None,
+def _prepare_sync(path: str | Path, root_anchor: Any, url: str, *, ca_file: str | Path | None = None,
                 timeout: float = DEFAULT_TIMEOUT, minimum_revision=None, minimum_root_version=None,
                 client_cert_file=None, client_key_file=None, client_key_password_file=None,
                 expected_client_certificate_sha256=None) -> dict:
-    """Fetch once from operator configuration, authenticate, and atomically activate.
-
-    Local preflight permits expiry recovery but requires an already initialized,
-    authentic governed store. Recovery floors apply to the final candidate under
-    the write lock. No DNS, HTTP, TLS, or signature failure is a successful sync.
-    """
+    """Local preflight shared by synchronization and scheduler configuration checks."""
     try:
         endpoint, seconds = _endpoint(url), _timeout(timeout)
         anchor = governance.validate_root(root_anchor)
@@ -213,11 +208,28 @@ def sync_policy(path: str | Path, root_anchor: Any, url: str, *, ca_file: str | 
     except (PolicyUpdateError, OSError, ValueError, TypeError) as exc:
         code = exc.code if isinstance(exc, PolicyUpdateError) else "policy_delivery_config_invalid"
         raise PolicyDeliveryError(code, "local delivery configuration or governed store is invalid") from exc
-    raw, receipt = _fetch(url, endpoint, seconds, context, ca_digest)
-    receipt["client_identity"] = identity
+    return {"anchor": anchor, "endpoint": endpoint, "timeout": seconds, "context": context,
+            "ca_digest": ca_digest, "identity": identity}
+
+
+def sync_policy(path: str | Path, root_anchor: Any, url: str, *, ca_file: str | Path | None = None,
+                timeout: float = DEFAULT_TIMEOUT, minimum_revision=None, minimum_root_version=None,
+                client_cert_file=None, client_key_file=None, client_key_password_file=None,
+                expected_client_certificate_sha256=None) -> dict:
+    """Fetch once and atomically activate independently authenticated policy state.
+
+    Preflight permits expiry recovery but requires an initialized, authentic
+    governed store. Final recovery floors apply under the write lock.
+    """
+    prepared = _prepare_sync(path, root_anchor, url, ca_file=ca_file, timeout=timeout,
+        minimum_revision=minimum_revision, minimum_root_version=minimum_root_version,
+        client_cert_file=client_cert_file, client_key_file=client_key_file,
+        client_key_password_file=client_key_password_file, expected_client_certificate_sha256=expected_client_certificate_sha256)
+    raw, receipt = _fetch(url, prepared["endpoint"], prepared["timeout"], prepared["context"], prepared["ca_digest"])
+    receipt["client_identity"] = prepared["identity"]
     try:
         bundle = validate_delivery_bundle(_json(raw, MAX_DELIVERY_BYTES))
-        accepted = governance.accept_governed_chain(path, anchor, bundle["signed_policy"], bundle["rotations"],
+        accepted = governance.accept_governed_chain(path, prepared["anchor"], bundle["signed_policy"], bundle["rotations"],
                                                     minimum_revision=minimum_revision, minimum_root_version=minimum_root_version)
     except (PolicyUpdateError, OSError, ValueError, TypeError) as exc:
         code = exc.code if isinstance(exc, PolicyUpdateError) else "policy_delivery_acceptance_failed"
