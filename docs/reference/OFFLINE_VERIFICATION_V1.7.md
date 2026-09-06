@@ -31,6 +31,11 @@ stored policy; failures block reconstruction. `--minimum-policy-revision` can
 enforce an independently retained revision floor after restoring a backup.
 The store and issuer trust must remain under the verifier's control.
 
+The unreleased [issuer quorum profile](CHECKPOINT_POLICY_QUORUM_V1.7.md) uses the
+same store and verification options with an independently approved signature
+threshold. Required co-signatures bind both the policy and issuer configuration.
+Partial approvals cannot satisfy the requirement or change the stored revision.
+
 The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
 accepts retained RFC 3161 requests/responses plus verifier-controlled TSA trust.
 Use `--require-checkpoint-timestamp` where external anchoring is mandatory. Its

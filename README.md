@@ -30,6 +30,12 @@ conflicting updates and reauthenticates the stored policy on every use. Operator
 protect issuer trust and the store; backup recovery can require an independent
 minimum revision.
 
+The unreleased [policy issuer quorum](docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md)
+profile can require multiple approved issuer keys before a policy update is
+accepted. Custodians can co-sign on separate systems; every signature binds the
+policy and the verifier-approved issuer list and threshold. Distinct keys do
+not by themselves prove distinct human custodians.
+
 AI incidents cross boundaries that conventional DFIR tools often treat separately. AI-DFIR is designed to answer:
 
 1. **What actually executed?** Model, agent, harness, tool implementation, workload, and provider.

@@ -4,6 +4,17 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: checkpoint policy issuer quorum
+
+- configurable thresholds of distinct Ed25519 policy issuer signatures;
+- domain-separated approvals binding the policy and independently approved issuer configuration;
+- offline co-signing across separate custodians, with explicit partial-signature status;
+- strict duplicate, mixed-policy, invalid-signature, and single-issuer downgrade rejection;
+- issuer rotation and single-issuer migration without resetting revision state;
+- separate signature counts/issuer identities and unassessed human-custodian independence in reports;
+- synthetic self-test, 67 focused tests, operator documentation, and extracted-package assurance;
+- no new dependencies, deployed governance service, or signed root-update protocol.
+
 ### Unreleased: authenticated checkpoint policy updates
 
 - scoped Ed25519 policy envelopes authenticated against independent issuer trust;

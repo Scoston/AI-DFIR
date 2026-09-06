@@ -159,6 +159,10 @@ def required_v17_paths() -> set[str]:
         "v17_policy_distribution_selftest.py",
         "tests/test_v17_policy_distribution.py",
         "docs/reference/CHECKPOINT_POLICY_UPDATES_V1.7.md",
+        "v17_policy_quorum.py",
+        "v17_policy_quorum_selftest.py",
+        "tests/test_v17_policy_quorum.py",
+        "docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md",
         "v17_provenance.py",
         "v17_reconstruction.py",
         "replay_case_v17.py",
@@ -253,6 +257,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_key_policy_selftest": "PASS",
         "v17_timestamp_selftest": "PASS",
         "v17_policy_distribution_selftest": "PASS",
+        "v17_policy_quorum_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -273,6 +278,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     policy_updates = checks.get("v17_policy_distribution_regression")
     if not isinstance(policy_updates, dict) or policy_updates.get("status") != "PASS" or policy_updates.get("tests") != 66:
         raise RuntimeError("extracted package must pass all 66 authenticated policy update regression tests")
+    quorum = checks.get("v17_policy_quorum_regression")
+    if not isinstance(quorum, dict) or quorum.get("status") != "PASS" or quorum.get("tests") != 67:
+        raise RuntimeError("extracted package must pass all 67 policy issuer quorum regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -493,6 +501,8 @@ def main() -> None:
                 "v17_timestamp_regression_tests": 68,
                 "v17_policy_distribution_selftest": "PASS",
                 "v17_policy_distribution_regression_tests": 66,
+                "v17_policy_quorum_selftest": "PASS",
+                "v17_policy_quorum_regression_tests": 67,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

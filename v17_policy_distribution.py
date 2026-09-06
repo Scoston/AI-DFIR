@@ -23,7 +23,7 @@ from v17_signing import key_id_from_public_key_bytes, public_key_bytes
 SIGNED_POLICY_SCHEMA = "ai-dfir/signed-checkpoint-key-policy/v1.7"
 ISSUER_TRUST_SCHEMA = "ai-dfir/checkpoint-policy-issuers/v1.7"
 AUTH_REPORT_SCHEMA = "ai-dfir/checkpoint-policy-authentication/v1.7"
-MAX_SIGNED_POLICY_BYTES = MAX_POLICY_BYTES + 4096
+MAX_SIGNED_POLICY_BYTES = MAX_POLICY_BYTES + 16 * 1024
 MAX_ISSUER_TRUST_BYTES = 64 * 1024
 MAX_ISSUERS = 32
 MAX_STORE_BYTES = 16 * 1024 * 1024
@@ -60,6 +60,9 @@ def authentication_report(status: str = "NOT_RUN") -> dict[str, Any]:
         "issuer_trust_sha256": None, "policy_sha256": None, "envelope_sha256": None,
         "policy_revision": None, "accepted_at": None, "evaluated_at": None,
         "evaluation_time_source": "system-utc", "signature_valid": False,
+        "approval_profile": None, "issuer_key_ids": [],
+        "required_signatures": None, "valid_signatures": 0,
+        "issuer_custodian_independence": "NOT_ASSESSED",
         "rollback_protection": "NOT_EVALUATED", "network_performed": False,
         "findings": [],
     }
@@ -101,6 +104,9 @@ def _snapshot(value: Any, limit: int) -> Any:
 
 def validate_issuer_trust(value: Any) -> dict[str, Any]:
     trust = _snapshot(value, MAX_ISSUER_TRUST_BYTES)
+    from v17_policy_quorum import QUORUM_TRUST_SCHEMA, validate_quorum_trust
+    if isinstance(trust, dict) and trust.get("schema") == QUORUM_TRUST_SCHEMA:
+        return validate_quorum_trust(trust)
     _require(isinstance(trust, dict) and set(trust) == {"schema", "tenant_id", "policy_id", "keys"},
              "policy_issuer_trust_invalid", "invalid issuer trust fields")
     _require(trust["schema"] == ISSUER_TRUST_SCHEMA and _text(trust["tenant_id"]) and _text(trust["policy_id"]),
@@ -127,6 +133,9 @@ def load_issuer_trust(path: str | Path) -> dict[str, Any]:
 
 def _envelope(value: Any) -> dict[str, Any]:
     envelope = _snapshot(value, MAX_SIGNED_POLICY_BYTES)
+    from v17_policy_quorum import QUORUM_POLICY_SCHEMA, validate_quorum_envelope
+    if isinstance(envelope, dict) and envelope.get("schema") == QUORUM_POLICY_SCHEMA:
+        return validate_quorum_envelope(envelope)
     fields = {"schema", "signature_algorithm", "issuer_key_id", "policy", "signature_hex"}
     _require(isinstance(envelope, dict) and set(envelope) == fields,
              "signed_policy_invalid", "invalid signed policy fields")
@@ -164,18 +173,28 @@ def authenticate_key_policy(value: Any, issuer_trust: Any) -> dict[str, Any]:
     policy = envelope["policy"]
     _require((policy["tenant_id"], policy["policy_id"]) == (trust["tenant_id"], trust["policy_id"]),
              "policy_issuer_scope_mismatch", "signed policy is outside the approved issuer trust scope")
-    key = next((key for key in trust["keys"] if key["key_id"] == envelope["issuer_key_id"]), None)
-    _require(key is not None, "policy_issuer_untrusted", "policy issuer is not independently trusted")
-    try:
-        Ed25519PublicKey.from_public_bytes(bytes.fromhex(key["public_key_hex"])).verify(
-            bytes.fromhex(envelope["signature_hex"]), _material(envelope))
-    except InvalidSignature as exc:
-        raise PolicyUpdateError("policy_issuer_signature_invalid", "policy issuer signature failed") from exc
+    from v17_policy_quorum import QUORUM_POLICY_SCHEMA, verify_quorum_signatures
+    if envelope["schema"] == QUORUM_POLICY_SCHEMA:
+        signature_result = verify_quorum_signatures(envelope, trust)
+    else:
+        _require(trust["schema"] == ISSUER_TRUST_SCHEMA, "policy_approval_profile_mismatch",
+                 "a single-issuer package cannot satisfy quorum issuer trust")
+        key = next((key for key in trust["keys"] if key["key_id"] == envelope["issuer_key_id"]), None)
+        _require(key is not None, "policy_issuer_untrusted", "policy issuer is not independently trusted")
+        try:
+            Ed25519PublicKey.from_public_bytes(bytes.fromhex(key["public_key_hex"])).verify(
+                bytes.fromhex(envelope["signature_hex"]), _material(envelope))
+        except InvalidSignature as exc:
+            raise PolicyUpdateError("policy_issuer_signature_invalid", "policy issuer signature failed") from exc
+        signature_result = {"approval_profile": "single-issuer", "issuer_key_id": envelope["issuer_key_id"],
+                            "issuer_key_ids": [envelope["issuer_key_id"]], "required_signatures": 1,
+                            "valid_signatures": 1}
     now = datetime.now(timezone.utc)
     _require(_utc(policy["issued_at"]) <= now < _utc(policy["expires_at"]),
              "signed_policy_not_current", "signed policy is not current at the system UTC clock")
     report = authentication_report("PASS")
-    report.update(issuer_key_id=envelope["issuer_key_id"], issuer_trust_sha256=sha256_object(trust),
+    report.update(signature_result)
+    report.update(issuer_trust_sha256=sha256_object(trust),
                   policy_sha256=sha256_object(policy), envelope_sha256=sha256_object(envelope),
                   policy_revision=policy["revision"], evaluated_at=now.isoformat().replace("+00:00", "Z"),
                   signature_valid=True)
