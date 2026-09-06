@@ -44,9 +44,17 @@ Explicit migration preserves policy revision history; current-root checks and
 independent recovery floors remain enforced. See
 [Signed issuer governance](docs/reference/CHECKPOINT_POLICY_GOVERNANCE_V1.7.md).
 
+Online policy/root delivery has an implemented explicit HTTPS client profile:
+bounded authenticated transport, a complete signed chain, atomic catch-up to the
+final root/policy, independent recovery floors, and offline verification after
+synchronization. Acceptance uses a temporary loopback TLS server and synthetic
+CA; no external publisher or scheduled service is deployed. See
+[Online policy delivery](docs/reference/CHECKPOINT_POLICY_DELIVERY_V1.7.md).
+
 ## Future work
 
-- online checkpoint-policy and issuer-root delivery, and independently timestamped historical key-trust decisions;
+- independently timestamped historical key-trust decisions;
+- operated policy delivery services, deployment authentication profiles, and organizational synchronization scheduling;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
 

@@ -191,6 +191,6 @@ inputs, duplicate and mixed approvals, configuration binding, rotation,
 migration, concurrent updates, time boundaries, stored-signature tampering,
 all affected CLIs, preserved destinations, and timestamp/evidence composition.
 The quorum milestone brought the total to 344 tests; signed governance adds 87,
-for 431. New packages must include this profile and
+and online delivery adds 139, for 570. New packages must include this profile and
 passing extracted-source assurance results; published v1.7.0 verification keeps
 its prior contract. No new dependency or licensing change is required.
