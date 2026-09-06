@@ -286,8 +286,8 @@ python scripts/release_check.py --full
 
 The synthetic offline acceptance case timestamps an authenticated policy/root
 record, verifies it with independent trust, and then proves that a later current
-revocation blocks reconstruction. The full gate adds 85 tests, bringing the v1.7
-total to 655 alongside the 111 Evidence Packs and 19 synthetic detector domains.
+revocation blocks reconstruction. The full gate adds 85 tests, bringing the
+pre-mTLS v1.7 total to 655 alongside the 111 Evidence Packs and 19 synthetic detector domains.
 
 Correctly signed adversarial TSA responses exercise policy/root/key validity
 boundaries, subsecond accuracy, absent accuracy, interior decision changes, and
@@ -304,3 +304,30 @@ Packaging repeats the full gate on extracted committed source and requires all
 profile files and assurance fields, while keeping earlier published release
 contracts intact. See
 [Historical key-trust records](docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md).
+
+## 18. Unreleased policy delivery client certificate authentication
+
+```bash
+python v17_delivery_identity_selftest.py
+python -m pytest tests/test_v17_delivery_identity.py -q
+python scripts/release_check.py --full
+```
+
+The quick acceptance case runs a synthetic loopback endpoint that requires a
+trusted client certificate, rejects an anonymous connection, and accepts an
+encrypted PKCS8 client key. It then rejects a tampered signed policy and verifies
+the case offline. No production PKI or public endpoint is contacted.
+
+The full gate adds 80 focused tests, for 735 v1.7 regression tests alongside all
+111 Evidence Packs, 19 synthetic detector domains, and compatibility checks.
+Tests cover untrusted clients, server CA/hostname/expiry checks, no certificate
+forwarding on redirect, independent policy authority/floors, bounded credential
+files, malformed PEM rejected within a subprocess deadline, strict certificate purpose, key/password matching, private snapshot loading
+and cleanup, redacted failures, no TLS secret logging, CLI partial inputs, and
+unchanged store bytes on rejection. POSIX-specific permission/FIFO cases run on
+the Linux release gate and are explicitly skipped on unsupported platforms.
+
+The certificate and private keys exist only in temporary fixture storage.
+Release packaging requires the module, acceptance case, tests, guide, and their
+source/extracted results. Existing published release contracts remain intact.
+See [Client certificate authentication](docs/reference/POLICY_DELIVERY_MTLS_V1.7.md).

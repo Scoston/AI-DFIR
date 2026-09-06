@@ -178,6 +178,10 @@ def required_v17_paths() -> set[str]:
         "v17_key_trust_history_selftest.py",
         "tests/test_v17_key_trust_history.py",
         "docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md",
+        "v17_delivery_identity.py",
+        "v17_delivery_identity_selftest.py",
+        "tests/test_v17_delivery_identity.py",
+        "docs/reference/POLICY_DELIVERY_MTLS_V1.7.md",
         "v17_provenance.py",
         "v17_reconstruction.py",
         "replay_case_v17.py",
@@ -276,6 +280,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_policy_governance_selftest": "PASS",
         "v17_policy_delivery_selftest": "PASS",
         "v17_key_trust_history_selftest": "PASS",
+        "v17_delivery_identity_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -308,6 +313,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     history = checks.get("v17_key_trust_history_regression")
     if not isinstance(history, dict) or history.get("status") != "PASS" or history.get("tests") != 85:
         raise RuntimeError("extracted package must pass all 85 historical key-trust regression tests")
+    identity = checks.get("v17_delivery_identity_regression")
+    if not isinstance(identity, dict) or identity.get("status") != "PASS" or identity.get("tests") != 80:
+        raise RuntimeError("extracted package must pass all 80 policy delivery client-identity regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -536,6 +544,8 @@ def main() -> None:
                 "v17_policy_delivery_regression_tests": 139,
                 "v17_key_trust_history_selftest": "PASS",
                 "v17_key_trust_history_regression_tests": 85,
+                "v17_delivery_identity_selftest": "PASS",
+                "v17_delivery_identity_regression_tests": 80,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

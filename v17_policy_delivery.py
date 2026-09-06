@@ -22,6 +22,7 @@ import v17_policy_governance as governance
 from v17_integrity import sha256_bytes, sha256_object
 from v17_policy_distribution import MAX_SIGNED_POLICY_BYTES, PolicyUpdateError, _json, _require, _snapshot, authenticate_key_policy
 from v17_policy_quorum import validate_quorum_envelope
+from v17_delivery_identity import configure_client_identity
 
 BUNDLE_SCHEMA = "ai-dfir/checkpoint-policy-delivery/v1.7"
 DELIVERY_REPORT_SCHEMA = "ai-dfir/checkpoint-policy-delivery-report/v1.7"
@@ -105,6 +106,7 @@ def _tls_context(ca_file: str | Path | None) -> tuple[ssl.SSLContext, str | None
         _require(0 < len(raw) <= MAX_CA_BYTES, "policy_delivery_ca_invalid", "CA file is empty or oversized")
         context, digest = ssl.create_default_context(cadata=raw.decode("ascii")), sha256_bytes(raw)
     context.minimum_version = ssl.TLSVersion.TLSv1_2
+    context.keylog_filename = None
     context.set_alpn_protocols(["http/1.1"])
     return context, digest
 
@@ -189,7 +191,9 @@ def _fetch(url: str, endpoint: tuple, timeout: float, context: ssl.SSLContext, c
 
 
 def sync_policy(path: str | Path, root_anchor: Any, url: str, *, ca_file: str | Path | None = None,
-                timeout: float = DEFAULT_TIMEOUT, minimum_revision=None, minimum_root_version=None) -> dict:
+                timeout: float = DEFAULT_TIMEOUT, minimum_revision=None, minimum_root_version=None,
+                client_cert_file=None, client_key_file=None, client_key_password_file=None,
+                expected_client_certificate_sha256=None) -> dict:
     """Fetch once from operator configuration, authenticate, and atomically activate.
 
     Local preflight permits expiry recovery but requires an already initialized,
@@ -203,10 +207,14 @@ def sync_policy(path: str | Path, root_anchor: Any, url: str, *, ca_file: str | 
         governance._floor(minimum_root_version, 2**53 - 1, "root version")
         governance._read_state(path, anchor)
         context, ca_digest = _tls_context(ca_file)
+        identity = configure_client_identity(context, cert_file=client_cert_file, key_file=client_key_file,
+                                             password_file=client_key_password_file,
+                                             expected_certificate_sha256=expected_client_certificate_sha256)
     except (PolicyUpdateError, OSError, ValueError, TypeError) as exc:
         code = exc.code if isinstance(exc, PolicyUpdateError) else "policy_delivery_config_invalid"
         raise PolicyDeliveryError(code, "local delivery configuration or governed store is invalid") from exc
     raw, receipt = _fetch(url, endpoint, seconds, context, ca_digest)
+    receipt["client_identity"] = identity
     try:
         bundle = validate_delivery_bundle(_json(raw, MAX_DELIVERY_BYTES))
         accepted = governance.accept_governed_chain(path, anchor, bundle["signed_policy"], bundle["rotations"],
