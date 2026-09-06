@@ -4,6 +4,17 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: signed issuer-root governance
+
+- sequential issuer-root rotations approved by both previous and replacement quorums;
+- role-separated signatures binding predecessor identity, complete successor configuration, version, and validity;
+- independently anchored chain verification with atomic root/policy activation;
+- explicit in-place migration preserving existing quorum policy revisions and acceptance times;
+- expiry recovery without automatic reset, bounded retained history, and independent root/policy recovery floors;
+- offline root preparation, co-signing, activation, inspection, and export/replay enforcement;
+- 87 focused tests, synthetic self-test, operator documentation, and extracted-package assurance;
+- no new dependencies, live delivery service, historical authorization proof, or TUF-compliance claim.
+
 ### Unreleased: checkpoint policy issuer quorum
 
 - configurable thresholds of distinct Ed25519 policy issuer signatures;

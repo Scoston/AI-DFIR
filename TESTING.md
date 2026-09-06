@@ -213,7 +213,7 @@ python scripts/release_check.py --full
 ```
 
 The quick gate runs a synthetic two-of-three approval and revocation case. The
-full gate adds 67 tests, for 344 v1.7 tests in total. Tests reject partial quorum,
+quorum milestone adds 67 tests, for a pre-governance total of 344. Tests reject partial quorum,
 duplicate votes, mixed revisions, altered governance configurations, untrusted
 or invalid extra signatures, and fallback to single-issuer approval. They also
 cover the maximum issuer set, strict input bounds, current-clock validity,
@@ -226,3 +226,25 @@ establish distinct-key approval, not independent human or organizational custody
 Packaging requires the new module, self-test, regression suite, reference, and
 their passing extracted-source assurance. See
 [Policy issuer quorum](docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md).
+
+## 15. Unreleased signed issuer-root governance
+
+```bash
+python v17_policy_governance_selftest.py
+python -m pytest tests/test_v17_policy_governance.py -q
+python scripts/release_check.py --full
+```
+
+The quick gate runs a dual-quorum rotation and atomic activation self-test. The
+full gate adds 87 tests, bringing the v1.7 total to 431. Tests verify the entire
+retained chain from an independent anchor; reject partial, duplicate, altered,
+wrong-role, skipped-version, and forked approvals; and exercise concurrent
+rotations, failed writes, migration rollback, expired-root/policy recovery,
+strict input bounds, whole-store rollback with independent floors, and all
+affected CLIs. Case tests preserve destinations and require evidence integrity,
+current key policy, and configured timestamps in addition to valid governance.
+
+All fixtures are synthetic and temporary. No live authority is contacted.
+Packaging repeats the full gate on extracted committed source and requires the
+new profile's files and assurance results. See
+[Signed issuer governance](docs/reference/CHECKPOINT_POLICY_GOVERNANCE_V1.7.md).

@@ -5,6 +5,11 @@ published v1.7.0 assets. It extends [authenticated policy updates](CHECKPOINT_PO
 with a verifier-approved threshold of distinct Ed25519 issuer keys. It adds no
 new detector or Evidence Pack coverage.
 
+The separate unreleased [signed issuer governance profile](CHECKPOINT_POLICY_GOVERNANCE_V1.7.md)
+adds root rotations approved by both the current and replacement quorums, and
+atomic activation of root and policy. The direct-trust workflow below remains
+available for deployments that provision issuer configuration externally.
+
 ## Assurance and limits
 
 A deployment can require two of three approved issuer keys before accepting a
@@ -28,8 +33,9 @@ administrative replacement of verifier trust, remains outside this guarantee.
 
 This is a local policy approval profile, not a complete implementation of
 [The Update Framework](https://theupdateframework.github.io/specification/latest/).
-It provides no signed root-update protocol, automatic issuer governance,
-network delivery service, HSM integration, or historical authorization proof.
+This quorum profile alone provides no signed root-update protocol; that is
+supplied by the separate governance extension. Neither provides a network
+delivery service, HSM integration, or historical authorization proof.
 Store backup rollback still requires an independently retained minimum revision;
 signed expiry still depends on the verifier's system clock.
 
@@ -184,6 +190,7 @@ revocation, and blocked reconstruction. The 67 focused tests cover malformed
 inputs, duplicate and mixed approvals, configuration binding, rotation,
 migration, concurrent updates, time boundaries, stored-signature tampering,
 all affected CLIs, preserved destinations, and timestamp/evidence composition.
-The full gate now runs 344 v1.7 tests. New packages must include this profile and
+The quorum milestone brought the total to 344 tests; signed governance adds 87,
+for 431. New packages must include this profile and
 passing extracted-source assurance results; published v1.7.0 verification keeps
 its prior contract. No new dependency or licensing change is required.

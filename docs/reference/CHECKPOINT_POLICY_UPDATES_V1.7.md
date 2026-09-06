@@ -9,6 +9,10 @@ The separate unreleased [issuer quorum profile](CHECKPOINT_POLICY_QUORUM_V1.7.md
 adds a configurable threshold of distinct issuer approvals and offline
 co-signing. The single-issuer format below retains its existing behavior.
 
+The subsequent [signed issuer governance profile](CHECKPOINT_POLICY_GOVERNANCE_V1.7.md)
+adds independently anchored root rotations and atomic root/policy activation.
+It can migrate an existing quorum store without resetting revision history.
+
 ## Assurance and trust inputs
 
 A revoked checkpoint key must not become authorized because an evidence supplier
@@ -163,15 +167,18 @@ Policies must satisfy `issued_at <= system UTC < expires_at` during acceptance
 and every use. Acceptance rechecks freshness after obtaining the write lock.
 `--policy-evaluation-time` cannot backdate signed-policy authentication. Signed
 expiry limits use of stale packages, but the verifier cannot know that a newer
-policy exists before it receives one. There is no update polling, worldwide
-latest-revision proof, root-update protocol, or trusted clock. The separate
+policy exists before it receives one. This base profile provides no update
+polling, worldwide latest-revision proof, root-update protocol, or trusted clock. The separate
 quorum extension supplies signature thresholds; this is not an implementation
 of The Update Framework.
+
+Signed root-update continuity is supplied by the subsequent governance profile,
+which also uses an independently provisioned starting anchor.
 
 Current key revocation still denies historical checkpoints. The separate
 [timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md) can authenticate a retained TSA
 receipt; it does not make a revoked key acceptable or authenticate historical
-policy decisions. Online delivery, organizational issuer governance, archival
+policy decisions. Online delivery, organizational key custody, archival
 TSA revocation evidence, and historical authorization remain separate work.
 
 ## Reports and Python API
@@ -204,7 +211,7 @@ issuer rotation, concurrent/conflicting updates, restart persistence, backup
 recovery with an independent floor, malformed JSON/stores, strict validity,
 embedded trust rejection, tampering, export preservation, CLI parity, and
 composition with external timestamps. This milestone brought the total to 277
-v1.7 tests; the subsequent quorum profile adds 67, for 344. Packaging repeats
+v1.7 tests; subsequent quorum and governance profiles bring the total to 431. Packaging repeats
 the full gate on extracted committed source and requires
 the new profile's files and assurance results. Published v1.7.0 package
 verification retains its original contract. No new dependency is required.
