@@ -38,6 +38,9 @@ from v17_provenance import (
     MAX_PROVENANCE_BYTES, PROVENANCE_PATH, ProvenanceError, validate_provenance,
 )
 from v17_reconstruction import reconstruct, strict_json
+from v17_key_policy import (
+    add_key_policy_arguments, evaluate_key_policy, key_policy_options, key_policy_report,
+)
 
 
 OFFLINE_EXPORT_SCHEMA = "ai-dfir/offline-case-export/v1.7"
@@ -392,6 +395,10 @@ def export_case(
     trusted_public_keys: Mapping[str, bytes],
     include_evidence: bool = False,
     provenance: Mapping[str, Any] | None = None,
+    checkpoint_key_policy: Mapping[str, Any] | None = None,
+    require_checkpoint_key_policy: bool = False,
+    key_policy_evaluated_at: str | None = None,
+    expected_key_policy_sha256: str | None = None,
 ) -> dict[str, Any]:
     """Create a v1.5-compatible signed export containing v1.7 verification state."""
     if ledger.case_id != case_id:
@@ -417,6 +424,17 @@ def export_case(
             "checkpoint signer trust verification failed: "
             + "; ".join(trusted_errors)
         )
+
+    policy_result = evaluate_key_policy(
+        checkpoint_key_policy, signed_checkpoint=signed_checkpoint,
+        tenant_id=tenant_id, case_id=case_id, evaluated_at=key_policy_evaluated_at,
+        expected_policy_sha256=expected_key_policy_sha256,
+        required=require_checkpoint_key_policy,
+    )
+    if policy_result["status"] == "FAIL":
+        raise ValueError("checkpoint key policy rejected export: " + "; ".join(
+            item["code"] for item in policy_result["findings"]
+        ))
 
     source = Path(case_root).resolve()
     if not source.is_dir():
@@ -471,6 +489,7 @@ def export_case(
         "include_evidence": include_evidence,
         "checkpoint_hash": signed_checkpoint.checkpoint.checkpoint_hash,
         "checkpoint_key_id": signed_checkpoint.key_id,
+        "checkpoint_key_policy": policy_result,
         "v15_compatible_manifest": True,
         "network_required_for_verification": False,
     }
@@ -631,6 +650,7 @@ def _failure_report(
         "ledger_integrity": "NOT_RUN",
         "checkpoint_integrity": "NOT_RUN",
         "provenance_integrity": "NOT_RUN",
+        "checkpoint_key_policy": key_policy_report(),
         "signature_valid": False,
         "signer_trusted": False,
         "findings": findings,
@@ -650,6 +670,10 @@ def verify_case(
     require_provenance: bool = False,
     include_reconstruction: bool = False,
     replay_transforms: bool = False,
+    checkpoint_key_policy: Mapping[str, Any] | None = None,
+    require_checkpoint_key_policy: bool = False,
+    key_policy_evaluated_at: str | None = None,
+    expected_key_policy_sha256: str | None = None,
 ) -> dict[str, Any]:
     """Verify a v1.7 case export using local files only."""
     path = Path(zip_path)
@@ -789,6 +813,22 @@ def verify_case(
             trusted_public_keys=trusted,
         )
 
+        # The exported trust store records the exporter's attestation. An
+        # independent verifier may impose a stricter, externally supplied
+        # policy. It can only narrow trust, never make an untrusted bundle pass.
+        manifest_signer_trusted = trusted_valid
+        policy_result = evaluate_key_policy(
+            checkpoint_key_policy, signed_checkpoint=signed,
+            tenant_id=payload.get("tenant_id"), case_id=case_id,
+            evaluated_at=key_policy_evaluated_at,
+            expected_policy_sha256=expected_key_policy_sha256,
+            required=require_checkpoint_key_policy,
+        )
+        policy_valid = policy_result["status"] in {"PASS", "NOT_CONFIGURED"}
+        trusted_valid = trusted_valid and policy_valid
+        combined_valid = combined_valid and policy_valid
+        policy_errors = [item["code"] for item in policy_result["findings"]]
+
         checkpoint_errors: list[str] = []
         if checkpoint != signed.checkpoint:
             checkpoint_errors.append("checkpoint export does not match signed checkpoint")
@@ -818,6 +858,10 @@ def verify_case(
                 _finding("checkpoint_signer_untrusted", error=error)
                 for error in trust_only
             )
+        findings.extend(
+            _finding("checkpoint_key_policy_failed", code=item["code"], error=item["detail"])
+            for item in policy_result["findings"]
+        )
 
         checkpoint_valid = not checkpoint_errors
         provenance_status = "NOT_PRESENT"
@@ -893,11 +937,14 @@ def verify_case(
             "checkpoint_hash": signed.checkpoint.checkpoint_hash,
             "signature_valid": signature_valid,
             "signer_trusted": trusted_valid,
+            "manifest_signer_trusted": manifest_signer_trusted,
+            "signer_trust_source": "export-manifest-and-external-policy" if checkpoint_key_policy is not None else "export-manifest",
+            "checkpoint_key_policy": policy_result,
             "signer_key_id": signed.key_id,
             "combined_checkpoint_verification": combined_valid,
             "findings": findings,
             "verification_errors": sorted(
-                set(ledger_errors + checkpoint_errors + signature_errors + combined_errors)
+                set(ledger_errors + checkpoint_errors + signature_errors + combined_errors + policy_errors)
             ),
         }
         if overall and reconstruction is not None:
@@ -940,6 +987,7 @@ def main() -> int:
     create.add_argument("--out", required=True)
     create.add_argument("--include-evidence", action="store_true")
     create.add_argument("--provenance", help="Optional validated investigation provenance JSON")
+    add_key_policy_arguments(create)
 
     verify = sub.add_parser("verify")
     verify.add_argument("--zip", required=True)
@@ -948,6 +996,7 @@ def main() -> int:
     verify.add_argument("--case")
     verify.add_argument("--out")
     verify.add_argument("--require-provenance", action="store_true")
+    add_key_policy_arguments(verify)
     verify.add_argument(
         "--max-members",
         type=int,
@@ -990,6 +1039,7 @@ def main() -> int:
                 trusted_public_keys=_load_trust_store(Path(args.trusted_signers)),
                 include_evidence=args.include_evidence,
                 provenance=strict_json(Path(args.provenance).read_bytes()) if args.provenance else None,
+                **key_policy_options(args),
             )
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0
@@ -1000,6 +1050,7 @@ def main() -> int:
             expected_tenant=args.tenant,
             expected_case=args.case,
             require_provenance=args.require_provenance,
+            **key_policy_options(args),
             max_members=args.max_members,
             max_total_uncompressed=int(
                 args.max_total_uncompressed_gib

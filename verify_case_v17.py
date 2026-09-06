@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from v17_key_policy import add_key_policy_arguments, key_policy_options
+
 from case_export_v17 import (
     DEFAULT_MAX_COMPRESSION_RATIO,
     DEFAULT_MAX_MEMBERS,
@@ -53,12 +55,23 @@ def render_verification_report(report: dict[str, Any]) -> str:
         f"Provenance integrity: {_display(report.get('provenance_integrity'), 'NOT_RUN')}",
         f"Checkpoint signature: {_pass_fail(report.get('signature_valid'))}",
         f"Checkpoint signer trust: {_pass_fail(report.get('signer_trusted'))}",
+        f"External checkpoint key policy: {_display(report.get('checkpoint_key_policy', {}).get('status'), 'NOT_CONFIGURED')}",
         f"Signer key ID: {_display(report.get('signer_key_id'))}",
         f"Checkpoint hash: {_display(report.get('checkpoint_hash'))}",
         f"Combined checkpoint verification: {_pass_fail(report.get('combined_checkpoint_verification'))}",
         f"Network required: {'YES' if report.get('network_required') is True else 'NO'}",
         f"Findings: {len(findings)}",
     ]
+
+    policy = report.get("checkpoint_key_policy") or {}
+    if policy.get("status") in {"PASS", "FAIL"}:
+        lines.extend([
+            f"Policy ID / revision: {_display(policy.get('policy_id'))} / {_display(policy.get('policy_revision'))}",
+            f"Policy SHA-256: {_display(policy.get('policy_sha256'))}",
+            f"Policy evaluated at: {_display(policy.get('evaluated_at'))} ({_display(policy.get('evaluation_time_source'))})",
+            f"Policy key state: {_display(policy.get('key_state'))}",
+            "Historical signing time: NOT PROVEN",
+        ])
 
     if findings:
         lines.extend(["", "Findings"])
@@ -130,6 +143,7 @@ def main() -> int:
     parser.add_argument("--format", choices=("json", "text"), default="text")
     parser.add_argument("--out")
     parser.add_argument("--require-provenance", action="store_true")
+    add_key_policy_arguments(parser)
     parser.add_argument("--max-members", type=int, default=DEFAULT_MAX_MEMBERS)
     parser.add_argument(
         "--max-total-uncompressed-gib",
@@ -155,6 +169,7 @@ def main() -> int:
             expected_tenant=args.tenant,
             expected_case=args.case,
             require_provenance=args.require_provenance,
+            **key_policy_options(args),
             max_members=args.max_members,
             max_total_uncompressed=int(args.max_total_uncompressed_gib * 1024**3),
             max_member_uncompressed=int(args.max_member_uncompressed_gib * 1024**3),
