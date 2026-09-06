@@ -23,6 +23,14 @@ report. An embedded policy cannot grant this authority. Deployments requiring
 this control must use `--require-checkpoint-key-policy` and provide an approved
 external policy; historical signing-time proof remains outside this profile.
 
+The unreleased [authenticated policy update profile](CHECKPOINT_POLICY_UPDATES_V1.7.md)
+adds independent issuer signatures and persistent revision rollback rejection.
+Use `--checkpoint-policy-store`, `--policy-issuer-trust`, and
+`--require-authenticated-key-policy` to require it. Every use reauthenticates the
+stored policy; failures block reconstruction. `--minimum-policy-revision` can
+enforce an independently retained revision floor after restoring a backup.
+The store and issuer trust must remain under the verifier's control.
+
 The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
 accepts retained RFC 3161 requests/responses plus verifier-controlled TSA trust.
 Use `--require-checkpoint-timestamp` where external anchoring is mandatory. Its

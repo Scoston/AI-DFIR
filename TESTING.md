@@ -167,7 +167,7 @@ python -m pytest tests/test_v17_timestamps.py -q
 
 The quick gate generates ephemeral CA/TSA keys and issues a real RFC 3161
 response using OpenSSL in temporary storage. No live authority is contacted.
-The full gate adds 68 timestamp tests, for 211 v1.7 tests: 56 integrity, 30
+The timestamp milestone adds 68 tests, for a pre-policy-update total of 211: 56 integrity, 30
 provenance/replay, 57 key-policy, and 68 timestamps. Tests include correctly
 signed hostile cases, wrong imprints/nonces/pins, unavailable crypto tooling,
 exclusive timestamp certificate purpose, expiry and future times, incorrect
@@ -180,3 +180,26 @@ preserving existing destinations and separate signature/key-policy results.
 Published older package contracts remain supported; new extracted releases
 must include the timestamp files and their acceptance results. See
 [Checkpoint timestamps](docs/reference/CHECKPOINT_TIMESTAMPS_V1.7.md).
+
+## 13. Unreleased authenticated checkpoint policy updates
+
+```bash
+python v17_policy_distribution_selftest.py
+python -m pytest tests/test_v17_policy_distribution.py -q
+python scripts/release_check.py --full
+```
+
+The self-test is part of the quick and full gates. The full gate adds 66 tests,
+bringing the v1.7 total to 277. Coverage includes issuer authority and rotation,
+key separation, signature/scope tampering, current-clock expiry, persisted
+rollback rejection, equal-revision conflicts, concurrent updates, failed
+transactions, malformed or missing stores, and all affected CLIs. A backup
+recovery test demonstrates that replacing the entire store with an older valid
+copy requires an independently retained minimum revision to detect the rollback.
+
+Case tests keep authentication separate from evidence integrity and checkpoint
+signature validity, block reconstruction after revocation, preserve export
+destinations on failure, and compose with timestamp requirements. The tests use
+ephemeral keys and local files; they deploy no authority or update service.
+Packaging requires all profile files and repeats the full gate on extracted
+committed source. See [Authenticated policy updates](docs/reference/CHECKPOINT_POLICY_UPDATES_V1.7.md).

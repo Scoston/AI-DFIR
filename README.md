@@ -23,6 +23,13 @@ approved CA bundle and a pinned TSA signing certificate. Receipt failure blocks
 required verification and reconstruction. Operators supply their timestamp
 service and trust material; the tools do not submit evidence or requests.
 
+The unreleased [authenticated policy updates](docs/reference/CHECKPOINT_POLICY_UPDATES_V1.7.md)
+profile verifies a separate policy issuer's signature and retains the latest
+accepted revision in a verifier-owned transactional store. It rejects older or
+conflicting updates and reauthenticates the stored policy on every use. Operators
+protect issuer trust and the store; backup recovery can require an independent
+minimum revision.
+
 AI incidents cross boundaries that conventional DFIR tools often treat separately. AI-DFIR is designed to answer:
 
 1. **What actually executed?** Model, agent, harness, tool implementation, workload, and provider.

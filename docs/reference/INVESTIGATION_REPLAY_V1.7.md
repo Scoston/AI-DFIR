@@ -164,7 +164,8 @@ runs the provenance/replay regression suite alongside the original 56 v1.7 tests
 suites. Packaging requires these files and acceptance results in the extracted
 package. Historical published v1.7.0 release verification remains supported.
 
-[Checkpoint key policy](CHECKPOINT_KEY_POLICY_V1.7.md) and
+[Checkpoint key policy](CHECKPOINT_KEY_POLICY_V1.7.md),
+[authenticated policy updates](CHECKPOINT_POLICY_UPDATES_V1.7.md), and
 [external checkpoint timestamps](CHECKPOINT_TIMESTAMPS_V1.7.md) are separate,
 implemented development profiles that also gate reconstruction. Live comparison
 orchestration, more replay adapters, and deployment certification remain future
