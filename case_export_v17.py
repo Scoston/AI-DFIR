@@ -406,6 +406,8 @@ def export_case(
     policy_issuer_trust: Mapping[str, Any] | None = None,
     require_authenticated_key_policy: bool = False,
     minimum_policy_revision: int | None = None,
+    policy_root_anchor: Mapping[str, Any] | None = None,
+    minimum_root_version: int | None = None,
     timestamp_request: bytes | None = None,
     timestamp_response: bytes | None = None,
     tsa_ca_pem: bytes | None = None,
@@ -456,6 +458,7 @@ def export_case(
         required=require_checkpoint_key_policy,
         policy_store=checkpoint_policy_store, issuer_trust=policy_issuer_trust,
         require_authenticated=require_authenticated_key_policy, minimum_revision=minimum_policy_revision,
+        root_anchor=policy_root_anchor, minimum_root_version=minimum_root_version,
     )
     if policy_result["status"] == "FAIL":
         raise ValueError("checkpoint key policy rejected export: " + "; ".join(
@@ -706,6 +709,8 @@ def verify_case(
     policy_issuer_trust: Mapping[str, Any] | None = None,
     require_authenticated_key_policy: bool = False,
     minimum_policy_revision: int | None = None,
+    policy_root_anchor: Mapping[str, Any] | None = None,
+    minimum_root_version: int | None = None,
     timestamp_request: bytes | None = None,
     timestamp_response: bytes | None = None,
     tsa_ca_pem: bytes | None = None,
@@ -863,6 +868,7 @@ def verify_case(
             required=require_checkpoint_key_policy,
             policy_store=checkpoint_policy_store, issuer_trust=policy_issuer_trust,
             require_authenticated=require_authenticated_key_policy, minimum_revision=minimum_policy_revision,
+            root_anchor=policy_root_anchor, minimum_root_version=minimum_root_version,
         )
         policy_valid = policy_result["status"] in {"PASS", "NOT_CONFIGURED"}
         trusted_valid = trusted_valid and policy_valid

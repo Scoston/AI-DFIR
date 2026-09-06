@@ -88,6 +88,14 @@ def render_verification_report(report: dict[str, Any]) -> str:
             f"Policy accepted at: {_display(authentication.get('accepted_at'))}",
             f"Policy rollback protection: {_display(authentication.get('rollback_protection'))}",
         ])
+    issuer_root = authentication.get("issuer_root") or {}
+    if issuer_root.get("status") == "PASS":
+        lines.extend([
+            f"Policy root version: {_display(issuer_root.get('root_version'))}",
+            f"Policy root SHA-256: {_display(issuer_root.get('root_sha256'))}",
+            f"Policy root anchor SHA-256: {_display(issuer_root.get('anchor_sha256'))}",
+            f"Policy root rotations verified: {_display(issuer_root.get('rotations_verified'))}",
+        ])
     if timestamp.get("status") in {"PASS", "FAIL"}:
         lines.extend([
             f"Timestamp request SHA-256: {_display(timestamp.get('request_sha256'))}",

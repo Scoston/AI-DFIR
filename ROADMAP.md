@@ -35,12 +35,18 @@ Configurable policy issuer quorums are also implemented: distinct Ed25519
 co-signatures bind the policy and independently approved issuer configuration.
 Partial or conflicting approvals fail, and separate custodians can sign without
 sharing private keys. See [Policy issuer quorum](docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md).
-Custodian independence and changes to the trust configuration remain operator
-responsibilities.
+Custodian independence remains an operator responsibility.
+
+Signed issuer-root rotation and atomic root/policy activation are implemented:
+the previous and replacement quorums approve each sequential transition, and a
+governed store revalidates the retained chain against an independent root anchor.
+Explicit migration preserves policy revision history; current-root checks and
+independent recovery floors remain enforced. See
+[Signed issuer governance](docs/reference/CHECKPOINT_POLICY_GOVERNANCE_V1.7.md).
 
 ## Future work
 
-- online checkpoint-policy delivery, signed issuer-root rotation/governance, and independently timestamped historical key-trust decisions;
+- online checkpoint-policy and issuer-root delivery, and independently timestamped historical key-trust decisions;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parser/Evidence Pack replay adapters and authorized live comparison orchestration;
 

@@ -65,6 +65,11 @@ POLICY_QUORUM_PACKAGE_PATHS = {
     "tests/test_v17_policy_quorum.py", "docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md",
 }
 
+POLICY_GOVERNANCE_PACKAGE_PATHS = {
+    "v17_policy_governance.py", "checkpoint_governance_v17.py", "v17_policy_governance_selftest.py",
+    "tests/test_v17_policy_governance.py", "docs/reference/CHECKPOINT_POLICY_GOVERNANCE_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -255,6 +260,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_policy_quorum = bool(POLICY_QUORUM_PACKAGE_PATHS & set(expected))
         if has_policy_quorum and not (POLICY_QUORUM_PACKAGE_PATHS | POLICY_DISTRIBUTION_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete policy issuer quorum package support")
+        has_policy_governance = bool(POLICY_GOVERNANCE_PACKAGE_PATHS & set(expected))
+        if has_policy_governance and not (POLICY_GOVERNANCE_PACKAGE_PATHS | POLICY_QUORUM_PACKAGE_PATHS | POLICY_DISTRIBUTION_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete signed issuer governance package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -288,6 +296,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
             "has_policy_quorum": has_policy_quorum,
+            "has_policy_governance": has_policy_governance,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -358,6 +367,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_policy_distribution_selftest="PASS", v17_policy_distribution_regression_tests=66)
     if zip_result.get("has_policy_quorum"):
         required_assurance.update(v17_policy_quorum_selftest="PASS", v17_policy_quorum_regression_tests=67)
+    if zip_result.get("has_policy_governance"):
+        required_assurance.update(v17_policy_governance_selftest="PASS", v17_policy_governance_regression_tests=87)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")

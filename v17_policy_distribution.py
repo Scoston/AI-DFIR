@@ -226,6 +226,11 @@ def _stored(connection: sqlite3.Connection) -> dict[str, Any]:
     objects = connection.execute("SELECT type,name,sql FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%'").fetchall()
     _require(len(objects) == 1 and tuple(objects[0]) == ("table", "checkpoint_policy", _TABLE),
              "policy_store_invalid", "unexpected policy store schema")
+    return _stored_policy(connection)
+
+
+def _stored_policy(connection: sqlite3.Connection) -> dict[str, Any]:
+    """Validate the policy row after the caller has checked the store schema."""
     rows = connection.execute("SELECT * FROM checkpoint_policy").fetchall()
     _require(len(rows) == 1 and rows[0]["singleton"] == 1,
              "policy_store_invalid", "policy store must contain exactly one accepted policy")

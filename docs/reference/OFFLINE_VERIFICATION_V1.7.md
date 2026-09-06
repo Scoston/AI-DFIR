@@ -36,6 +36,13 @@ same store and verification options with an independently approved signature
 threshold. Required co-signatures bind both the policy and issuer configuration.
 Partial approvals cannot satisfy the requirement or change the stored revision.
 
+The unreleased [signed issuer governance profile](CHECKPOINT_POLICY_GOVERNANCE_V1.7.md)
+uses `--policy-root-anchor` with a governed policy store to verify the complete
+retained rotation chain. Both current and replacement quorums approve rotations,
+and root/policy activation is atomic. `--minimum-root-version` complements the
+independent policy revision floor. An expired active root blocks acceptance;
+caller-supplied evaluation time cannot backdate the root check.
+
 The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
 accepts retained RFC 3161 requests/responses plus verifier-controlled TSA trust.
 Use `--require-checkpoint-timestamp` where external anchoring is mandatory. Its

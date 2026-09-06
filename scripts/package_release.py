@@ -163,6 +163,11 @@ def required_v17_paths() -> set[str]:
         "v17_policy_quorum_selftest.py",
         "tests/test_v17_policy_quorum.py",
         "docs/reference/CHECKPOINT_POLICY_QUORUM_V1.7.md",
+        "v17_policy_governance.py",
+        "checkpoint_governance_v17.py",
+        "v17_policy_governance_selftest.py",
+        "tests/test_v17_policy_governance.py",
+        "docs/reference/CHECKPOINT_POLICY_GOVERNANCE_V1.7.md",
         "v17_provenance.py",
         "v17_reconstruction.py",
         "replay_case_v17.py",
@@ -258,6 +263,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_timestamp_selftest": "PASS",
         "v17_policy_distribution_selftest": "PASS",
         "v17_policy_quorum_selftest": "PASS",
+        "v17_policy_governance_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -281,6 +287,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     quorum = checks.get("v17_policy_quorum_regression")
     if not isinstance(quorum, dict) or quorum.get("status") != "PASS" or quorum.get("tests") != 67:
         raise RuntimeError("extracted package must pass all 67 policy issuer quorum regression tests")
+    governance = checks.get("v17_policy_governance_regression")
+    if not isinstance(governance, dict) or governance.get("status") != "PASS" or governance.get("tests") != 87:
+        raise RuntimeError("extracted package must pass all 87 signed issuer governance regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -503,6 +512,8 @@ def main() -> None:
                 "v17_policy_distribution_regression_tests": 66,
                 "v17_policy_quorum_selftest": "PASS",
                 "v17_policy_quorum_regression_tests": 67,
+                "v17_policy_governance_selftest": "PASS",
+                "v17_policy_governance_regression_tests": 87,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),
