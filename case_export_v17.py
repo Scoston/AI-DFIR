@@ -41,6 +41,9 @@ from v17_reconstruction import reconstruct, strict_json
 from v17_key_policy import (
     add_key_policy_arguments, evaluate_key_policy, key_policy_options, key_policy_report,
 )
+from v17_timestamp import (
+    add_timestamp_arguments, evaluate_checkpoint_timestamp, timestamp_options, timestamp_report,
+)
 
 
 OFFLINE_EXPORT_SCHEMA = "ai-dfir/offline-case-export/v1.7"
@@ -399,6 +402,12 @@ def export_case(
     require_checkpoint_key_policy: bool = False,
     key_policy_evaluated_at: str | None = None,
     expected_key_policy_sha256: str | None = None,
+    timestamp_request: bytes | None = None,
+    timestamp_response: bytes | None = None,
+    tsa_ca_pem: bytes | None = None,
+    expected_tsa_certificate_sha256: str | None = None,
+    expected_timestamp_request_sha256: str | None = None,
+    require_checkpoint_timestamp: bool = False,
 ) -> dict[str, Any]:
     """Create a v1.5-compatible signed export containing v1.7 verification state."""
     if ledger.case_id != case_id:
@@ -424,6 +433,17 @@ def export_case(
             "checkpoint signer trust verification failed: "
             + "; ".join(trusted_errors)
         )
+
+    timestamp_result = evaluate_checkpoint_timestamp(
+        signed_checkpoint=signed_checkpoint, tenant_id=tenant_id, case_id=case_id,
+        timestamp_request=timestamp_request, timestamp_response=timestamp_response,
+        tsa_ca_pem=tsa_ca_pem, expected_tsa_certificate_sha256=expected_tsa_certificate_sha256,
+        expected_timestamp_request_sha256=expected_timestamp_request_sha256,
+        require_checkpoint_timestamp=require_checkpoint_timestamp,
+    )
+    if timestamp_result["status"] == "FAIL":
+        raise ValueError("checkpoint timestamp rejected export: " + "; ".join(
+            item["code"] for item in timestamp_result["findings"]))
 
     policy_result = evaluate_key_policy(
         checkpoint_key_policy, signed_checkpoint=signed_checkpoint,
@@ -490,6 +510,7 @@ def export_case(
         "checkpoint_hash": signed_checkpoint.checkpoint.checkpoint_hash,
         "checkpoint_key_id": signed_checkpoint.key_id,
         "checkpoint_key_policy": policy_result,
+        "checkpoint_timestamp": timestamp_result,
         "v15_compatible_manifest": True,
         "network_required_for_verification": False,
     }
@@ -651,6 +672,7 @@ def _failure_report(
         "checkpoint_integrity": "NOT_RUN",
         "provenance_integrity": "NOT_RUN",
         "checkpoint_key_policy": key_policy_report(),
+        "checkpoint_timestamp": timestamp_report(),
         "signature_valid": False,
         "signer_trusted": False,
         "findings": findings,
@@ -674,6 +696,12 @@ def verify_case(
     require_checkpoint_key_policy: bool = False,
     key_policy_evaluated_at: str | None = None,
     expected_key_policy_sha256: str | None = None,
+    timestamp_request: bytes | None = None,
+    timestamp_response: bytes | None = None,
+    tsa_ca_pem: bytes | None = None,
+    expected_tsa_certificate_sha256: str | None = None,
+    expected_timestamp_request_sha256: str | None = None,
+    require_checkpoint_timestamp: bool = False,
 ) -> dict[str, Any]:
     """Verify a v1.7 case export using local files only."""
     path = Path(zip_path)
@@ -829,6 +857,17 @@ def verify_case(
         combined_valid = combined_valid and policy_valid
         policy_errors = [item["code"] for item in policy_result["findings"]]
 
+        timestamp_result = evaluate_checkpoint_timestamp(
+            signed_checkpoint=signed, tenant_id=payload.get("tenant_id"), case_id=case_id,
+            timestamp_request=timestamp_request, timestamp_response=timestamp_response,
+            tsa_ca_pem=tsa_ca_pem, expected_tsa_certificate_sha256=expected_tsa_certificate_sha256,
+            expected_timestamp_request_sha256=expected_timestamp_request_sha256,
+            require_checkpoint_timestamp=require_checkpoint_timestamp,
+        )
+        timestamp_valid = timestamp_result["status"] in {"PASS", "NOT_CONFIGURED"}
+        combined_valid = combined_valid and timestamp_valid
+        timestamp_errors = [item["code"] for item in timestamp_result["findings"]]
+
         checkpoint_errors: list[str] = []
         if checkpoint != signed.checkpoint:
             checkpoint_errors.append("checkpoint export does not match signed checkpoint")
@@ -861,6 +900,10 @@ def verify_case(
         findings.extend(
             _finding("checkpoint_key_policy_failed", code=item["code"], error=item["detail"])
             for item in policy_result["findings"]
+        )
+        findings.extend(
+            _finding("checkpoint_timestamp_failed", code=item["code"], error=item["detail"])
+            for item in timestamp_result["findings"]
         )
 
         checkpoint_valid = not checkpoint_errors
@@ -940,11 +983,12 @@ def verify_case(
             "manifest_signer_trusted": manifest_signer_trusted,
             "signer_trust_source": "export-manifest-and-external-policy" if checkpoint_key_policy is not None else "export-manifest",
             "checkpoint_key_policy": policy_result,
+            "checkpoint_timestamp": timestamp_result,
             "signer_key_id": signed.key_id,
             "combined_checkpoint_verification": combined_valid,
             "findings": findings,
             "verification_errors": sorted(
-                set(ledger_errors + checkpoint_errors + signature_errors + combined_errors + policy_errors)
+                set(ledger_errors + checkpoint_errors + signature_errors + combined_errors + policy_errors + timestamp_errors)
             ),
         }
         if overall and reconstruction is not None:
@@ -988,6 +1032,7 @@ def main() -> int:
     create.add_argument("--include-evidence", action="store_true")
     create.add_argument("--provenance", help="Optional validated investigation provenance JSON")
     add_key_policy_arguments(create)
+    add_timestamp_arguments(create)
 
     verify = sub.add_parser("verify")
     verify.add_argument("--zip", required=True)
@@ -997,6 +1042,7 @@ def main() -> int:
     verify.add_argument("--out")
     verify.add_argument("--require-provenance", action="store_true")
     add_key_policy_arguments(verify)
+    add_timestamp_arguments(verify)
     verify.add_argument(
         "--max-members",
         type=int,
@@ -1040,6 +1086,7 @@ def main() -> int:
                 include_evidence=args.include_evidence,
                 provenance=strict_json(Path(args.provenance).read_bytes()) if args.provenance else None,
                 **key_policy_options(args),
+                **timestamp_options(args),
             )
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0
@@ -1051,6 +1098,7 @@ def main() -> int:
             expected_case=args.case,
             require_provenance=args.require_provenance,
             **key_policy_options(args),
+            **timestamp_options(args),
             max_members=args.max_members,
             max_total_uncompressed=int(
                 args.max_total_uncompressed_gib

@@ -49,6 +49,11 @@ KEY_POLICY_PACKAGE_PATHS = {
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
 }
 
+TIMESTAMP_PACKAGE_PATHS = {
+    "v17_timestamp.py", "checkpoint_timestamp_v17.py", "v17_timestamp_selftest.py",
+    "tests/test_v17_timestamps.py", "docs/reference/CHECKPOINT_TIMESTAMPS_V1.7.md",
+}
+
 
 class ReleaseCandidateError(ValueError):
     pass
@@ -230,6 +235,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
+        has_timestamps = bool(TIMESTAMP_PACKAGE_PATHS & set(expected))
+        if has_timestamps and not TIMESTAMP_PACKAGE_PATHS.issubset(expected):
+            raise ReleaseCandidateError("incomplete checkpoint timestamp package support")
         archive_rel = {
             name[len(package_name) + 1 :]
             for name in names
@@ -260,6 +268,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "source_commit": source_commit,
             "has_provenance": has_provenance,
             "has_key_policy": has_key_policy,
+            "has_timestamps": has_timestamps,
             "manifest_files": len(expected),
             "evidence_packs": manifest.get("evidence_pack_count"),
         }
@@ -324,6 +333,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_provenance_selftest="PASS", v17_provenance_regression_tests=30)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
+    if zip_result.get("has_timestamps"):
+        required_assurance.update(v17_timestamp_selftest="PASS", v17_timestamp_regression_tests=68)
     for key, expected in required_assurance.items():
         if assurance.get(key) != expected:
             raise ReleaseCandidateError(f"release assurance mismatch: {key}")

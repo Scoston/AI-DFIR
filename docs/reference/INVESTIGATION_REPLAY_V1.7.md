@@ -164,7 +164,9 @@ runs the provenance/replay regression suite alongside the original 56 v1.7 tests
 suites. Packaging requires these files and acceptance results in the extracted
 package. Historical published v1.7.0 release verification remains supported.
 
-Key lifecycle/revocation, external checkpoint anchoring, live comparison
-orchestration, additional pure replay adapters, and deployment certification are
-separate work. This profile provides no new model detector coverage and makes no
+[Checkpoint key policy](CHECKPOINT_KEY_POLICY_V1.7.md) and
+[external checkpoint timestamps](CHECKPOINT_TIMESTAMPS_V1.7.md) are separate,
+implemented development profiles that also gate reconstruction. Live comparison
+orchestration, more replay adapters, and deployment certification remain future
+work. This profile provides no new model detector coverage and makes no
 claim of legal admissibility, hardware-backed keys, or production certification.

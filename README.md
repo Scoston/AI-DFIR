@@ -17,6 +17,12 @@ adds verifier-controlled key rotation, retirement, revocation, validity windows,
 and tenant/case scope. It reports cryptographic validity separately from current
 key trust and can require an independently supplied, pinned policy snapshot.
 
+The unreleased [checkpoint timestamp profile](docs/reference/CHECKPOINT_TIMESTAMPS_V1.7.md)
+prepares RFC 3161 requests and authenticates external receipts offline with an
+approved CA bundle and a pinned TSA signing certificate. Receipt failure blocks
+required verification and reconstruction. Operators supply their timestamp
+service and trust material; the tools do not submit evidence or requests.
+
 AI incidents cross boundaries that conventional DFIR tools often treat separately. AI-DFIR is designed to answer:
 
 1. **What actually executed?** Model, agent, harness, tool implementation, workload, and provider.

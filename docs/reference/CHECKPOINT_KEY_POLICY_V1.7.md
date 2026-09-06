@@ -72,8 +72,11 @@ that an older signature existed before key compromise, retirement, or expiry.
 A signer who controls a private key can also choose its signed timestamp.
 Historical acceptance of retired/revoked keys needs additional independently
 authenticated evidence. RFC 3161 describes a timestamp authority's role in
-establishing that data existed before a stated time; AI-DFIR does not implement
-that protocol in this milestone. See [RFC 3161, introduction](https://www.rfc-editor.org/rfc/rfc3161#section-1).
+establishing that data existed before a stated time. See
+[RFC 3161, introduction](https://www.rfc-editor.org/rfc/rfc3161#section-1).
+The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
+can authenticate that attestation. It does not override retired/revoked states
+or implement historical key authorization; current policy still applies.
 
 For rotation, provision the replacement key through the trusted policy process,
 allow a deliberate overlap of active keys, then publish a new policy revision

@@ -23,6 +23,13 @@ report. An embedded policy cannot grant this authority. Deployments requiring
 this control must use `--require-checkpoint-key-policy` and provide an approved
 external policy; historical signing-time proof remains outside this profile.
 
+The separate unreleased [checkpoint timestamp profile](CHECKPOINT_TIMESTAMPS_V1.7.md)
+accepts retained RFC 3161 requests/responses plus verifier-controlled TSA trust.
+Use `--require-checkpoint-timestamp` where external anchoring is mandatory. Its
+result appears under `checkpoint_timestamp`, and a failed configured timestamp
+prevents reconstruction. TSA receipts do not override key revocation or evidence
+integrity failures. This profile is not present in published v1.7.0 assets.
+
 The package is not self-trusting. A public key copied from inside the package is not a substitute for the independently obtained export public key.
 
 ## Package verification chain

@@ -9,6 +9,7 @@ from pathlib import Path
 from case_export_v17 import verify_case
 from verify_case_v17 import _runtime_report, exit_code_for_report
 from v17_key_policy import add_key_policy_arguments, key_policy_options
+from v17_timestamp import add_timestamp_arguments, timestamp_options
 
 
 def main() -> int:
@@ -20,6 +21,7 @@ def main() -> int:
     parser.add_argument("--out")
     parser.add_argument("--replay-transforms", action="store_true", help="Replay supported pure transforms from preserved bytes")
     add_key_policy_arguments(parser)
+    add_timestamp_arguments(parser)
     args = parser.parse_args()
     try:
         report = verify_case(
@@ -27,6 +29,7 @@ def main() -> int:
             expected_case=args.case, require_provenance=True,
             include_reconstruction=True, replay_transforms=args.replay_transforms,
             **key_policy_options(args),
+            **timestamp_options(args),
         )
     except (OSError, ValueError, TypeError, KeyError) as exc:
         report = _runtime_report(exc)

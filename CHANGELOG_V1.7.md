@@ -4,6 +4,18 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: external checkpoint timestamps
+
+- RFC 3161 SHA-256 requests binding the complete signed checkpoint and tenant/case identity;
+- local preparation with a fresh 128-bit nonce and optional TSA policy OID;
+- offline receipt authentication through OpenSSL 3, with explicit CA trust and a mandatory TSA certificate pin;
+- request/response digests, authenticated TSA time/accuracy, and an optional retained-request pin;
+- matching enforcement across export, offline verification, and recorded reconstruction;
+- bounded ASN.1 and PEM parsing, no implicit system CA trust, and no automatic network submission;
+- synthetic TSA acceptance and 68 regression tests, including forged receipts and validly signed negative cases;
+- release/source-package gates, analyst workflow, and dependency notices;
+- explicit limits for TSA revocation, operator independence, and historical key authorization.
+
 ### Unreleased: checkpoint key lifecycle policy
 
 - external verifier-controlled key policy with active, retired, and revoked states;
