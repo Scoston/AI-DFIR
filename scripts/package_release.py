@@ -193,6 +193,13 @@ def required_v17_paths() -> set[str]:
         "v17_provenance_selftest.py",
         "tests/test_v17_provenance_replay.py",
         "docs/reference/INVESTIGATION_REPLAY_V1.7.md",
+        "v17_pack_replay.py",
+        "pack_replay_v17.py",
+        "v17_pack_replay_selftest.py",
+        "tests/test_v17_pack_replay.py",
+        "docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md",
+        "evidence_quality.py",
+        "evidence_pack_engine.py",
         "v17_offline_selftest.py",
         "v17_verification_assurance_selftest.py",
         "v17_release_candidate_selftest.py",
@@ -287,6 +294,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_key_trust_history_selftest": "PASS",
         "v17_delivery_identity_selftest": "PASS",
         "v17_policy_sync_selftest": "PASS",
+        "v17_pack_replay_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -325,6 +333,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     scheduling = checks.get("v17_policy_sync_regression")
     if not isinstance(scheduling, dict) or scheduling.get("status") != "PASS" or scheduling.get("tests") != 85:
         raise RuntimeError("extracted package must pass all 85 policy synchronization scheduling regression tests")
+    pack_replay = checks.get("v17_pack_replay_regression")
+    if not isinstance(pack_replay, dict) or pack_replay.get("status") != "PASS" or pack_replay.get("tests") != 96:
+        raise RuntimeError("extracted package must pass all 96 Evidence Pack gate-replay regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -557,6 +568,8 @@ def main() -> None:
                 "v17_delivery_identity_regression_tests": 80,
                 "v17_policy_sync_selftest": "PASS",
                 "v17_policy_sync_regression_tests": 85,
+                "v17_pack_replay_selftest": "PASS",
+                "v17_pack_replay_regression_tests": 96,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

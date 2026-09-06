@@ -12,6 +12,12 @@ v1.7.0 assets**. See [Investigation replay](docs/reference/INVESTIGATION_REPLAY_
 for evidence-reference validation, AI/tool/analyst reconstruction, supported pure
 transforms, and the synthetic acceptance case.
 
+The unreleased [Evidence Pack gate replay](docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md)
+profile checks whether exact retained pack rules and recorded quality ratings
+reproduce an assessment's conclusion gates. It detects incorrectly recorded gate
+results without acquiring evidence again. A matching calculation does not
+validate the original quality ratings or authorize an investigative conclusion.
+
 The unreleased [checkpoint key policy](docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md)
 adds verifier-controlled key rotation, retirement, revocation, validity windows,
 and tenant/case scope. It reports cryptographic validity separately from current

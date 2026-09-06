@@ -263,9 +263,12 @@ def quality_satisfies(actual,required):
     if actual in ("CONFLICTING","STALE","INCOMPLETE"):return False
     return QUALITY_ORDER.get(actual,-1) >= QUALITY_ORDER.get(required,999)
 
-def assess_pack(pack,case_root:Path):
-    root=Path(case_root).resolve();ctx=case_context(root)
-    rows=[assess_artifact(root,a,ctx) for a in pack.get("artifacts",[])]
+def evaluate_gates(pack,rows):
+    """Pure gate calculation over already assessed quality states.
+
+    This does not inspect evidence or authenticate the recorded quality claims.
+    Callers accepting untrusted snapshots must validate their complete schema.
+    """
     by={x["id"]:x for x in rows}
     mandatory=[x for x in rows if x.get("priority")=="mandatory"]
     required_quality=pack.get("mandatory_min_quality","VALIDATED")
@@ -290,13 +293,19 @@ def assess_pack(pack,case_root:Path):
         gates.append({**g,"status":"supported" if ok else "not_supported",
                       "missing":missing,"insufficient_quality":low})
     return {
-        "schema":"ai-dfir/evidence-quality-assessment/v1.2",
-        "pack_id":pack["id"],"pack_title":pack["title"],"case_root":str(root),
         "mandatory_min_quality":required_quality,
         "mandatory_qualified":qualified,"mandatory_total":len(mandatory),
         "mandatory_percent":round((qualified/len(mandatory)*100) if mandatory else 100.0,1),
-        "artifacts":rows,"conclusion_gates":gates,
-        "quality_scale":QUALITY_ORDER,
+        "conclusion_gates":gates,"quality_scale":dict(QUALITY_ORDER),
+    }
+
+def assess_pack(pack,case_root:Path):
+    root=Path(case_root).resolve();ctx=case_context(root)
+    rows=[assess_artifact(root,a,ctx) for a in pack.get("artifacts",[])]
+    return {
+        "schema":"ai-dfir/evidence-quality-assessment/v1.2",
+        "pack_id":pack["id"],"pack_title":pack["title"],"case_root":str(root),
+        **evaluate_gates(pack,rows),"artifacts":rows,
         "rule":"Presence alone is insufficient. Mandatory evidence requires hash-bound acquisition by default; authoritative/correlated promotion requires verified signed acquisition trust.",
     }
 

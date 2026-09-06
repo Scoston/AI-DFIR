@@ -112,6 +112,7 @@ def main():
     py("v17_key_trust_history_selftest.py",timeout=90); results["v17_key_trust_history_selftest"]={"status":"PASS"}
     py("v17_delivery_identity_selftest.py",timeout=90); results["v17_delivery_identity_selftest"]={"status":"PASS"}
     py("v17_policy_sync_selftest.py",timeout=90); results["v17_policy_sync_selftest"]={"status":"PASS"}
+    py("v17_pack_replay_selftest.py",timeout=90); results["v17_pack_replay_selftest"]={"status":"PASS"}
     out=ROOT/".release-test"/f"v16-{uuid.uuid4().hex}"; out.parent.mkdir(parents=True,exist_ok=True); py("v16_selftest.py","--out",out,timeout=420); results["v16_focused"]={"status":"PASS"}
     compatibility("v15_selftest.py",[("version':'1.5","version':'1.6"),("meta['tool_version']=='1.5'","meta['tool_version']=='1.6'")],"v15"); results["v15_compatibility"]={"status":"PASS"}
     if full:
@@ -126,6 +127,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_key_trust_history.py","-q"],timeout=300); results["v17_key_trust_history_regression"]={"status":"PASS","tests":85}
         run([sys.executable,"-m","pytest","tests/test_v17_delivery_identity.py","-q"],timeout=300); results["v17_delivery_identity_regression"]={"status":"PASS","tests":80}
         run([sys.executable,"-m","pytest","tests/test_v17_policy_sync.py","-q"],timeout=300); results["v17_policy_sync_regression"]={"status":"PASS","tests":85}
+        run([sys.executable,"-m","pytest","tests/test_v17_pack_replay.py","-q"],timeout=300); results["v17_pack_replay_regression"]={"status":"PASS","tests":96}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}
         compatibility("v12_selftest.py",[

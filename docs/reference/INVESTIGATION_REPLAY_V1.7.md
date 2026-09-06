@@ -133,13 +133,17 @@ The fixed local transform registry supports:
 |---|---|---|---|
 | `RFC8785` | `1` | Strict JSON | Exact canonical output bytes |
 | `provider_normalizer.normalize` | `1.4` | JSON array of provider-event objects; relationship metadata `{"provider":"openai"}` or another supported adapter | Canonical JSON output with content inclusion disabled |
+| `evidence_quality.evaluate_gates` | `1.7` | Retained pack/quality snapshot and original assessment; metadata `{"pack_sha256":"<canonical retained pack digest>"}` | Canonical gate summary using recorded quality states |
 
 The profile is limited to 10,000 total records and 16 MiB of metadata. Each
 deterministic replay input/output is limited to 16 MiB. Duplicate JSON keys,
 non-finite numbers, invalid structures, and exceeded limits fail. Unknown
 transform names or versions are `UNSUPPORTED`; evidence can never select an
 arbitrary Python import, shell command, model invocation, or external tool.
-Other parser and Evidence Pack replay adapters remain future work.
+The [Evidence Pack gate adapter](EVIDENCE_PACK_REPLAY_V1.7.md) additionally limits
+its input snapshot to 2 MiB, requires complete unique artifact identities, and
+distinguishes reproduced calculations from underlying evidence sufficiency.
+Other parser and raw-evidence reassessment adapters remain future work.
 
 Integrity verification and reproduction of a transformation are separate
 results. A correctly preserved but incorrect normalization can have integrity

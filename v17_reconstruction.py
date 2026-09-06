@@ -74,15 +74,21 @@ def reconstruct(
             result = {"relationship_hash": row["record_hash"], "transformation": rec["transformation"], "status": "UNSUPPORTED"}
             supported = (rec["transformation"], rec["transformation_version"]) in {
                 ("RFC8785", "1"), ("provider_normalizer.normalize", "1.4"),
+                ("evidence_quality.evaluate_gates", "1.7"),
             }
             if supported:
                 try:
-                    original = strict_json(read_artifact(index[rec["parent_artifact_id"]]["path"]))
+                    original_raw = read_artifact(index[rec["parent_artifact_id"]]["path"])
+                    if rec["transformation"] == "evidence_quality.evaluate_gates":
+                        from v17_pack_replay import MAX_INPUT_BYTES
+                        if len(original_raw) > MAX_INPUT_BYTES:
+                            raise ProvenanceError("Evidence Pack replay snapshot exceeds byte limit")
+                    original = strict_json(original_raw)
                     preserved = read_artifact(index[rec["child_artifact_id"]]["path"])
                     if rec["transformation"] == "RFC8785":
                         matched = canonical_json_bytes(original) == preserved
                         result["comparison_basis"] = "exact-bytes"
-                    else:
+                    elif rec["transformation"] == "provider_normalizer.normalize":
                         from provider_normalizer import PROVIDERS, normalize
                         meta = rec["metadata"]
                         if set(meta) != {"provider"} or meta["provider"] not in PROVIDERS:
@@ -94,6 +100,15 @@ def reconstruct(
                         replayed = normalize(meta["provider"], original, include_content=False)
                         matched = sha256_object(replayed) == sha256_object(strict_json(preserved))
                         result["comparison_basis"] = "RFC8785-JSON"
+                    else:
+                        from v17_pack_replay import compare_pack_replay
+                        meta = rec["metadata"]
+                        if set(meta) != {"pack_sha256"}:
+                            raise ProvenanceError("unsupported Evidence Pack replay configuration")
+                        compared = compare_pack_replay(original, strict_json(preserved), case_id=ledger.case_id,
+                                                       expected_pack_sha256=meta["pack_sha256"])
+                        result.update(compared)
+                        matched = compared["status"] == "PASS"
                     result["status"] = "PASS" if matched else "FAIL"
                 except (ValueError, TypeError, KeyError, OSError, RecursionError):
                     result.update(status="FAIL", error="preserved transformation input/output is invalid or exceeds replay limits")

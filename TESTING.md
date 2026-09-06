@@ -358,3 +358,28 @@ production schedule or external service is started. Release packaging requires
 the scheduler, CLI, self-test, tests, guide, and matching source/extracted-package
 assurance; earlier published package contracts remain valid. See
 [Policy synchronization scheduling](docs/reference/POLICY_SYNC_SCHEDULING_V1.7.md).
+
+## 20. Unreleased recorded Evidence Pack conclusion-gate replay
+
+```bash
+python v17_pack_replay_selftest.py
+python -m pytest tests/test_v17_pack_replay.py -q
+python scripts/release_check.py --full
+```
+
+The synthetic signed-case acceptance reproduces supported and unsupported gates
+from retained rules/ratings, then detects an incorrectly recorded gate result
+despite intact case integrity. No network, model, external tool, archive extraction,
+or raw-evidence quality reassessment is performed during replay.
+
+The 96 focused regressions bring the v1.7 total to 916. They cover all 111 current
+catalog packs, aliases and per-requirement thresholds, negative quality states,
+complete unique artifact bindings, case/pack pins, bounded input/reference counts,
+strict JSON, CLI preservation and error codes, signed archive tampering, and
+independent case gates. The Kubernetes exposure pack's conditional network entry
+now has a distinct ID; its mandatory external-access gate remains unchanged.
+
+Source and extracted-package gates require the module, CLI, self-test, tests,
+guide, shared evaluator, and matching assurance. Earlier published package
+contracts remain supported. See
+[Evidence Pack gate replay](docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md).
