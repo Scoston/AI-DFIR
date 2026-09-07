@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: pinned raw-evidence reassessment
+
+- an eleventh fixed adapter recomputes byte/digest, strict parse, literal-text, and every-record field checks under an explicit canonical rules pin;
+- five bounded formats, exact numeric-kind observation, field presence/type counts, and automatic top-level schema fingerprints;
+- separate signed rules input, case/pin/reference/cycle checks, complete offline assessment comparison, and no quality or authority promotion;
+- 190 focused regressions, synthetic signed acceptance including failed validation and empty evidence, analyst guide, and source/extracted-package assurance;
+- no new dependencies, live acquisition, or changes to historical recorded quality ratings and gate replay.
+
 ### Unreleased: Google Cloud Logging capture and context replay
 
 - a tenth fixed adapter binds one entries.list request to exact Audit Log response bytes, ordered resource assertions, opaque filter/order/page observations, and signed offline replay;

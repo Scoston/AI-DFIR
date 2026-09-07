@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [raw-evidence reassessment adapter](docs/reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md)
+recomputes byte, syntax, literal, and top-level field checks under pinned rules.
+It checks every retained record and reports schema observations without changing
+recorded quality ratings or granting authority to the evidence.
+
 The unreleased [Google Cloud capture profile](docs/reference/GCP_LOGGING_CAPTURE_V1.7.md)
 binds one prepared Logging request to exact Audit Log response bytes and signed
 offline replay. Resource names, filters, ordering, and pagination observations

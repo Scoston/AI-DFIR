@@ -10,11 +10,12 @@ The current catalog contains 111 Evidence Packs.
 
 Investigation provenance/reference validation, evidence lineage validation,
 recorded AI/tool/analyst reconstruction, preserved-execution comparison, and
-ten fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
+eleven fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
 recorded Evidence Pack gates, native CloudTrail projection, Google Cloud Audit
 projection, native Azure Activity Log projection, Log Analytics table projection,
 lossless Log Analytics numeric projection, retained Log Analytics request-context
-binding, and Google Cloud Logging request-context binding. See
+binding, Google Cloud Logging request-context binding, and pinned raw-evidence
+reassessment. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
 
@@ -24,6 +25,14 @@ inputs, and offline comparison within signed case reconstruction. Its pure gate
 calculation is shared with the assessment engine. All 111 current catalog packs
 fit the profile; raw evidence quality is not reassessed or implicitly approved.
 See [Evidence Pack gate replay](docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md).
+
+Pinned raw-evidence reassessment is implemented in development: explicit bounded
+JSON object/array/JSONL, text, and binary profiles; exact byte/digest checks;
+per-record field presence/kind and literal rules; automatic top-level schema
+fingerprints; and signed offline comparison with a separately bound rules input.
+No recorded quality rating is changed and no source authority, time coverage, or
+collection completeness is inferred. See
+[Raw-evidence reassessment](docs/reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md).
 
 Native CloudTrail import/replay is implemented in development: explicit Records
 and LookupEvents JSON profiles, strict bounded parsing, exact source/canonical
@@ -177,13 +186,13 @@ policy completeness and actual prior verifier execution are not proven. See
 - complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
 - operated policy delivery services, additional deployment identity profiles beyond mTLS, and durable/HA coordination beyond the controlled local scheduling profile;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
-- additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate, native AWS/Google/Azure activity, and Log Analytics table replay, plus authorized live comparison orchestration;
+- additional deterministic parsers and deeper evidence-quality checks beyond the bounded raw-evidence reassessment, recorded gate, native AWS/Google/Azure activity, and Log Analytics profiles, plus authorized live comparison orchestration;
 
 - additional provider-specific raw-export profiles beyond the implemented native parsers, including acquisition-context capture for other providers; implemented numeric/resource/GET profile boundaries are documented in their guides;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - private transparency-log implementations and multi-party evidence anchoring;
-- more automatic evidence-source coverage measurement and provider schema-change detection;
+- evidence-source coverage measurement and deeper provider schema-change detection beyond retained top-level field/kind observations;
 - additional independent visible-rendering adapters for representation attacks;
 - optional standards-based case exchange profiles beyond the current neutral/STIX/ECS exports;
 - broader fuzzing and hostile-file corpora for parsers and archive/document intake;

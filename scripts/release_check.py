@@ -125,6 +125,7 @@ def main():
     py("v17_log_analytics_form_selftest.py",timeout=90); results["v17_log_analytics_form_selftest"]={"status":"PASS"}
     py("v17_log_analytics_lossless_selftest.py",timeout=90); results["v17_log_analytics_lossless_selftest"]={"status":"PASS"}
     py("v17_gcp_logging_capture_selftest.py",timeout=90); results["v17_gcp_logging_capture_selftest"]={"status":"PASS"}
+    py("v17_evidence_validation_selftest.py",timeout=90); results["v17_evidence_validation_selftest"]={"status":"PASS"}
     out=ROOT/".release-test"/f"v16-{uuid.uuid4().hex}"; out.parent.mkdir(parents=True,exist_ok=True); py("v16_selftest.py","--out",out,timeout=420); results["v16_focused"]={"status":"PASS"}
     compatibility("v15_selftest.py",[("version':'1.5","version':'1.6"),("meta['tool_version']=='1.5'","meta['tool_version']=='1.6'")],"v15"); results["v15_compatibility"]={"status":"PASS"}
     if full:
@@ -152,6 +153,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_log_analytics_form.py","-q"],timeout=300); results["v17_log_analytics_form_regression"]={"status":"PASS","tests":123}
         run([sys.executable,"-m","pytest","tests/test_v17_log_analytics_lossless.py","-q"],timeout=300); results["v17_log_analytics_lossless_regression"]={"status":"PASS","tests":171}
         run([sys.executable,"-m","pytest","tests/test_v17_gcp_logging_capture.py","-q"],timeout=300); results["v17_gcp_logging_capture_regression"]={"status":"PASS","tests":228}
+        run([sys.executable,"-m","pytest","tests/test_v17_evidence_validation.py","-q"],timeout=300); results["v17_evidence_validation_regression"]={"status":"PASS","tests":190}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}
         compatibility("v12_selftest.py",[

@@ -181,5 +181,7 @@ The synthetic acceptance and 96 regressions cover intact versus incorrect
 recorded summaries, all current packs, negative quality states, rule/identity
 ambiguities, bounds, offline signed-case use, independent case gates, and CLI
 preservation. Both source and extracted-package release gates require these
-results. Raw-evidence reassessment adapters and live comparison orchestration
-remain future work. See [Testing](../../TESTING.md).
+results. A separate [pinned raw-evidence adapter](RAW_EVIDENCE_REASSESSMENT_V1.7.md)
+now recomputes bounded byte/parse/literal/field checks without changing the ratings
+used by this gate profile. Deeper quality validation and live comparison
+orchestration remain future work. See [Testing](../../TESTING.md).
