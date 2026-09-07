@@ -139,7 +139,7 @@ def _cell(value, kind, ordinal):
     }
 
 
-def _tables(document):
+def _tables(document, *, column_types=COLUMN_TYPES):
     tables = document.get("tables")
     if not isinstance(tables, list) or len(tables) > MAX_TABLES:
         raise ProvenanceError("invalid or excessive query table list")
@@ -158,7 +158,7 @@ def _tables(document):
             if not isinstance(column, dict) or set(column) != {"name", "type"}:
                 raise ProvenanceError("invalid query column descriptor")
             name, kind = _text(column, "name"), _text(column, "type")
-            if name in names or kind not in COLUMN_TYPES:
+            if name in names or kind not in column_types:
                 raise ProvenanceError("duplicate query column or unsupported column type")
             names.add(name)
         row_count += len(rows)

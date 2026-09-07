@@ -10,10 +10,10 @@ The current catalog contains 111 Evidence Packs.
 
 Investigation provenance/reference validation, evidence lineage validation,
 recorded AI/tool/analyst reconstruction, preserved-execution comparison, and
-eight fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
+nine fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
 recorded Evidence Pack gates, native CloudTrail projection, Google Cloud Audit
 projection, native Azure Activity Log projection, Log Analytics table projection,
-and retained Log Analytics request-context binding. See
+lossless Log Analytics numeric projection, and retained Log Analytics request-context binding. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
 
@@ -97,6 +97,12 @@ percent decoding, bounded GUID lists, exact URL/order binding, automatic capture
 and signed offline replay. Original percent-only GET behavior remains unchanged.
 See [Form GET profiles](docs/reference/LOG_ANALYTICS_GET_FORM_V1.7.md).
 
+Lossless Log Analytics numeric replay is implemented in development: exact JSON
+number tokens, full signed 64-bit integers, bounded precise decimals and numeric
+strings, collision-free typed hashes, signed offline replay, and unchanged
+original table hashes. This response-only adapter does not widen capture/context
+profiles implicitly. See [Lossless numeric replay](docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md).
+
 Verifier-controlled checkpoint key lifecycle is also implemented in development:
 active/retired/revoked states, validity windows, tenant/case scope, rotation
 overlap, and optional policy digest pinning. See
@@ -165,7 +171,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate, native AWS/Google/Azure activity, and Log Analytics table replay, plus authorized live comparison orchestration;
 
-- additional provider-specific raw-export profiles beyond the implemented native parsers, including wider numeric types and acquisition-context capture for other providers; implemented resource/GET profile boundaries are documented in their guides;
+- additional provider-specific raw-export profiles beyond the implemented native parsers, including acquisition-context capture for other providers; implemented numeric/resource/GET profile boundaries are documented in their guides;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - private transparency-log implementations and multi-party evidence anchoring;

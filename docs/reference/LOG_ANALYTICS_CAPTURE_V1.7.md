@@ -181,6 +181,8 @@ size bounds, protected output paths, interruptions, and legacy compatibility.
 Source and extracted-package release gates require the self-test and all 114
 focused regressions. The separate GET capture gate requires its self-test and
 143 regressions as described in the [GET capture guide](LOG_ANALYTICS_GET_CAPTURE_V1.7.md).
-Wider numeric types, additional provider capture profiles, broader resource paths,
+The separate [lossless response adapter](LOG_ANALYTICS_LOSSLESS_V1.7.md) supports
+wider numeric text without changing capture/context acceptance. Automatic capture
+of those numeric profiles, additional provider capture profiles, broader resource paths,
 additional GET parameters/encodings, proxy/custom-CA profiles, and scheduled
 acquisition remain future work.

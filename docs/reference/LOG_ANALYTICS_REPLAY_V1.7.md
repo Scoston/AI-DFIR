@@ -11,6 +11,10 @@ The separate [resource table format](LOG_ANALYTICS_RESOURCE_V1.7.md),
 `--format resource-tables`, also accepts bounded opaque permission observations.
 The original `tables` format below retains its existing hashes and boundaries.
 
+The separate [lossless numeric adapter](LOG_ANALYTICS_LOSSLESS_V1.7.md) now supports
+wide integers, precise decimals, and numeric strings through explicit token-tree
+hashing. The original numeric limits and hashes below remain unchanged.
+
 Select `--format tables` for a single native response body containing a required
 `tables` array. The only other accepted top-level fields are `error`, `statistics`,
 and `render`. Every table requires exactly `name`, `columns`, and `rows`; each

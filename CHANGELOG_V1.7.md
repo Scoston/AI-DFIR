@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: lossless Log Analytics numeric replay
+
+- a ninth fixed adapter preserves wide integer/decimal/real text and distinguishes JSON numeric tokens from numeric strings;
+- full signed 64-bit integers, exact bounded decimal checks, negative-zero/exponent/trailing-zero preservation, and collision-free tagged hashes for opaque values;
+- bounded typed tables, opaque resource permissions, unchanged partial/unknown semantics, and signed offline replay;
+- 171 focused regressions, synthetic acceptance, two original-projection golden hashes, analyst guide and source/extracted-package assurance;
+- no new dependencies or live acquisition; original table/context/capture profiles and historical release verification remain unchanged.
+
 ### Unreleased: form-encoded Log Analytics GET and workspace lists
 
 - explicit workspace/resource form GET profiles with strict plus-before-percent decoding, exact URL/order binding, and bounded additional workspace GUID lists;
