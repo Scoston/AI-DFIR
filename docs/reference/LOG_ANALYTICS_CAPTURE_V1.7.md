@@ -7,6 +7,9 @@ bounded response body before parsing, and writes compatible context and
 projection artifacts. It does not run during offline verification or replay.
 
 Workspace POST remains the default described below. The explicit
+[`--capture-scope resource` option](LOG_ANALYTICS_RESOURCE_V1.7.md) adds resource
+POST/GET capture with bounded resource IDs and opaque permission observations.
+The explicit
 [`--capture-method GET` option](LOG_ANALYTICS_GET_CAPTURE_V1.7.md) now produces
 compatible GET artifacts through the same protected acquisition path. Separately
 retained GET requests can still use the
@@ -58,7 +61,7 @@ only for `azure_foundry_logs`; other providers fail before acquisition.
 The legacy command without `--capture-context` retains its original output-file,
 receipt, and exit behavior. The `azure_foundry_logs()` response-only Python API
 is unchanged. The capture API is
-`v17_log_analytics_capture.capture(params_raw: bytes, out_dir, *, method="POST")`.
+`v17_log_analytics_capture.capture(params_raw: bytes, out_dir, *, method="POST", scope="workspace")`.
 
 ## Acquisition and byte semantics
 
@@ -177,6 +180,6 @@ size bounds, protected output paths, interruptions, and legacy compatibility.
 Source and extracted-package release gates require the self-test and all 114
 focused regressions. The separate GET capture gate requires its self-test and
 143 regressions as described in the [GET capture guide](LOG_ANALYTICS_GET_CAPTURE_V1.7.md).
-Wider numeric types, additional provider capture profiles, resource queries,
+Wider numeric types, additional provider capture profiles, broader resource paths,
 additional GET parameters/encodings, proxy/custom-CA profiles, and scheduled
 acquisition remain future work.

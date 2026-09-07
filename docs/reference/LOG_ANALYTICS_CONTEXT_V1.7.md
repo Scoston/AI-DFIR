@@ -6,6 +6,8 @@ the existing typed result projection and detects a changed query, scope field,
 header observation, response, or recorded projection. It never executes KQL.
 
 The workspace POST profile below retains its original projection semantics.
+Explicit [resource POST/GET profiles](LOG_ANALYTICS_RESOURCE_V1.7.md) now support
+bounded resource paths, permission observations, and automatic resource capture.
 The same adapter and CLI also support an explicit, separately specified
 [workspace GET query/timespan profile](LOG_ANALYTICS_GET_CONTEXT_V1.7.md), including
 strict URL decoding and an explicit absent-body observation.

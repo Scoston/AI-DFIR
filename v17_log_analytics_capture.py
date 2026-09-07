@@ -24,34 +24,38 @@ TOKEN_RE = re.compile(r"[A-Za-z0-9._~+/-]+=*")
 RECEIPT_SCHEMA = "ai-dfir/log-analytics-capture-receipt/v1.7"
 OBSERVATION_SCHEMA = "ai-dfir/log-analytics-capture-observation/v1.7"
 CAPTURE_METHODS = ("POST", "GET")
+CAPTURE_SCOPES = ("workspace", "resource")
 
 
 class CaptureError(ValueError):
     """A redacted acquisition/configuration/output failure."""
 
 
-def _request(params_raw, *, method="POST"):
+def _request(params_raw, *, method="POST", scope="workspace"):
     params = _document(params_raw, MAX_PARAMS_BYTES)
-    optional = {"timespan", "prefer", "client_request_id"} | ({"workspaces"} if method == "POST" else set())
-    _object(params, {"workspace_id", "kql"}, optional)
-    workspace = params["workspace_id"]
-    if not isinstance(workspace, str):
+    optional = {"timespan", "prefer", "client_request_id"} | ({"workspaces"} if method == "POST" and scope == "workspace" else set())
+    ident = "resource_id" if scope == "resource" else "workspace_id"
+    _object(params, {ident, "kql"}, optional)
+    identifier = params[ident]
+    if not isinstance(identifier, str):
         raise CaptureError("invalid acquisition request")
     body = {"query": params["kql"], **{k: params[k] for k in ("timespan", "workspaces") if k in params}}
     headers = {"accept": "application/json"} if method == "GET" else {"content-type": "application/json"}
     for param, header in (("prefer", "prefer"), ("client_request_id", "x-ms-client-request-id")):
         if param in params:
             headers[header] = params[param]
-    request = {"method": method, "url": f"https://api.loganalytics.io/v1/workspaces/{workspace}/query",
+    url = (f"https://api.loganalytics.azure.com/v1{identifier}/query" if scope == "resource"
+           else f"https://api.loganalytics.io/v1/workspaces/{identifier}/query")
+    request = {"method": method, "url": url,
                "body": body, "headers": headers}
     if method == "GET":
         # Encode decoded operator parameters, then validate the complete URL.
         # No form '+' encoding, arbitrary URL input, or extra workspace scope.
         request["url"] += "?" + "&".join(f"{key}={quote(value, safe='')}" for key, value in body.items())
         request["body"] = None
-        _get_request(request)
+        _get_request(request, scope=scope)
     else:
-        validate_request(request)
+        validate_request(request, scope=scope)
     return request
 
 
@@ -63,17 +67,17 @@ def _selected(headers, allowed, token):
     return selected
 
 
-def _record_request(prepared, token, *, method="POST"):
+def _record_request(prepared, token, *, method="POST", scope="workspace"):
     request = {"method": prepared.method, "url": prepared.url,
                "body": prepared.body if method == "GET" else _document(prepared.body, MAX_PARAMS_BYTES),
                "headers": _selected(prepared.headers, GET_REQUEST_HEADERS if method == "GET" else REQUEST_HEADERS, token)}
     if method == "GET":
-        _, parameters = _get_request(request)
+        _, parameters = _get_request(request, scope=scope)
         # A bearer token may contain '+', '/', or '='. Check decoded values too,
         # so percent encoding cannot hide configured credentials in a GET URL.
         contaminated = token.encode() in canonical_json_bytes(parameters)
     else:
-        validate_request(request)
+        validate_request(request, scope=scope)
         contaminated = False
     if contaminated or token.encode() in canonical_json_bytes(request):
         raise CaptureError("credential contamination in retained request")
@@ -107,7 +111,7 @@ def _read_body(response):
     return b"".join(parts)
 
 
-def _acquire(prepared, recorded, token):
+def _acquire(prepared, recorded, token, *, scope="workspace"):
     # HTTPAdapter performs one urllib3 request with redirects/preloading off.
     # Session.send can consume a redirect body even with allow_redirects=False.
     # No Session means no ambient netrc, cookies, or environment proxy/CA merge.
@@ -116,7 +120,7 @@ def _acquire(prepared, recorded, token):
     try:
         response = adapter.send(prepared, stream=True, timeout=TIMEOUT, verify=True, cert=None, proxies={})
         if (response.url != recorded["url"] or response.history
-                or _record_request(response.request, token, method=recorded["method"]) != recorded):
+                or _record_request(response.request, token, method=recorded["method"], scope=scope) != recorded):
             raise CaptureError("observed request differs from prepared capture")
         status = response.status_code
         if type(status) is not int or not 100 <= status <= 599:
@@ -151,7 +155,7 @@ def _publish_receipt(directory, receipt):
         pass  # A leftover staging copy does not invalidate the committed receipt.
 
 
-def capture(params_raw: bytes, out_dir: str | Path, *, method: str = "POST") -> dict:
+def capture(params_raw: bytes, out_dir: str | Path, *, method: str = "POST", scope: str = "workspace") -> dict:
     """Acquire once; return a digest-only receipt. Never overwrite an output set.
 
     CAPTURED means the three required files were written and project correctly;
@@ -161,7 +165,9 @@ def capture(params_raw: bytes, out_dir: str | Path, *, method: str = "POST") -> 
     try:
         if not isinstance(method, str) or method not in CAPTURE_METHODS:
             raise CaptureError("unsupported acquisition method")
-        requested = _request(params_raw, method=method)
+        if not isinstance(scope, str) or scope not in CAPTURE_SCOPES:
+            raise CaptureError("unsupported acquisition scope")
+        requested = _request(params_raw, method=method, scope=scope)
         token = os.environ.get(TOKEN_ENV, "")
         if not token or len(token) > 16384 or TOKEN_RE.fullmatch(token) is None:
             raise CaptureError("missing or invalid acquisition credential")
@@ -169,19 +175,19 @@ def capture(params_raw: bytes, out_dir: str | Path, *, method: str = "POST") -> 
         prepared = requests.Request(method, requested["url"], data=body,
                                     headers={**requested["headers"], "Authorization": "Bearer " + token,
                                              "Accept": "application/json", "Accept-Encoding": "identity"}).prepare()
-        recorded = _record_request(prepared, token, method=method)
+        recorded = _record_request(prepared, token, method=method, scope=scope)
         if recorded != requested:
             raise CaptureError("prepared request differs from requested profile")
         directory = Path(out_dir)
         directory.mkdir(mode=0o700)  # Parent must already exist and be protected.
-        raw, status, headers = _acquire(prepared, recorded, token)
+        raw, status, headers = _acquire(prepared, recorded, token, scope=scope)
         files = [_write_new(directory, "response.json", raw)]
         context = {"schema": CONTEXT_SCHEMA, "request": recorded,
                    "response": {"status": status, "headers": headers,
                                 "body_sha256": sha256_bytes(raw), "body_size_bytes": len(raw)}}
         context_raw = canonical_json_bytes(context)
         try:
-            projection = normalize(raw, context_raw=context_raw, input_format="workspace-get" if method == "GET" else "workspace-post")
+            projection = normalize(raw, context_raw=context_raw, input_format=f"{scope}-{method.lower()}")
         except (ValueError, TypeError, RecursionError):
             projection = None
         if projection is not None:
@@ -206,7 +212,8 @@ def capture(params_raw: bytes, out_dir: str | Path, *, method: str = "POST") -> 
             "source_authenticity_verified": False, "request_scope_verified": False,
             "query_execution_verified": False, "query_reexecuted_during_replay": False,
             "content_policy": "artifact_digests_only",
-            **({"request_method": "GET", "input_format": "workspace-get"} if method == "GET" else {}),
+            **({"request_method": method, "input_format": f"{scope}-{method.lower()}"}
+               if method == "GET" or scope == "resource" else {}),
             **({key: projection["result"][key] for key in ("response_state", "partial_error_recorded", "row_count")} if projection is not None else {}),
         }
         _publish_receipt(directory, receipt)

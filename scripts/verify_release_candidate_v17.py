@@ -89,6 +89,11 @@ LOG_ANALYTICS_GET_CAPTURE_PACKAGE_PATHS = {
     "docs/reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md",
 }
 
+LOG_ANALYTICS_RESOURCE_PACKAGE_PATHS = {
+    "v17_log_analytics_resource_selftest.py", "tests/test_v17_log_analytics_resource.py",
+    "docs/reference/LOG_ANALYTICS_RESOURCE_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -340,6 +345,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_log_analytics_get_capture = bool(LOG_ANALYTICS_GET_CAPTURE_PACKAGE_PATHS & set(expected))
         if has_log_analytics_get_capture and not (LOG_ANALYTICS_GET_CAPTURE_PACKAGE_PATHS | LOG_ANALYTICS_CAPTURE_PACKAGE_PATHS | LOG_ANALYTICS_GET_PACKAGE_PATHS | LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"provider_collectors_v15.py"}).issubset(expected):
             raise ReleaseCandidateError("incomplete Log Analytics GET capture package support")
+        has_log_analytics_resource = bool(LOG_ANALYTICS_RESOURCE_PACKAGE_PATHS & set(expected))
+        if has_log_analytics_resource and not (LOG_ANALYTICS_RESOURCE_PACKAGE_PATHS | LOG_ANALYTICS_CAPTURE_PACKAGE_PATHS | LOG_ANALYTICS_GET_PACKAGE_PATHS | LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"provider_collectors_v15.py"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete Log Analytics resource package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -405,6 +413,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_log_analytics_capture": has_log_analytics_capture,
             "has_log_analytics_get": has_log_analytics_get,
             "has_log_analytics_get_capture": has_log_analytics_get_capture,
+            "has_log_analytics_resource": has_log_analytics_resource,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -494,6 +503,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_log_analytics_get_selftest="PASS", v17_log_analytics_get_regression_tests=160)
     if zip_result.get("has_log_analytics_get_capture"):
         required_assurance.update(v17_log_analytics_get_capture_selftest="PASS", v17_log_analytics_get_capture_regression_tests=143)
+    if zip_result.get("has_log_analytics_resource"):
+        required_assurance.update(v17_log_analytics_resource_selftest="PASS", v17_log_analytics_resource_regression_tests=142)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):

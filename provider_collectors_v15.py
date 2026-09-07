@@ -204,8 +204,9 @@ def aws_bedrock(region,start_iso=None,end_iso=None,cloudwatch_log_group=None,max
 COLLECTORS={'openai_org','anthropic_compliance','anthropic_usage','microsoft_graph_security','azure_foundry_logs','google_cloud_logs','github_copilot','aws_bedrock'}
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('collector',choices=sorted(COLLECTORS));ap.add_argument('--params-json',default='{}');ap.add_argument('--out',required=True)
-    ap.add_argument('--capture-context',action='store_true',help='Azure workspace: capture response/context/projection in a new output directory')
+    ap.add_argument('--capture-context',action='store_true',help='Azure query: capture response/context/projection in a new output directory')
     ap.add_argument('--capture-method',choices=('POST','GET'),help='Capture mode only: explicit request method; defaults to POST')
+    ap.add_argument('--capture-scope',choices=('workspace','resource'),help='Capture mode only: explicit query scope; defaults to workspace')
     ap.add_argument('--params-file',help='Capture mode only: bounded UTF-8 JSON parameters file; keeps query text off the command line')
     a=ap.parse_args()
     if a.capture_context:
@@ -215,7 +216,8 @@ def main():
             if a.collector!='azure_foundry_logs' or (a.params_file is not None and a.params_json!='{}'):
                 raise ValueError('unsupported capture arguments')
             raw=read_document(a.params_file,limit=MAX_PARAMS_BYTES) if a.params_file is not None else a.params_json.encode('utf-8')
-            report=capture(raw,a.out,**({'method':a.capture_method} if a.capture_method is not None else {}))
+            options={key:value for key,value in (('method',a.capture_method),('scope',a.capture_scope)) if value is not None}
+            report=capture(raw,a.out,**options)
         except (ValueError,TypeError,OSError,RecursionError):
             report={'status':'FAILED','artifact_set_complete':False,'error':'invalid, unavailable, excessive, or conflicting acquisition input/output'}
         except KeyboardInterrupt:
@@ -225,5 +227,7 @@ def main():
         ap.error('--params-file requires --capture-context')
     if a.capture_method is not None:
         ap.error('--capture-method requires --capture-context')
+    if a.capture_scope is not None:
+        ap.error('--capture-scope requires --capture-context')
     p=json.loads(a.params_json);fn=globals()[a.collector];obj,meta,limitations=fn(**p);rec=write_artifact(a.out,obj,a.collector,meta,limitations);print(json.dumps(rec,indent=2,sort_keys=True));raise SystemExit(0 if rec['collection_complete'] else 2)
 if __name__=='__main__':main()

@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [resource-scoped Log Analytics profiles](docs/reference/LOG_ANALYTICS_RESOURCE_V1.7.md)
+add explicit resource POST/GET context binding and automatic capture. Resource
+identifiers and opaque permission details are retained without interpreting
+HTTP success as complete collection or proof of effective access.
+
 The unreleased [automatic GET capture option](docs/reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md)
 produces response, prepared query context, and replay projection together during
 explicit Log Analytics GET acquisition. It checks URL encoding and credential

@@ -612,3 +612,30 @@ gates require all 143 regressions alongside the existing 111 Evidence Packs and
 all GET capture files, their replay/capture dependencies, and matching assurance
 while preserving historical release compatibility. See the
 [GET capture guide](docs/reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md).
+
+## 29. Unreleased resource-scoped Log Analytics capture and replay
+
+```bash
+python v17_log_analytics_resource_selftest.py
+python -m pytest tests/test_v17_log_analytics_resource.py -q
+python scripts/release_check.py --full --json-out release-check.json
+```
+
+The 142 focused regressions bring the v1.7 total to 2,370. Synthetic POST/GET
+acquisition records exact resource URLs, selected headers and response bytes;
+signed multi-input replay runs with network/process execution/extraction
+forbidden. Resource, subscription, case spelling, query, permission, response,
+and header substitutions retain integrity PASS but fail replay.
+
+Negative cases cover unsupported resource paths/endpoints/parameters, scope
+selection, malformed permission observations, configured credential retention,
+observed request changes, HTTP failure without method fallback, and CLI behavior.
+Golden digests preserve reviewed workspace POST/GET capture artifacts. The prior
+GET metadata rejection vector now uses unsupported `resource-put`, because
+`resource-get` is an implemented profile. Its test count remains unchanged.
+
+Quick/full gates require the self-test; full source and extracted-package gates
+require all 142 regressions alongside 111 Evidence Packs and 19 synthetic
+components. Conditional package requirements and matching assurance preserve
+historical releases. See the
+[resource guide](docs/reference/LOG_ANALYTICS_RESOURCE_V1.7.md).

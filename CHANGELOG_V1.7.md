@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: resource-scoped Log Analytics capture and replay
+
+- explicit resource POST/GET profiles, bounded public resource paths, exact resource/query/response binding, and signed multi-input replay;
+- automatic capture with explicit scope selection and existing protected transport/output semantics;
+- separate resource table profile with opaque permission observations, unknown completeness after error-free HTTP success, and no inferred RBAC decision;
+- 142 focused regressions, synthetic signed acceptance, unchanged workspace POST/GET capture artifact hashes, and source/extracted-package assurance;
+- no new dependencies, live acquisition, or deployment; historical release verification remains supported.
+
 ### Unreleased: automatic Log Analytics workspace GET capture
 
 - explicit `--capture-method GET` and keyword-only API method selection produce the response/context/projection artifacts for the reviewed GET replay profile;

@@ -7,6 +7,10 @@ reassess whether a query answered the investigation question.
 
 ## Input profile and partial errors
 
+The separate [resource table format](LOG_ANALYTICS_RESOURCE_V1.7.md),
+`--format resource-tables`, also accepts bounded opaque permission observations.
+The original `tables` format below retains its existing hashes and boundaries.
+
 Select `--format tables` for a single native response body containing a required
 `tables` array. The only other accepted top-level fields are `error`, `statistics`,
 and `render`. Every table requires exactly `name`, `columns`, and `rows`; each

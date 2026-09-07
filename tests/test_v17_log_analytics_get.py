@@ -292,7 +292,7 @@ def test_signed_context_substitution_retains_integrity_pass_but_replay_fails(tmp
 
 
 @pytest.mark.parametrize("metadata", [
-    {"input_format": "workspace-get"}, {"input_format": "resource-get", "context_artifact_id": "QUERY-CONTEXT"},
+    {"input_format": "workspace-get"}, {"input_format": "resource-put", "context_artifact_id": "QUERY-CONTEXT"},
     {"input_format": [], "context_artifact_id": "QUERY-CONTEXT"},
     {"input_format": "workspace-get", "context_artifact_id": "QUERY-CONTEXT", "url": BASE},
     *[{"input_format": "workspace-get", "context_artifact_id": ref} for ref in
