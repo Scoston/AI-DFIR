@@ -127,8 +127,13 @@ def microsoft_graph_security(token=None,filter_expr=None,incidents=False,max_pag
 def azure_foundry_logs(workspace_id,kql,token=None):
     token=token or os.environ['AZURE_LOG_ANALYTICS_TOKEN'];url=f'https://api.loganalytics.io/v1/workspaces/{workspace_id}/query'
     obj,meta=req('POST',url,headers={'Authorization':'Bearer '+token},json_body={'query':kql},allowed_hosts=('api.loganalytics.io',))
-    meta.update({'page_count':1,'collection_complete':True})
-    return obj,meta,['Foundry diagnostic/request-response evidence only exists for periods where relevant diagnostic/tracing categories were enabled and retained.','The supplied KQL defines the evidence window; preserve the query text and workspace ID with the artifact.']
+    # HTTP success can carry PartialError. Neither one response nor an absent
+    # error establishes the scope/coverage of the retained query result.
+    reported_error=isinstance(obj,dict) and 'error' in obj
+    meta.update({'page_count':1,'collection_complete':False if reported_error else None})
+    limits=['Foundry diagnostic/request-response evidence only exists for periods where relevant diagnostic/tracing categories were enabled and retained.','The supplied KQL defines the evidence window; preserve the query text and workspace ID with the artifact.','Collection completeness remains unknown without independent scope and coverage evidence.']
+    if reported_error:limits.append('The retained query response reports an error; results may be partial or unavailable.')
+    return obj,meta,limits
 
 def google_cloud_logs(project_id,filter_expr,start_iso=None,end_iso=None,token=None,page_size=1000,max_pages=DEFAULT_MAX_PAGES):
     token=token or os.environ['GOOGLE_OAUTH_ACCESS_TOKEN'];f=filter_expr

@@ -78,10 +78,20 @@ def reconstruct(
                 ("v17_cloudtrail.normalize", "1.7"),
                 ("v17_gcp_audit.normalize", "1.7"),
                 ("v17_azure_activity.normalize", "1.7"),
+                ("v17_log_analytics.normalize", "1.7"),
             }
             if supported:
                 try:
                     original_raw = read_artifact(index[rec["parent_artifact_id"]]["path"])
+                    if rec["transformation"] == "v17_log_analytics.normalize":
+                        from v17_log_analytics import compare_replay
+                        meta = rec["metadata"]
+                        if set(meta) != {"input_format"}:
+                            raise ProvenanceError("unsupported Log Analytics replay configuration")
+                        preserved = read_artifact(index[rec["child_artifact_id"]]["path"])
+                        result.update(compare_replay(original_raw, preserved, input_format=meta["input_format"]))
+                        transforms.append(result)
+                        continue
                     if rec["transformation"] == "v17_azure_activity.normalize":
                         from v17_azure_activity import compare_replay
                         meta = rec["metadata"]

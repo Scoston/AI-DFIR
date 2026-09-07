@@ -463,3 +463,32 @@ and profile files. The independent candidate verifier requires the complete new
 profile and matching assurance when any Azure Activity Log profile file is
 present, preserving historical v1.7.0 candidate verification. See
 [Azure Activity Log replay](docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md).
+
+## 24. Unreleased Log Analytics query-result import and replay
+
+```bash
+python v17_log_analytics_selftest.py
+python -m pytest tests/test_v17_log_analytics.py -q
+python scripts/release_check.py --full
+```
+
+The 224 focused regressions bring the v1.7 total to 1,640. Native results with and
+without PartialError replay from verified signed cases with network/DNS,
+subprocess execution, and archive extraction disabled. Tests preserve typed
+column/value binding, fractional timestamps, null/empty/false distinctions,
+separate opaque string/dynamic columns, duplicate table names/rows, and recorded
+order. The existing Azure collector and serialized receipt also retain
+incomplete/unknown collection status without changing the preserved response.
+
+Negative cases cover duplicate columns, wrong row widths, unsupported or coerced
+cell types, fatal/malformed errors, mixed/batch envelopes, hostile JSON, combined
+global budgets, unverified archives, exclusive output creation, symlinks, and FIFO
+intake. A valid signature does not make an incorrect projection replay correctly.
+Partial query results can reproduce exactly while collection remains incomplete;
+the query is never run, and no source, scope, or underlying event count is inferred.
+
+Source and extracted-package gates require the same regressions, self-test, and
+profile files. Independent candidate verification requires complete new-profile
+support and matching assurance when any new Log Analytics profile file is
+present, while preserving historical v1.7.0 verification. See
+[Log Analytics replay](docs/reference/LOG_ANALYTICS_REPLAY_V1.7.md).
