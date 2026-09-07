@@ -203,6 +203,11 @@ def required_v17_paths() -> set[str]:
         "v17_cloudtrail_selftest.py",
         "tests/test_v17_cloudtrail.py",
         "docs/reference/CLOUDTRAIL_REPLAY_V1.7.md",
+        "v17_gcp_audit.py",
+        "gcp_audit_v17.py",
+        "v17_gcp_audit_selftest.py",
+        "tests/test_v17_gcp_audit.py",
+        "docs/reference/GCP_AUDIT_REPLAY_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -301,6 +306,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_policy_sync_selftest": "PASS",
         "v17_pack_replay_selftest": "PASS",
         "v17_cloudtrail_selftest": "PASS",
+        "v17_gcp_audit_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -345,6 +351,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     cloudtrail = checks.get("v17_cloudtrail_regression")
     if not isinstance(cloudtrail, dict) or cloudtrail.get("status") != "PASS" or cloudtrail.get("tests") != 130:
         raise RuntimeError("extracted package must pass all 130 native CloudTrail regression tests")
+    gcp_audit = checks.get("v17_gcp_audit_regression")
+    if not isinstance(gcp_audit, dict) or gcp_audit.get("status") != "PASS" or gcp_audit.get("tests") != 163:
+        raise RuntimeError("extracted package must pass all 163 Google Cloud Audit regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -581,6 +590,8 @@ def main() -> None:
                 "v17_pack_replay_regression_tests": 96,
                 "v17_cloudtrail_selftest": "PASS",
                 "v17_cloudtrail_regression_tests": 130,
+                "v17_gcp_audit_selftest": "PASS",
+                "v17_gcp_audit_regression_tests": 163,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

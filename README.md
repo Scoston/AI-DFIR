@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [Google Cloud Audit replay](docs/reference/GCP_AUDIT_REPLAY_V1.7.md)
+profile imports native audit exports, preserves nanosecond timestamps, delegation
+order and individual permission checks, and compares recorded projections offline.
+It keeps caller identity, delegated authority, and operational outcomes distinct.
+
 The unreleased [native CloudTrail replay](docs/reference/CLOUDTRAIL_REPLAY_V1.7.md)
 profile imports preserved log files and LookupEvents JSON, retains recorded
 identity and event order, and compares projections offline within signed cases.
