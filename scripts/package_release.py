@@ -227,6 +227,9 @@ def required_v17_paths() -> set[str]:
         "v17_log_analytics_capture_selftest.py",
         "tests/test_v17_log_analytics_capture.py",
         "docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md",
+        "v17_log_analytics_get_selftest.py",
+        "tests/test_v17_log_analytics_get.py",
+        "docs/reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -330,6 +333,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_log_analytics_selftest": "PASS",
         "v17_log_analytics_context_selftest": "PASS",
         "v17_log_analytics_capture_selftest": "PASS",
+        "v17_log_analytics_get_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -389,6 +393,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     capture = checks.get("v17_log_analytics_capture_regression")
     if not isinstance(capture, dict) or capture.get("status") != "PASS" or capture.get("tests") != 114:
         raise RuntimeError("extracted package must pass all 114 Log Analytics capture regression tests")
+    get_context = checks.get("v17_log_analytics_get_regression")
+    if not isinstance(get_context, dict) or get_context.get("status") != "PASS" or get_context.get("tests") != 160:
+        raise RuntimeError("extracted package must pass all 160 Log Analytics GET context regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -635,6 +642,8 @@ def main() -> None:
                 "v17_log_analytics_context_regression_tests": 171,
                 "v17_log_analytics_capture_selftest": "PASS",
                 "v17_log_analytics_capture_regression_tests": 114,
+                "v17_log_analytics_get_selftest": "PASS",
+                "v17_log_analytics_get_regression_tests": 160,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

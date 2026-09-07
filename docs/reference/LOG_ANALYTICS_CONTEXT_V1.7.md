@@ -5,6 +5,11 @@ artifact to the exact bytes of a native Log Analytics response. It reproduces
 the existing typed result projection and detects a changed query, scope field,
 header observation, response, or recorded projection. It never executes KQL.
 
+The workspace POST profile below retains its original projection semantics.
+The same adapter and CLI also support an explicit, separately specified
+[workspace GET query/timespan profile](LOG_ANALYTICS_GET_CONTEXT_V1.7.md), including
+strict URL decoding and an explicit absent-body observation.
+
 ## What a binding proves
 
 `request_context_bound: true` means the retained context names the exact response
@@ -50,8 +55,9 @@ The method must be exact `POST`. The URL must be exactly
 `https://api.loganalytics.io/v1/workspaces/{GUID}/query` or
 `https://api.loganalytics.azure.com/v1/workspaces/{GUID}/query`, with a hyphenated
 workspace GUID. URL query strings, fragments, credentials, explicit ports,
-alternate paths, resource-context queries, GET, batch, and sovereign endpoints
-require another profile. The URL is only validated as data, never fetched.
+alternate paths, resource-context queries, batch, and sovereign endpoints
+require another profile. GET uses the separate `workspace-get` profile above;
+it is not inferred from a POST record. The URL is data, never fetched.
 
 All header names in this record must use the lowercase keys above. Header values
 must be nonempty strings without control characters. Authorization/cookie fields

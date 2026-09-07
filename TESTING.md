@@ -550,3 +550,33 @@ require all 114 regressions. New-profile package files and matching assurance ar
 conditional in historical candidate verification. The 111 Evidence Packs and
 19 synthetic components remain mandatory. See
 [automatic query capture](docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md).
+
+## 27. Unreleased Log Analytics workspace GET context replay
+
+```bash
+python v17_log_analytics_get_selftest.py
+python -m pytest tests/test_v17_log_analytics_get.py -q
+python scripts/release_check.py --full --json-out release-check.json
+```
+
+The 160 focused regressions bring the v1.7 total to 2,085. Synthetic acceptance
+binds the response, retained GET context, and projection as separate signed
+artifacts, then compares them offline with network, process execution, and
+archive extraction disabled. Exact URL spelling/order, percent-decoded parameters,
+partial results, and unknown completeness remain distinct observations.
+
+Negative tests cover duplicate names including encoded aliases, parameter
+injection, invalid UTF-8 and percent escapes, ambiguous plus/form decoding,
+unsupported endpoints and parameters, absent-body assertions, credential/header
+rejection, URL/decoded-query budgets, and response digest/size checks before
+parsing. Signed query, time-range, workspace, header, and URL-encoding substitutions
+retain integrity PASS but fail replay. Lineage references/cycles, unknown versions,
+unverified archive content, CLI redaction/exits, FIFO input, and existing file or
+symlink protection are covered. Reviewed POST projection digests are fixed
+compatibility vectors; the existing POST/capture regressions remain required.
+
+Quick/full gates require the self-test. Full source and extracted-package gates
+require all 160 regressions alongside the 111 Evidence Packs and 19 synthetic
+components. Conditional GET package completeness and matching assurance preserve
+historical release verification. See the
+[GET context guide](docs/reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md).
