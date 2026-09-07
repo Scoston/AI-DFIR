@@ -218,6 +218,11 @@ def required_v17_paths() -> set[str]:
         "v17_log_analytics_selftest.py",
         "tests/test_v17_log_analytics.py",
         "docs/reference/LOG_ANALYTICS_REPLAY_V1.7.md",
+        "v17_log_analytics_context.py",
+        "log_analytics_context_v17.py",
+        "v17_log_analytics_context_selftest.py",
+        "tests/test_v17_log_analytics_context.py",
+        "docs/reference/LOG_ANALYTICS_CONTEXT_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -319,6 +324,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_gcp_audit_selftest": "PASS",
         "v17_azure_activity_selftest": "PASS",
         "v17_log_analytics_selftest": "PASS",
+        "v17_log_analytics_context_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -372,6 +378,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     log_analytics = checks.get("v17_log_analytics_regression")
     if not isinstance(log_analytics, dict) or log_analytics.get("status") != "PASS" or log_analytics.get("tests") != 224:
         raise RuntimeError("extracted package must pass all 224 Log Analytics regression tests")
+    context = checks.get("v17_log_analytics_context_regression")
+    if not isinstance(context, dict) or context.get("status") != "PASS" or context.get("tests") != 171:
+        raise RuntimeError("extracted package must pass all 171 Log Analytics context regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -614,6 +623,8 @@ def main() -> None:
                 "v17_azure_activity_regression_tests": 207,
                 "v17_log_analytics_selftest": "PASS",
                 "v17_log_analytics_regression_tests": 224,
+                "v17_log_analytics_context_selftest": "PASS",
+                "v17_log_analytics_context_regression_tests": 171,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

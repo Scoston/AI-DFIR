@@ -492,3 +492,32 @@ profile files. Independent candidate verification requires complete new-profile
 support and matching assurance when any new Log Analytics profile file is
 present, while preserving historical v1.7.0 verification. See
 [Log Analytics replay](docs/reference/LOG_ANALYTICS_REPLAY_V1.7.md).
+
+## 25. Unreleased Log Analytics retained request-context replay
+
+```bash
+python v17_log_analytics_context_selftest.py
+python -m pytest tests/test_v17_log_analytics_context.py -q
+python scripts/release_check.py --full --json-out release-check.json
+```
+
+The 171 focused regressions bring the v1.7 total to 1,811. Synthetic acceptance
+binds response, context, and projection as separate signed artifacts and replays
+without network/DNS, process execution, or archive extraction. Altering a query,
+workspace, time-range observation, option header, or response request ID fails
+comparison even when the substituted evidence has valid signatures.
+
+Negative cases cover exact response digest/size mismatches, ambiguous or missing
+context references, multi-input lineage cycles, unknown versions, unsupported
+endpoint/method/status variants, credential/unknown headers, strict JSON and
+Unicode, byte/structure budgets, preserved outputs, and independent trust gates.
+CLI coverage checks exclusive creation, protected source/context/symlink targets,
+FIFO rejection, private error redaction, and integrity-valid replay-failure exits.
+A self-consistent new assertion can replay successfully without proving actual
+query execution, effective scope, or collection completeness.
+
+Quick/full gates require the new self-test; full source and extracted-package
+gates require all 171 regressions. New-profile files and matching assurance are
+required conditionally by independent candidate verification, preserving older
+release compatibility. The 111 Evidence Packs and 19 synthetic components remain
+mandatory. See [retained query context](docs/reference/LOG_ANALYTICS_CONTEXT_V1.7.md).

@@ -138,6 +138,7 @@ The fixed local transform registry supports:
 | `v17_gcp_audit.normalize` | `1.7` | Native Google Cloud Audit export and recorded projection; metadata `{"input_format":"entries"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, nanoseconds, delegation, and permission records |
 | `v17_azure_activity.normalize` | `1.7` | Native Azure Activity Log export and recorded projection; metadata `{"input_format":"activity-log"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, fractional timestamps, label and claim distinctions |
 | `v17_log_analytics.normalize` | `1.7` | Native query-result tables and recorded projection; metadata `{"input_format":"tables"}` | Canonical projection preserving raw digest, typed column/value bindings, and partial-error state |
+| `v17_log_analytics_context.normalize` | `1.7` | Native response, separate context artifact, and projection; metadata `{"input_format":"workspace-post","context_artifact_id":"QUERY-CONTEXT"}` | Exact response/context binding plus complete typed result projection; context is a validated second lineage input |
 
 The profile is limited to 10,000 total records and 16 MiB of metadata. Each
 deterministic replay input/output is limited to 16 MiB. Duplicate JSON keys,
@@ -160,6 +161,11 @@ observations do not prove model invocation or downstream effects. The separate
 binds ordered columns to row values. A correctly reproduced partial response can
 PASS replay with collection explicitly incomplete. KQL is never re-executed,
 query scope is unverified, and row counts are not assumed to be event counts.
+The [retained query-context adapter](LOG_ANALYTICS_CONTEXT_V1.7.md) additionally
+binds an explicit workspace POST request assertion to exact response bytes. Its
+context artifact reference participates in provenance and cycle validation before
+replay. A matching context binding does not prove actual execution or effective
+scope. Missing/invalid known-profile references reject the provenance profile.
 Other parsers and raw-evidence reassessment adapters remain future work.
 
 Integrity verification and reproduction of a transformation are separate
