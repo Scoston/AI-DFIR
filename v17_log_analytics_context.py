@@ -50,14 +50,8 @@ def _observation(obj, key):
     return {"state": "present", "sha256": sha256_object(obj[key])} if key in obj else {"state": "absent", "sha256": None}
 
 
-def _context(raw, context_raw):
-    if not isinstance(raw, bytes) or not raw or len(raw) > MAX_INPUT_BYTES:
-        raise ProvenanceError("query response is empty or exceeds byte limit")
-    context = _document(context_raw, MAX_CONTEXT_BYTES)
-    _object(context, {"schema", "request", "response"})
-    if context["schema"] != CONTEXT_SCHEMA:
-        raise ProvenanceError("unsupported query context schema")
-    request, response = context["request"], context["response"]
+def validate_request(request):
+    """Validate the fixed request profile after bounded strict JSON parsing."""
     _object(request, {"method", "url", "body", "headers"})
     endpoint = ENDPOINT_RE.fullmatch(request["url"]) if isinstance(request["url"], str) else None
     if request["method"] != "POST" or endpoint is None:
@@ -79,6 +73,18 @@ def _context(raw, context_raw):
             isinstance(item, str) and GUID_RE.fullmatch(item) for item in workspaces
         ):
             raise ProvenanceError("invalid or excessive additional workspace list")
+    return endpoint
+
+
+def _context(raw, context_raw):
+    if not isinstance(raw, bytes) or not raw or len(raw) > MAX_INPUT_BYTES:
+        raise ProvenanceError("query response is empty or exceeds byte limit")
+    context = _document(context_raw, MAX_CONTEXT_BYTES)
+    _object(context, {"schema", "request", "response"})
+    if context["schema"] != CONTEXT_SCHEMA:
+        raise ProvenanceError("unsupported query context schema")
+    request, response = context["request"], context["response"]
+    endpoint = validate_request(request)
     _object(response, {"status", "body_sha256", "body_size_bytes", "headers"})
     if type(response["status"]) is not int or response["status"] != 200:
         raise ProvenanceError("unsupported retained query HTTP status")

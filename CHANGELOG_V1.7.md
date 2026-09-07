@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: automatic Log Analytics acquisition-context capture
+
+- explicit `azure_foundry_logs --capture-context` mode with bounded parameter-file input and unchanged response-only behavior;
+- prepared request observations, exact response entity-body preservation, distinct selected response header names, and automatic replay-compatible context/projection artifacts;
+- one fixed HTTPS POST with TLS verification, no redirects/retries/environment credential or proxy merge, bounded undecoded reads, and explicit partial/unsupported/failure states;
+- private exclusive output creation and final receipt publication, with no complete claim after partial writes;
+- 114 focused regressions, synthetic acquisition and signed offline replay acceptance, analyst documentation, and source/extracted-package assurance;
+- no new dependencies, live acceptance credentials, or automatic acquisition during replay; historical release verification remains supported.
+
 ### Unreleased: Log Analytics retained request-context binding
 
 - explicit workspace POST context profile with exact response digest/size binding, selected header observations, and opaque query/scope digests;

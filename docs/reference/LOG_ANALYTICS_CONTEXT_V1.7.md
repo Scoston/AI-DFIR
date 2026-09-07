@@ -78,10 +78,12 @@ before the table parser. Do not substitute a canonical JSON digest for the raw
 file digest. Reserializing a collector's parsed JSON binds the reserialized
 artifact, not the original HTTP wire body.
 
-The existing Azure collector receipt does not automatically capture KQL and all
-request context. Retain these observations during authorized acquisition; this
-tool does not infer missing fields from response columns, receipts, or filenames.
-Its acquisition and incomplete-result exit behavior are unchanged.
+The legacy response-only Azure collector receipt does not automatically capture
+KQL and all request context. The explicit
+[automatic capture option](LOG_ANALYTICS_CAPTURE_V1.7.md) now preserves a compatible
+context during bounded workspace POST acquisition. Other acquisitions still need
+separately retained observations; this replay tool never infers missing fields
+from response columns, receipts, or filenames.
 
 ## Projection and commands
 

@@ -204,5 +204,23 @@ def aws_bedrock(region,start_iso=None,end_iso=None,cloudwatch_log_group=None,max
 COLLECTORS={'openai_org','anthropic_compliance','anthropic_usage','microsoft_graph_security','azure_foundry_logs','google_cloud_logs','github_copilot','aws_bedrock'}
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('collector',choices=sorted(COLLECTORS));ap.add_argument('--params-json',default='{}');ap.add_argument('--out',required=True)
-    a=ap.parse_args();p=json.loads(a.params_json);fn=globals()[a.collector];obj,meta,limitations=fn(**p);rec=write_artifact(a.out,obj,a.collector,meta,limitations);print(json.dumps(rec,indent=2,sort_keys=True));raise SystemExit(0 if rec['collection_complete'] else 2)
+    ap.add_argument('--capture-context',action='store_true',help='Azure workspace POST only: capture response/context/projection in a new output directory')
+    ap.add_argument('--params-file',help='Capture mode only: bounded UTF-8 JSON parameters file; keeps query text off the command line')
+    a=ap.parse_args()
+    if a.capture_context:
+        from v17_log_analytics import read_document
+        from v17_log_analytics_capture import MAX_PARAMS_BYTES, capture
+        try:
+            if a.collector!='azure_foundry_logs' or (a.params_file is not None and a.params_json!='{}'):
+                raise ValueError('unsupported capture arguments')
+            raw=read_document(a.params_file,limit=MAX_PARAMS_BYTES) if a.params_file is not None else a.params_json.encode('utf-8')
+            report=capture(raw,a.out)
+        except (ValueError,TypeError,OSError,RecursionError):
+            report={'status':'FAILED','artifact_set_complete':False,'error':'invalid, unavailable, excessive, or conflicting acquisition input/output'}
+        except KeyboardInterrupt:
+            print(json.dumps({'status':'INTERRUPTED','artifact_set_complete':False}));raise SystemExit(130)
+        print(json.dumps(report,indent=2,sort_keys=True));raise SystemExit(2 if report['status']=='CAPTURED' else 1)
+    if a.params_file is not None:
+        ap.error('--params-file requires --capture-context')
+    p=json.loads(a.params_json);fn=globals()[a.collector];obj,meta,limitations=fn(**p);rec=write_artifact(a.out,obj,a.collector,meta,limitations);print(json.dumps(rec,indent=2,sort_keys=True));raise SystemExit(0 if rec['collection_complete'] else 2)
 if __name__=='__main__':main()

@@ -14,6 +14,7 @@
 - [Azure Activity Log Import and Replay (development)](reference/AZURE_ACTIVITY_REPLAY_V1.7.md)
 - [Log Analytics Query-result Import and Replay (development)](reference/LOG_ANALYTICS_REPLAY_V1.7.md)
 - [Log Analytics Retained Request Context and Replay (development)](reference/LOG_ANALYTICS_CONTEXT_V1.7.md)
+- [Automatic Log Analytics Acquisition-context Capture (development)](reference/LOG_ANALYTICS_CAPTURE_V1.7.md)
 - [Demo](demo/README.md)
 
 ## Analyst
