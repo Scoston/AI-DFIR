@@ -213,6 +213,11 @@ def required_v17_paths() -> set[str]:
         "v17_azure_activity_selftest.py",
         "tests/test_v17_azure_activity.py",
         "docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md",
+        "v17_log_analytics.py",
+        "log_analytics_v17.py",
+        "v17_log_analytics_selftest.py",
+        "tests/test_v17_log_analytics.py",
+        "docs/reference/LOG_ANALYTICS_REPLAY_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -313,6 +318,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_cloudtrail_selftest": "PASS",
         "v17_gcp_audit_selftest": "PASS",
         "v17_azure_activity_selftest": "PASS",
+        "v17_log_analytics_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -363,6 +369,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     azure_activity = checks.get("v17_azure_activity_regression")
     if not isinstance(azure_activity, dict) or azure_activity.get("status") != "PASS" or azure_activity.get("tests") != 207:
         raise RuntimeError("extracted package must pass all 207 Azure Activity Log regression tests")
+    log_analytics = checks.get("v17_log_analytics_regression")
+    if not isinstance(log_analytics, dict) or log_analytics.get("status") != "PASS" or log_analytics.get("tests") != 224:
+        raise RuntimeError("extracted package must pass all 224 Log Analytics regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -603,6 +612,8 @@ def main() -> None:
                 "v17_gcp_audit_regression_tests": 163,
                 "v17_azure_activity_selftest": "PASS",
                 "v17_azure_activity_regression_tests": 207,
+                "v17_log_analytics_selftest": "PASS",
+                "v17_log_analytics_regression_tests": 224,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

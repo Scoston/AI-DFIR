@@ -4,6 +4,7 @@
 |---|---|---|---|
 | Microsoft Graph Security | `microsoft_graph_security` | alerts/incidents where authorized | API coverage depends on tenant licensing/retention |
 | Azure AI/Foundry diagnostics | `azure_foundry_logs` | resource/diagnostic logs | must be enabled before incident |
+| Preserved Log Analytics results (development) | [`log_analytics_v17.py`](LOG_ANALYTICS_REPLAY_V1.7.md) | Typed table/column/row projection and offline signed-case replay with partial-error preservation | response rows may be aggregates or transformed data; no query execution, verified scope, or complete-collection inference |
 | Preserved Azure Activity Log JSON (development) | [`azure_activity_v17.py`](AZURE_ACTIVITY_REPLAY_V1.7.md) | Native REST/array management-plane metadata projection and offline signed-case replay | not Log Analytics tables; recorded activity/claims do not establish model invocation, human attribution, downstream effects, or complete collection |
 | OpenAI organization telemetry | `openai_org` | organization usage/audit surfaces exposed by API | not a substitute for application-side request logging |
 | Anthropic | `anthropic_compliance`, `anthropic_usage` | compliance/usage exports exposed to account | availability depends on account/plan and retention |
@@ -17,3 +18,6 @@
 
 For every provider, use collection-health and Evidence Pack logic to distinguish
 "no record" from "source could not answer".
+The Azure Log Analytics collector now retains incomplete/unknown completeness
+metadata after HTTP success; its existing Boolean receipt flag is false for both
+states. See the query-result profile for interpretation.

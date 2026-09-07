@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: Log Analytics query-result import and offline replay
+
+- explicit native tables/columns/rows profile with strict typed cells, row-width validation, global budgets, and ordered schema/value bindings;
+- preserved fractional timestamps, numeric/Boolean observations, opaque string/dynamic/GUID cell hashes, and duplicate/conflicting rows;
+- explicit PartialError preservation, separately reported replay success and incomplete collection, and no query execution or inferred source/scope/event counts;
+- corrected Azure collector completeness metadata and preserved its raw response and existing Boolean receipt contract;
+- normalize/compare CLI, fixed signed-case integration, 224 focused regressions, analyst guide, and source/extracted-package assurance;
+- no new dependencies or acquisition endpoints; conditional package requirements retain historical release-verification compatibility.
+
 ### Unreleased: Azure Activity Log import and offline replay
 
 - explicit native REST value/nextLink and EventData array profiles with strict bounded parsing and no skipped events;
@@ -11,7 +20,7 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 - separate caller/claim aliases, authorization observations, invariant/translated labels, and event/operation/correlation identifiers;
 - opaque payload/URI/continuation digests and explicit limits on management-plane coverage, effects, attribution, and collection completeness;
 - normalize/compare CLI with exclusive output creation, fixed signed-case replay, 207 focused regressions, analyst guide, and source/extracted-package assurance;
-- no new dependencies or live acquisition changes; Log Analytics tabular responses remain a separate future profile, and historical release verification stays compatible.
+- no new dependencies or live acquisition changes in this Activity Log profile; Log Analytics tabular responses use the separate profile above, and historical release verification stays compatible.
 
 ### Unreleased: Google Cloud Audit Logs import and offline replay
 

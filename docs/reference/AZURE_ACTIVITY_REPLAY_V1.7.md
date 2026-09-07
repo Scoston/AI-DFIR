@@ -35,7 +35,10 @@ Log Analytics `tables`/columns/rows responses (including output retained by the
 existing `azure_foundry_logs` collector), Event Hub/storage-transformed layouts,
 combined page wrappers, JSONL, compression, and bare singleton events are outside
 this profile. They need separate parsers and preserved transformation lineage.
-Live collectors and the legacy flat-row normalizer retain their existing behavior.
+Use the implemented [Log Analytics query-result profile](LOG_ANALYTICS_REPLAY_V1.7.md)
+for native tables. That separate extension also corrects Azure collector
+completeness metadata; this Activity Log parser and legacy flat-row normalization
+retain their existing behavior.
 
 Microsoft defines the native collection, EventData, LocalizableString, and
 HttpRequestInfo structures in the [Activity Logs REST reference](https://learn.microsoft.com/en-us/rest/api/monitor/activity-logs/list?view=rest-monitor-2015-04-01).

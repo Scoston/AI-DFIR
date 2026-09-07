@@ -6,6 +6,12 @@
 
 ## Why AI-DFIR
 
+The unreleased [Log Analytics replay](docs/reference/LOG_ANALYTICS_REPLAY_V1.7.md)
+profile preserves native query-result table/column/row bindings, typed scalars,
+and opaque cell hashes. Partial errors remain explicit even when the projection
+replays correctly. Neither HTTP success nor a replay match establishes complete
+collection, and the original query is never rerun.
+
 The unreleased [Azure Activity Log replay](docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md)
 profile imports native REST responses and EventData arrays for offline signed-case
 comparison. It preserves fractional timestamps and separates translated labels,

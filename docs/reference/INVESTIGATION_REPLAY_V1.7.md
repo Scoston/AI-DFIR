@@ -137,6 +137,7 @@ The fixed local transform registry supports:
 | `v17_cloudtrail.normalize` | `1.7` | Native CloudTrail export and recorded projection; metadata `{"input_format":"records"}` or `{"input_format":"lookup-events"}` | Canonical projection including exact raw input digest |
 | `v17_gcp_audit.normalize` | `1.7` | Native Google Cloud Audit export and recorded projection; metadata `{"input_format":"entries"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, nanoseconds, delegation, and permission records |
 | `v17_azure_activity.normalize` | `1.7` | Native Azure Activity Log export and recorded projection; metadata `{"input_format":"activity-log"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, fractional timestamps, label and claim distinctions |
+| `v17_log_analytics.normalize` | `1.7` | Native query-result tables and recorded projection; metadata `{"input_format":"tables"}` | Canonical projection preserving raw digest, typed column/value bindings, and partial-error state |
 
 The profile is limited to 10,000 total records and 16 MiB of metadata. Each
 deterministic replay input/output is limited to 16 MiB. Duplicate JSON keys,
@@ -154,9 +155,12 @@ delegation order, and individual permission checks. The
 [Azure Activity Log adapter](AZURE_ACTIVITY_REPLAY_V1.7.md) has bounded native
 REST response/array profiles and retains recorded fractional timestamps,
 invariant/translated labels, and caller/claim distinctions. These management-plane
-observations do not prove model invocation or downstream effects. Other parsers,
-including Log Analytics typed tables, and raw-evidence reassessment adapters
-remain future work.
+observations do not prove model invocation or downstream effects. The separate
+[Log Analytics adapter](LOG_ANALYTICS_REPLAY_V1.7.md) validates typed tables and
+binds ordered columns to row values. A correctly reproduced partial response can
+PASS replay with collection explicitly incomplete. KQL is never re-executed,
+query scope is unverified, and row counts are not assumed to be event counts.
+Other parsers and raw-evidence reassessment adapters remain future work.
 
 Integrity verification and reproduction of a transformation are separate
 results. A correctly preserved but incorrect normalization can have integrity
