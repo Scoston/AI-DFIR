@@ -83,10 +83,25 @@ def reconstruct(
                 ("v17_log_analytics_context.normalize", "1.7"),
                 ("v17_gcp_logging_context.normalize", "1.7"),
                 ("v17_evidence_validation.assess", "1.7"),
+                ("v17_schema_drift.compare", "1.7"),
             }
             if supported:
                 try:
                     original_raw = read_artifact(index[rec["parent_artifact_id"]]["path"])
+                    if rec["transformation"] == "v17_schema_drift.compare":
+                        from v17_schema_drift import compare_replay
+                        meta = rec["metadata"]
+                        if set(meta) != {"input_format", "baseline_artifact_id", "baseline_sha256"}:
+                            raise ProvenanceError("unsupported structural replay configuration")
+                        baseline = index[meta["baseline_artifact_id"]]
+                        if baseline["kind"] != "artifacts":
+                            raise ProvenanceError("structural baseline requires a bound artifact")
+                        preserved = read_artifact(index[rec["child_artifact_id"]]["path"])
+                        result.update(compare_replay(original_raw, preserved, baseline_raw=read_artifact(baseline["path"]),
+                                                     input_format=meta["input_format"], case_id=ledger.case_id,
+                                                     expected_baseline_sha256=meta["baseline_sha256"]))
+                        transforms.append(result)
+                        continue
                     if rec["transformation"] == "v17_evidence_validation.assess":
                         from v17_evidence_validation import compare_replay
                         meta = rec["metadata"]

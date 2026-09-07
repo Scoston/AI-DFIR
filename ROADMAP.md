@@ -8,6 +8,13 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Nested schema observation/comparison is implemented in development: complete
+bounded object/array/JSONL populations, typed member/array paths, kind/occurrence
+and record-presence counts, explicit baseline-byte pins, added/removed/changed
+shape observations, and signed offline replay with second-input lineage checks.
+Observed differences do not prove a provider schema change or measure uncollected
+sources. See [Nested schema comparison](docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md).
+
 A deterministic hostile-input parser corpus is implemented in development:
 twelve fixed native response/context profiles, 3,318 default cases with pinned
 input/outcome digests, structural/encoding/embedded-JSON mutations, repeated
@@ -27,12 +34,12 @@ See [Private transparency](docs/reference/PRIVATE_TRANSPARENCY_V1.7.md).
 
 Investigation provenance/reference validation, evidence lineage validation,
 recorded AI/tool/analyst reconstruction, preserved-execution comparison, and
-eleven fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
+twelve fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
 recorded Evidence Pack gates, native CloudTrail projection, Google Cloud Audit
 projection, native Azure Activity Log projection, Log Analytics table projection,
 lossless Log Analytics numeric projection, retained Log Analytics request-context
-binding, Google Cloud Logging request-context binding, and pinned raw-evidence
-reassessment. See
+binding, Google Cloud Logging request-context binding, pinned raw-evidence
+reassessment, and pinned nested schema comparison. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
 
@@ -209,7 +216,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - operated private transparency services, independent witness custody/fork monitoring, and archival log-key governance beyond the implemented offline signed-snapshot/proof profile;
-- evidence-source coverage measurement and deeper provider schema-change detection beyond retained top-level field/kind observations;
+- evidence-source coverage measurement and authoritative provider schema/compatibility evaluation beyond the implemented retained nested-shape comparisons;
 - additional independent visible-rendering adapters for representation attacks;
 - optional standards-based case exchange profiles beyond the current neutral/STIX/ECS exports;
 - continuous coverage-guided fuzzing and broader hostile archive/document corpora beyond the implemented deterministic provider-parser campaign;

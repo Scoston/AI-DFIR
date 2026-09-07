@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [nested schema comparison](docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md)
+checks complete retained JSON structures against an explicitly pinned baseline.
+It reports nested path/kind changes and occurrence counts, with signed offline
+replay and a clear distinction between observed drift and verified provider change.
+
 The unreleased [hostile-input parser corpus](docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md)
 adds a pinned 3,318-case campaign across twelve native response/context profiles.
 It checks deterministic results, malformed-input rejection, exact source binding,

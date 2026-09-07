@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: pinned nested schema comparison
+
+- a twelfth fixed adapter compares complete retained object/array/JSONL populations against an independently pinned baseline;
+- collision-resistant typed member/array path identities, every-node kind and occurrence counts, record presence, and added/removed/changed observed shapes;
+- separate byte/count/shape differences, no provider-change or compatibility inference, and no evidence-quality or conclusion promotion;
+- signed baseline artifact references, independent pin/case checks, second-input cycle detection, opt-in full replay, and exclusive CLI output;
+- 182 focused regressions including empty signed JSONL evidence, analyst guide, and source/extracted/independent package gates;
+- no new dependency, live acquisition, inferred record selection, embedded-string parsing, or changes to existing raw-evidence validation semantics.
+
 ### Unreleased: deterministic hostile-input parser corpus
 
 - twelve fixed provider response/context profiles with 3,318 default synthetic cases and pinned corpus/outcome digests;

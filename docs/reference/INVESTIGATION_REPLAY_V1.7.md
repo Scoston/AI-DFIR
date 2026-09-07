@@ -135,6 +135,7 @@ The fixed local transform registry supports:
 | `provider_normalizer.normalize` | `1.4` | JSON array of provider-event objects; relationship metadata `{"provider":"openai"}` or another supported adapter | Canonical JSON output with content inclusion disabled |
 | `evidence_quality.evaluate_gates` | `1.7` | Retained pack/quality snapshot and original assessment; metadata `{"pack_sha256":"<canonical retained pack digest>"}` | Canonical gate summary using recorded quality states |
 | `v17_evidence_validation.assess` | `1.7` | Raw evidence, separately bound rules, and complete assessment; metadata `{"rules_artifact_id":"VALIDATION-RULES","rules_sha256":"<canonical pin>"}` | [Pinned raw-evidence reassessment](RAW_EVIDENCE_REASSESSMENT_V1.7.md), every-record field checks and schema observations; no quality promotion |
+| `v17_schema_drift.compare` | `1.7` | Current bytes, separate baseline bytes, and full comparison; metadata `{"input_format":"json-object","baseline_artifact_id":"SCHEMA-BASELINE","baseline_sha256":"<exact byte pin>"}`; also `json-array` and `jsonl` | [Nested shape comparison](NESTED_SCHEMA_DRIFT_V1.7.md), every-node observations and signed second-input lineage; no verified provider schema change |
 | `v17_cloudtrail.normalize` | `1.7` | Native CloudTrail export and recorded projection; metadata `{"input_format":"records"}` or `{"input_format":"lookup-events"}` | Canonical projection including exact raw input digest |
 | `v17_gcp_audit.normalize` | `1.7` | Native Google Cloud Audit export and recorded projection; metadata `{"input_format":"entries"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, nanoseconds, delegation, and permission records |
 | `v17_gcp_logging_context.normalize` | `1.7` | Native Audit Log response, separate context artifact, and projection; metadata `{"input_format":"entries-list","context_artifact_id":"QUERY-CONTEXT"}` | [Fixed Logging request binding](GCP_LOGGING_CAPTURE_V1.7.md), exact response/context hashes, complete native projection, and validated second-input lineage |
@@ -172,7 +173,11 @@ scope. Missing/invalid known-profile references reject the provenance profile.
 The [raw-evidence reassessment adapter](RAW_EVIDENCE_REASSESSMENT_V1.7.md) now
 recomputes bounded byte, syntax, literal, and top-level field checks under a
 separately bound canonical rules pin. It keeps quality ratings and source authority
-separate. Deeper validation and other parser profiles remain future work.
+separate. The [nested schema adapter](NESTED_SCHEMA_DRIFT_V1.7.md) additionally
+compares every retained nested path/kind/count against separately pinned baseline
+bytes. Its baseline reference participates in lineage checks; reproducing observed
+drift does not establish provider schema change, compatibility, or source coverage.
+Deeper semantic validation and other parser profiles remain future work.
 
 Integrity verification and reproduction of a transformation are separate
 results. A correctly preserved but incorrect normalization can have integrity
