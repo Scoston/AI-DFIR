@@ -9,6 +9,7 @@
 | AWS Bedrock/CloudTrail | `aws_bedrock` | CloudTrail/Bedrock activity | data events/logging configuration matters |
 | Preserved native CloudTrail JSON (development) | [`cloudtrail_v17.py`](CLOUDTRAIL_REPLAY_V1.7.md) | Records/LookupEvents metadata projection and offline signed-case replay | parser does not acquire evidence, prove collection completeness, or authenticate AWS origin |
 | Google Cloud | `google_cloud_logs` | Cloud Logging/Audit Logs | sink/retention and filter coverage matter |
+| Preserved Google Cloud Audit JSON (development) | [`gcp_audit_v17.py`](GCP_AUDIT_REPLAY_V1.7.md) | Native audit metadata, delegation/permission projection, and signed-case replay | recorded identity and permission checks do not establish human attribution, successful effects, or complete collection |
 | GitHub Copilot | `github_copilot` | enterprise audit records | IDE-local context still needs endpoint/workspace evidence |
 | Claude Code | local collector | history/session/workspace controls | local files may be altered; preserve acquisition metadata |
 | Cursor | local collector | workspace/session/app evidence | provider-side telemetry may be unavailable |

@@ -410,3 +410,28 @@ and existing provenance support. Independent archive verification activates
 these requirements when any new CloudTrail profile file is present, preserving
 the historical v1.7.0 verification contract. See
 [Native CloudTrail replay](docs/reference/CLOUDTRAIL_REPLAY_V1.7.md).
+
+## 22. Unreleased Google Cloud Audit import and replay
+
+```bash
+python v17_gcp_audit_selftest.py
+python -m pytest tests/test_v17_gcp_audit.py -q
+python scripts/release_check.py --full
+```
+
+The 163 focused regressions bring the v1.7 total to 1,209. Native API response
+and array profiles cover nanosecond timestamps and offsets, distinct caller and
+delegation identities, preserved delegation/permission order, missing/redacted
+principals, explicit permission/status uncertainty, duplicate IDs, payload digest
+states, incomplete/empty exports, hostile JSON, and bounded resource use.
+
+Synthetic signed cases replay with network/DNS/subprocess/extraction guards.
+An integrity-valid incorrect permission projection fails replay, an invalid
+archive never reaches the parser, and independent required trust/timestamp gates
+block reconstruction. CLI tests verify input preservation and failure exit codes.
+
+Source and extracted-package gates require the same 163 regressions, self-test,
+parser, CLI, guide, and provenance support. Independent package verification
+requires the complete profile and matching assurance when any of its new files
+is present, preserving the historical v1.7.0 contract. See
+[Google Cloud Audit replay](docs/reference/GCP_AUDIT_REPLAY_V1.7.md).

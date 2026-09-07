@@ -135,6 +135,7 @@ The fixed local transform registry supports:
 | `provider_normalizer.normalize` | `1.4` | JSON array of provider-event objects; relationship metadata `{"provider":"openai"}` or another supported adapter | Canonical JSON output with content inclusion disabled |
 | `evidence_quality.evaluate_gates` | `1.7` | Retained pack/quality snapshot and original assessment; metadata `{"pack_sha256":"<canonical retained pack digest>"}` | Canonical gate summary using recorded quality states |
 | `v17_cloudtrail.normalize` | `1.7` | Native CloudTrail export and recorded projection; metadata `{"input_format":"records"}` or `{"input_format":"lookup-events"}` | Canonical projection including exact raw input digest |
+| `v17_gcp_audit.normalize` | `1.7` | Native Google Cloud Audit export and recorded projection; metadata `{"input_format":"entries"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, nanoseconds, delegation, and permission records |
 
 The profile is limited to 10,000 total records and 16 MiB of metadata. Each
 deterministic replay input/output is limited to 16 MiB. Duplicate JSON keys,
@@ -146,8 +147,10 @@ its input snapshot to 2 MiB, requires complete unique artifact identities, and
 distinguishes reproduced calculations from underlying evidence sufficiency.
 The [native CloudTrail adapter](CLOUDTRAIL_REPLAY_V1.7.md) limits input/output to
 8 MiB and at most 2,000 events, checks wrapper consistency, and preserves recorded
-order and identity distinctions. Other parsers and raw-evidence reassessment
-adapters remain future work.
+order and identity distinctions. The [Google Cloud Audit adapter](GCP_AUDIT_REPLAY_V1.7.md)
+has bounded native response/array profiles and preserves recorded nanoseconds,
+delegation order, and individual permission checks. Other parsers and raw-evidence
+reassessment adapters remain future work.
 
 Integrity verification and reproduction of a transformation are separate
 results. A correctly preserved but incorrect normalization can have integrity

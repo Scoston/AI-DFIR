@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: Google Cloud Audit Logs import and offline replay
+
+- explicit native entries.list response and JSON-array profiles with bounded strict parsing and no skipped entries;
+- exact source/canonical entry digests, original nanosecond timestamps, recorded delegation order, and separate per-resource permission checks;
+- retained principal email/subject, status presence/code, operation markers, hashed payloads/claims, and explicit collection/authenticity limits;
+- normalize/compare CLI, exclusive output creation, and fixed signed-case replay integration;
+- 163 focused regressions, synthetic offline acceptance, analyst guide, and source/extracted-package assurance;
+- no new dependencies, live acquisition changes, attribution inference, or historical release-verification incompatibility.
+
 ### Unreleased: native CloudTrail import and offline replay
 
 - explicit native Records and LookupEvents JSON profiles with strict bounded parsing, no fallback, and no skipped events;
