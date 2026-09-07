@@ -822,3 +822,26 @@ Independent package verification requires the full feature/dependency set and
 matching assurance when present, preserving historical releases. No live provider
 comparison, new dependency, automatic gate promotion, or provider schema-change
 authority is claimed. See [Nested schema comparison](docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md).
+
+## 37. Unreleased CASE/UCO inventory exchange
+
+```bash
+python v17_case_exchange_selftest.py
+python -m pytest tests/test_v17_case_exchange.py -q
+python -m pip install -r requirements-case-validation.txt
+python scripts/case_exchange_conformance_v17.py
+```
+
+The 101 focused regressions bring the v1.7 total to 3,601. Acceptance verifies
+immutable signed-case snapshots, hashes/sizes, deterministic instance IDs, primary
+and secondary input references, omissions, literal labels, unknown versions,
+external identity/key/policy gates, tampered members, resource limits, complete
+graph comparison, integer types, fixed contexts, and CLI failure/output behavior.
+
+The separate pinned CASE/UCO 1.5.0 conformance command validates a synthetic graph,
+preserves all 89 RDF statements through an N-Triples round trip, and rejects four
+invalid graphs. It uses the official CASE validator with a pinned local ontology;
+network access and ontology imports are disabled. CI and full source/extracted
+gates require this check. Runtime export/comparison do not require RDF libraries.
+The independent package verifier checks feature completeness and assurance while
+preserving historical release support. See [CASE/UCO exchange](docs/reference/CASE_EXCHANGE_V1.7.md).

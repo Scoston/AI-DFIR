@@ -8,6 +8,14 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+An optional CASE/UCO 1.5.0 inventory exchange is implemented in development:
+bounded immutable signed-case verification, explicit identity and external trust
+gates, deterministic JSON-LD artifact/lineage views, secondary input references,
+full offline graph comparison, and official CASE validation with RDF round-trip
+acceptance. Omitted records and unmapped files are counted. Full investigation
+modeling, bidirectional import, and interoperability with a particular external
+case-management deployment remain open. See [CASE/UCO exchange](docs/reference/CASE_EXCHANGE_V1.7.md).
+
 Nested schema observation/comparison is implemented in development: complete
 bounded object/array/JSONL populations, typed member/array paths, kind/occurrence
 and record-presence counts, explicit baseline-byte pins, added/removed/changed
@@ -218,7 +226,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - operated private transparency services, independent witness custody/fork monitoring, and archival log-key governance beyond the implemented offline signed-snapshot/proof profile;
 - evidence-source coverage measurement and authoritative provider schema/compatibility evaluation beyond the implemented retained nested-shape comparisons;
 - additional independent visible-rendering adapters for representation attacks;
-- optional standards-based case exchange profiles beyond the current neutral/STIX/ECS exports;
+- full investigation modeling, bidirectional import, and external case-management interoperability beyond the implemented optional CASE/UCO 1.5.0 inventory view;
 - continuous coverage-guided fuzzing and broader hostile archive/document corpora beyond the implemented deterministic provider-parser campaign;
 - external independent penetration-test reports and deployment certifications when a production environment exists.
 

@@ -132,6 +132,12 @@ SCHEMA_DRIFT_PACKAGE_PATHS = {
     "tests/test_v17_schema_drift.py", "docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md",
 }
 
+CASE_EXCHANGE_PACKAGE_PATHS = {
+    "v17_case_exchange.py", "case_exchange_v17.py", "v17_case_exchange_selftest.py",
+    "tests/test_v17_case_exchange.py", "scripts/case_exchange_conformance_v17.py",
+    "requirements-case-validation.txt", "docs/reference/CASE_EXCHANGE_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -407,6 +413,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_schema_drift = bool(SCHEMA_DRIFT_PACKAGE_PATHS & set(expected))
         if has_schema_drift and not (SCHEMA_DRIFT_PACKAGE_PATHS | EVIDENCE_VALIDATION_PACKAGE_PATHS | LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete nested schema comparison package support")
+        has_case_exchange = bool(CASE_EXCHANGE_PACKAGE_PATHS & set(expected))
+        if has_case_exchange and not (CASE_EXCHANGE_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS | {"case_export_v17.py", "requirements-dev.txt"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete CASE exchange package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -480,6 +489,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_private_transparency": has_private_transparency,
             "has_parser_corpus": has_parser_corpus,
             "has_schema_drift": has_schema_drift,
+            "has_case_exchange": has_case_exchange,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -585,6 +595,9 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_parser_corpus_selftest="PASS", v17_parser_corpus_regression_tests=76, v17_parser_corpus_cases=3318)
     if zip_result.get("has_schema_drift"):
         required_assurance.update(v17_schema_drift_selftest="PASS", v17_schema_drift_regression_tests=182)
+    if zip_result.get("has_case_exchange"):
+        required_assurance.update(v17_case_exchange_selftest="PASS", v17_case_exchange_regression_tests=101,
+                                  v17_case_exchange_conformance="PASS", v17_case_exchange_ontology="1.5.0")
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):

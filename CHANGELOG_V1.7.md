@@ -4,6 +4,13 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: CASE/UCO inventory exchange
+
+- optional bounded JSON-LD inventory/lineage view using CASE/UCO 1.5.0, with local fixed contexts and archive-scoped deterministic instance IDs;
+- immutable ZIP snapshot verification, explicit tenant/case identity, existing external policy/timestamp/history gates, and retained artifact hashes, sizes, package paths, labels, record commitments, and secondary inputs;
+- full graph comparison with integer-type preservation, exclusive private CLI output, redacted failures, and explicit unsigned/partial/recorded-only semantics;
+- 101 regressions plus pinned official CASE validation, invalid-graph rejection, and RDF round-trip acceptance in CI and full source/extracted gates; RDF dependencies are optional development/release tools.
+
 ### Unreleased: pinned nested schema comparison
 
 - a twelfth fixed adapter compares complete retained object/array/JSONL populations against an independently pinned baseline;
