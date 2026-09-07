@@ -8,6 +8,14 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+A deterministic hostile-input parser corpus is implemented in development:
+twelve fixed native response/context profiles, 3,318 default cases with pinned
+input/outcome digests, structural/encoding/embedded-JSON mutations, repeated
+normalization, replay and claim checks, bounded failure reports, and fault-injected
+harness acceptance. This finite synthetic campaign is required in source and
+extracted releases; broader archive/document corpora and continuous coverage-guided
+fuzzing remain open. See [Hostile parser corpus](docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md).
+
 Private transparency-log snapshots and multi-key witnessing have an implemented
 offline profile: immutable bounded states, signed heads, independently pinned
 log/witness trust, inclusion proofs, and optional prefix consistency against an
@@ -204,7 +212,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - evidence-source coverage measurement and deeper provider schema-change detection beyond retained top-level field/kind observations;
 - additional independent visible-rendering adapters for representation attacks;
 - optional standards-based case exchange profiles beyond the current neutral/STIX/ECS exports;
-- broader fuzzing and hostile-file corpora for parsers and archive/document intake;
+- continuous coverage-guided fuzzing and broader hostile archive/document corpora beyond the implemented deterministic provider-parser campaign;
 - external independent penetration-test reports and deployment certifications when a production environment exists.
 
 Roadmap items are not treated as implemented evidence capabilities until code, Evidence Packs, analyst documentation, and acceptance tests are present.

@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [hostile-input parser corpus](docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md)
+adds a pinned 3,318-case campaign across twelve native response/context profiles.
+It checks deterministic results, malformed-input rejection, exact source binding,
+and replay behavior without promoting source authenticity or collection claims.
+
 The unreleased [private transparency-log profile](docs/reference/PRIVATE_TRANSPARENCY_V1.7.md)
 verifies signed Merkle inclusion and optional prefix consistency under independently
 pinned log and witness keys. Offline snapshot and witness commands preserve prior

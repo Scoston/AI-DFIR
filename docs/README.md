@@ -14,6 +14,7 @@
 - [Google Cloud Logging Capture and Context Replay (development)](reference/GCP_LOGGING_CAPTURE_V1.7.md)
 - [Pinned Raw-evidence Reassessment (development)](reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md)
 - [Witnessed Private Transparency Proofs (development)](reference/PRIVATE_TRANSPARENCY_V1.7.md)
+- [Deterministic Hostile-input Parser Corpus (development)](reference/PARSER_HOSTILE_CORPUS_V1.7.md)
 - [Azure Activity Log Import and Replay (development)](reference/AZURE_ACTIVITY_REPLAY_V1.7.md)
 - [Log Analytics Query-result Import and Replay (development)](reference/LOG_ANALYTICS_REPLAY_V1.7.md)
 - [Log Analytics Retained Request Context and Replay (development)](reference/LOG_ANALYTICS_CONTEXT_V1.7.md)

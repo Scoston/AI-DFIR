@@ -767,3 +767,31 @@ profile is present, while retaining historical release compatibility. These test
 use ephemeral synthetic keys and block network connections. They do not establish
 independent operator custody, trusted time, global fork freedom, evidence truth,
 or an operated log service. See [Private transparency](docs/reference/PRIVATE_TRANSPARENCY_V1.7.md).
+
+## 35. Unreleased deterministic hostile-input parser corpus
+
+```bash
+python v17_parser_corpus_selftest.py
+python -m pytest tests/test_v17_parser_corpus.py -q
+```
+
+The 76 harness regressions bring the v1.7 regression total to 3,318. Separately,
+the default synthetic mutation campaign also contains 3,318 logical cases across
+twelve native response/context profiles, each evaluated twice. It pins corpus and
+outcome digests, counts duplicate inputs explicitly, preserves numeric spelling,
+and tests malformed encoding/structure/embedded JSON plus deterministic replay.
+
+Fault injection requires detection of parser exceptions, nondeterminism, source
+substitution, unsupported authority/scope/execution/coverage claims, oversized
+output, false seed rejection, malformed-input acceptance, and incorrect matching
+or altered-output replay. Tests also cover profile/seed/mutation bounds, independent
+streams, blocked Python network/process calls, restored guards after interruption,
+bounded redacted failure details, and exclusive CLI report output.
+
+Source and extracted-package gates require both the default 3,318-case campaign
+and all 76 harness regressions. The conditional independent verifier checks the
+complete feature/dependency files and assurance fields while preserving historical
+releases. No production parser, new dependency, live acquisition, arbitrary module
+loading, or automatic gate promotion is introduced. This finite campaign is not
+coverage-guided fuzzing, OS isolation, or exhaustive security validation. See
+[Hostile parser corpus](docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md).
