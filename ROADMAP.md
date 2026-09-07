@@ -91,6 +91,12 @@ workspace capture digests. HTTP success remains unknown collection even when
 permission metadata is present. See
 [Resource-scoped Log Analytics](docs/reference/LOG_ANALYTICS_RESOURCE_V1.7.md).
 
+Form-encoded Log Analytics GET and additional workspace lists are implemented
+in development: explicit workspace/resource form profiles, strict plus-before-
+percent decoding, bounded GUID lists, exact URL/order binding, automatic capture,
+and signed offline replay. Original percent-only GET behavior remains unchanged.
+See [Form GET profiles](docs/reference/LOG_ANALYTICS_GET_FORM_V1.7.md).
+
 Verifier-controlled checkpoint key lifecycle is also implemented in development:
 active/retired/revoked states, validity windows, tenant/case scope, rotation
 overlap, and optional policy digest pinning. See
@@ -159,7 +165,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate, native AWS/Google/Azure activity, and Log Analytics table replay, plus authorized live comparison orchestration;
 
-- additional provider-specific raw-export profiles beyond the implemented native parsers, including wider numeric types, acquisition-context capture for other providers, and additional GET parameters/encodings beyond the implemented query/timespan profiles; broader resource identifier forms beyond the bounded resource-context profile remain unsupported;
+- additional provider-specific raw-export profiles beyond the implemented native parsers, including wider numeric types and acquisition-context capture for other providers; implemented resource/GET profile boundaries are documented in their guides;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - private transparency-log implementations and multi-party evidence anchoring;

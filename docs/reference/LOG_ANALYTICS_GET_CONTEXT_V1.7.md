@@ -1,5 +1,9 @@
 # Log Analytics retained workspace GET context
 
+The separate [form GET profiles](LOG_ANALYTICS_GET_FORM_V1.7.md) now support
+explicit plus/percent decoding and additional workspace GUID lists. The original
+percent-only profile below keeps its existing behavior and hashes.
+
 This unreleased profile adds `workspace-get` to the existing
 [context replay adapter](LOG_ANALYTICS_CONTEXT_V1.7.md). It binds a separately
 retained GET request URL, its decoded query and optional timespan, selected HTTP

@@ -1,5 +1,9 @@
 # Resource-scoped Log Analytics context and capture (unreleased)
 
+The additional [resource form GET profile](LOG_ANALYTICS_GET_FORM_V1.7.md) supports
+explicit plus/percent decoding. It retains the resource identifier and permission
+boundaries below and does not accept additional workspaces.
+
 The `resource-post` and `resource-get` profiles bind a retained Azure resource
 query to exact response bytes and support automatic context capture. They use
 the existing version 1.7 context replay adapter and separate signed response,

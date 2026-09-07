@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [form GET profiles](docs/reference/LOG_ANALYTICS_GET_FORM_V1.7.md)
+add explicit plus/percent decoding and bounded additional workspace lists, with
+automatic capture and signed replay. Exact URL spelling, decoded parameters,
+and requested scope remain separately bound.
+
 The unreleased [resource-scoped Log Analytics profiles](docs/reference/LOG_ANALYTICS_RESOURCE_V1.7.md)
 add explicit resource POST/GET context binding and automatic capture. Resource
 identifiers and opaque permission details are retained without interpreting

@@ -1,5 +1,9 @@
 # Log Analytics retained request context and replay
 
+The explicit [form GET profiles](LOG_ANALYTICS_GET_FORM_V1.7.md) extend URL
+decoding and optional workspace-list observations without changing the original
+workspace/resource POST or percent-only GET projections.
+
 This unreleased, offline profile binds a separately retained request-context
 artifact to the exact bytes of a native Log Analytics response. It reproduces
 the existing typed result projection and detects a changed query, scope field,

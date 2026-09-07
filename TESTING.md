@@ -639,3 +639,29 @@ require all 142 regressions alongside 111 Evidence Packs and 19 synthetic
 components. Conditional package requirements and matching assurance preserve
 historical releases. See the
 [resource guide](docs/reference/LOG_ANALYTICS_RESOURCE_V1.7.md).
+
+## 30. Unreleased form GET and additional workspace lists
+
+```bash
+python v17_log_analytics_form_selftest.py
+python -m pytest tests/test_v17_log_analytics_form.py -q
+python scripts/release_check.py --full --json-out release-check.json
+```
+
+The 123 focused regressions bring the v1.7 total to 2,493. Synthetic workspace
+and resource GET capture produces separately signed replay inputs. Tests cover
+literal plus versus percent-encoded plus, single UTF-8 decoding, double encoding,
+URL spelling/order, malformed or duplicate parameters, workspace identity/list
+boundaries and injection, byte budgets, configured credential contamination,
+explicit scope/profile binding, failure behavior, and CLI capture/normalize/compare.
+
+Re-signed plus/space, workspace/order, encoded-key, and profile substitutions keep
+integrity PASS but fail replay. The original percent-only GET profiles continue
+to reject new forms. Existing workspace/resource capture and golden artifact
+tests remain required. No real credentials or live provider acquisition are used.
+
+Quick/full gates require the self-test. Full source and extracted-package gates
+require all 123 regressions alongside 111 Evidence Packs and 19 synthetic
+components. Independent package checks conditionally require all new paths,
+their capture/replay dependencies and matching assurance, preserving historical
+releases. See the [form guide](docs/reference/LOG_ANALYTICS_GET_FORM_V1.7.md).
