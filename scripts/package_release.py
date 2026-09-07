@@ -262,6 +262,11 @@ def required_v17_paths() -> set[str]:
         "v17_private_transparency_selftest.py",
         "tests/test_v17_private_transparency.py",
         "docs/reference/PRIVATE_TRANSPARENCY_V1.7.md",
+        "v17_parser_corpus.py",
+        "parser_corpus_v17.py",
+        "v17_parser_corpus_selftest.py",
+        "tests/test_v17_parser_corpus.py",
+        "docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md",
         "transparency_anchor_v14.py",
         "v14_selftest.py",
         "evidence_quality.py",
@@ -375,6 +380,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_gcp_logging_capture_selftest": "PASS",
         "v17_evidence_validation_selftest": "PASS",
         "v17_private_transparency_selftest": "PASS",
+        "v17_parser_corpus_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -458,6 +464,12 @@ def require_extracted_v17_checks(report: dict) -> None:
     private_log = checks.get("v17_private_transparency_regression")
     if not isinstance(private_log, dict) or private_log.get("status") != "PASS" or private_log.get("tests") != 160:
         raise RuntimeError("extracted package must pass all 160 private transparency regression tests")
+    corpus = checks.get("v17_parser_corpus_regression")
+    if not isinstance(corpus, dict) or corpus.get("status") != "PASS" or corpus.get("tests") != 76:
+        raise RuntimeError("extracted package must pass all 76 hostile parser corpus regression tests")
+    campaign = checks["v17_parser_corpus_selftest"]
+    if campaign.get("cases") != 3318 or campaign.get("profiles") != 12:
+        raise RuntimeError("extracted package must pass the pinned 3318-case, 12-profile parser campaign")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -720,6 +732,9 @@ def main() -> None:
                 "v17_evidence_validation_regression_tests": 190,
                 "v17_private_transparency_selftest": "PASS",
                 "v17_private_transparency_regression_tests": 160,
+                "v17_parser_corpus_selftest": "PASS",
+                "v17_parser_corpus_regression_tests": 76,
+                "v17_parser_corpus_cases": 3318,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

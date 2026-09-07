@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: deterministic hostile-input parser corpus
+
+- twelve fixed provider response/context profiles with 3,318 default synthetic cases and pinned corpus/outcome digests;
+- repeatable structural deletion/replacement, encoding, truncation, depth, duplicate-key, numeric, Unicode, and embedded-JSON mutations without rounding untouched numeric tokens;
+- repeated normalization, exact source/context binding, bounded output, authority/coverage claim checks, and matching/altered replay oracles;
+- Python network/process guards, bounded redacted failure reports, exclusive CLI output, 76 fault-injection/acceptance regressions, and source/extracted-package gates;
+- no production parser change, new dependency, arbitrary corpus/module loading, live acquisition, gate promotion, or exhaustive-security claim.
+
 ### Unreleased: witnessed private transparency-log proofs
 
 - bounded immutable snapshots, Ed25519-signed log heads and role-bound witness signatures under an independent canonical trust pin;

@@ -122,6 +122,11 @@ PRIVATE_TRANSPARENCY_PACKAGE_PATHS = {
     "docs/reference/PRIVATE_TRANSPARENCY_V1.7.md",
 }
 
+PARSER_CORPUS_PACKAGE_PATHS = {
+    "v17_parser_corpus.py", "parser_corpus_v17.py", "v17_parser_corpus_selftest.py",
+    "tests/test_v17_parser_corpus.py", "docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -391,6 +396,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_private_transparency = bool(PRIVATE_TRANSPARENCY_PACKAGE_PATHS & set(expected))
         if has_private_transparency and not (PRIVATE_TRANSPARENCY_PACKAGE_PATHS | EVIDENCE_VALIDATION_PACKAGE_PATHS | LOG_ANALYTICS_CAPTURE_PACKAGE_PATHS | DELIVERY_IDENTITY_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"transparency_anchor_v14.py", "v14_selftest.py"}).issubset(expected):
             raise ReleaseCandidateError("incomplete private transparency package support")
+        has_parser_corpus = bool(PARSER_CORPUS_PACKAGE_PATHS & set(expected))
+        if has_parser_corpus and not (PARSER_CORPUS_PACKAGE_PATHS | CLOUDTRAIL_PACKAGE_PATHS | GCP_AUDIT_PACKAGE_PATHS | AZURE_ACTIVITY_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | LOG_ANALYTICS_LOSSLESS_PACKAGE_PATHS | LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | GCP_LOGGING_CAPTURE_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete hostile parser corpus package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -462,6 +470,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_gcp_logging_capture": has_gcp_logging_capture,
             "has_evidence_validation": has_evidence_validation,
             "has_private_transparency": has_private_transparency,
+            "has_parser_corpus": has_parser_corpus,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -563,6 +572,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_evidence_validation_selftest="PASS", v17_evidence_validation_regression_tests=190)
     if zip_result.get("has_private_transparency"):
         required_assurance.update(v17_private_transparency_selftest="PASS", v17_private_transparency_regression_tests=160)
+    if zip_result.get("has_parser_corpus"):
+        required_assurance.update(v17_parser_corpus_selftest="PASS", v17_parser_corpus_regression_tests=76, v17_parser_corpus_cases=3318)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):
