@@ -19,6 +19,7 @@
 - [Automatic Log Analytics Workspace GET Capture (development)](reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md)
 - [Resource-scoped Log Analytics Capture and Replay (development)](reference/LOG_ANALYTICS_RESOURCE_V1.7.md)
 - [Form GET and Additional Workspace Lists (development)](reference/LOG_ANALYTICS_GET_FORM_V1.7.md)
+- [Lossless Log Analytics Numeric Replay (development)](reference/LOG_ANALYTICS_LOSSLESS_V1.7.md)
 - [Demo](demo/README.md)
 
 ## Analyst

@@ -665,3 +665,29 @@ require all 123 regressions alongside 111 Evidence Packs and 19 synthetic
 components. Independent package checks conditionally require all new paths,
 their capture/replay dependencies and matching assurance, preserving historical
 releases. See the [form guide](docs/reference/LOG_ANALYTICS_GET_FORM_V1.7.md).
+
+## 31. Unreleased lossless Log Analytics numeric replay
+
+```bash
+python v17_log_analytics_lossless_selftest.py
+python -m pytest tests/test_v17_log_analytics_lossless.py -q
+python scripts/release_check.py --full --json-out release-check.json
+```
+
+The 171 focused regressions bring the v1.7 total to 2,664. Synthetic signed
+replay preserves full signed 64-bit bounds, precise decimals, real token text,
+numeric strings, negative zero and opaque wide numeric metadata. Collision tests
+distinguish all JSON kinds and tag-shaped evidence; numerically similar lexical
+forms remain separately bound. Decimal acceptance is independent of ambient
+precision. Partial/unknown results and unverified scope/origin remain explicit.
+
+Negative tests cover numeric syntax/range/coercion, UTF-8/surrogates, duplicate
+keys, byte and structure expansion, table/row/type/error envelopes, unverified
+archives, unknown transform versions, and CLI output protection. Re-signed
+digit/rounding/wire-kind/zero/row-value/type changes retain integrity PASS but
+fail replay. Two reviewed original projection hashes remain unchanged.
+
+Quick/full gates require the self-test. Full source and extracted-package gates
+require all 171 regressions alongside 111 Evidence Packs and 19 synthetic
+components. Conditional package paths and matching assurance preserve historical
+releases. See the [lossless guide](docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md).

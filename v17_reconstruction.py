@@ -79,6 +79,7 @@ def reconstruct(
                 ("v17_gcp_audit.normalize", "1.7"),
                 ("v17_azure_activity.normalize", "1.7"),
                 ("v17_log_analytics.normalize", "1.7"),
+                ("v17_log_analytics_lossless.normalize", "1.7"),
                 ("v17_log_analytics_context.normalize", "1.7"),
             }
             if supported:
@@ -97,8 +98,11 @@ def reconstruct(
                         result.update(compare_replay(original_raw, preserved, context_raw=context_raw, input_format=meta["input_format"]))
                         transforms.append(result)
                         continue
-                    if rec["transformation"] == "v17_log_analytics.normalize":
-                        from v17_log_analytics import compare_replay
+                    if rec["transformation"] in ("v17_log_analytics.normalize", "v17_log_analytics_lossless.normalize"):
+                        if rec["transformation"] == "v17_log_analytics_lossless.normalize":
+                            from v17_log_analytics_lossless import compare_replay
+                        else:
+                            from v17_log_analytics import compare_replay
                         meta = rec["metadata"]
                         if set(meta) != {"input_format"}:
                             raise ProvenanceError("unsupported Log Analytics replay configuration")

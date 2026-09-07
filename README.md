@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [lossless numeric replay adapter](docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md)
+preserves full signed 64-bit integers, precise decimal text, numeric strings and
+number spelling in Log Analytics results. Its explicit tagged hashes detect
+changes that ordinary floating-point parsing can erase.
+
 The unreleased [form GET profiles](docs/reference/LOG_ANALYTICS_GET_FORM_V1.7.md)
 add explicit plus/percent decoding and bounded additional workspace lists, with
 automatic capture and signed replay. Exact URL spelling, decoded parameters,

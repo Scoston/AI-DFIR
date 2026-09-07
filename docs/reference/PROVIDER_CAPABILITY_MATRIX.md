@@ -3,6 +3,7 @@
 | Provider/source | Current native path | Typical evidence | Important limitation |
 |---|---|---|---|
 | Microsoft Graph Security | `microsoft_graph_security` | alerts/incidents where authorized | API coverage depends on tenant licensing/retention |
+| Wide numeric Log Analytics results (development) | [`log_analytics_lossless_v17.py`](LOG_ANALYTICS_LOSSLESS_V1.7.md) | Exact numeric text, full signed 64-bit bounds, bounded decimals, wire-kind distinctions, tagged hashes and signed replay | separate response-only profile; no reconstruction of values already rounded upstream, verified scope, or complete-collection inference |
 | Form-encoded Log Analytics GET (development) | [`--capture-get-encoding form` and `--format workspace-get-form/resource-get-form`](LOG_ANALYTICS_GET_FORM_V1.7.md) | Strict form decoding, exact URL/parameter binding, optional additional workspace GUID list, automatic capture and signed replay | explicit profile; GUID-only scope list, no inferred effective access or completeness |
 | Resource-scoped Log Analytics (development) | [`--capture-scope resource` and `--format resource-post/resource-get`](LOG_ANALYTICS_RESOURCE_V1.7.md) | Exact resource/query/response binding, automatic capture, opaque permission observations, and signed offline replay | bounded public resource paths; permission assertions and HTTP 200 never prove effective access or complete collection |
 | Azure AI/Foundry diagnostics | `azure_foundry_logs` | resource/diagnostic logs | must be enabled before incident |

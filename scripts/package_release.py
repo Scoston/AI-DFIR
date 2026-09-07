@@ -239,6 +239,12 @@ def required_v17_paths() -> set[str]:
         "v17_log_analytics_form_selftest.py",
         "tests/test_v17_log_analytics_form.py",
         "docs/reference/LOG_ANALYTICS_GET_FORM_V1.7.md",
+        "v17_numeric_json.py",
+        "v17_log_analytics_lossless.py",
+        "log_analytics_lossless_v17.py",
+        "v17_log_analytics_lossless_selftest.py",
+        "tests/test_v17_log_analytics_lossless.py",
+        "docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -346,6 +352,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_log_analytics_get_capture_selftest": "PASS",
         "v17_log_analytics_resource_selftest": "PASS",
         "v17_log_analytics_form_selftest": "PASS",
+        "v17_log_analytics_lossless_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -417,6 +424,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     form = checks.get("v17_log_analytics_form_regression")
     if not isinstance(form, dict) or form.get("status") != "PASS" or form.get("tests") != 123:
         raise RuntimeError("extracted package must pass all 123 Log Analytics form GET regression tests")
+    lossless = checks.get("v17_log_analytics_lossless_regression")
+    if not isinstance(lossless, dict) or lossless.get("status") != "PASS" or lossless.get("tests") != 171:
+        raise RuntimeError("extracted package must pass all 171 lossless Log Analytics regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -671,6 +681,8 @@ def main() -> None:
                 "v17_log_analytics_resource_regression_tests": 142,
                 "v17_log_analytics_form_selftest": "PASS",
                 "v17_log_analytics_form_regression_tests": 123,
+                "v17_log_analytics_lossless_selftest": "PASS",
+                "v17_log_analytics_lossless_regression_tests": 171,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),
