@@ -6,6 +6,10 @@ invoked workspace POST acquisition records the prepared request, preserves the
 bounded response body before parsing, and writes compatible context and
 projection artifacts. It does not run during offline verification or replay.
 
+This acquisition option remains workspace POST. Separately retained GET requests
+can use the [offline GET context profile](LOG_ANALYTICS_GET_CONTEXT_V1.7.md);
+that profile does not add GET acquisition to this collector.
+
 ## Explicit invocation
 
 Use the existing provider collector CLI with `--capture-context`. For this mode,

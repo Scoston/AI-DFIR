@@ -138,7 +138,7 @@ The fixed local transform registry supports:
 | `v17_gcp_audit.normalize` | `1.7` | Native Google Cloud Audit export and recorded projection; metadata `{"input_format":"entries"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, nanoseconds, delegation, and permission records |
 | `v17_azure_activity.normalize` | `1.7` | Native Azure Activity Log export and recorded projection; metadata `{"input_format":"activity-log"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, fractional timestamps, label and claim distinctions |
 | `v17_log_analytics.normalize` | `1.7` | Native query-result tables and recorded projection; metadata `{"input_format":"tables"}` | Canonical projection preserving raw digest, typed column/value bindings, and partial-error state |
-| `v17_log_analytics_context.normalize` | `1.7` | Native response, separate context artifact, and projection; metadata `{"input_format":"workspace-post","context_artifact_id":"QUERY-CONTEXT"}` | Exact response/context binding plus complete typed result projection; context is a validated second lineage input |
+| `v17_log_analytics_context.normalize` | `1.7` | Native response, separate context artifact, and projection; metadata `{"input_format":"workspace-post","context_artifact_id":"QUERY-CONTEXT"}` or `input_format: workspace-get` with the same context reference | Exact response/context binding plus complete typed result projection; context is a validated second lineage input; [GET profile](LOG_ANALYTICS_GET_CONTEXT_V1.7.md) also binds strict URL decoding |
 
 The profile is limited to 10,000 total records and 16 MiB of metadata. Each
 deterministic replay input/output is limited to 16 MiB. Duplicate JSON keys,

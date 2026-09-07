@@ -79,6 +79,11 @@ LOG_ANALYTICS_CAPTURE_PACKAGE_PATHS = {
     "tests/test_v17_log_analytics_capture.py", "docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md",
 }
 
+LOG_ANALYTICS_GET_PACKAGE_PATHS = {
+    "v17_log_analytics_get_selftest.py", "tests/test_v17_log_analytics_get.py",
+    "docs/reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -324,6 +329,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_log_analytics_capture = bool(LOG_ANALYTICS_CAPTURE_PACKAGE_PATHS & set(expected))
         if has_log_analytics_capture and not (LOG_ANALYTICS_CAPTURE_PACKAGE_PATHS | LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"provider_collectors_v15.py"}).issubset(expected):
             raise ReleaseCandidateError("incomplete Log Analytics capture package support")
+        has_log_analytics_get = bool(LOG_ANALYTICS_GET_PACKAGE_PATHS & set(expected))
+        if has_log_analytics_get and not (LOG_ANALYTICS_GET_PACKAGE_PATHS | LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete Log Analytics GET context package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -387,6 +395,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_log_analytics": has_log_analytics,
             "has_log_analytics_context": has_log_analytics_context,
             "has_log_analytics_capture": has_log_analytics_capture,
+            "has_log_analytics_get": has_log_analytics_get,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -472,6 +481,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_log_analytics_context_selftest="PASS", v17_log_analytics_context_regression_tests=171)
     if zip_result.get("has_log_analytics_capture"):
         required_assurance.update(v17_log_analytics_capture_selftest="PASS", v17_log_analytics_capture_regression_tests=114)
+    if zip_result.get("has_log_analytics_get"):
+        required_assurance.update(v17_log_analytics_get_selftest="PASS", v17_log_analytics_get_regression_tests=160)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):

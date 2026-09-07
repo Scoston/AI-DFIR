@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: Log Analytics workspace GET context replay
+
+- explicit `workspace-get` input profile in the existing context adapter and CLI, with recorded absent body and query/optional timespan in a fixed public workspace URL;
+- strict one-pass UTF-8 percent decoding, bounded URLs and decoded values, duplicate/unknown parameter rejection, and separate exact URL/decoded parameter digests;
+- signed multi-input replay detects query, URL spelling/order, header, and context substitution while retaining incomplete/unknown results and unverified scope/execution/origin;
+- 160 focused regressions, synthetic signed offline acceptance, unchanged reviewed POST projection digests, analyst guide, and full source/extracted-package assurance;
+- no new dependencies, live GET acquisition, or changed POST capture behavior; conditional verification preserves historical release compatibility.
+
 ### Unreleased: automatic Log Analytics acquisition-context capture
 
 - explicit `azure_foundry_logs --capture-context` mode with bounded parameter-file input and unchanged response-only behavior;

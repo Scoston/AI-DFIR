@@ -244,7 +244,8 @@ def _validate(bundle, *, case_id, ledger, files):
         _require(isinstance(rec["metadata"], dict), "relationship metadata must be an object")
         if (rec["transformation"], rec["transformation_version"]) == ("v17_log_analytics_context.normalize", "1.7"):
             meta = rec["metadata"]
-            _require(set(meta) == {"input_format", "context_artifact_id"} and meta["input_format"] == "workspace-post",
+            _require(set(meta) == {"input_format", "context_artifact_id"}
+                     and meta["input_format"] in ("workspace-post", "workspace-get"),
                      "unsupported query context replay configuration")
             context = meta["context_artifact_id"]
             _require(_text(context) and context in artifacts and context not in {parent, child},

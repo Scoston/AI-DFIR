@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+from urllib.parse import unquote_to_bytes
 
 from v17_integrity import canonical_json_bytes, sha256_bytes, sha256_object
 from v17_log_analytics import (
@@ -13,18 +14,21 @@ from v17_provenance import ProvenanceError
 TRANSFORMATION = "v17_log_analytics_context.normalize"
 TRANSFORMATION_VERSION = "1.7"
 CONTEXT_SCHEMA = "ai-dfir/log-analytics-query-context/v1.7"
-INPUT_FORMATS = ("workspace-post",)
+INPUT_FORMATS = ("workspace-post", "workspace-get")
 MAX_CONTEXT_BYTES = 128 * 1024
 MAX_OUTPUT_BYTES = TABLE_OUTPUT_BYTES + MAX_CONTEXT_BYTES
 MAX_QUERY_BYTES = 64 * 1024
 MAX_WORKSPACES = 32
 MAX_HEADER_CHARS = 4096
+MAX_GET_URL_BYTES = 96 * 1024
 ENDPOINT_RE = re.compile(
     r"https://(api\.loganalytics\.(?:io|azure\.com))/v1/workspaces/("
     + GUID_RE.pattern + r")/query"
 )
 REQUEST_HEADERS = {"content-type", "prefer", "x-ms-client-request-id"}
+GET_REQUEST_HEADERS = REQUEST_HEADERS | {"accept"}
 RESPONSE_HEADERS = {"content-type", "x-ms-request-id", "request-id", "x-request-id"}
+GET_COMPONENT_RE = re.compile(r"(?:[A-Za-z0-9._~-]|%[0-9A-Fa-f]{2})*")
 
 
 def _object(value, required, optional=()):
@@ -76,7 +80,45 @@ def validate_request(request):
     return endpoint
 
 
-def _context(raw, context_raw):
+def _get_component(value):
+    # Do not use a tolerant URL/form parser: it can strip controls, replace bad
+    # UTF-8, interpret '+' as space, or silently discard malformed parameters.
+    if GET_COMPONENT_RE.fullmatch(value) is None:
+        raise ProvenanceError("unsupported query URL encoding")
+    try:
+        return unquote_to_bytes(value).decode("utf-8", errors="strict")
+    except UnicodeError:
+        raise ProvenanceError("invalid query URL text") from None
+
+
+def _get_request(request):
+    _object(request, {"method", "url", "body", "headers"})
+    url = request["url"]
+    if (request["method"] != "GET" or request["body"] is not None
+            or not isinstance(url, str) or not url.isascii() or len(url) > MAX_GET_URL_BYTES):
+        raise ProvenanceError("unsupported retained GET request")
+    base, separator, query_string = url.partition("?")
+    endpoint = ENDPOINT_RE.fullmatch(base)
+    if endpoint is None or not separator or not query_string or query_string.count("&") > 1:
+        raise ProvenanceError("unsupported GET endpoint or parameters")
+    parameters = {}
+    for field in query_string.split("&"):
+        key, equals, value = field.partition("=")
+        key = _get_component(key)
+        if not equals or key not in ("query", "timespan") or key in parameters:
+            raise ProvenanceError("missing, duplicate, or unsupported GET parameter")
+        parameters[key] = _get_component(value)
+    _object(parameters, {"query"}, {"timespan"})
+    query = _text(parameters["query"], MAX_QUERY_BYTES, multiline=True)
+    if len(query.encode("utf-8")) > MAX_QUERY_BYTES:
+        raise ProvenanceError("retained query text exceeds byte limit")
+    if "timespan" in parameters:
+        _text(parameters["timespan"], 256)
+    _headers(request["headers"], GET_REQUEST_HEADERS)
+    return endpoint, parameters
+
+
+def _context(raw, context_raw, input_format):
     if not isinstance(raw, bytes) or not raw or len(raw) > MAX_INPUT_BYTES:
         raise ProvenanceError("query response is empty or exceeds byte limit")
     context = _document(context_raw, MAX_CONTEXT_BYTES)
@@ -84,7 +126,10 @@ def _context(raw, context_raw):
     if context["schema"] != CONTEXT_SCHEMA:
         raise ProvenanceError("unsupported query context schema")
     request, response = context["request"], context["response"]
-    endpoint = validate_request(request)
+    if input_format == "workspace-get":
+        endpoint, parameters = _get_request(request)
+    else:
+        endpoint, parameters = validate_request(request), request["body"]
     _object(response, {"status", "body_sha256", "body_size_bytes", "headers"})
     if type(response["status"]) is not int or response["status"] != 200:
         raise ProvenanceError("unsupported retained query HTTP status")
@@ -92,15 +137,40 @@ def _context(raw, context_raw):
     if (type(response["body_size_bytes"]) is not int or response["body_size_bytes"] != len(raw)
             or not isinstance(response["body_sha256"], str) or response["body_sha256"] != sha256_bytes(raw)):
         raise ProvenanceError("query context does not bind the retained response bytes")
-    return context, endpoint
+    return context, endpoint, parameters
+
+
+def _request_projection(request, endpoint, parameters, input_format):
+    if input_format == "workspace-get":
+        base, _, query_string = request["url"].partition("?")
+        return {
+            "method": "GET", "endpoint_host": endpoint[1], "endpoint_sha256": sha256_object(base),
+            "url_sha256": sha256_object(request["url"]), "url_size_bytes": len(request["url"]),
+            "primary_workspace_sha256": sha256_object(endpoint[2]),
+            "body_state": "absent", "body_sha256": sha256_object(None),
+            "query_string_sha256": sha256_object(query_string), "parameters_sha256": sha256_object(parameters),
+            "parameter_order": list(parameters), "query_sha256": sha256_object(parameters["query"]),
+            "query_size_bytes": len(parameters["query"].encode("utf-8")),
+            "timespan": _observation(parameters, "timespan"),
+            "headers_sha256": sha256_object(request["headers"]),
+            "url_decoding": "utf8-percent-once-unreserved",
+        }
+    # Preserve every existing workspace-post projection field and digest.
+    return {
+        "method": "POST", "endpoint_host": endpoint[1], "endpoint_sha256": sha256_object(request["url"]),
+        "primary_workspace_sha256": sha256_object(endpoint[2]), "body_sha256": sha256_object(parameters),
+        "query_sha256": sha256_object(parameters["query"]), "query_size_bytes": len(parameters["query"].encode("utf-8")),
+        "timespan": _observation(parameters, "timespan"), "workspaces": _observation(parameters, "workspaces"),
+        "additional_workspace_sha256": [sha256_object(item) for item in parameters.get("workspaces", [])],
+        "headers_sha256": sha256_object(request["headers"]),
+    }
 
 
 def normalize(raw: bytes, *, context_raw: bytes, input_format: str) -> dict:
     if not isinstance(input_format, str) or input_format not in INPUT_FORMATS:
         raise ProvenanceError("unsupported query context profile")
-    context, endpoint = _context(raw, context_raw)
+    context, endpoint, parameters = _context(raw, context_raw, input_format)
     request, response = context["request"], context["response"]
-    body = request["body"]
     table_projection = normalize_tables(raw, input_format="tables")
     result = {
         "schema": "ai-dfir/log-analytics-context-projection/v1.7",
@@ -109,14 +179,7 @@ def normalize(raw: bytes, *, context_raw: bytes, input_format: str) -> dict:
         "context_sha256": sha256_bytes(context_raw), "request_sha256": sha256_object(request),
         "binding_sha256": sha256_object({"profile": input_format, "response_sha256": sha256_bytes(raw),
                                          "context_sha256": sha256_bytes(context_raw)}),
-        "request": {
-            "method": "POST", "endpoint_host": endpoint[1], "endpoint_sha256": sha256_object(request["url"]),
-            "primary_workspace_sha256": sha256_object(endpoint[2]), "body_sha256": sha256_object(body),
-            "query_sha256": sha256_object(body["query"]), "query_size_bytes": len(body["query"].encode("utf-8")),
-            "timespan": _observation(body, "timespan"), "workspaces": _observation(body, "workspaces"),
-            "additional_workspace_sha256": [sha256_object(item) for item in body.get("workspaces", [])],
-            "headers_sha256": sha256_object(request["headers"]),
-        },
+        "request": _request_projection(request, endpoint, parameters, input_format),
         "response": {"status": 200, "body_size_bytes": len(raw), "headers_sha256": sha256_object(response["headers"])},
         "result": table_projection, "request_context_bound": True,
         "context_source": "retained-assertion", "request_scope_verified": False,

@@ -14,7 +14,7 @@ from v17_log_analytics_context import INPUT_FORMATS, MAX_CONTEXT_BYTES, MAX_OUTP
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", required=True, help="Retained native query response JSON")
-    parser.add_argument("--context", required=True, help="Retained query context JSON with exact response digest")
+    parser.add_argument("--context", required=True, help="Retained POST/GET query context JSON with exact response digest")
     parser.add_argument("--format", required=True, choices=INPUT_FORMATS)
     output = parser.add_mutually_exclusive_group(required=True)
     output.add_argument("--out", help="New projection file; existing files are preserved")

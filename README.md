@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [Log Analytics GET context profile](docs/reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md)
+binds the exact retained workspace GET URL and decoded query/timespan to response
+bytes. Offline signed-case replay detects URL spelling, parameter, and context
+substitution; ambiguous encodings and unsupported parameters fail explicitly.
+
 The unreleased [Log Analytics capture option](docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md)
 automatically preserves request context and exact bounded response-body bytes
 during explicit collection. It produces the three artifacts needed for offline
