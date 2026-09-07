@@ -845,3 +845,25 @@ network access and ontology imports are disabled. CI and full source/extracted
 gates require this check. Runtime export/comparison do not require RDF libraries.
 The independent package verifier checks feature completeness and assurance while
 preserving historical release support. See [CASE/UCO exchange](docs/reference/CASE_EXCHANGE_V1.7.md).
+
+## 38. Unreleased bounded archive intake and hostile corpus
+
+```bash
+python v17_archive_intake_selftest.py
+python -m pytest tests/test_v17_archive_intake.py -q
+```
+
+The 190 focused regressions bring the v1.7 total to 3,791. Acceptance covers
+bounded ZIP32/TAR/gzip/bzip2/xz metadata, early directory/header counts, expansion
+and LZMA memory limits, local/central conflicts, overlap, ZIP64/sparse rejection,
+PAX/GNU extensions, complete termination, portable paths/aliases, links, encrypted
+or special members, unopened corrupt ZIP bodies, snapshots, and legacy gate/CLI
+behavior. Parse failures remain review findings, with redacted error details.
+
+A separate pinned 680-case campaign exercises all five profiles twice, reports
+32 accepted metadata observations and 648 rejections, blocks member-content/
+extraction/network/process APIs, and checks deterministic output and qualification
+flags. Source and extracted gates require both checks. Independent package
+verification requires feature completeness and assurance while preserving older
+releases. This is finite synthetic mutation testing; coverage-guided fuzzing and
+independent document rendering remain separate. See [Bounded archive intake](docs/reference/ARCHIVE_INTAKE_V1.7.md).

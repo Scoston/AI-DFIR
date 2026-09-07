@@ -4,6 +4,13 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: bounded archive intake and hostile corpus
+
+- bounded immutable ZIP32/TAR/gzip/bzip2/xz metadata profiles, early central-directory/header counts, capped container expansion, and explicit unsupported ZIP64/sparse/ambiguous-header rejection;
+- consistent local/central ZIP metadata, nonoverlapping member ranges, complete TAR blocks/termination, bounded PAX/GNU extensions, and conservative portable path/link/control-surface findings;
+- existing archive CLI and content-intake gate now use the bounded parser; added compressed-TAR suffix coverage, redacted parse failures, complete bounded member lists, and private exclusive CLI output;
+- 190 regressions and a pinned 680-case synthetic campaign across five profiles, with repeated outcomes and blocked extraction/member-content/network/process APIs; no payload-integrity, extraction-safety, or coverage-guided fuzzing claim.
+
 ### Unreleased: CASE/UCO inventory exchange
 
 - optional bounded JSON-LD inventory/lineage view using CASE/UCO 1.5.0, with local fixed contexts and archive-scoped deterministic instance IDs;

@@ -6,6 +6,12 @@
 
 ## Why AI-DFIR
 
+The unreleased [bounded archive intake](docs/reference/ARCHIVE_INTAKE_V1.7.md)
+inspects ZIP32 and TAR metadata under explicit input, expansion, member, name,
+and report limits. It detects portable path collisions and unsafe links, rejects
+conflicting headers and unsupported structures, and routes parse failures to
+intake review. A pinned 680-case hostile campaign runs without member extraction.
+
 The unreleased [CASE/UCO exchange](docs/reference/CASE_EXCHANGE_V1.7.md) creates
 a verified inventory and recorded-lineage view in JSON-LD using CASE/UCO 1.5.0.
 It binds the original signed ZIP, preserves artifact hashes and multi-input

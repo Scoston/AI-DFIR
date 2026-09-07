@@ -138,6 +138,11 @@ CASE_EXCHANGE_PACKAGE_PATHS = {
     "requirements-case-validation.txt", "docs/reference/CASE_EXCHANGE_V1.7.md",
 }
 
+ARCHIVE_INTAKE_PACKAGE_PATHS = {
+    "v17_archive_intake.py", "v17_archive_intake_selftest.py",
+    "tests/test_v17_archive_intake.py", "docs/reference/ARCHIVE_INTAKE_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -416,6 +421,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_case_exchange = bool(CASE_EXCHANGE_PACKAGE_PATHS & set(expected))
         if has_case_exchange and not (CASE_EXCHANGE_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | KEY_POLICY_PACKAGE_PATHS | {"case_export_v17.py", "requirements-dev.txt"}).issubset(expected):
             raise ReleaseCandidateError("incomplete CASE exchange package support")
+        has_archive_intake = bool(ARCHIVE_INTAKE_PACKAGE_PATHS & set(expected))
+        if has_archive_intake and not (ARCHIVE_INTAKE_PACKAGE_PATHS | {"archive_intake_forensics.py", "content_intake_gate.py", "v17_integrity.py", "v17_provenance.py"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete bounded archive intake package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -490,6 +498,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_parser_corpus": has_parser_corpus,
             "has_schema_drift": has_schema_drift,
             "has_case_exchange": has_case_exchange,
+            "has_archive_intake": has_archive_intake,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -598,6 +607,9 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
     if zip_result.get("has_case_exchange"):
         required_assurance.update(v17_case_exchange_selftest="PASS", v17_case_exchange_regression_tests=101,
                                   v17_case_exchange_conformance="PASS", v17_case_exchange_ontology="1.5.0")
+    if zip_result.get("has_archive_intake"):
+        required_assurance.update(v17_archive_intake_selftest="PASS", v17_archive_intake_regression_tests=190,
+                                  v17_archive_intake_cases=680)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):

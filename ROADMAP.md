@@ -8,6 +8,14 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Bounded archive metadata intake is implemented in development: ZIP32, TAR,
+gzip/bzip2/xz-wrapped TAR, explicit expansion/member/header/name/output limits,
+header-consistency checks, portable path/link findings, and integration with the
+existing archive CLI/intake gate. A pinned 680-case hostile campaign and 190
+regressions cover five profiles without extraction. Coverage-guided campaigns,
+broader document corpora, and independent rendering remain open. See
+[Bounded archive intake](docs/reference/ARCHIVE_INTAKE_V1.7.md).
+
 An optional CASE/UCO 1.5.0 inventory exchange is implemented in development:
 bounded immutable signed-case verification, explicit identity and external trust
 gates, deterministic JSON-LD artifact/lineage views, secondary input references,
@@ -227,7 +235,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - evidence-source coverage measurement and authoritative provider schema/compatibility evaluation beyond the implemented retained nested-shape comparisons;
 - additional independent visible-rendering adapters for representation attacks;
 - full investigation modeling, bidirectional import, and external case-management interoperability beyond the implemented optional CASE/UCO 1.5.0 inventory view;
-- continuous coverage-guided fuzzing and broader hostile archive/document corpora beyond the implemented deterministic provider-parser campaign;
+- continuous coverage-guided fuzzing and broader hostile document/format corpora beyond the implemented deterministic provider-parser and bounded-archive campaigns;
 - external independent penetration-test reports and deployment certifications when a production environment exists.
 
 Roadmap items are not treated as implemented evidence capabilities until code, Evidence Packs, analyst documentation, and acceptance tests are present.
