@@ -3,6 +3,7 @@
 | Provider/source | Current native path | Typical evidence | Important limitation |
 |---|---|---|---|
 | Microsoft Graph Security | `microsoft_graph_security` | alerts/incidents where authorized | API coverage depends on tenant licensing/retention |
+| Resource-scoped Log Analytics (development) | [`--capture-scope resource` and `--format resource-post/resource-get`](LOG_ANALYTICS_RESOURCE_V1.7.md) | Exact resource/query/response binding, automatic capture, opaque permission observations, and signed offline replay | bounded public resource paths; permission assertions and HTTP 200 never prove effective access or complete collection |
 | Azure AI/Foundry diagnostics | `azure_foundry_logs` | resource/diagnostic logs | must be enabled before incident |
 | Automatic Log Analytics context capture (development) | [`azure_foundry_logs --capture-context`](LOG_ANALYTICS_CAPTURE_V1.7.md) | Prepared request observations, exact bounded entity-body bytes, compatible context/projection artifacts, and completion receipt | workspace POST by default, with explicit GET option; incomplete/unknown collection and unverified effective scope remain separate from capture completion |
 | Automatic Log Analytics GET capture (development) | [`azure_foundry_logs --capture-context --capture-method GET`](LOG_ANALYTICS_GET_CAPTURE_V1.7.md) | Prepared encoded workspace URL, absent body, exact response bytes, and automatic GET replay artifacts | query/optional timespan only; no extra workspace parameter, arbitrary URL, redirects, retries, or POST fallback |

@@ -14,7 +14,7 @@ from v17_reconstruction import strict_json
 
 TRANSFORMATION = "v17_log_analytics.normalize"
 TRANSFORMATION_VERSION = "1.7"
-INPUT_FORMATS = ("tables",)
+INPUT_FORMATS = ("tables", "resource-tables")
 COLUMN_TYPES = ("bool", "datetime", "dynamic", "guid", "int", "long", "real", "string")
 RETAINED_TYPES = ("bool", "datetime", "int", "long", "real")
 MAX_INPUT_BYTES = 8 * 1024 * 1024
@@ -206,8 +206,11 @@ def normalize(raw: bytes, *, input_format: str) -> dict:
     if not isinstance(input_format, str) or input_format not in INPUT_FORMATS:
         raise ProvenanceError("unsupported query input format")
     document = _document(raw, MAX_INPUT_BYTES)
-    if not isinstance(document, dict) or set(document) - {"tables", "error", "statistics", "render"}:
+    optional = {"permissions"} if input_format == "resource-tables" else set()
+    if not isinstance(document, dict) or set(document) - {"tables", "error", "statistics", "render"} - optional:
         raise ProvenanceError("unsupported or mixed query response envelope")
+    if "permissions" in document and not isinstance(document["permissions"], dict):
+        raise ProvenanceError("invalid resource permission observation")
     partial = _partial_error(document)
     tables, row_count, cell_count = _tables(document)
     result = {
@@ -225,6 +228,11 @@ def normalize(raw: bytes, *, input_format: str) -> dict:
         "content_policy": "typed_scalars_and_cell_hashes",
         "interpretation": "Retained query-result projection only; replay does not re-execute KQL or establish query success, underlying event counts, request scope, provider origin, human attribution, downstream effects, or complete collection.",
     }
+    if input_format == "resource-tables":
+        # Bind the bounded opaque observation without treating it as an RBAC
+        # evaluation, a complete source inventory, or proof of permission.
+        result["response_digests"]["permissions"] = _digest(document, "permissions")
+        result["permissions_verified"] = False
     if len(canonical_json_bytes(result)) > MAX_OUTPUT_BYTES:
         raise ProvenanceError("query projection exceeds byte limit")
     _bounded(result)

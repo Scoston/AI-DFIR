@@ -14,7 +14,7 @@ from v17_provenance import ProvenanceError
 TRANSFORMATION = "v17_log_analytics_context.normalize"
 TRANSFORMATION_VERSION = "1.7"
 CONTEXT_SCHEMA = "ai-dfir/log-analytics-query-context/v1.7"
-INPUT_FORMATS = ("workspace-post", "workspace-get")
+INPUT_FORMATS = ("workspace-post", "workspace-get", "resource-post", "resource-get")
 MAX_CONTEXT_BYTES = 128 * 1024
 MAX_OUTPUT_BYTES = TABLE_OUTPUT_BYTES + MAX_CONTEXT_BYTES
 MAX_QUERY_BYTES = 64 * 1024
@@ -29,6 +29,28 @@ REQUEST_HEADERS = {"content-type", "prefer", "x-ms-client-request-id"}
 GET_REQUEST_HEADERS = REQUEST_HEADERS | {"accept"}
 RESPONSE_HEADERS = {"content-type", "x-ms-request-id", "request-id", "x-request-id"}
 GET_COMPONENT_RE = re.compile(r"(?:[A-Za-z0-9._~-]|%[0-9A-Fa-f]{2})*")
+MAX_RESOURCE_ID_BYTES = 4096
+RESOURCE_SEGMENT = r"[A-Za-z0-9._~-]{1,256}"
+RESOURCE_ID_PATTERN = (r"/subscriptions/" + GUID_RE.pattern + r"/resourceGroups/" + RESOURCE_SEGMENT
+                       + r"/providers/[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)+"
+                       + r"(?:/" + RESOURCE_SEGMENT + r"/" + RESOURCE_SEGMENT + r"){1,8}")
+RESOURCE_ENDPOINT_RE = re.compile(r"https://(api\.loganalytics\.(?:io|azure\.com))/v1("
+                                  + RESOURCE_ID_PATTERN + r")/query")
+
+
+def _endpoint(url, scope):
+    if scope not in ("workspace", "resource") or not isinstance(url, str):
+        raise ProvenanceError("unsupported retained query scope")
+    if scope == "resource" and len(url) > MAX_RESOURCE_ID_BYTES + 80:
+        raise ProvenanceError("resource endpoint exceeds byte limit")
+    pattern = RESOURCE_ENDPOINT_RE if scope == "resource" else ENDPOINT_RE
+    endpoint = pattern.fullmatch(url)
+    if endpoint is None:
+        raise ProvenanceError("unsupported retained query endpoint")
+    if scope == "resource" and (len(endpoint[2]) > MAX_RESOURCE_ID_BYTES
+            or any(part in (".", "..") or len(part) > 256 for part in endpoint[2].split("/"))):
+        raise ProvenanceError("invalid or excessive resource identifier")
+    return endpoint
 
 
 def _object(value, required, optional=()):
@@ -54,17 +76,17 @@ def _observation(obj, key):
     return {"state": "present", "sha256": sha256_object(obj[key])} if key in obj else {"state": "absent", "sha256": None}
 
 
-def validate_request(request):
+def validate_request(request, *, scope="workspace"):
     """Validate the fixed request profile after bounded strict JSON parsing."""
     _object(request, {"method", "url", "body", "headers"})
-    endpoint = ENDPOINT_RE.fullmatch(request["url"]) if isinstance(request["url"], str) else None
-    if request["method"] != "POST" or endpoint is None:
+    endpoint = _endpoint(request["url"], scope)
+    if request["method"] != "POST":
         raise ProvenanceError("unsupported retained query endpoint or method")
     _headers(request["headers"], REQUEST_HEADERS)
     if request["headers"].get("content-type") != "application/json":
         raise ProvenanceError("query context requires recorded JSON content type")
     body = request["body"]
-    _object(body, {"query"}, {"timespan", "workspaces"})
+    _object(body, {"query"}, {"timespan"} | ({"workspaces"} if scope == "workspace" else set()))
     query = _text(body["query"], MAX_QUERY_BYTES, multiline=True)
     if len(query.encode("utf-8")) > MAX_QUERY_BYTES:
         raise ProvenanceError("retained query text exceeds byte limit")
@@ -91,15 +113,15 @@ def _get_component(value):
         raise ProvenanceError("invalid query URL text") from None
 
 
-def _get_request(request):
+def _get_request(request, *, scope="workspace"):
     _object(request, {"method", "url", "body", "headers"})
     url = request["url"]
     if (request["method"] != "GET" or request["body"] is not None
             or not isinstance(url, str) or not url.isascii() or len(url) > MAX_GET_URL_BYTES):
         raise ProvenanceError("unsupported retained GET request")
     base, separator, query_string = url.partition("?")
-    endpoint = ENDPOINT_RE.fullmatch(base)
-    if endpoint is None or not separator or not query_string or query_string.count("&") > 1:
+    endpoint = _endpoint(base, scope)
+    if not separator or not query_string or query_string.count("&") > 1:
         raise ProvenanceError("unsupported GET endpoint or parameters")
     parameters = {}
     for field in query_string.split("&"):
@@ -126,10 +148,11 @@ def _context(raw, context_raw, input_format):
     if context["schema"] != CONTEXT_SCHEMA:
         raise ProvenanceError("unsupported query context schema")
     request, response = context["request"], context["response"]
-    if input_format == "workspace-get":
-        endpoint, parameters = _get_request(request)
+    scope = "resource" if input_format.startswith("resource-") else "workspace"
+    if input_format.endswith("-get"):
+        endpoint, parameters = _get_request(request, scope=scope)
     else:
-        endpoint, parameters = validate_request(request), request["body"]
+        endpoint, parameters = validate_request(request, scope=scope), request["body"]
     _object(response, {"status", "body_sha256", "body_size_bytes", "headers"})
     if type(response["status"]) is not int or response["status"] != 200:
         raise ProvenanceError("unsupported retained query HTTP status")
@@ -141,6 +164,23 @@ def _context(raw, context_raw, input_format):
 
 
 def _request_projection(request, endpoint, parameters, input_format):
+    if input_format.startswith("resource-"):
+        method = request["method"]
+        base = request["url"].partition("?")[0]
+        result = {
+            "method": method, "endpoint_host": endpoint[1], "endpoint_sha256": sha256_object(base),
+            "requested_scope": "resource", "resource_id_sha256": sha256_object(endpoint[2]),
+            "resource_id_size_bytes": len(endpoint[2]), "body_sha256": sha256_object(request["body"]),
+            "query_sha256": sha256_object(parameters["query"]),
+            "query_size_bytes": len(parameters["query"].encode("utf-8")),
+            "timespan": _observation(parameters, "timespan"), "headers_sha256": sha256_object(request["headers"]),
+        }
+        if method == "GET":
+            result.update(url_sha256=sha256_object(request["url"]), url_size_bytes=len(request["url"]),
+                          query_string_sha256=sha256_object(request["url"].partition("?")[2]),
+                          parameters_sha256=sha256_object(parameters), parameter_order=list(parameters),
+                          body_state="absent", url_decoding="utf8-percent-once-unreserved")
+        return result
     if input_format == "workspace-get":
         base, _, query_string = request["url"].partition("?")
         return {
@@ -171,7 +211,7 @@ def normalize(raw: bytes, *, context_raw: bytes, input_format: str) -> dict:
         raise ProvenanceError("unsupported query context profile")
     context, endpoint, parameters = _context(raw, context_raw, input_format)
     request, response = context["request"], context["response"]
-    table_projection = normalize_tables(raw, input_format="tables")
+    table_projection = normalize_tables(raw, input_format="resource-tables" if input_format.startswith("resource-") else "tables")
     result = {
         "schema": "ai-dfir/log-analytics-context-projection/v1.7",
         "transformation": TRANSFORMATION, "transformation_version": TRANSFORMATION_VERSION,
