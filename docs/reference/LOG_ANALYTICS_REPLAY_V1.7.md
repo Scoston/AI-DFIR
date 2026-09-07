@@ -51,6 +51,10 @@ uses its existing incomplete-result exit code 2, while preserving acquired data.
 HTTP success alone cannot mark these collections complete. Its endpoint, request,
 credentials, and raw response preservation are unchanged; no new acquisition
 occurs during normalization or replay.
+The separate [automatic capture option](LOG_ANALYTICS_CAPTURE_V1.7.md) explicitly
+acquires a workspace POST response and records compatible request context. Its
+new directory/receipt output contract is opt-in; the legacy collector API and
+response-only command keep their existing behavior.
 
 Native Activity Log REST `value`/`nextLink` exports use the separate
 [Azure Activity Log profile](AZURE_ACTIVITY_REPLAY_V1.7.md). Batch responses,

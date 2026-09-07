@@ -521,3 +521,32 @@ gates require all 171 regressions. New-profile files and matching assurance are
 required conditionally by independent candidate verification, preserving older
 release compatibility. The 111 Evidence Packs and 19 synthetic components remain
 mandatory. See [retained query context](docs/reference/LOG_ANALYTICS_CONTEXT_V1.7.md).
+
+## 26. Unreleased automatic Log Analytics acquisition-context capture
+
+```bash
+python v17_log_analytics_capture_selftest.py
+python -m pytest tests/test_v17_log_analytics_capture.py -q
+python scripts/release_check.py --full --json-out release-check.json
+```
+
+The 114 focused regressions bring the v1.7 total to 1,925. Synthetic acquisition
+automatically produces response/context/projection files that can be separately
+ledger-bound, signed, and replayed offline. Exact response bytes, the prepared
+request, and different request-ID header names are preserved without manual
+context editing. No live provider credentials or network access are required.
+
+Negative cases cover changed prepared requests, strict parameter profiles,
+credential contamination, environment credential/proxy isolation, TLS settings,
+actual HTTP-adapter redirect/preload/decoding controls, body and header limits,
+stream failures, HTTP/unsupported/partial/empty results, and source substitution.
+File tests cover exclusive output directories, symlink targets, private POSIX
+modes, member-write failures, interrupted/partial output, and receipt conflicts.
+CLI tests verify parameter-file support, digest-only reports, incomplete-result
+exit 2, failure exit 1, interruption exit 130, and legacy receipt compatibility.
+
+Quick/full gates require the self-test; full source and extracted-package gates
+require all 114 regressions. New-profile package files and matching assurance are
+conditional in historical candidate verification. The 111 Evidence Packs and
+19 synthetic components remain mandatory. See
+[automatic query capture](docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md).

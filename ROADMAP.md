@@ -61,6 +61,13 @@ comparison. Query text, scope, and selected headers are digest-bound without
 inferring effective scope, actual execution, or completeness. See
 [Log Analytics context replay](docs/reference/LOG_ANALYTICS_CONTEXT_V1.7.md).
 
+Automatic Log Analytics acquisition-context capture is implemented in development:
+an explicit collector option records the prepared workspace POST request and
+selected response headers, preserves bounded entity-body bytes before parsing,
+and produces context/projection artifacts with an exclusive completion receipt.
+Acquisition uses synthetic acceptance; offline replay never initiates a query.
+See [Log Analytics capture](docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md).
+
 Verifier-controlled checkpoint key lifecycle is also implemented in development:
 active/retired/revoked states, validity windows, tenant/case scope, rotation
 overlap, and optional policy digest pinning. See
@@ -129,7 +136,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate, native AWS/Google/Azure activity, and Log Analytics table replay, plus authorized live comparison orchestration;
 
-- additional provider-specific raw-export profiles beyond the implemented native parsers, including wider numeric types, automatic acquisition-context capture, and resource/GET query binding beyond the retained workspace POST profile;
+- additional provider-specific raw-export profiles beyond the implemented native parsers, including wider numeric types, acquisition-context capture for other providers, and resource/GET query binding beyond the implemented workspace POST profile;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - private transparency-log implementations and multi-party evidence anchoring;

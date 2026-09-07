@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [Log Analytics capture option](docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md)
+automatically preserves request context and exact bounded response-body bytes
+during explicit collection. It produces the three artifacts needed for offline
+context replay, with protected output creation and explicit partial/failure states.
+
 The unreleased [Log Analytics context replay](docs/reference/LOG_ANALYTICS_CONTEXT_V1.7.md)
 binds a separately retained query, workspace scope, options, and HTTP observations
 to exact response bytes. Signed-case replay detects substituted context while
