@@ -242,6 +242,18 @@ def _validate(bundle, *, case_id, ledger, files):
         _require(_text(parent) and _text(child) and parent in artifacts and child in artifacts, "dangling lineage reference")
         _require(parent != child and _text(rec["relationship_type"]), "invalid evidence relationship")
         _require(isinstance(rec["metadata"], dict), "relationship metadata must be an object")
+        if (rec["transformation"], rec["transformation_version"]) == ("v17_log_analytics_context.normalize", "1.7"):
+            meta = rec["metadata"]
+            _require(set(meta) == {"input_format", "context_artifact_id"} and meta["input_format"] == "workspace-post",
+                     "unsupported query context replay configuration")
+            context = meta["context_artifact_id"]
+            _require(_text(context) and context in artifacts and context not in {parent, child},
+                     "missing or invalid query context artifact reference")
+            # Context is a second derivation input, subject to the same cycle
+            # checks as the primary response input. It cannot be the output.
+            if child not in edges[context]:
+                edges[context].add(child)
+                degrees[child] += 1
         if child not in edges[parent]:
             edges[parent].add(child)
             degrees[child] += 1

@@ -38,6 +38,10 @@ values. `row_count` counts retained rows, not underlying events. Preserve reques
 text, workspace/resource scope, time range, HTTP status/headers, query options,
 collection receipts, and any other exports as separate evidence with lineage.
 This response-only profile reports `request_scope_verified: false`.
+The separate [retained request-context profile](LOG_ANALYTICS_CONTEXT_V1.7.md)
+binds a preserved workspace POST request assertion to these exact response bytes
+and validates a second context artifact in signed lineage. It also leaves actual
+execution, effective scope, and collection completeness unverified.
 
 The existing `azure_foundry_logs` collector now reports collection completeness
 as false when any response error is present and unknown otherwise. Its existing

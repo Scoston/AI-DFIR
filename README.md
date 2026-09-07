@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [Log Analytics context replay](docs/reference/LOG_ANALYTICS_CONTEXT_V1.7.md)
+binds a separately retained query, workspace scope, options, and HTTP observations
+to exact response bytes. Signed-case replay detects substituted context while
+keeping actual query execution, effective scope, and completeness unverified.
+
 The unreleased [Log Analytics replay](docs/reference/LOG_ANALYTICS_REPLAY_V1.7.md)
 profile preserves native query-result table/column/row bindings, typed scalars,
 and opaque cell hashes. Partial errors remain explicit even when the projection

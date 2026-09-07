@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: Log Analytics retained request-context binding
+
+- explicit workspace POST context profile with exact response digest/size binding, selected header observations, and opaque query/scope digests;
+- separately bound context artifact as a second derivation input, with reference and cycle validation before signed-case replay;
+- offline normalize/compare CLI, preserved partial-result semantics, and no inferred effective scope, actual execution, origin, or completeness;
+- 171 focused regressions, synthetic offline acceptance, analyst guide, and source/extracted-package assurance;
+- no new dependencies or live acquisition changes; historical release verification remains supported.
+
 ### Unreleased: Log Analytics query-result import and offline replay
 
 - explicit native tables/columns/rows profile with strict typed cells, row-width validation, global budgets, and ordered schema/value bindings;

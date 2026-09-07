@@ -69,6 +69,11 @@ LOG_ANALYTICS_PACKAGE_PATHS = {
     "tests/test_v17_log_analytics.py", "docs/reference/LOG_ANALYTICS_REPLAY_V1.7.md",
 }
 
+LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS = {
+    "v17_log_analytics_context.py", "log_analytics_context_v17.py", "v17_log_analytics_context_selftest.py",
+    "tests/test_v17_log_analytics_context.py", "docs/reference/LOG_ANALYTICS_CONTEXT_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -308,6 +313,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_log_analytics = bool(LOG_ANALYTICS_PACKAGE_PATHS & set(expected))
         if has_log_analytics and not (LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"provider_collectors_v15.py"}).issubset(expected):
             raise ReleaseCandidateError("incomplete Log Analytics replay package support")
+        has_log_analytics_context = bool(LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS & set(expected))
+        if has_log_analytics_context and not (LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"provider_collectors_v15.py"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete Log Analytics context replay package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -369,6 +377,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_gcp_audit": has_gcp_audit,
             "has_azure_activity": has_azure_activity,
             "has_log_analytics": has_log_analytics,
+            "has_log_analytics_context": has_log_analytics_context,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -450,6 +459,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_azure_activity_selftest="PASS", v17_azure_activity_regression_tests=207)
     if zip_result.get("has_log_analytics"):
         required_assurance.update(v17_log_analytics_selftest="PASS", v17_log_analytics_regression_tests=224)
+    if zip_result.get("has_log_analytics_context"):
+        required_assurance.update(v17_log_analytics_context_selftest="PASS", v17_log_analytics_context_regression_tests=171)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):
