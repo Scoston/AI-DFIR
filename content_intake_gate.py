@@ -29,9 +29,9 @@ def scan(path):
     elif ext in (".ttf",".otf",".woff",".woff2"):
         from evil_font_forensics import analyze_font_bytes
         analyses["font"]={"findings":analyze_font_bytes(p.read_bytes(),p.name).get("findings",[])}
-    elif ext in (".zip",".tar",".tgz",".gz",".whl",".jar",".vsix"):
+    elif ext in (".zip",".tar",".tgz",".gz",".bz2",".xz",".tbz",".tbz2",".txz",".whl",".jar",".vsix"):
         try:analyses["archive"]=archive_analyze(p)
-        except Exception as e:analyses["archive"]={"findings":[{"type":"archive_parse_failure","severity":"high","error":repr(e)}]}
+        except Exception:analyses["archive"]={"findings":[{"type":"archive_parse_failure","severity":"high","error":"invalid, unsupported, excessive, or unavailable archive"}]}
     if ext in (".txt",".md",".markdown",".html",".htm",".xml",".json",".jsonl",".csv",".yaml",".yml"):
         text=p.read_text(encoding="utf-8",errors="replace")
         analyses["unicode"]=unicode_analyze(text)

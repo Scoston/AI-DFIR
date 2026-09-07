@@ -279,6 +279,12 @@ def required_v17_paths() -> set[str]:
         "scripts/case_exchange_conformance_v17.py",
         "requirements-case-validation.txt",
         "docs/reference/CASE_EXCHANGE_V1.7.md",
+        "v17_archive_intake.py",
+        "v17_archive_intake_selftest.py",
+        "tests/test_v17_archive_intake.py",
+        "docs/reference/ARCHIVE_INTAKE_V1.7.md",
+        "archive_intake_forensics.py",
+        "content_intake_gate.py",
         "transparency_anchor_v14.py",
         "v14_selftest.py",
         "evidence_quality.py",
@@ -396,6 +402,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_schema_drift_selftest": "PASS",
         "v17_case_exchange_selftest": "PASS",
         "v17_case_exchange_conformance": "PASS",
+        "v17_archive_intake_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -494,6 +501,12 @@ def require_extracted_v17_checks(report: dict) -> None:
     conformance = checks["v17_case_exchange_conformance"]
     if conformance.get("case_version") != "1.5.0" or conformance.get("valid_graphs") != 1 or conformance.get("invalid_graphs_rejected") != 4:
         raise RuntimeError("extracted package must pass CASE/UCO conformance and negative graph acceptance")
+    archive_intake = checks.get("v17_archive_intake_regression")
+    if not isinstance(archive_intake, dict) or archive_intake.get("status") != "PASS" or archive_intake.get("tests") != 190:
+        raise RuntimeError("extracted package must pass all 190 bounded archive regression tests")
+    archive_campaign = checks["v17_archive_intake_selftest"]
+    if archive_campaign.get("cases") != 680 or archive_campaign.get("profiles") != 5:
+        raise RuntimeError("extracted package must pass the pinned 680-case archive mutation campaign")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -765,6 +778,9 @@ def main() -> None:
                 "v17_case_exchange_regression_tests": 101,
                 "v17_case_exchange_conformance": "PASS",
                 "v17_case_exchange_ontology": "1.5.0",
+                "v17_archive_intake_selftest": "PASS",
+                "v17_archive_intake_regression_tests": 190,
+                "v17_archive_intake_cases": 680,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),
