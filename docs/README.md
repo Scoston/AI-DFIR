@@ -13,6 +13,7 @@
 - [Google Cloud Audit Import and Replay (development)](reference/GCP_AUDIT_REPLAY_V1.7.md)
 - [Google Cloud Logging Capture and Context Replay (development)](reference/GCP_LOGGING_CAPTURE_V1.7.md)
 - [Pinned Raw-evidence Reassessment (development)](reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md)
+- [Pinned Nested Schema Comparison (development)](reference/NESTED_SCHEMA_DRIFT_V1.7.md)
 - [Witnessed Private Transparency Proofs (development)](reference/PRIVATE_TRANSPARENCY_V1.7.md)
 - [Deterministic Hostile-input Parser Corpus (development)](reference/PARSER_HOSTILE_CORPUS_V1.7.md)
 - [Azure Activity Log Import and Replay (development)](reference/AZURE_ACTIVITY_REPLAY_V1.7.md)

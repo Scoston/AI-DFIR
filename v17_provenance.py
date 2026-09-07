@@ -269,6 +269,16 @@ def _validate(bundle, *, case_id, ledger, files):
             if child not in edges[rules]:
                 edges[rules].add(child)
                 degrees[child] += 1
+        if (rec["transformation"], rec["transformation_version"]) == ("v17_schema_drift.compare", "1.7"):
+            meta = rec["metadata"]
+            _require(set(meta) == {"input_format", "baseline_artifact_id", "baseline_sha256"} and _digest(meta["baseline_sha256"]),
+                     "structural replay requires an explicit baseline pin")
+            baseline = meta["baseline_artifact_id"]
+            _require(_text(baseline) and baseline in artifacts and baseline not in {parent, child},
+                     "missing or invalid structural baseline artifact reference")
+            if child not in edges[baseline]:
+                edges[baseline].add(child)
+                degrees[child] += 1
         if child not in edges[parent]:
             edges[parent].add(child)
             degrees[child] += 1

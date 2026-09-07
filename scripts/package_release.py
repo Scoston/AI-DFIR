@@ -267,6 +267,11 @@ def required_v17_paths() -> set[str]:
         "v17_parser_corpus_selftest.py",
         "tests/test_v17_parser_corpus.py",
         "docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md",
+        "v17_schema_drift.py",
+        "schema_drift_v17.py",
+        "v17_schema_drift_selftest.py",
+        "tests/test_v17_schema_drift.py",
+        "docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md",
         "transparency_anchor_v14.py",
         "v14_selftest.py",
         "evidence_quality.py",
@@ -381,6 +386,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_evidence_validation_selftest": "PASS",
         "v17_private_transparency_selftest": "PASS",
         "v17_parser_corpus_selftest": "PASS",
+        "v17_schema_drift_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -470,6 +476,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     campaign = checks["v17_parser_corpus_selftest"]
     if campaign.get("cases") != 3318 or campaign.get("profiles") != 12:
         raise RuntimeError("extracted package must pass the pinned 3318-case, 12-profile parser campaign")
+    schema_drift = checks.get("v17_schema_drift_regression")
+    if not isinstance(schema_drift, dict) or schema_drift.get("status") != "PASS" or schema_drift.get("tests") != 182:
+        raise RuntimeError("extracted package must pass all 182 nested schema comparison regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -735,6 +744,8 @@ def main() -> None:
                 "v17_parser_corpus_selftest": "PASS",
                 "v17_parser_corpus_regression_tests": 76,
                 "v17_parser_corpus_cases": 3318,
+                "v17_schema_drift_selftest": "PASS",
+                "v17_schema_drift_regression_tests": 182,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

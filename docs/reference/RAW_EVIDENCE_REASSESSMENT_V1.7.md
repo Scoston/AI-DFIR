@@ -98,6 +98,11 @@ automatic top-level schema observation, not a complete provider schema, proof of
 schema compatibility, or measurement of uncollected sources. Presence counts
 refer only to the complete parsed input record set, never the incident universe.
 
+For deeper retained comparisons, the separate [nested schema adapter](NESTED_SCHEMA_DRIFT_V1.7.md)
+observes member/array paths and kind/count changes under an explicit baseline-byte
+pin. It does not change this adapter's top-level field rules or promote evidence
+quality, provider schema authority, or source coverage.
+
 ## Local assessment and comparison
 
 Prepare and retain rules as an operator decision, including the expected evidence

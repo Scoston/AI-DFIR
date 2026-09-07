@@ -795,3 +795,30 @@ releases. No production parser, new dependency, live acquisition, arbitrary modu
 loading, or automatic gate promotion is introduced. This finite campaign is not
 coverage-guided fuzzing, OS isolation, or exhaustive security validation. See
 [Hostile parser corpus](docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md).
+
+## 36. Unreleased pinned nested schema comparison
+
+```bash
+python v17_schema_drift_selftest.py
+python -m pytest tests/test_v17_schema_drift.py -q
+```
+
+The 182 focused regressions bring the v1.7 total to 3,500. Synthetic acceptance
+compares complete nested object/array/JSONL populations, binds a retained baseline
+by exact independent digest, and reproduces changed/unchanged observations within
+signed case verification. Empty JSONL baseline/current artifacts also replay.
+
+Tests cover all JSON-kind transitions; typed member/items path identity; Unicode
+and separator distinctions; array occurrence versus record-presence counts; changes
+after record 200; exact numeric spelling; empty arrays/record sets; byte, key, path,
+record, line, depth, node, and output limits; malformed late records; incorrect pins;
+re-signed input/report/authority substitution; baseline lineage cycles; unknown
+versions; opt-in replay; and required independent verification gates. CLI tests
+verify change-versus-replay exit codes, protected exclusive output, regular-file
+bounds, interruption, and redacted failures.
+
+Source and extracted-package gates require the self-test and all 182 regressions.
+Independent package verification requires the full feature/dependency set and
+matching assurance when present, preserving historical releases. No live provider
+comparison, new dependency, automatic gate promotion, or provider schema-change
+authority is claimed. See [Nested schema comparison](docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md).
