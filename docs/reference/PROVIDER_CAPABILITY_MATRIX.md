@@ -4,6 +4,7 @@
 |---|---|---|---|
 | Microsoft Graph Security | `microsoft_graph_security` | alerts/incidents where authorized | API coverage depends on tenant licensing/retention |
 | Azure AI/Foundry diagnostics | `azure_foundry_logs` | resource/diagnostic logs | must be enabled before incident |
+| Preserved Azure Activity Log JSON (development) | [`azure_activity_v17.py`](AZURE_ACTIVITY_REPLAY_V1.7.md) | Native REST/array management-plane metadata projection and offline signed-case replay | not Log Analytics tables; recorded activity/claims do not establish model invocation, human attribution, downstream effects, or complete collection |
 | OpenAI organization telemetry | `openai_org` | organization usage/audit surfaces exposed by API | not a substitute for application-side request logging |
 | Anthropic | `anthropic_compliance`, `anthropic_usage` | compliance/usage exports exposed to account | availability depends on account/plan and retention |
 | AWS Bedrock/CloudTrail | `aws_bedrock` | CloudTrail/Bedrock activity | data events/logging configuration matters |

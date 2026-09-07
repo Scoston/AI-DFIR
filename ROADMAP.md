@@ -10,9 +10,9 @@ The current catalog contains 111 Evidence Packs.
 
 Investigation provenance/reference validation, evidence lineage validation,
 recorded AI/tool/analyst reconstruction, preserved-execution comparison, and
-five fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
-recorded Evidence Pack gates, native CloudTrail projection, and Google Cloud
-Audit projection. See
+six fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
+recorded Evidence Pack gates, native CloudTrail projection, Google Cloud Audit
+projection, and native Azure Activity Log projection. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
 
@@ -36,6 +36,14 @@ preservation, separate caller/delegation/permission observations, opaque payload
 digests, and offline signed-case comparison. Empty/incomplete exports do not
 establish collection completeness; provider origin and human attribution remain
 unverified. See [Google Cloud Audit replay](docs/reference/GCP_AUDIT_REPLAY_V1.7.md).
+
+Azure Activity Log import/replay is implemented in development: explicit native
+REST response and EventData array profiles, strict bounded parsing, preserved
+fractional timestamps, separate invariant/translated labels and identity claims,
+opaque payload/continuation digests, and offline signed-case comparison. Recorded
+management-plane activity does not prove model invocation, authority, effects, or
+complete collection. Log Analytics tables require a separate future profile.
+See [Azure Activity Log replay](docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md).
 
 Verifier-controlled checkpoint key lifecycle is also implemented in development:
 active/retired/revoked states, validity windows, tenant/case scope, rotation
@@ -103,9 +111,9 @@ policy completeness and actual prior verifier execution are not proven. See
 - complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
 - operated policy delivery services, additional deployment identity profiles beyond mTLS, and durable/HA coordination beyond the controlled local scheduling profile;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
-- additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate and native AWS/Google audit replay, plus authorized live comparison orchestration;
+- additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate and native AWS/Google/Azure activity replay, plus authorized live comparison orchestration;
 
-- additional provider-specific raw-export parsers beyond the native AWS/Google audit profiles as vendors expose telemetry;
+- additional provider-specific raw-export parsers, including Azure Log Analytics typed tables and partial-error handling, beyond the implemented native profiles;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - private transparency-log implementations and multi-party evidence anchoring;

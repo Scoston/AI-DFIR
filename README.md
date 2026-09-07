@@ -6,6 +6,12 @@
 
 ## Why AI-DFIR
 
+The unreleased [Azure Activity Log replay](docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md)
+profile imports native REST responses and EventData arrays for offline signed-case
+comparison. It preserves fractional timestamps and separates translated labels,
+caller/identity claims, and status observations. Management-plane activity does
+not establish model invocation, human attribution, or complete collection.
+
 The unreleased [Google Cloud Audit replay](docs/reference/GCP_AUDIT_REPLAY_V1.7.md)
 profile imports native audit exports, preserves nanosecond timestamps, delegation
 order and individual permission checks, and compares recorded projections offline.
