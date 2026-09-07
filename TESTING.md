@@ -743,3 +743,27 @@ Source and extracted release gates require the self-test and all 190 regressions
 The package and conditional independent verifier require the new files, matching
 assurance, and tokenizer/provenance dependencies while preserving older releases.
 See [Raw-evidence reassessment](docs/reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md).
+
+## 34. Unreleased witnessed private transparency proofs
+
+```bash
+python v17_private_transparency_selftest.py
+python -m pytest tests/test_v17_private_transparency.py -q
+```
+
+The 160 focused regressions bring the v1.7 total to 3,242. Acceptance covers
+independent iterative history-tree roots, all leaves and prior prefixes around
+power-of-two boundaries through 129 leaves, malformed/altered/unused proof nodes,
+signed conflicting histories, independent subject/pin expectations, signature
+roles, witness thresholds, complete-state witness checks, and 4,096-entry bounds.
+CLI tests cover zero/one/two-witness operation, encrypted/protected keys, strict
+bounded JSON and special-file rejection, exclusive outputs, failed snapshot
+publication, interruption, and empty subjects. A legacy receipt's recorded
+inclusion flag never passes cryptographic verification, including with CLI output.
+
+Source and extracted gates require the self-test and all 160 regressions. Package
+verification requires the complete feature files and assurance fields when this
+profile is present, while retaining historical release compatibility. These tests
+use ephemeral synthetic keys and block network connections. They do not establish
+independent operator custody, trusted time, global fork freedom, evidence truth,
+or an operated log service. See [Private transparency](docs/reference/PRIVATE_TRANSPARENCY_V1.7.md).

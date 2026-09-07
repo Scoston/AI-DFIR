@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: witnessed private transparency-log proofs
+
+- bounded immutable snapshots, Ed25519-signed log heads and role-bound witness signatures under an independent canonical trust pin;
+- SHA-256 history-tree inclusion and prefix proofs; witnesses verify state against an independently retained prior head before signing;
+- offline init/append/cosign/proof/verify commands, protected PKCS8 inputs, exclusive private outputs, explicit partial quorums, and redacted failures;
+- 160 focused regressions, synthetic witnessed acceptance, analyst guide, and source/extracted-package assurance;
+- security correction: legacy unsigned receipt flags no longer pass cryptographic inclusion validation; recorded assertion comparison remains separate;
+- no new dependencies, network log deployment, replay adapter, automatic gate promotion, or claim of independent operators, trusted time, or global fork freedom.
+
 ### Unreleased: pinned raw-evidence reassessment
 
 - an eleventh fixed adapter recomputes byte/digest, strict parse, literal-text, and every-record field checks under an explicit canonical rules pin;

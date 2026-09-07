@@ -256,6 +256,14 @@ def required_v17_paths() -> set[str]:
         "v17_evidence_validation_selftest.py",
         "tests/test_v17_evidence_validation.py",
         "docs/reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md",
+        "v17_merkle.py",
+        "v17_private_transparency.py",
+        "private_transparency_v17.py",
+        "v17_private_transparency_selftest.py",
+        "tests/test_v17_private_transparency.py",
+        "docs/reference/PRIVATE_TRANSPARENCY_V1.7.md",
+        "transparency_anchor_v14.py",
+        "v14_selftest.py",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -366,6 +374,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_log_analytics_lossless_selftest": "PASS",
         "v17_gcp_logging_capture_selftest": "PASS",
         "v17_evidence_validation_selftest": "PASS",
+        "v17_private_transparency_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -446,6 +455,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     evidence_validation = checks.get("v17_evidence_validation_regression")
     if not isinstance(evidence_validation, dict) or evidence_validation.get("status") != "PASS" or evidence_validation.get("tests") != 190:
         raise RuntimeError("extracted package must pass all 190 raw-evidence reassessment regression tests")
+    private_log = checks.get("v17_private_transparency_regression")
+    if not isinstance(private_log, dict) or private_log.get("status") != "PASS" or private_log.get("tests") != 160:
+        raise RuntimeError("extracted package must pass all 160 private transparency regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -706,6 +718,8 @@ def main() -> None:
                 "v17_gcp_logging_capture_regression_tests": 228,
                 "v17_evidence_validation_selftest": "PASS",
                 "v17_evidence_validation_regression_tests": 190,
+                "v17_private_transparency_selftest": "PASS",
+                "v17_private_transparency_regression_tests": 160,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),
