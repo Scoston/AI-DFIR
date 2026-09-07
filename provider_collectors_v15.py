@@ -204,9 +204,9 @@ def aws_bedrock(region,start_iso=None,end_iso=None,cloudwatch_log_group=None,max
 COLLECTORS={'openai_org','anthropic_compliance','anthropic_usage','microsoft_graph_security','azure_foundry_logs','google_cloud_logs','github_copilot','aws_bedrock'}
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('collector',choices=sorted(COLLECTORS));ap.add_argument('--params-json',default='{}');ap.add_argument('--out',required=True)
-    ap.add_argument('--capture-context',action='store_true',help='Azure query: capture response/context/projection in a new output directory')
-    ap.add_argument('--capture-method',choices=('POST','GET'),help='Capture mode only: explicit request method; defaults to POST')
-    ap.add_argument('--capture-scope',choices=('workspace','resource'),help='Capture mode only: explicit query scope; defaults to workspace')
+    ap.add_argument('--capture-context',action='store_true',help='Azure or Google Cloud query: capture response/context/projection in a new output directory')
+    ap.add_argument('--capture-method',choices=('POST','GET'),help='Azure capture only: explicit request method; defaults to POST')
+    ap.add_argument('--capture-scope',choices=('workspace','resource'),help='Azure capture only: explicit query scope; defaults to workspace')
     ap.add_argument('--capture-get-encoding',choices=('percent','form'),help='Explicit GET capture only: URL encoding; defaults to percent')
     ap.add_argument('--params-file',help='Capture mode only: bounded UTF-8 JSON parameters file; keeps query text off the command line')
     a=ap.parse_args()
@@ -214,13 +214,18 @@ def main():
         ap.error('--capture-get-encoding requires --capture-context and --capture-method GET')
     if a.capture_context:
         from v17_log_analytics import read_document
-        from v17_log_analytics_capture import MAX_PARAMS_BYTES, capture
         try:
-            if a.collector!='azure_foundry_logs' or (a.params_file is not None and a.params_json!='{}'):
+            if (a.collector not in ('azure_foundry_logs','google_cloud_logs')
+                    or (a.params_file is not None and a.params_json!='{}')):
                 raise ValueError('unsupported capture arguments')
-            raw=read_document(a.params_file,limit=MAX_PARAMS_BYTES) if a.params_file is not None else a.params_json.encode('utf-8')
             options={key:value for key,value in (('method',a.capture_method),('scope',a.capture_scope),
                                                 ('get_encoding',a.capture_get_encoding)) if value is not None}
+            if a.collector=='google_cloud_logs':
+                if options: raise ValueError('unsupported logging capture options')
+                from v17_gcp_logging_capture import MAX_PARAMS_BYTES, capture
+            else:
+                from v17_log_analytics_capture import MAX_PARAMS_BYTES, capture
+            raw=read_document(a.params_file,limit=MAX_PARAMS_BYTES) if a.params_file is not None else a.params_json.encode('utf-8')
             report=capture(raw,a.out,**options)
         except (ValueError,TypeError,OSError,RecursionError):
             report={'status':'FAILED','artifact_set_complete':False,'error':'invalid, unavailable, excessive, or conflicting acquisition input/output'}

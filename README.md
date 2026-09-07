@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [Google Cloud capture profile](docs/reference/GCP_LOGGING_CAPTURE_V1.7.md)
+binds one prepared Logging request to exact Audit Log response bytes and signed
+offline replay. Resource names, filters, ordering, and pagination observations
+remain distinct from verified scope or complete collection.
+
 The unreleased [lossless numeric replay adapter](docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md)
 preserves full signed 64-bit integers, precise decimal text, numeric strings and
 number spelling in Log Analytics results. Its explicit tagged hashes detect

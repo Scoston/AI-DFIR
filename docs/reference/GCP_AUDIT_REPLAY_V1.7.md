@@ -177,3 +177,11 @@ archive tampering, and independent case gates. Source and extracted-package
 assurance require the same profile files, tests, and self-test. Historical
 v1.7.0 package verification remains supported.
 
+
+## Optional request-context capture
+
+The separate [Google Cloud Logging capture profile](GCP_LOGGING_CAPTURE_V1.7.md)
+binds one entries.list request and its exact Audit Log response bytes into signed
+offline replay. It retains ordered resource, filter, sort, and pagination
+assertions without changing this native response projection or claiming effective
+scope, prior-page coverage, provider origin, or complete collection.

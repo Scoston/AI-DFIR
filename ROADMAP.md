@@ -10,10 +10,11 @@ The current catalog contains 111 Evidence Packs.
 
 Investigation provenance/reference validation, evidence lineage validation,
 recorded AI/tool/analyst reconstruction, preserved-execution comparison, and
-nine fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
+ten fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
 recorded Evidence Pack gates, native CloudTrail projection, Google Cloud Audit
 projection, native Azure Activity Log projection, Log Analytics table projection,
-lossless Log Analytics numeric projection, and retained Log Analytics request-context binding. See
+lossless Log Analytics numeric projection, retained Log Analytics request-context
+binding, and Google Cloud Logging request-context binding. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
 
@@ -37,6 +38,13 @@ preservation, separate caller/delegation/permission observations, opaque payload
 digests, and offline signed-case comparison. Empty/incomplete exports do not
 establish collection completeness; provider origin and human attribution remain
 unverified. See [Google Cloud Audit replay](docs/reference/GCP_AUDIT_REPLAY_V1.7.md).
+
+Google Cloud Logging acquisition-context capture is implemented in development:
+one fixed entries.list POST, bounded resource/filter/order/page parameters, exact
+response preservation, automatic context/projection artifacts, and signed offline
+comparison. Empty continuation pages remain incomplete; origin, effective scope,
+and pagination-chain coverage remain unverified. See
+[Google Cloud capture](docs/reference/GCP_LOGGING_CAPTURE_V1.7.md).
 
 Azure Activity Log import/replay is implemented in development: explicit native
 REST response and EventData array profiles, strict bounded parsing, preserved

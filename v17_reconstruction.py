@@ -81,12 +81,16 @@ def reconstruct(
                 ("v17_log_analytics.normalize", "1.7"),
                 ("v17_log_analytics_lossless.normalize", "1.7"),
                 ("v17_log_analytics_context.normalize", "1.7"),
+                ("v17_gcp_logging_context.normalize", "1.7"),
             }
             if supported:
                 try:
                     original_raw = read_artifact(index[rec["parent_artifact_id"]]["path"])
-                    if rec["transformation"] == "v17_log_analytics_context.normalize":
-                        from v17_log_analytics_context import compare_replay
+                    if rec["transformation"] in ("v17_log_analytics_context.normalize", "v17_gcp_logging_context.normalize"):
+                        if rec["transformation"] == "v17_gcp_logging_context.normalize":
+                            from v17_gcp_logging_context import compare_replay
+                        else:
+                            from v17_log_analytics_context import compare_replay
                         meta = rec["metadata"]
                         if set(meta) != {"input_format", "context_artifact_id"}:
                             raise ProvenanceError("unsupported query context replay configuration")

@@ -105,6 +105,12 @@ LOG_ANALYTICS_LOSSLESS_PACKAGE_PATHS = {
     "docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md",
 }
 
+GCP_LOGGING_CAPTURE_PACKAGE_PATHS = {
+    "v17_gcp_logging_context.py", "v17_gcp_logging_capture.py", "gcp_logging_context_v17.py",
+    "v17_gcp_logging_capture_selftest.py", "tests/test_v17_gcp_logging_capture.py",
+    "docs/reference/GCP_LOGGING_CAPTURE_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -365,6 +371,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_log_analytics_lossless = bool(LOG_ANALYTICS_LOSSLESS_PACKAGE_PATHS & set(expected))
         if has_log_analytics_lossless and not (LOG_ANALYTICS_LOSSLESS_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete lossless Log Analytics package support")
+        has_gcp_logging_capture = bool(GCP_LOGGING_CAPTURE_PACKAGE_PATHS & set(expected))
+        if has_gcp_logging_capture and not (GCP_LOGGING_CAPTURE_PACKAGE_PATHS | GCP_AUDIT_PACKAGE_PATHS | LOG_ANALYTICS_CAPTURE_PACKAGE_PATHS | LOG_ANALYTICS_CONTEXT_PACKAGE_PATHS | LOG_ANALYTICS_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS | {"provider_collectors_v15.py"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete Google Cloud Logging capture package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -433,6 +442,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_log_analytics_resource": has_log_analytics_resource,
             "has_log_analytics_form": has_log_analytics_form,
             "has_log_analytics_lossless": has_log_analytics_lossless,
+            "has_gcp_logging_capture": has_gcp_logging_capture,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -528,6 +538,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_log_analytics_form_selftest="PASS", v17_log_analytics_form_regression_tests=123)
     if zip_result.get("has_log_analytics_lossless"):
         required_assurance.update(v17_log_analytics_lossless_selftest="PASS", v17_log_analytics_lossless_regression_tests=171)
+    if zip_result.get("has_gcp_logging_capture"):
+        required_assurance.update(v17_gcp_logging_capture_selftest="PASS", v17_gcp_logging_capture_regression_tests=228)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):
