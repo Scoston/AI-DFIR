@@ -6,6 +6,13 @@
 
 ## Why AI-DFIR
 
+The unreleased [CASE/UCO exchange](docs/reference/CASE_EXCHANGE_V1.7.md) creates
+a verified inventory and recorded-lineage view in JSON-LD using CASE/UCO 1.5.0.
+It binds the original signed ZIP, preserves artifact hashes and multi-input
+references, and supports offline comparison. The graph is unsigned and explicitly
+counts omitted records; acceptance includes the official CASE validator and an
+RDF round trip.
+
 The unreleased [nested schema comparison](docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md)
 checks complete retained JSON structures against an explicitly pinned baseline.
 It reports nested path/kind changes and occurrence counts, with signed offline

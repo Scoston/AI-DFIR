@@ -23,3 +23,9 @@ jobs:
 
       - name: Quick release gate
         run: python scripts/release_check.py --quick
+
+      - name: Install optional CASE validation tools
+        run: python -m pip install -r requirements-case-validation.txt
+
+      - name: CASE/UCO conformance and RDF round trip
+        run: python scripts/case_exchange_conformance_v17.py

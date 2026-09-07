@@ -703,7 +703,7 @@ def _failure_report(
 
 
 def verify_case(
-    zip_path: str | Path,
+    zip_path: str | Path | bytes,
     export_public_key: str | Path,
     *,
     expected_tenant: str | None = None,
@@ -734,14 +734,21 @@ def verify_case(
     expected_timestamp_request_sha256: str | None = None,
     require_checkpoint_timestamp: bool = False,
 ) -> dict[str, Any]:
-    """Verify a v1.7 case export using local files only."""
-    path = Path(zip_path)
-    if not path.is_file():
-        raise FileNotFoundError(path)
+    """Verify local case data; bytes use one immutable archive snapshot.
 
-    zip_digest = _sha256_file(path)
+    Callers supplying bytes are responsible for bounding the compressed input.
+    Archive expansion and member limits apply to both input forms.
+    """
+    if isinstance(zip_path, bytes):
+        zip_digest = hashlib.sha256(zip_path).hexdigest()
+        source = io.BytesIO(zip_path)
+    else:
+        source = Path(zip_path)
+        if not source.is_file():
+            raise FileNotFoundError(source)
+        zip_digest = _sha256_file(source)
     try:
-        archive = zipfile.ZipFile(path)
+        archive = zipfile.ZipFile(source)
     except zipfile.BadZipFile:
         return _failure_report(
             zip_sha256=zip_digest,

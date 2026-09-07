@@ -272,6 +272,13 @@ def required_v17_paths() -> set[str]:
         "v17_schema_drift_selftest.py",
         "tests/test_v17_schema_drift.py",
         "docs/reference/NESTED_SCHEMA_DRIFT_V1.7.md",
+        "v17_case_exchange.py",
+        "case_exchange_v17.py",
+        "v17_case_exchange_selftest.py",
+        "tests/test_v17_case_exchange.py",
+        "scripts/case_exchange_conformance_v17.py",
+        "requirements-case-validation.txt",
+        "docs/reference/CASE_EXCHANGE_V1.7.md",
         "transparency_anchor_v14.py",
         "v14_selftest.py",
         "evidence_quality.py",
@@ -387,6 +394,8 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_private_transparency_selftest": "PASS",
         "v17_parser_corpus_selftest": "PASS",
         "v17_schema_drift_selftest": "PASS",
+        "v17_case_exchange_selftest": "PASS",
+        "v17_case_exchange_conformance": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -479,6 +488,12 @@ def require_extracted_v17_checks(report: dict) -> None:
     schema_drift = checks.get("v17_schema_drift_regression")
     if not isinstance(schema_drift, dict) or schema_drift.get("status") != "PASS" or schema_drift.get("tests") != 182:
         raise RuntimeError("extracted package must pass all 182 nested schema comparison regression tests")
+    case_exchange = checks.get("v17_case_exchange_regression")
+    if not isinstance(case_exchange, dict) or case_exchange.get("status") != "PASS" or case_exchange.get("tests") != 101:
+        raise RuntimeError("extracted package must pass all 101 CASE exchange regression tests")
+    conformance = checks["v17_case_exchange_conformance"]
+    if conformance.get("case_version") != "1.5.0" or conformance.get("valid_graphs") != 1 or conformance.get("invalid_graphs_rejected") != 4:
+        raise RuntimeError("extracted package must pass CASE/UCO conformance and negative graph acceptance")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -746,6 +761,10 @@ def main() -> None:
                 "v17_parser_corpus_cases": 3318,
                 "v17_schema_drift_selftest": "PASS",
                 "v17_schema_drift_regression_tests": 182,
+                "v17_case_exchange_selftest": "PASS",
+                "v17_case_exchange_regression_tests": 101,
+                "v17_case_exchange_conformance": "PASS",
+                "v17_case_exchange_ontology": "1.5.0",
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

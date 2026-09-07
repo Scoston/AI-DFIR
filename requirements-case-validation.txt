@@ -1,0 +1,5 @@
+# Optional development/release conformance tools, not exporter runtime imports.
+# The bundled CASE/UCO 1.5.0 ontology digest is checked by the acceptance script.
+case-utils==0.18.0
+rdflib==7.6.0
+pyshacl==0.40.1
