@@ -9,6 +9,7 @@
 - [Platform Assurance](../PLATFORM_ASSURANCE_V1.6.md)
 - [v1.7 Offline Verification](reference/OFFLINE_VERIFICATION_V1.7.md)
 - [v1.7 Release Assurance](reference/RELEASE_ASSURANCE_V1.7.md)
+- [Native CloudTrail Import and Replay (development)](reference/CLOUDTRAIL_REPLAY_V1.7.md)
 - [Demo](demo/README.md)
 
 ## Analyst

@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: native CloudTrail import and offline replay
+
+- explicit native Records and LookupEvents JSON profiles with strict bounded parsing, no fallback, and no skipped events;
+- exact source/canonical event digests, preserved order and duplicate IDs, distinct caller/session-issuer identities, and hashed payloads;
+- wrapper consistency checks, pagination reporting, and no automatic success, human attribution, collection completeness, or AWS-origin claim;
+- standalone normalize/compare CLI, exclusive output creation, and fixed signed-case replay integration;
+- 130 focused regressions, synthetic offline acceptance, analyst guide, and source/extracted-package assurance;
+- no new dependencies or live acquisition; existing flat-row normalizers and historical release verification remain compatible.
+
 ### Unreleased: recorded Evidence Pack conclusion-gate replay
 
 - a fixed offline adapter reproduces the existing gate calculation from exact retained pack rules and complete recorded quality states;

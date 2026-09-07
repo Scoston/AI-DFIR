@@ -75,10 +75,20 @@ def reconstruct(
             supported = (rec["transformation"], rec["transformation_version"]) in {
                 ("RFC8785", "1"), ("provider_normalizer.normalize", "1.4"),
                 ("evidence_quality.evaluate_gates", "1.7"),
+                ("v17_cloudtrail.normalize", "1.7"),
             }
             if supported:
                 try:
                     original_raw = read_artifact(index[rec["parent_artifact_id"]]["path"])
+                    if rec["transformation"] == "v17_cloudtrail.normalize":
+                        from v17_cloudtrail import compare_replay
+                        meta = rec["metadata"]
+                        if set(meta) != {"input_format"}:
+                            raise ProvenanceError("unsupported CloudTrail replay configuration")
+                        preserved = read_artifact(index[rec["child_artifact_id"]]["path"])
+                        result.update(compare_replay(original_raw, preserved, input_format=meta["input_format"]))
+                        transforms.append(result)
+                        continue
                     if rec["transformation"] == "evidence_quality.evaluate_gates":
                         from v17_pack_replay import MAX_INPUT_BYTES
                         if len(original_raw) > MAX_INPUT_BYTES:
@@ -110,7 +120,7 @@ def reconstruct(
                         result.update(compared)
                         matched = compared["status"] == "PASS"
                     result["status"] = "PASS" if matched else "FAIL"
-                except (ValueError, TypeError, KeyError, OSError, RecursionError):
+                except (ValueError, TypeError, KeyError, OSError, OverflowError, RecursionError):
                     result.update(status="FAIL", error="preserved transformation input/output is invalid or exceeds replay limits")
             transforms.append(result)
 

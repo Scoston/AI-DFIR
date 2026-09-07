@@ -9,9 +9,9 @@ The current catalog contains 111 Evidence Packs.
 ## Implemented in development, unreleased
 
 Investigation provenance/reference validation, evidence lineage validation,
-recorded AI/tool/analyst reconstruction, preserved-execution comparison, and two
-pure deterministic replay adapters, plus the recorded Evidence Pack gate adapter
-below. See
+recorded AI/tool/analyst reconstruction, preserved-execution comparison, and
+four fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
+recorded Evidence Pack gates, and native CloudTrail projection. See
 [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md) for the
 implemented profile and acceptance requirements.
 
@@ -21,6 +21,13 @@ inputs, and offline comparison within signed case reconstruction. Its pure gate
 calculation is shared with the assessment engine. All 111 current catalog packs
 fit the profile; raw evidence quality is not reassessed or implicitly approved.
 See [Evidence Pack gate replay](docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md).
+
+Native CloudTrail import/replay is implemented in development: explicit Records
+and LookupEvents JSON profiles, strict bounded parsing, exact source/canonical
+event digests, retained order and identity distinctions, payload hashes, and
+offline signed-case projection comparison. Pagination is reported separately
+from unknown overall collection coverage; AWS origin is not authenticated.
+See [Native CloudTrail replay](docs/reference/CLOUDTRAIL_REPLAY_V1.7.md).
 
 Verifier-controlled checkpoint key lifecycle is also implemented in development:
 active/retired/revoked states, validity windows, tenant/case scope, rotation
@@ -88,9 +95,9 @@ policy completeness and actual prior verifier execution are not proven. See
 - complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
 - operated policy delivery services, additional deployment identity profiles beyond mTLS, and durable/HA coordination beyond the controlled local scheduling profile;
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
-- additional deterministic parser and raw-evidence reassessment adapters beyond recorded gate replay, plus authorized live comparison orchestration;
+- additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate and native CloudTrail replay, plus authorized live comparison orchestration;
 
-- additional provider-specific raw-export parsers as vendors expose telemetry;
+- additional provider-specific raw-export parsers beyond the native CloudTrail profile as vendors expose telemetry;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - private transparency-log implementations and multi-party evidence anchoring;

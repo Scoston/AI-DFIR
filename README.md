@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [native CloudTrail replay](docs/reference/CLOUDTRAIL_REPLAY_V1.7.md)
+profile imports preserved log files and LookupEvents JSON, retains recorded
+identity and event order, and compares projections offline within signed cases.
+It rejects malformed inputs and reports collection/authenticity limits separately.
+
 The current development branch also supports validated investigation provenance
 and offline recorded replay. This extension is **not included in the published
 v1.7.0 assets**. See [Investigation replay](docs/reference/INVESTIGATION_REPLAY_V1.7.md)

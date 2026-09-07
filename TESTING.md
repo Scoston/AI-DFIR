@@ -383,3 +383,30 @@ Source and extracted-package gates require the module, CLI, self-test, tests,
 guide, shared evaluator, and matching assurance. Earlier published package
 contracts remain supported. See
 [Evidence Pack gate replay](docs/reference/EVIDENCE_PACK_REPLAY_V1.7.md).
+
+## 21. Unreleased native CloudTrail import and replay
+
+```bash
+python v17_cloudtrail_selftest.py
+python -m pytest tests/test_v17_cloudtrail.py -q
+python scripts/release_check.py --full
+```
+
+The 130 focused regressions bring the v1.7 total to 1,046. They cover native
+Records and LookupEvents envelopes, wrapper contradictions, version/identity
+handling, missing/null/present payload digests, raw-byte versus canonical-event
+binding, preserved order and duplicate IDs, pagination uncertainty, malformed
+JSON/Unicode/numbers, resource limits, and exclusive output creation.
+
+Synthetic signed cases replay offline with socket/DNS/subprocess/extraction
+guards. Validly signed incorrect projections fail replay while remaining
+integrity-valid; required trust/timestamp failures block reconstruction, and
+unverified archives never reach the parser. CLI tests cover redacted errors,
+input preservation, successful comparisons, and failure exit status.
+
+Source and extracted-package gates require the same self-test and all 130
+regressions. Release manifests require the parser, CLI, self-test, tests, guide,
+and existing provenance support. Independent archive verification activates
+these requirements when any new CloudTrail profile file is present, preserving
+the historical v1.7.0 verification contract. See
+[Native CloudTrail replay](docs/reference/CLOUDTRAIL_REPLAY_V1.7.md).
