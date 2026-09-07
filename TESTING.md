@@ -435,3 +435,31 @@ parser, CLI, guide, and provenance support. Independent package verification
 requires the complete profile and matching assurance when any of its new files
 is present, preserving the historical v1.7.0 contract. See
 [Google Cloud Audit replay](docs/reference/GCP_AUDIT_REPLAY_V1.7.md).
+
+## 23. Unreleased Azure Activity Log import and replay
+
+```bash
+python v17_azure_activity_selftest.py
+python -m pytest tests/test_v17_azure_activity.py -q
+python scripts/release_check.py --full
+```
+
+The 207 focused regressions bring the v1.7 total to 1,416. Native REST response
+and EventData array fixtures replay from verified signed cases with network,
+command execution, and extraction disabled. Coverage preserves fractional
+timestamps, invariant/translated labels, caller/claim aliases, event/operation
+distinctions, duplicate IDs, and recorded order without attributing a human or
+inferring model invocation, effects, or complete collection.
+
+Negative cases cover mixed/Log Analytics envelopes, partial errors, wrong typed
+fields, absent required values, hostile JSON, opaque continuation URLs, combined
+input/output budgets, exclusive output creation, symlinks, FIFO intake, and
+unverified archives. Validly signed incorrect projections fail replay separately
+from integrity. Unknown versions and required trust/timestamp failures retain
+their existing outcomes; evidence cannot supply a parser import or command.
+
+Source and extracted-package gates require the same 207 regressions, self-test,
+and profile files. The independent candidate verifier requires the complete new
+profile and matching assurance when any Azure Activity Log profile file is
+present, preserving historical v1.7.0 candidate verification. See
+[Azure Activity Log replay](docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md).

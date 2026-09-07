@@ -59,6 +59,11 @@ GCP_AUDIT_PACKAGE_PATHS = {
     "tests/test_v17_gcp_audit.py", "docs/reference/GCP_AUDIT_REPLAY_V1.7.md",
 }
 
+AZURE_ACTIVITY_PACKAGE_PATHS = {
+    "v17_azure_activity.py", "azure_activity_v17.py", "v17_azure_activity_selftest.py",
+    "tests/test_v17_azure_activity.py", "docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -292,6 +297,9 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_gcp_audit = bool(GCP_AUDIT_PACKAGE_PATHS & set(expected))
         if has_gcp_audit and not (GCP_AUDIT_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete Google Cloud Audit replay package support")
+        has_azure_activity = bool(AZURE_ACTIVITY_PACKAGE_PATHS & set(expected))
+        if has_azure_activity and not (AZURE_ACTIVITY_PACKAGE_PATHS | PROVENANCE_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete Azure Activity Log replay package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -351,6 +359,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_pack_replay": has_pack_replay,
             "has_cloudtrail": has_cloudtrail,
             "has_gcp_audit": has_gcp_audit,
+            "has_azure_activity": has_azure_activity,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -428,6 +437,8 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_cloudtrail_selftest="PASS", v17_cloudtrail_regression_tests=130)
     if zip_result.get("has_gcp_audit"):
         required_assurance.update(v17_gcp_audit_selftest="PASS", v17_gcp_audit_regression_tests=163)
+    if zip_result.get("has_azure_activity"):
+        required_assurance.update(v17_azure_activity_selftest="PASS", v17_azure_activity_regression_tests=207)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):

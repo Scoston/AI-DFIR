@@ -11,6 +11,7 @@
 - [v1.7 Release Assurance](reference/RELEASE_ASSURANCE_V1.7.md)
 - [Native CloudTrail Import and Replay (development)](reference/CLOUDTRAIL_REPLAY_V1.7.md)
 - [Google Cloud Audit Import and Replay (development)](reference/GCP_AUDIT_REPLAY_V1.7.md)
+- [Azure Activity Log Import and Replay (development)](reference/AZURE_ACTIVITY_REPLAY_V1.7.md)
 - [Demo](demo/README.md)
 
 ## Analyst

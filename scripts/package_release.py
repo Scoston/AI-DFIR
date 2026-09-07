@@ -208,6 +208,11 @@ def required_v17_paths() -> set[str]:
         "v17_gcp_audit_selftest.py",
         "tests/test_v17_gcp_audit.py",
         "docs/reference/GCP_AUDIT_REPLAY_V1.7.md",
+        "v17_azure_activity.py",
+        "azure_activity_v17.py",
+        "v17_azure_activity_selftest.py",
+        "tests/test_v17_azure_activity.py",
+        "docs/reference/AZURE_ACTIVITY_REPLAY_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -307,6 +312,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_pack_replay_selftest": "PASS",
         "v17_cloudtrail_selftest": "PASS",
         "v17_gcp_audit_selftest": "PASS",
+        "v17_azure_activity_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -354,6 +360,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     gcp_audit = checks.get("v17_gcp_audit_regression")
     if not isinstance(gcp_audit, dict) or gcp_audit.get("status") != "PASS" or gcp_audit.get("tests") != 163:
         raise RuntimeError("extracted package must pass all 163 Google Cloud Audit regression tests")
+    azure_activity = checks.get("v17_azure_activity_regression")
+    if not isinstance(azure_activity, dict) or azure_activity.get("status") != "PASS" or azure_activity.get("tests") != 207:
+        raise RuntimeError("extracted package must pass all 207 Azure Activity Log regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -592,6 +601,8 @@ def main() -> None:
                 "v17_cloudtrail_regression_tests": 130,
                 "v17_gcp_audit_selftest": "PASS",
                 "v17_gcp_audit_regression_tests": 163,
+                "v17_azure_activity_selftest": "PASS",
+                "v17_azure_activity_regression_tests": 207,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

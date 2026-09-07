@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: Azure Activity Log import and offline replay
+
+- explicit native REST value/nextLink and EventData array profiles with strict bounded parsing and no skipped events;
+- exact source/canonical event digests, retained order and duplicate IDs, and seven-to-nine-digit fractional timestamp preservation;
+- separate caller/claim aliases, authorization observations, invariant/translated labels, and event/operation/correlation identifiers;
+- opaque payload/URI/continuation digests and explicit limits on management-plane coverage, effects, attribution, and collection completeness;
+- normalize/compare CLI with exclusive output creation, fixed signed-case replay, 207 focused regressions, analyst guide, and source/extracted-package assurance;
+- no new dependencies or live acquisition changes; Log Analytics tabular responses remain a separate future profile, and historical release verification stays compatible.
+
 ### Unreleased: Google Cloud Audit Logs import and offline replay
 
 - explicit native entries.list response and JSON-array profiles with bounded strict parsing and no skipped entries;

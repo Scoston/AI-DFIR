@@ -136,6 +136,7 @@ The fixed local transform registry supports:
 | `evidence_quality.evaluate_gates` | `1.7` | Retained pack/quality snapshot and original assessment; metadata `{"pack_sha256":"<canonical retained pack digest>"}` | Canonical gate summary using recorded quality states |
 | `v17_cloudtrail.normalize` | `1.7` | Native CloudTrail export and recorded projection; metadata `{"input_format":"records"}` or `{"input_format":"lookup-events"}` | Canonical projection including exact raw input digest |
 | `v17_gcp_audit.normalize` | `1.7` | Native Google Cloud Audit export and recorded projection; metadata `{"input_format":"entries"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, nanoseconds, delegation, and permission records |
+| `v17_azure_activity.normalize` | `1.7` | Native Azure Activity Log export and recorded projection; metadata `{"input_format":"activity-log"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, fractional timestamps, label and claim distinctions |
 
 The profile is limited to 10,000 total records and 16 MiB of metadata. Each
 deterministic replay input/output is limited to 16 MiB. Duplicate JSON keys,
@@ -149,8 +150,13 @@ The [native CloudTrail adapter](CLOUDTRAIL_REPLAY_V1.7.md) limits input/output t
 8 MiB and at most 2,000 events, checks wrapper consistency, and preserves recorded
 order and identity distinctions. The [Google Cloud Audit adapter](GCP_AUDIT_REPLAY_V1.7.md)
 has bounded native response/array profiles and preserves recorded nanoseconds,
-delegation order, and individual permission checks. Other parsers and raw-evidence
-reassessment adapters remain future work.
+delegation order, and individual permission checks. The
+[Azure Activity Log adapter](AZURE_ACTIVITY_REPLAY_V1.7.md) has bounded native
+REST response/array profiles and retains recorded fractional timestamps,
+invariant/translated labels, and caller/claim distinctions. These management-plane
+observations do not prove model invocation or downstream effects. Other parsers,
+including Log Analytics typed tables, and raw-evidence reassessment adapters
+remain future work.
 
 Integrity verification and reproduction of a transformation are separate
 results. A correctly preserved but incorrect normalization can have integrity
