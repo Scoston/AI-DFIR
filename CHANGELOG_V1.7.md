@@ -4,6 +4,13 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: form-encoded Log Analytics GET and workspace lists
+
+- explicit workspace/resource form GET profiles with strict plus-before-percent decoding, exact URL/order binding, and bounded additional workspace GUID lists;
+- automatic capture with explicit GET encoding selection, decoded credential checks, and no fallback after failed acquisition;
+- 123 focused regressions, synthetic signed replay, original percent-only profile compatibility, analyst guide, and full source/extracted-package assurance;
+- no new dependencies or live provider acceptance; historical release verification remains supported.
+
 ### Unreleased: resource-scoped Log Analytics capture and replay
 
 - explicit resource POST/GET profiles, bounded public resource paths, exact resource/query/response binding, and signed multi-input replay;

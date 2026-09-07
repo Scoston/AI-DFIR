@@ -61,7 +61,8 @@ only for `azure_foundry_logs`; other providers fail before acquisition.
 The legacy command without `--capture-context` retains its original output-file,
 receipt, and exit behavior. The `azure_foundry_logs()` response-only Python API
 is unchanged. The capture API is
-`v17_log_analytics_capture.capture(params_raw: bytes, out_dir, *, method="POST", scope="workspace")`.
+`v17_log_analytics_capture.capture(params_raw: bytes, out_dir, *, method="POST", scope="workspace", get_encoding="percent")`.
+Explicit GET also supports [form encoding and workspace lists](LOG_ANALYTICS_GET_FORM_V1.7.md).
 
 ## Acquisition and byte semantics
 

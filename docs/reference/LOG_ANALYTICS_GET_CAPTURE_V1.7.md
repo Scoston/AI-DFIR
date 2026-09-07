@@ -1,5 +1,9 @@
 # Automatic Log Analytics workspace GET capture
 
+Explicit [form GET capture](LOG_ANALYTICS_GET_FORM_V1.7.md) adds
+`--capture-get-encoding form` and bounded additional workspace GUID lists. Default
+percent-only GET capture below retains its existing parameters and artifacts.
+
 This unreleased acquisition option produces the three artifacts needed for
 [workspace GET context replay](LOG_ANALYTICS_GET_CONTEXT_V1.7.md): the exact
 retained response body, the prepared GET request context, and its deterministic

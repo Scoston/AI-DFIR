@@ -14,7 +14,8 @@ from v17_provenance import ProvenanceError
 TRANSFORMATION = "v17_log_analytics_context.normalize"
 TRANSFORMATION_VERSION = "1.7"
 CONTEXT_SCHEMA = "ai-dfir/log-analytics-query-context/v1.7"
-INPUT_FORMATS = ("workspace-post", "workspace-get", "resource-post", "resource-get")
+INPUT_FORMATS = ("workspace-post", "workspace-get", "resource-post", "resource-get",
+                 "workspace-get-form", "resource-get-form")
 MAX_CONTEXT_BYTES = 128 * 1024
 MAX_OUTPUT_BYTES = TABLE_OUTPUT_BYTES + MAX_CONTEXT_BYTES
 MAX_QUERY_BYTES = 64 * 1024
@@ -29,6 +30,7 @@ REQUEST_HEADERS = {"content-type", "prefer", "x-ms-client-request-id"}
 GET_REQUEST_HEADERS = REQUEST_HEADERS | {"accept"}
 RESPONSE_HEADERS = {"content-type", "x-ms-request-id", "request-id", "x-request-id"}
 GET_COMPONENT_RE = re.compile(r"(?:[A-Za-z0-9._~-]|%[0-9A-Fa-f]{2})*")
+GET_FORM_COMPONENT_RE = re.compile(r"(?:[A-Za-z0-9._~*()+,-]|%[0-9A-Fa-f]{2})*")
 MAX_RESOURCE_ID_BYTES = 4096
 RESOURCE_SEGMENT = r"[A-Za-z0-9._~-]{1,256}"
 RESOURCE_ID_PATTERN = (r"/subscriptions/" + GUID_RE.pattern + r"/resourceGroups/" + RESOURCE_SEGMENT
@@ -102,18 +104,31 @@ def validate_request(request, *, scope="workspace"):
     return endpoint
 
 
-def _get_component(value):
+def _get_component(value, *, encoding="percent"):
     # Do not use a tolerant URL/form parser: it can strip controls, replace bad
     # UTF-8, interpret '+' as space, or silently discard malformed parameters.
-    if GET_COMPONENT_RE.fullmatch(value) is None:
+    pattern = GET_FORM_COMPONENT_RE if encoding == "form" else GET_COMPONENT_RE
+    if encoding not in ("percent", "form") or pattern.fullmatch(value) is None:
         raise ProvenanceError("unsupported query URL encoding")
     try:
+        if encoding == "form":
+            # Replace literal '+' before percent decoding: '%2B' stays a plus.
+            value = value.replace("+", " ")
         return unquote_to_bytes(value).decode("utf-8", errors="strict")
     except UnicodeError:
         raise ProvenanceError("invalid query URL text") from None
 
 
-def _get_request(request, *, scope="workspace"):
+def _get_workspaces(value):
+    if not isinstance(value, str) or not value or len(value) > MAX_WORKSPACES * 37 - 1:
+        raise ProvenanceError("invalid or excessive GET workspace list")
+    workspaces = value.split(",")
+    if len(workspaces) > MAX_WORKSPACES or not all(GUID_RE.fullmatch(item) for item in workspaces):
+        raise ProvenanceError("invalid or excessive GET workspace list")
+    return workspaces
+
+
+def _get_request(request, *, scope="workspace", encoding="percent"):
     _object(request, {"method", "url", "body", "headers"})
     url = request["url"]
     if (request["method"] != "GET" or request["body"] is not None
@@ -121,21 +136,24 @@ def _get_request(request, *, scope="workspace"):
         raise ProvenanceError("unsupported retained GET request")
     base, separator, query_string = url.partition("?")
     endpoint = _endpoint(base, scope)
-    if not separator or not query_string or query_string.count("&") > 1:
+    optional = {"timespan"} | ({"workspaces"} if scope == "workspace" and encoding == "form" else set())
+    if not separator or not query_string or query_string.count("&") > len(optional):
         raise ProvenanceError("unsupported GET endpoint or parameters")
     parameters = {}
     for field in query_string.split("&"):
         key, equals, value = field.partition("=")
-        key = _get_component(key)
-        if not equals or key not in ("query", "timespan") or key in parameters:
+        key = _get_component(key, encoding=encoding)
+        if not equals or key not in {"query"} | optional or key in parameters:
             raise ProvenanceError("missing, duplicate, or unsupported GET parameter")
-        parameters[key] = _get_component(value)
-    _object(parameters, {"query"}, {"timespan"})
+        parameters[key] = _get_component(value, encoding=encoding)
+    _object(parameters, {"query"}, optional)
     query = _text(parameters["query"], MAX_QUERY_BYTES, multiline=True)
     if len(query.encode("utf-8")) > MAX_QUERY_BYTES:
         raise ProvenanceError("retained query text exceeds byte limit")
     if "timespan" in parameters:
         _text(parameters["timespan"], 256)
+    if "workspaces" in parameters:
+        _get_workspaces(parameters["workspaces"])
     _headers(request["headers"], GET_REQUEST_HEADERS)
     return endpoint, parameters
 
@@ -149,8 +167,8 @@ def _context(raw, context_raw, input_format):
         raise ProvenanceError("unsupported query context schema")
     request, response = context["request"], context["response"]
     scope = "resource" if input_format.startswith("resource-") else "workspace"
-    if input_format.endswith("-get"):
-        endpoint, parameters = _get_request(request, scope=scope)
+    if input_format.endswith(("-get", "-get-form")):
+        endpoint, parameters = _get_request(request, scope=scope, encoding="form" if input_format.endswith("-form") else "percent")
     else:
         endpoint, parameters = validate_request(request, scope=scope), request["body"]
     _object(response, {"status", "body_sha256", "body_size_bytes", "headers"})
@@ -164,6 +182,14 @@ def _context(raw, context_raw, input_format):
 
 
 def _request_projection(request, endpoint, parameters, input_format):
+    if input_format.endswith("-get-form"):
+        result = _request_projection(request, endpoint, parameters, input_format.removesuffix("-form"))
+        result["url_decoding"] = "utf8-form-plus-then-percent-once"
+        if input_format == "workspace-get-form":
+            result["workspaces"] = _observation(parameters, "workspaces")
+            result["additional_workspace_sha256"] = [sha256_object(item) for item in
+                (_get_workspaces(parameters["workspaces"]) if "workspaces" in parameters else [])]
+        return result
     if input_format.startswith("resource-"):
         method = request["method"]
         base = request["url"].partition("?")[0]
