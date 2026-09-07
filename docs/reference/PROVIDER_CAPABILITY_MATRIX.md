@@ -7,6 +7,7 @@
 | OpenAI organization telemetry | `openai_org` | organization usage/audit surfaces exposed by API | not a substitute for application-side request logging |
 | Anthropic | `anthropic_compliance`, `anthropic_usage` | compliance/usage exports exposed to account | availability depends on account/plan and retention |
 | AWS Bedrock/CloudTrail | `aws_bedrock` | CloudTrail/Bedrock activity | data events/logging configuration matters |
+| Preserved native CloudTrail JSON (development) | [`cloudtrail_v17.py`](CLOUDTRAIL_REPLAY_V1.7.md) | Records/LookupEvents metadata projection and offline signed-case replay | parser does not acquire evidence, prove collection completeness, or authenticate AWS origin |
 | Google Cloud | `google_cloud_logs` | Cloud Logging/Audit Logs | sink/retention and filter coverage matter |
 | GitHub Copilot | `github_copilot` | enterprise audit records | IDE-local context still needs endpoint/workspace evidence |
 | Claude Code | local collector | history/session/workspace controls | local files may be altered; preserve acquisition metadata |
