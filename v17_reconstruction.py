@@ -82,10 +82,24 @@ def reconstruct(
                 ("v17_log_analytics_lossless.normalize", "1.7"),
                 ("v17_log_analytics_context.normalize", "1.7"),
                 ("v17_gcp_logging_context.normalize", "1.7"),
+                ("v17_evidence_validation.assess", "1.7"),
             }
             if supported:
                 try:
                     original_raw = read_artifact(index[rec["parent_artifact_id"]]["path"])
+                    if rec["transformation"] == "v17_evidence_validation.assess":
+                        from v17_evidence_validation import compare_replay
+                        meta = rec["metadata"]
+                        if set(meta) != {"rules_artifact_id", "rules_sha256"}:
+                            raise ProvenanceError("unsupported raw-evidence replay configuration")
+                        rules = index[meta["rules_artifact_id"]]
+                        if rules["kind"] != "artifacts":
+                            raise ProvenanceError("raw-evidence rules require a bound artifact")
+                        preserved = read_artifact(index[rec["child_artifact_id"]]["path"])
+                        result.update(compare_replay(original_raw, preserved, rules_raw=read_artifact(rules["path"]),
+                                                     case_id=ledger.case_id, expected_rules_sha256=meta["rules_sha256"]))
+                        transforms.append(result)
+                        continue
                     if rec["transformation"] in ("v17_log_analytics_context.normalize", "v17_gcp_logging_context.normalize"):
                         if rec["transformation"] == "v17_gcp_logging_context.normalize":
                             from v17_gcp_logging_context import compare_replay

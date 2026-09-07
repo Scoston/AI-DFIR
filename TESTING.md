@@ -718,3 +718,28 @@ the new files and shared capture/native-parser dependencies, while preserving
 historical release verification. See the
 [analyst guide](docs/reference/GCP_LOGGING_CAPTURE_V1.7.md) for field limits and
 the difference between capture completion, replay success, and complete collection.
+
+## 33. Unreleased pinned raw-evidence reassessment
+
+```bash
+python v17_evidence_validation_selftest.py
+python -m pytest tests/test_v17_evidence_validation.py -q
+```
+
+The 190 focused regressions bring the v1.7 total to 3,082. Synthetic acceptance
+reassesses JSON object/array/JSONL, text, and binary bytes under retained pinned
+rules, verifies signed offline replay, reproduces failed validation correctly,
+and rejects a re-signed false promotion of the assessment result.
+
+Tests cover explicit pins and case identity, complete rule schemas, exact numeric
+kinds, duplicate/hostile JSON, byte/depth/node/record/line/field budgets, every-row
+field checks, schema fingerprints, empty signed evidence, digest/size/literal
+failures, second-input lineage cycles, unknown versions, independent trust gates,
+no network/process/extraction, and CLI preservation and exit distinctions.
+The existing recorded-gate, provenance, query-context, Google capture, and lossless
+numeric suites remain compatibility checks; no live provider acceptance is used.
+
+Source and extracted release gates require the self-test and all 190 regressions.
+The package and conditional independent verifier require the new files, matching
+assurance, and tokenizer/provenance dependencies while preserving older releases.
+See [Raw-evidence reassessment](docs/reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md).

@@ -259,6 +259,16 @@ def _validate(bundle, *, case_id, ledger, files):
             if child not in edges[context]:
                 edges[context].add(child)
                 degrees[child] += 1
+        if (rec["transformation"], rec["transformation_version"]) == ("v17_evidence_validation.assess", "1.7"):
+            meta = rec["metadata"]
+            _require(set(meta) == {"rules_artifact_id", "rules_sha256"} and _digest(meta["rules_sha256"]),
+                     "raw-evidence replay requires an explicit rules pin")
+            rules = meta["rules_artifact_id"]
+            _require(_text(rules) and rules in artifacts and rules not in {parent, child},
+                     "missing or invalid raw-evidence rules artifact reference")
+            if child not in edges[rules]:
+                edges[rules].add(child)
+                degrees[child] += 1
         if child not in edges[parent]:
             edges[parent].add(child)
             degrees[child] += 1

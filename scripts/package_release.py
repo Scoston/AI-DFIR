@@ -251,6 +251,11 @@ def required_v17_paths() -> set[str]:
         "v17_gcp_logging_capture_selftest.py",
         "tests/test_v17_gcp_logging_capture.py",
         "docs/reference/GCP_LOGGING_CAPTURE_V1.7.md",
+        "v17_evidence_validation.py",
+        "evidence_validation_v17.py",
+        "v17_evidence_validation_selftest.py",
+        "tests/test_v17_evidence_validation.py",
+        "docs/reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -360,6 +365,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_log_analytics_form_selftest": "PASS",
         "v17_log_analytics_lossless_selftest": "PASS",
         "v17_gcp_logging_capture_selftest": "PASS",
+        "v17_evidence_validation_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -437,6 +443,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     logging_capture = checks.get("v17_gcp_logging_capture_regression")
     if not isinstance(logging_capture, dict) or logging_capture.get("status") != "PASS" or logging_capture.get("tests") != 228:
         raise RuntimeError("extracted package must pass all 228 Google Cloud Logging capture regression tests")
+    evidence_validation = checks.get("v17_evidence_validation_regression")
+    if not isinstance(evidence_validation, dict) or evidence_validation.get("status") != "PASS" or evidence_validation.get("tests") != 190:
+        raise RuntimeError("extracted package must pass all 190 raw-evidence reassessment regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -695,6 +704,8 @@ def main() -> None:
                 "v17_log_analytics_lossless_regression_tests": 171,
                 "v17_gcp_logging_capture_selftest": "PASS",
                 "v17_gcp_logging_capture_regression_tests": 228,
+                "v17_evidence_validation_selftest": "PASS",
+                "v17_evidence_validation_regression_tests": 190,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

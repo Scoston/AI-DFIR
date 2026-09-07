@@ -134,6 +134,7 @@ The fixed local transform registry supports:
 | `RFC8785` | `1` | Strict JSON | Exact canonical output bytes |
 | `provider_normalizer.normalize` | `1.4` | JSON array of provider-event objects; relationship metadata `{"provider":"openai"}` or another supported adapter | Canonical JSON output with content inclusion disabled |
 | `evidence_quality.evaluate_gates` | `1.7` | Retained pack/quality snapshot and original assessment; metadata `{"pack_sha256":"<canonical retained pack digest>"}` | Canonical gate summary using recorded quality states |
+| `v17_evidence_validation.assess` | `1.7` | Raw evidence, separately bound rules, and complete assessment; metadata `{"rules_artifact_id":"VALIDATION-RULES","rules_sha256":"<canonical pin>"}` | [Pinned raw-evidence reassessment](RAW_EVIDENCE_REASSESSMENT_V1.7.md), every-record field checks and schema observations; no quality promotion |
 | `v17_cloudtrail.normalize` | `1.7` | Native CloudTrail export and recorded projection; metadata `{"input_format":"records"}` or `{"input_format":"lookup-events"}` | Canonical projection including exact raw input digest |
 | `v17_gcp_audit.normalize` | `1.7` | Native Google Cloud Audit export and recorded projection; metadata `{"input_format":"entries"}` or `{"input_format":"array"}` | Canonical projection preserving raw digest, nanoseconds, delegation, and permission records |
 | `v17_gcp_logging_context.normalize` | `1.7` | Native Audit Log response, separate context artifact, and projection; metadata `{"input_format":"entries-list","context_artifact_id":"QUERY-CONTEXT"}` | [Fixed Logging request binding](GCP_LOGGING_CAPTURE_V1.7.md), exact response/context hashes, complete native projection, and validated second-input lineage |
@@ -168,7 +169,10 @@ binds an explicit workspace POST request assertion to exact response bytes. Its
 context artifact reference participates in provenance and cycle validation before
 replay. A matching context binding does not prove actual execution or effective
 scope. Missing/invalid known-profile references reject the provenance profile.
-Other parsers and raw-evidence reassessment adapters remain future work.
+The [raw-evidence reassessment adapter](RAW_EVIDENCE_REASSESSMENT_V1.7.md) now
+recomputes bounded byte, syntax, literal, and top-level field checks under a
+separately bound canonical rules pin. It keeps quality ratings and source authority
+separate. Deeper validation and other parser profiles remain future work.
 
 Integrity verification and reproduction of a transformation are separate
 results. A correctly preserved but incorrect normalization can have integrity
