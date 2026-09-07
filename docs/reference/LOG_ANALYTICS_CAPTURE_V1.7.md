@@ -2,13 +2,15 @@
 
 This unreleased option closes the manual preservation gap in
 [retained query-context replay](LOG_ANALYTICS_CONTEXT_V1.7.md). An explicitly
-invoked workspace POST acquisition records the prepared request, preserves the
+invoked workspace acquisition records the prepared request, preserves the
 bounded response body before parsing, and writes compatible context and
 projection artifacts. It does not run during offline verification or replay.
 
-This acquisition option remains workspace POST. Separately retained GET requests
-can use the [offline GET context profile](LOG_ANALYTICS_GET_CONTEXT_V1.7.md);
-that profile does not add GET acquisition to this collector.
+Workspace POST remains the default described below. The explicit
+[`--capture-method GET` option](LOG_ANALYTICS_GET_CAPTURE_V1.7.md) now produces
+compatible GET artifacts through the same protected acquisition path. Separately
+retained GET requests can still use the
+[offline GET context profile](LOG_ANALYTICS_GET_CONTEXT_V1.7.md).
 
 ## Explicit invocation
 
@@ -49,19 +51,22 @@ python provider_collectors_v15.py azure_foundry_logs \
 Capture mode also accepts the existing `--params-json` argument, but query text
 on a command line can appear in shell history and process inspection. The file
 option avoids that exposure. Do not combine a parameter file with nondefault
-`--params-json`. `--params-file` requires capture mode. Capture mode is supported
+`--params-json`. `--params-file` and `--capture-method` require capture mode.
+The method option accepts exact `POST` or `GET`; omission keeps POST. Capture mode is supported
 only for `azure_foundry_logs`; other providers fail before acquisition.
 
 The legacy command without `--capture-context` retains its original output-file,
 receipt, and exit behavior. The `azure_foundry_logs()` response-only Python API
 is unchanged. The capture API is
-`v17_log_analytics_capture.capture(params_raw: bytes, out_dir)`.
+`v17_log_analytics_capture.capture(params_raw: bytes, out_dir, *, method="POST")`.
 
 ## Acquisition and byte semantics
 
-The capture path makes one explicit POST to
-`https://api.loganalytics.io/v1/workspaces/{GUID}/query`. It builds and records the
-prepared method, URL, JSON body, and selected noncredential headers. The returned
+The default capture path makes one explicit POST to
+`https://api.loganalytics.io/v1/workspaces/{GUID}/query`. Explicit GET uses the
+same endpoint with the bounded query string described in its guide. The collector
+builds and records the prepared method, URL, body observation, and selected
+noncredential headers. The returned
 request observation must agree with that record. No source field can choose a
 host, path, HTTP method, proxy, TLS override, or arbitrary command.
 
@@ -75,8 +80,9 @@ prepared request observations and undecoded response streams; see
 
 `response.json` contains the exact bytes read from the response entity body,
 before JSON parsing or reserialization. TLS records, HTTP framing/chunks, and
-original raw header bytes are **not** captured. The request's selected JSON body
-is retained semantically in context; this is not a packet or full wire capture.
+original raw header bytes are **not** captured. The POST request's selected JSON
+body is retained semantically in context; GET records an absent body and exact
+prepared URL. This is not a packet or full wire capture.
 `Accept-Encoding: identity` is requested; compressed responses are rejected
 instead of implicitly decompressed. Reads request at most 64 KiB at a time and
 stop at the 8 MiB body limit. Declared Content-Length is validated against the
@@ -135,6 +141,8 @@ retained file digests after recovery. Failed capture directories are retained.
 Only selected noncredential headers enter context. Authorization, cookies, and
 credential parameter fields are excluded or rejected. The configured bearer
 value is checked for contamination in retained request/selected-header fields.
+GET also checks decoded URL parameter values, including tokens containing
+characters that are percent encoded in the URL.
 This is not a general secret classifier: queries and raw provider evidence may
 contain other sensitive material and remain protected evidence. Producing a
 digest-only receipt or projection does not redact the original artifacts.
@@ -167,6 +175,8 @@ three-artifact signed-case replay, distinct header bindings, exact body bytes,
 partial/error/empty responses, actual adapter redirect/preload controls, privacy,
 size bounds, protected output paths, interruptions, and legacy compatibility.
 Source and extracted-package release gates require the self-test and all 114
-focused regressions. Wider numeric types, additional provider capture profiles,
-resource/GET queries, proxy/custom-CA profiles, and scheduled acquisition remain
-future work.
+focused regressions. The separate GET capture gate requires its self-test and
+143 regressions as described in the [GET capture guide](LOG_ANALYTICS_GET_CAPTURE_V1.7.md).
+Wider numeric types, additional provider capture profiles, resource queries,
+additional GET parameters/encodings, proxy/custom-CA profiles, and scheduled
+acquisition remain future work.

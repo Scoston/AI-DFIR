@@ -16,6 +16,7 @@
 - [Log Analytics Retained Request Context and Replay (development)](reference/LOG_ANALYTICS_CONTEXT_V1.7.md)
 - [Log Analytics Workspace GET Context and Replay (development)](reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md)
 - [Automatic Log Analytics Acquisition-context Capture (development)](reference/LOG_ANALYTICS_CAPTURE_V1.7.md)
+- [Automatic Log Analytics Workspace GET Capture (development)](reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md)
 - [Demo](demo/README.md)
 
 ## Analyst

@@ -87,7 +87,8 @@ artifact, not the original HTTP wire body.
 The legacy response-only Azure collector receipt does not automatically capture
 KQL and all request context. The explicit
 [automatic capture option](LOG_ANALYTICS_CAPTURE_V1.7.md) now preserves a compatible
-context during bounded workspace POST acquisition. Other acquisitions still need
+context during bounded workspace POST acquisition, with a separate explicit
+[GET capture choice](LOG_ANALYTICS_GET_CAPTURE_V1.7.md). Other acquisitions still need
 separately retained observations; this replay tool never infers missing fields
 from response columns, receipts, or filenames.
 

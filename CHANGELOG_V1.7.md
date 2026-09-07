@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: automatic Log Analytics workspace GET capture
+
+- explicit `--capture-method GET` and keyword-only API method selection produce the response/context/projection artifacts for the reviewed GET replay profile;
+- bounded single-pass URL construction, actual prepared/observed GET comparison, absent-body retention, and configured-credential checks against decoded parameters;
+- shared verified-TLS, no-redirect/retry/preload/decode transport and exclusive receipt publication, with explicit failed/partial/unknown result handling and no POST fallback;
+- 143 focused regressions, synthetic acquisition and signed offline replay, unchanged default/explicit POST artifact digests, analyst guide, and full source/extracted-package assurance;
+- no new dependencies or live acceptance credentials; conditional package verification preserves historical releases.
+
 ### Unreleased: Log Analytics workspace GET context replay
 
 - explicit `workspace-get` input profile in the existing context adapter and CLI, with recorded absent body and query/optional timespan in a fixed public workspace URL;

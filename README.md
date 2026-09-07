@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [automatic GET capture option](docs/reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md)
+produces response, prepared query context, and replay projection together during
+explicit Log Analytics GET acquisition. It checks URL encoding and credential
+contamination, preserves bounded response bytes, and keeps POST as the default.
+
 The unreleased [Log Analytics GET context profile](docs/reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md)
 binds the exact retained workspace GET URL and decoded query/timespan to response
 bytes. Offline signed-case replay detects URL spelling, parameter, and context
