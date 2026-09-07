@@ -70,11 +70,19 @@ digests are unchanged. See
 [Log Analytics GET context](docs/reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md).
 
 Automatic Log Analytics acquisition-context capture is implemented in development:
-an explicit collector option records the prepared workspace POST request and
+an explicit collector option records the prepared workspace POST or GET request and
 selected response headers, preserves bounded entity-body bytes before parsing,
 and produces context/projection artifacts with an exclusive completion receipt.
 Acquisition uses synthetic acceptance; offline replay never initiates a query.
 See [Log Analytics capture](docs/reference/LOG_ANALYTICS_CAPTURE_V1.7.md).
+
+Automatic workspace GET capture is implemented in development: an explicit
+method option builds the bounded query/timespan URL, checks the actual prepared
+request and percent-encoded credential contamination, preserves exact response
+bytes, and generates the three signed-replay inputs. Unsupported scope fields,
+redirects, and failures never trigger an automatic POST fallback. Default POST
+artifact digests remain unchanged. See
+[Log Analytics GET capture](docs/reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md).
 
 Verifier-controlled checkpoint key lifecycle is also implemented in development:
 active/retired/revoked states, validity windows, tenant/case scope, rotation
@@ -144,7 +152,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - independently operated timestamp service deployment, archival TSA revocation evidence, and long-term timestamp renewal;
 - additional deterministic parsers and raw-evidence reassessment adapters beyond recorded gate, native AWS/Google/Azure activity, and Log Analytics table replay, plus authorized live comparison orchestration;
 
-- additional provider-specific raw-export profiles beyond the implemented native parsers, including wider numeric types, acquisition-context capture for other providers/GET, resource-context query binding, and additional GET parameters/encodings beyond the implemented workspace query/timespan profile;
+- additional provider-specific raw-export profiles beyond the implemented native parsers, including wider numeric types, acquisition-context capture for other providers, resource-context query binding, and additional GET parameters/encodings beyond the implemented workspace query/timespan profile;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
 - private transparency-log implementations and multi-party evidence anchoring;

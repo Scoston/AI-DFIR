@@ -175,8 +175,9 @@ was authenticated. `context_source` stays `retained-assertion`;
 `query_execution_verified`, `request_scope_verified`, and
 `source_authenticity_verified` stay false. KQL can name additional resources or
 functions; absence of a workspace parameter does not establish effective scope.
-The [automatic collector capture](LOG_ANALYTICS_CAPTURE_V1.7.md) remains the
-explicit POST profile. GET acquisition is not added by this offline feature.
+The [automatic collector capture](LOG_ANALYTICS_CAPTURE_V1.7.md) defaults to POST
+and now offers a separate [explicit GET option](LOG_ANALYTICS_GET_CAPTURE_V1.7.md).
+This offline replay feature never invokes acquisition.
 
 ## Acceptance
 

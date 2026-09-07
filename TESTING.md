@@ -580,3 +580,35 @@ require all 160 regressions alongside the 111 Evidence Packs and 19 synthetic
 components. Conditional GET package completeness and matching assurance preserve
 historical release verification. See the
 [GET context guide](docs/reference/LOG_ANALYTICS_GET_CONTEXT_V1.7.md).
+
+## 28. Unreleased automatic Log Analytics workspace GET capture
+
+```bash
+python v17_log_analytics_get_capture_selftest.py
+python -m pytest tests/test_v17_log_analytics_get_capture.py -q
+python scripts/release_check.py --full --json-out release-check.json
+```
+
+The 143 focused regressions bring the v1.7 total to 2,228. Synthetic GET
+acquisition automatically records the prepared URL, absent body, selected
+headers, exact response bytes, and compatible replay projection. The three
+artifacts are separately ledger-bound and signed, then replayed with network,
+process execution, and archive extraction forbidden. No live provider or real
+incident evidence is used.
+
+Negative cases cover method/scope restrictions, unsupported parameters, strict
+JSON, URL expansion and decoded-query limits, malformed values, credential
+contamination including percent-encoded bearer characters, prepared/observed
+request substitution, response headers/encoding/lengths, transport error URL
+redaction, redirects and HTTP 414 without POST fallback, partial/unknown results,
+existing outputs/symlinks, private modes, interrupted/member writes, and CLI
+argument/exit behavior. Signed query, workspace, timespan, encoding, request-ID,
+and response substitutions fail replay even with valid integrity. Golden
+digests preserve the reviewed default/explicit POST capture artifacts.
+
+Quick/full gates require the new self-test. Full source and extracted-package
+gates require all 143 regressions alongside the existing 111 Evidence Packs and
+19 synthetic components. Independent package verification conditionally requires
+all GET capture files, their replay/capture dependencies, and matching assurance
+while preserving historical release compatibility. See the
+[GET capture guide](docs/reference/LOG_ANALYTICS_GET_CAPTURE_V1.7.md).
