@@ -27,8 +27,13 @@ def verify_receipt(submission,public_key,receipt):
     if not expected.issubset(observed):findings.append({'type':'transparency_receipt_subject_mismatch','severity':'critical','missing':sorted(expected-observed)})
     if not r.get('inclusion_verified',False):findings.append({'type':'transparency_inclusion_not_verified','severity':'critical'})
     if not r.get('log_id'):findings.append({'type':'transparency_log_id_missing','severity':'high'})
-    return {'schema':'ai-dfir/transparency-receipt-validation/v1.4','valid':not findings,'submission':p,'receipt':r,'findings':findings,
-            'rule':'AI-DFIR prepares and verifies evidence bundles but does not silently submit evidence to external logs.'}
+    assertions_match=not findings
+    # A signed submission authenticates its own bytes, not an unsigned receipt's
+    # claim that a log inclusion proof has already been checked elsewhere.
+    findings.append({'type':'transparency_inclusion_proof_unverified','severity':'critical'})
+    return {'schema':'ai-dfir/transparency-receipt-validation/v1.4','valid':False,'submission':p,'receipt':r,'findings':findings,
+            'recorded_assertions_match':assertions_match,'inclusion_proof_verified':False,
+            'rule':'Legacy receipt fields are recorded assertions only. Use the pinned private-log proof profile for cryptographic inclusion verification; no network submission is performed.'}
 
 def main():
     ap=argparse.ArgumentParser();sp=ap.add_subparsers(dest='cmd',required=True)
@@ -40,4 +45,5 @@ def main():
     elif a.cmd=='verify':o={'valid':True,'payload':verify_submission(a.submission,a.public_key)}
     else:o=verify_receipt(a.submission,a.public_key,a.receipt)
     s=json.dumps(o,indent=2,sort_keys=True);Path(a.out).write_text(s) if getattr(a,'out',None) and a.cmd=='verify-receipt' else print(s)
+    if a.cmd=='verify-receipt' and not o['valid']:raise SystemExit(1)
 if __name__=='__main__':main()

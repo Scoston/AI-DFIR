@@ -8,6 +8,15 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Private transparency-log snapshots and multi-key witnessing have an implemented
+offline profile: immutable bounded states, signed heads, independently pinned
+log/witness trust, inclusion proofs, and optional prefix consistency against an
+independently retained prior head. Witness commands check the complete state and
+prior history before signing. Existing Evidence Pack artifacts remain separately
+reviewed; there is no automatic gate promotion. Operated services, independent
+witness custody, global fork monitoring, and archival key governance remain open.
+See [Private transparency](docs/reference/PRIVATE_TRANSPARENCY_V1.7.md).
+
 Investigation provenance/reference validation, evidence lineage validation,
 recorded AI/tool/analyst reconstruction, preserved-execution comparison, and
 eleven fixed deterministic replay adapters: RFC 8785, legacy provider normalization,
@@ -191,7 +200,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - additional provider-specific raw-export profiles beyond the implemented native parsers, including acquisition-context capture for other providers; implemented numeric/resource/GET profile boundaries are documented in their guides;
 - larger PostgreSQL/HA performance qualification across representative enterprise workloads;
 - HSM-specific signing profiles and hardware-backed collector keys;
-- private transparency-log implementations and multi-party evidence anchoring;
+- operated private transparency services, independent witness custody/fork monitoring, and archival log-key governance beyond the implemented offline signed-snapshot/proof profile;
 - evidence-source coverage measurement and deeper provider schema-change detection beyond retained top-level field/kind observations;
 - additional independent visible-rendering adapters for representation attacks;
 - optional standards-based case exchange profiles beyond the current neutral/STIX/ECS exports;

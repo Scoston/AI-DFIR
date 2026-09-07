@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [private transparency-log profile](docs/reference/PRIVATE_TRANSPARENCY_V1.7.md)
+verifies signed Merkle inclusion and optional prefix consistency under independently
+pinned log and witness keys. Offline snapshot and witness commands preserve prior
+heads; operator independence, trusted time, and global fork freedom remain unproven.
+
 The unreleased [raw-evidence reassessment adapter](docs/reference/RAW_EVIDENCE_REASSESSMENT_V1.7.md)
 recomputes byte, syntax, literal, and top-level field checks under pinned rules.
 It checks every retained record and reports schema observations without changing
