@@ -242,11 +242,14 @@ def _validate(bundle, *, case_id, ledger, files):
         _require(_text(parent) and _text(child) and parent in artifacts and child in artifacts, "dangling lineage reference")
         _require(parent != child and _text(rec["relationship_type"]), "invalid evidence relationship")
         _require(isinstance(rec["metadata"], dict), "relationship metadata must be an object")
-        if (rec["transformation"], rec["transformation_version"]) == ("v17_log_analytics_context.normalize", "1.7"):
+        if (rec["transformation"], rec["transformation_version"]) in (
+            ("v17_log_analytics_context.normalize", "1.7"), ("v17_gcp_logging_context.normalize", "1.7"),
+        ):
             meta = rec["metadata"]
+            formats = (("entries-list",) if rec["transformation"] == "v17_gcp_logging_context.normalize" else
+                       ("workspace-post", "workspace-get", "resource-post", "resource-get", "workspace-get-form", "resource-get-form"))
             _require(set(meta) == {"input_format", "context_artifact_id"}
-                     and meta["input_format"] in ("workspace-post", "workspace-get", "resource-post", "resource-get",
-                                                   "workspace-get-form", "resource-get-form"),
+                     and meta["input_format"] in formats,
                      "unsupported query context replay configuration")
             context = meta["context_artifact_id"]
             _require(_text(context) and context in artifacts and context not in {parent, child},

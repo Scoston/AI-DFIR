@@ -691,3 +691,30 @@ Quick/full gates require the self-test. Full source and extracted-package gates
 require all 171 regressions alongside 111 Evidence Packs and 19 synthetic
 components. Conditional package paths and matching assurance preserve historical
 releases. See the [lossless guide](docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md).
+
+## 32. Unreleased Google Cloud Logging capture and context replay
+
+```bash
+python v17_gcp_logging_capture_selftest.py
+python -m pytest tests/test_v17_gcp_logging_capture.py -q
+```
+
+The 228 focused regressions bring the v1.7 total to 2,892. Synthetic acceptance
+acquires populated and empty pages, with and without continuation, binds exact
+request/response artifacts, exports a signed case, verifies it offline, and
+detects re-signed filter substitution. The native Audit Log projection is retained.
+
+Negative tests cover scope/order/filter/page substitutions, resource-name and
+parameter bounds, strict JSON, mismatched context digests/status/headers, unknown
+profiles and versions, unverified archives, second-input lineage cycles, unsafe
+TLS/redirect/preload paths, compression and stream failures, credential
+contamination, private exclusive writes, interruption, and capture/offline CLIs.
+Existing Audit Log, Azure context/capture, and provenance regressions run as
+compatibility gates. No live provider access is used.
+
+The full source and extracted-package gates require the self-test and all 228
+regressions. Package manifest and conditional independent verification require
+the new files and shared capture/native-parser dependencies, while preserving
+historical release verification. See the
+[analyst guide](docs/reference/GCP_LOGGING_CAPTURE_V1.7.md) for field limits and
+the difference between capture completion, replay success, and complete collection.

@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: Google Cloud Logging capture and context replay
+
+- a tenth fixed adapter binds one entries.list request to exact Audit Log response bytes, ordered resource assertions, opaque filter/order/page observations, and signed offline replay;
+- explicit collector capture mode uses a fixed verified-TLS endpoint, bounded undecoded reads, private exclusive artifacts, and failed-observation handling;
+- continuation on an empty page remains incomplete; effective scope, provider origin, prior-page relationships, and full coverage remain unverified;
+- 228 focused regressions, synthetic signed acceptance, analyst guide, and source/extracted-package assurance;
+- no new dependencies or live provider acceptance; existing native Audit Log and Azure capture profiles remain compatible.
+
 ### Unreleased: lossless Log Analytics numeric replay
 
 - a ninth fixed adapter preserves wide integer/decimal/real text and distinguishes JSON numeric tokens from numeric strings;

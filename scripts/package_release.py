@@ -245,6 +245,12 @@ def required_v17_paths() -> set[str]:
         "v17_log_analytics_lossless_selftest.py",
         "tests/test_v17_log_analytics_lossless.py",
         "docs/reference/LOG_ANALYTICS_LOSSLESS_V1.7.md",
+        "v17_gcp_logging_context.py",
+        "v17_gcp_logging_capture.py",
+        "gcp_logging_context_v17.py",
+        "v17_gcp_logging_capture_selftest.py",
+        "tests/test_v17_gcp_logging_capture.py",
+        "docs/reference/GCP_LOGGING_CAPTURE_V1.7.md",
         "evidence_quality.py",
         "evidence_pack_engine.py",
         "v17_offline_selftest.py",
@@ -353,6 +359,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_log_analytics_resource_selftest": "PASS",
         "v17_log_analytics_form_selftest": "PASS",
         "v17_log_analytics_lossless_selftest": "PASS",
+        "v17_gcp_logging_capture_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -427,6 +434,9 @@ def require_extracted_v17_checks(report: dict) -> None:
     lossless = checks.get("v17_log_analytics_lossless_regression")
     if not isinstance(lossless, dict) or lossless.get("status") != "PASS" or lossless.get("tests") != 171:
         raise RuntimeError("extracted package must pass all 171 lossless Log Analytics regression tests")
+    logging_capture = checks.get("v17_gcp_logging_capture_regression")
+    if not isinstance(logging_capture, dict) or logging_capture.get("status") != "PASS" or logging_capture.get("tests") != 228:
+        raise RuntimeError("extracted package must pass all 228 Google Cloud Logging capture regression tests")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -683,6 +693,8 @@ def main() -> None:
                 "v17_log_analytics_form_regression_tests": 123,
                 "v17_log_analytics_lossless_selftest": "PASS",
                 "v17_log_analytics_lossless_regression_tests": 171,
+                "v17_gcp_logging_capture_selftest": "PASS",
+                "v17_gcp_logging_capture_regression_tests": 228,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),
