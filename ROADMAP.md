@@ -8,6 +8,14 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Bounded representation comparison is implemented in development: fixed Linux
+worker, two strict source snapshots, source/size/character bindings, explicit
+unavailable findings, and protected standalone/case comparison reports. Its 112
+regressions preserve existing comparison scores and critical signals. Independent
+rendering remains open and is the next selected representation item; see
+[Bounded comparison](docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md) and
+[Remaining qualification requirements](docs/reference/ROADMAP_QUALIFICATION_V1.7.md).
+
 Three structure-preserving fuzz targets and a persistent synthetic corpus are
 implemented in development: bounded in-memory ZIP32 reconstruction around main
 DOCX XML, font relationships, and member names; eight pinned committed cases;
@@ -266,6 +274,11 @@ policy completeness and actual prior verifier execution are not proven. See
 [Historical key-trust records](docs/reference/CHECKPOINT_KEY_TRUST_HISTORY_V1.7.md).
 
 ## Future work
+
+The [qualification matrix](docs/reference/ROADMAP_QUALIFICATION_V1.7.md) records
+the concrete environment, target, and acceptance inputs needed for each remaining
+area. Independent rendering is next; the current host's namespace probe did not
+complete, so it has not been treated as a qualified renderer environment.
 
 - complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
 - operated policy delivery services, additional deployment identity profiles beyond mTLS, and durable/HA coordination beyond the controlled local scheduling profile;

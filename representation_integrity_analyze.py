@@ -4,7 +4,8 @@ from __future__ import annotations
 import argparse,json
 from pathlib import Path
 from content_intake_gate import scan as intake_scan
-from representation_differential import analyze as representation_diff
+from v17_representation_compare import compare_files as representation_diff, OUTPUT_BYTES as COMPARISON_OUTPUT_BYTES
+from v17_content_intake import output_report
 from network_exfil_forensics import analyze as network_analyze,load as load_network
 from approval_integrity import analyze as approval_analyze
 from session_state_integrity import compare as session_compare
@@ -40,16 +41,20 @@ def main():
     ap.add_argument("--approval-records")
     ap.add_argument("--session");ap.add_argument("--session-checkpoint");ap.add_argument("--session-public-key")
     ap.add_argument("--ide-approved-root");ap.add_argument("--ide-suspect-root")
-    a=ap.parse_args();case=Path(a.case);case.mkdir(parents=True,exist_ok=True)
+    a=ap.parse_args()
+    if bool(a.machine_text) != bool(a.visible_text): ap.error("--machine-text and --visible-text are required together")
+    case=Path(a.case);case.mkdir(parents=True,exist_ok=True)
     generated=[];signals=set()
     def emit(name,obj):
-        p=case/name;write(p,obj);generated.append(str(p));signals.update(signalset(obj));return obj
+        p=case/name
+        if name == "representation_differential.json": output_report(obj,p,limit=COMPARISON_OUTPUT_BYTES)
+        else: write(p,obj)
+        generated.append(str(p));signals.update(signalset(obj));return obj
     if a.content:emit("content_intake_analysis.json",intake_scan(a.content))
+    comparison_available=None
     if a.machine_text and a.visible_text:
-        emit("representation_differential.json",representation_diff(
-            Path(a.machine_text).read_text(encoding="utf-8",errors="replace"),
-            Path(a.visible_text).read_text(encoding="utf-8",errors="replace"),
-            a.machine_text,a.visible_text))
+        comparison=emit("representation_differential.json",representation_diff(a.machine_text,a.visible_text))
+        comparison_available=comparison["intake"]["analysis_available"]
     if a.network_log:emit("network_exfil_analysis.json",network_analyze(load_network(a.network_log),a.approved_domain))
     if a.approval_records:
         o=read(a.approval_records);emit("approval_integrity_analysis.json",approval_analyze(o.get("records",o)))
@@ -64,6 +69,8 @@ def main():
             packs.add(r["pack"]);matches.append({"pack_id":r["pack"],"severity":r["severity"],"matched_signals":hit})
     attach(case,packs)
     result={"schema":"ai-dfir/representation-integrity-run/v1.2","generated":generated,
-            "signals":sorted(signals),"evidence_pack_matches":matches,"attached_packs":sorted(packs)}
+            "signals":sorted(signals),"evidence_pack_matches":matches,"attached_packs":sorted(packs),
+            "representation_comparison_available":comparison_available,"review_required":comparison_available is False}
     write(case/"representation_integrity_run.json",result);print(json.dumps(result,indent=2,sort_keys=True))
+    if comparison_available is False: raise SystemExit(1)
 if __name__=="__main__":main()

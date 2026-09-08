@@ -292,6 +292,14 @@ def required_v17_paths() -> set[str]:
         "tests/test_v17_structured_fuzz.py",
         "tests/fixtures/fuzz/v17/structured_cases.json",
         "docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md",
+        "v17_representation_compare.py",
+        "v17_representation_compare_selftest.py",
+        "scripts/representation_compare_worker_v17.py",
+        "tests/test_v17_representation_compare.py",
+        "docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md",
+        "docs/reference/ROADMAP_QUALIFICATION_V1.7.md",
+        "representation_differential.py",
+        "representation_integrity_analyze.py",
         "v17_docx_intake.py",
         "v17_docx_font.py",
         "v17_docx_intake_selftest.py",
@@ -438,6 +446,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_archive_intake_selftest": "PASS",
         "v17_fuzz_targets_selftest": "PASS",
         "v17_structured_fuzz_selftest": "PASS",
+        "v17_representation_compare_selftest": "PASS",
         "v17_docx_intake_selftest": "PASS",
         "v17_html_intake_selftest": "PASS",
         "v17_content_intake_selftest": "PASS",
@@ -559,6 +568,13 @@ def require_extracted_v17_checks(report: dict) -> None:
     if (structured_seeds.get("structured_profiles") != 3 or structured_seeds.get("curated_cases") != 8
             or structured_seeds.get("legacy_profiles_unchanged") != 20 or structured_seeds.get("coverage_guided") is not False):
         raise RuntimeError("extracted package must pass pinned corpus and unchanged legacy fuzz profiles")
+    comparison = checks.get("v17_representation_compare_regression")
+    if not isinstance(comparison, dict) or comparison.get("status") != "PASS" or comparison.get("tests") != 112:
+        raise RuntimeError("extracted package must pass all 112 bounded representation comparison regression tests")
+    comparison_seeds = checks["v17_representation_compare_selftest"]
+    if (comparison_seeds.get("valid_pairs") != 2 or comparison_seeds.get("invalid_pairs_rejected") != 2
+            or comparison_seeds.get("independent_rendering_verified") is not False):
+        raise RuntimeError("extracted package must pass real comparison workers without claiming independent rendering")
     docx = checks.get("v17_docx_intake_regression")
     if not isinstance(docx, dict) or docx.get("status") != "PASS" or docx.get("tests") != 133:
         raise RuntimeError("extracted package must pass all 133 bounded DOCX regression tests")
@@ -862,6 +878,9 @@ def main() -> None:
                 "v17_structured_fuzz_profiles": 3,
                 "v17_curated_fuzz_cases": 8,
                 "v17_structured_fuzz_native_sanitizers": False,
+                "v17_representation_compare_selftest": "PASS",
+                "v17_representation_compare_regression_tests": 112,
+                "v17_comparison_independent_rendering_verified": False,
                 "v17_docx_intake_selftest": "PASS",
                 "v17_docx_intake_regression_tests": 133,
                 "v17_docx_independent_rendering_verified": False,

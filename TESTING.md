@@ -983,3 +983,24 @@ cases, and eight persistent synthetic records. Independent package verification
 preserves earlier 17/18/20-profile contracts. Actual Atheris execution remains a
 separate required CI campaign; the preflight does not claim native coverage or
 sanitizers. See [Structured fuzz corpus](docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md).
+
+
+## 44. Unreleased bounded representation comparison
+
+```bash
+python v17_representation_compare_selftest.py
+python -m pytest tests/test_v17_representation_compare.py -q
+```
+
+The 112 new regressions bring v1.7 to 4,467. They exercise real unchanged scores
+and divergence findings, empty/Unicode/boundary inputs, both-source bindings,
+strict and forged protocols, child resource limits and API tripwires, deadlines,
+interruption cleanup, unavailable platforms, symlinks/FIFOs, snapshot reuse,
+exclusive private outputs, and case-pipeline review behavior. The pure comparison
+API is unchanged and still needs caller-managed bounds.
+
+Source and extracted full gates now require 90 checks. Independent package
+verification requires complete bounded comparison support when present and
+preserves prior package contracts. The existing 23-profile coverage campaign does
+not claim to fuzz this worker or verify rendering. See
+[Bounded representation comparison](docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md).

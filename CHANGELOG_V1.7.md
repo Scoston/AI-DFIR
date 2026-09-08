@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: bounded representation comparison
+
+- fixed Linux worker for two strict UTF-8 snapshots, 16 KiB per source, 3 CPU seconds, 256 MiB address space, 5-second parent deadline, and 64 KiB response/output caps;
+- exact source/size/character bindings and strict reply validation, preserved v1.2 scores/findings, and explicit high findings for unavailable comparison;
+- standalone and case-pipeline comparison entry points share the boundary and exclusive private report creation; the pipeline records review requirements;
+- 112 regressions, actual worker acceptance, source/extracted gates, historical independent package contracts, and remaining-roadmap qualification requirements;
+- no new dependency or independent-rendering, source-authenticity, OS-isolation, or collection-completeness claim.
+
 ### Unreleased: structured fuzz targets and persistent synthetic corpus
 
 - three fixed targets rebuild bounded ZIP32 headers, sizes, offsets, and CRCs around mutated DOCX XML, font relationships, and member names;

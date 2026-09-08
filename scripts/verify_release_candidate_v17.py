@@ -169,6 +169,12 @@ STRUCTURED_FUZZ_PACKAGE_PATHS = {
     "tests/fixtures/fuzz/v17/structured_cases.json", "docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md",
 }
 
+REPRESENTATION_COMPARE_PACKAGE_PATHS = {
+    "v17_representation_compare.py", "v17_representation_compare_selftest.py", "scripts/representation_compare_worker_v17.py",
+    "tests/test_v17_representation_compare.py", "docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md",
+    "docs/reference/ROADMAP_QUALIFICATION_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -470,6 +476,10 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         if has_structured_fuzz and not (STRUCTURED_FUZZ_PACKAGE_PATHS | FUZZ_TARGET_PACKAGE_PATHS
                 | DOCX_INTAKE_PACKAGE_PATHS | HTML_INTAKE_PACKAGE_PATHS | ARCHIVE_INTAKE_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete structured fuzz and curated corpus package support")
+        has_representation_compare = bool(REPRESENTATION_COMPARE_PACKAGE_PATHS & set(expected))
+        if has_representation_compare and not (REPRESENTATION_COMPARE_PACKAGE_PATHS | CONTENT_INTAKE_PACKAGE_PATHS
+                | {"representation_differential.py", "representation_integrity_analyze.py"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete bounded representation comparison package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -550,6 +560,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_html_intake": has_html_intake,
             "has_content_intake": has_content_intake,
             "has_structured_fuzz": has_structured_fuzz,
+            "has_representation_compare": has_representation_compare,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -671,6 +682,9 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_structured_fuzz_selftest="PASS", v17_structured_fuzz_regression_tests=96,
                                   v17_structured_fuzz_profiles=3, v17_curated_fuzz_cases=8,
                                   v17_structured_fuzz_native_sanitizers=False)
+    if zip_result.get("has_representation_compare"):
+        required_assurance.update(v17_representation_compare_selftest="PASS", v17_representation_compare_regression_tests=112,
+                                  v17_comparison_independent_rendering_verified=False)
     if zip_result.get("has_docx_intake"):
         required_assurance.update(v17_docx_intake_selftest="PASS", v17_docx_intake_regression_tests=133,
                                   v17_docx_independent_rendering_verified=False)
