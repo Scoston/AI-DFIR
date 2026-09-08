@@ -107,9 +107,9 @@ Security review focused on decompression before limits, XML entity/resource
 expansion, package-to-filesystem confusion, malformed font worker responses,
 source replacement, and false completeness claims. Negative regressions exercise
 those boundaries. Independent human review is not implied by these checks.
-HTML/CSS containment now has a separate implemented profile. General text-parser
-CPU/output isolation, PDF, standalone-font intake and independent rendering remain
-separate roadmap work.
+HTML/CSS containment and general text/PDF/standalone-font process boundaries now
+have separate implemented profiles. Independent rendering and broader native
+parser qualification remain separate roadmap work.
 
 ## Dependency
 

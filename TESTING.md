@@ -939,3 +939,25 @@ resources or launch fonts. Actual Atheris execution is separately required in CI
 Independent package verification retains earlier 17/18-profile contracts and
 requires complete HTML/CSS support only when present. See
 [Contained HTML/CSS intake](docs/reference/HTML_INTAKE_V1.7.md).
+
+## 42. Unreleased bounded content workers and report output
+
+```bash
+python v17_content_intake_selftest.py
+python -m pytest tests/test_v17_content_intake.py -q
+```
+
+The 100 new regressions bring the v1.7 total to 4,253. They exercise actual text
+workers, resource-limit probes for all three modes, forged or incomplete child
+results, timeouts/crashes, malformed/oversized output, optional PDF extraction,
+PDF limits and missing fonts/dependencies, source symlinks, unknown extensions,
+standalone font geometry, retained critical findings, and exclusive output across
+the gate and all changed specialist CLIs. Local optional PDF acceptance used
+PyMuPDF 1.28.2; default CI does not require that dependency and verifies the
+unavailable path. This is not complete native PDF qualification.
+
+Source and extracted full gates now require 86 checks. Independent package
+verification requires complete worker support when present and retains earlier
+contracts. The existing 141-test, 20-profile fuzz harness is unchanged and does
+not claim native font/PDF or worker-process fuzz coverage. See
+[Bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md).

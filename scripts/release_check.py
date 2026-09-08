@@ -134,6 +134,7 @@ def main():
     py("v17_fuzz_targets_selftest.py",timeout=60); results["v17_fuzz_targets_selftest"]={"status":"PASS","cases":40,"profiles":20,"coverage_guided":False}
     py("v17_docx_intake_selftest.py",timeout=60); results["v17_docx_intake_selftest"]={"status":"PASS","valid_packages":2,"invalid_packages_rejected":6}
     py("v17_html_intake_selftest.py",timeout=60); results["v17_html_intake_selftest"]={"status":"PASS","valid_html":2,"invalid_html_rejected":6,"valid_css":2,"invalid_css_rejected":4,"contained_resource_fixture":"PASS"}
+    py("v17_content_intake_selftest.py",timeout=60); results["v17_content_intake_selftest"]={"status":"PASS","text_worker_profiles":2,"invalid_text_rejected":2,"pdf_failure_preserves_static_finding":True}
     out=ROOT/".release-test"/f"v16-{uuid.uuid4().hex}"; out.parent.mkdir(parents=True,exist_ok=True); py("v16_selftest.py","--out",out,timeout=420); results["v16_focused"]={"status":"PASS"}
     compatibility("v15_selftest.py",[("version':'1.5","version':'1.6"),("meta['tool_version']=='1.5'","meta['tool_version']=='1.6'")],"v15"); results["v15_compatibility"]={"status":"PASS"}
     if full:
@@ -170,6 +171,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_fuzz_targets.py","-q"],timeout=120); results["v17_fuzz_targets_regression"]={"status":"PASS","tests":141}
         run([sys.executable,"-m","pytest","tests/test_v17_docx_intake.py","-q"],timeout=300); results["v17_docx_intake_regression"]={"status":"PASS","tests":133}
         run([sys.executable,"-m","pytest","tests/test_v17_html_intake.py","-q"],timeout=300); results["v17_html_intake_regression"]={"status":"PASS","tests":88}
+        run([sys.executable,"-m","pytest","tests/test_v17_content_intake.py","-q"],timeout=300); results["v17_content_intake_regression"]={"status":"PASS","tests":100}
         py("scripts/case_exchange_conformance_v17.py",timeout=120); results["v17_case_exchange_conformance"]={"status":"PASS","case_version":"1.5.0","valid_graphs":1,"invalid_graphs_rejected":4}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}

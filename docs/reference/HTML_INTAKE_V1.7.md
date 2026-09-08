@@ -77,9 +77,9 @@ These controls are not an OS sandbox or native parser qualification.
 
 The gate reuses the same HTML snapshot for font, Unicode, terminal, and markup
 analyses. Other supported text inputs now also receive bounded snapshot reads;
-invalid encoding/size becomes a high `text_parse_failure`. CPU/output isolation
-for those general text analyzers, standalone-font and PDF boundaries, and safer
-general gate CLI output remain subsequent roadmap work.
+invalid encoding/size becomes a high `text_parse_failure`. General text/PDF
+processing, standalone-font boundaries, and exclusive gate/specialist CLI output
+now use the separate [bounded content worker profile](CONTENT_WORKERS_V1.7.md).
 
 ## Evidence and validation
 

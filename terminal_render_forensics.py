@@ -26,9 +26,6 @@ def analyze(text):
     return {"schema":"ai-dfir/terminal-render-analysis/v1.2","csi_count":len(csi),"osc_count":len(osc),"findings":findings,
             "rule":"Analyzer surfaces control sequences; it never renders or interprets them in a terminal."}
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument("path");ap.add_argument("--out")
-    a=ap.parse_args();obj=analyze(Path(a.path).read_text(encoding="utf-8",errors="replace"))
-    s=json.dumps(obj,indent=2,sort_keys=True)
-    if a.out:Path(a.out).write_text(s)
-    else:print(s)
+    from v17_content_intake import text_cli
+    text_cli("terminal")
 if __name__=="__main__":main()

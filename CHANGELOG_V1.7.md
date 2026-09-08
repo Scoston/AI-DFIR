@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: bounded content workers and file/report entry points
+
+- fixed Linux text/markup/PDF worker modes with immutable piped input, CPU/memory/elapsed/output limits, and strict source-bound response validation;
+- bounded in-memory optional PDF extraction, explicit incomplete-font/backend findings, and retained raw structural leads;
+- bounded standalone-font handling, high findings for unsupported/failed analysis, and review for unknown file types;
+- gate and specialist Unicode/markup/terminal/document/font CLI output now uses private exclusive creation and byte caps;
+- 100 regressions, real worker self-test, optional PyMuPDF 1.28.2 synthetic acceptance, and conditional source/extracted/independent package gates;
+- no new default dependency, independent rendering, OS sandbox, or complete native parser qualification claim.
+
 ### Unreleased: contained HTML/CSS intake
 
 - directory-handle resource reads, no-follow component traversal, bounded snapshots, and safe stylesheet-relative font references;

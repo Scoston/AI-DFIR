@@ -297,6 +297,15 @@ def required_v17_paths() -> set[str]:
         "v17_html_intake_selftest.py",
         "tests/test_v17_html_intake.py",
         "docs/reference/HTML_INTAKE_V1.7.md",
+        "v17_content_intake.py",
+        "v17_content_intake_selftest.py",
+        "scripts/content_worker_v17.py",
+        "tests/test_v17_content_intake.py",
+        "docs/reference/CONTENT_WORKERS_V1.7.md",
+        "unicode_forensics.py",
+        "terminal_render_forensics.py",
+        "markup_representation_forensics.py",
+        "requirements-pdf-agpl.txt",
         "evil_font_forensics.py",
         "requirements.txt",
         "v17_archive_intake_selftest.py",
@@ -425,6 +434,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_fuzz_targets_selftest": "PASS",
         "v17_docx_intake_selftest": "PASS",
         "v17_html_intake_selftest": "PASS",
+        "v17_content_intake_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -548,6 +558,13 @@ def require_extracted_v17_checks(report: dict) -> None:
     if any(html_seeds.get(k) != v for k, v in {"valid_html": 2, "invalid_html_rejected": 6, "valid_css": 2,
             "invalid_css_rejected": 4, "contained_resource_fixture": "PASS"}.items()):
         raise RuntimeError("extracted package must pass HTML/CSS parser and contained-resource acceptance")
+    content = checks.get("v17_content_intake_regression")
+    if not isinstance(content, dict) or content.get("status") != "PASS" or content.get("tests") != 100:
+        raise RuntimeError("extracted package must pass all 100 bounded content worker regression tests")
+    content_seeds = checks["v17_content_intake_selftest"]
+    if (content_seeds.get("text_worker_profiles") != 2 or content_seeds.get("invalid_text_rejected") != 2
+            or content_seeds.get("pdf_failure_preserves_static_finding") is not True):
+        raise RuntimeError("extracted package must pass real text workers and preserve failed-PDF structural findings")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -832,6 +849,9 @@ def main() -> None:
                 "v17_html_intake_selftest": "PASS",
                 "v17_html_intake_regression_tests": 88,
                 "v17_html_independent_rendering_verified": False,
+                "v17_content_intake_selftest": "PASS",
+                "v17_content_intake_regression_tests": 100,
+                "v17_content_independent_rendering_verified": False,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

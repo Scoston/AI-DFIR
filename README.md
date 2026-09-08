@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md)
+limit text and optional PDF processing, reuse the bounded standalone-font worker,
+and require review for incomplete analysis or unknown formats. Gate and specialist
+CLI reports use exclusive private output to protect existing files and evidence.
+
 The unreleased [contained HTML/CSS intake](docs/reference/HTML_INTAKE_V1.7.md)
 binds exact source/resource bytes and confines local stylesheet/font reads to the
 evidence folder. It rejects symlink escapes and excessive input, marks unsupported
