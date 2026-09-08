@@ -1,7 +1,7 @@
 # Coverage-guided parser fuzzing (development)
 
 The optional Atheris 3.1.0 job uses Python bytecode coverage to choose mutations
-of committed synthetic provider responses, request contexts, archive inputs, and selected-part DOCX inputs.
+of committed synthetic provider responses, request contexts, archives, selected-part DOCX, and static HTML/CSS.
 It complements the pinned finite parser and archive campaigns. It does not
 acquire evidence, run queries, load user-selected parsers, or change quality gates.
 
@@ -53,10 +53,13 @@ by raw input bytes. Selector order is part of the v1.7 harness profile.
 | 15 | bzip2-wrapped TAR metadata |
 | 16 | xz-wrapped TAR metadata |
 | 17 | DOCX selected parts (ZIP/XML; no font child) |
+| 18 | Static HTML observations (no resource reads) |
+| 19 | Static CSS font-face observations (no resource reads) |
 
-Empty inputs and selectors above 17 are ignored; selected empty payloads must
-reject. Before starting the engine, all 18 valid synthetic seeds must accept and
-all 18 selected empty payloads must reject. The source/output manifest is pinned
+Empty inputs and selectors above 19 are ignored; selected empty payloads must
+reject in the harness, including otherwise-valid empty HTML/CSS. Before starting
+the engine, all 20 valid synthetic seeds must accept and all 20 selected empty
+payloads must reject. The source/output manifest is pinned
 by the engine-independent self-test. No real provider exports enter this corpus.
 Context mutations retain a separate fixed synthetic response.
 
@@ -69,6 +72,9 @@ repeated outcomes fail the engine. Expected parser rejection is a normal result.
 DOCX observations must retain source and selected-part size/hash bindings, checked
 selected CRCs, and unverified rendering/authenticity/completeness claims. Font
 bytes are opaque to this target; geometry workers are not part of the campaign.
+Static HTML/CSS observations retain exact source hashes and bounded output, with
+filesystem loading, geometry, authenticity, and rendering claims false. They do
+not exercise directory-handle acquisition or font worker execution.
 Coverage does not imply that every format's deep paths were exercised equally.
 
 ## Limits and isolation
@@ -103,8 +109,8 @@ failure inputs for 14 days, including when the campaign step fails. They do not
 upload the evolving corpus. Dependency/install failures fail the job; they do
 not silently skip coverage testing.
 
-Source and extracted full release gates require 125 engine-independent harness
-regressions (including both workflow YAML files) and a 36-case, 18-profile pinned preflight. These gates do **not**
+Source and extracted full release gates require 141 engine-independent harness
+regressions (including both workflow YAML files) and a 40-case, 20-profile pinned preflight. These gates do **not**
 claim to have run Atheris. The release manifest explicitly records the preflight
 as `coverage_guided: false`; the optional engine has its own CI/run report.
 The independent package verifier checks the complete harness and those claims.

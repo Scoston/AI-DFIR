@@ -232,6 +232,27 @@ def parse_css(text):
     return faces, findings
 
 
+def inspect_static(raw, *, input_format):
+    """Pure bounded observation for synthetic fuzzing; never loads resources."""
+    require(type(raw) is bytes and input_format in {"html", "css"})
+    require(len(raw) <= (MAX_HTML_BYTES if input_format == "html" else MAX_CSS_BYTES))
+    try:
+        if input_format == "html":
+            observations = parse_html(raw)
+        else:
+            faces, findings = parse_css(raw.decode("utf-8", errors="strict"))
+            observations = {"font_faces": faces, "findings": findings}
+        report = {"schema": SCHEMA + "/static", "input_format": input_format,
+                  "source_sha256": sha256_bytes(raw), "source_size_bytes": len(raw), "observations": observations,
+                  "filesystem_resources_loaded": False, "font_geometry_verified": False,
+                  "source_authenticity_verified": False, "complete_visible_rendering_verified": False,
+                  "collection_complete": None, "network_required": False}
+        require(len(canonical_json_bytes(report)) <= MAX_OUTPUT_BYTES)
+        return report
+    except (ValueError, RecursionError) as exc:
+        raise ProvenanceError("invalid, unsupported, or excessive static HTML/CSS") from exc
+
+
 def capture(path):
     path = Path(path).absolute(); resources = Resources(path.parent)
     try:

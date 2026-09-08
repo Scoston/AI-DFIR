@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: contained HTML/CSS intake
+
+- directory-handle resource reads, no-follow component traversal, bounded snapshots, and safe stylesheet-relative font references;
+- restricted HTMLParser/tinycss2 static observations, explicit unresolved/import/base/unsupported findings, and selected-resource receipts;
+- shared HTML snapshot throughout the content gate, bounded other text reads, fixed font-worker reuse, and private exclusive HTML CLI output;
+- 88 HTML/CSS regressions, synthetic contained-resource acceptance, and source/extracted/independent package gates;
+- two pure static fuzz targets expand the harness to 20 profiles, 40 preflight cases, and 141 regressions; tinycss2 is a BSD-3-Clause runtime dependency;
+- no CSS cascade, JavaScript, complete resource inventory, atomic collection, or independent rendering claim.
+
 ### Unreleased: bounded DOCX intake and embedded-font analysis
 
 - immutable ZIP snapshot, selected-part expansion and XML tree budgets, DTD/entity rejection, and strict package-name/relationship handling;

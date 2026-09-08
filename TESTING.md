@@ -917,3 +917,25 @@ font workers. Actual Atheris campaigns remain separately reported; release
 assurance explicitly leaves independent rendering false. The independent
 package verifier retains historical pre-DOCX contracts. See
 [Bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md).
+
+## 41. Unreleased contained HTML/CSS intake
+
+```bash
+python v17_html_intake_selftest.py
+python -m pytest tests/test_v17_html_intake.py tests/test_v17_fuzz_targets.py -q
+```
+
+The 88 HTML/CSS regressions and sixteen additional fuzz-harness cases bring the
+v1.7 total to 4,153. They cover safe and escaping relative references, symlinks,
+CSS escapes, parser/resource budgets, malformed and unsupported inputs, unknown
+font analysis, actual geometry, anchored-root replacement, cached source bytes,
+cross-analyzer snapshot reuse, named pipes, strict text decoding, existing
+critical findings, and private exclusive output.
+
+Current source and extracted full gates require 84 checks, including the new
+contained-resource self-test and regressions. The expanded harness has 141 tests
+and a pinned 40-case/20-profile preflight; pure HTML/CSS observations never load
+resources or launch fonts. Actual Atheris execution is separately required in CI.
+Independent package verification retains earlier 17/18-profile contracts and
+requires complete HTML/CSS support only when present. See
+[Contained HTML/CSS intake](docs/reference/HTML_INTAKE_V1.7.md).

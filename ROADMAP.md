@@ -8,17 +8,26 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Contained HTML/CSS intake is implemented in development: directory-handle local
+reads, no resource symlinks, safe stylesheet-relative references, strict bounded
+source/parser/resource profiles, selected-byte receipts, and explicit unresolved
+resources. The content gate reuses one HTML snapshot and bounds other text reads.
+There are 88 regressions and two pure static fuzz profiles. Next work is CPU/output
+isolation for general text analyzers, standalone-font/PDF intake boundaries, and
+exclusive general gate output. Independent rendering remains open. See
+[Contained HTML/CSS intake](docs/reference/HTML_INTAKE_V1.7.md).
+
 Bounded selected-part DOCX intake is implemented in development: immutable source
 binding, ZIP/XML/font budgets, forbidden DTD/entities, literal internal font
 relationships, selected CRC/size verification, explicit uninspected scope, and
 resource-limited embedded-font geometry. There are 133 regressions and a pure
-DOCX loader fuzz target. Next document work is HTML/CSS local-resource containment
-and bounded text/font intake, followed by broader PDF/native parser boundaries;
+DOCX loader fuzz target. HTML/CSS containment is now implemented; remaining work
+includes general text/font intake and broader PDF/native parser boundaries;
 independent rendering remains unqualified. See
 [Bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md).
 
-Coverage-guided parser fuzzing is implemented in development: 18 fixed synthetic
-provider/context/archive/DOCX profiles, Atheris bytecode instrumentation, repeated
+Coverage-guided parser fuzzing is implemented in development: 20 fixed synthetic
+provider/context/archive/DOCX/HTML/CSS profiles, Atheris bytecode instrumentation, repeated
 replay and claim oracles, bounded child execution, retained failure diagnostics,
 required PR/main campaigns, and a larger scheduled/manual campaign. Source and
 extracted gates separately validate the engine-independent harness and pinned

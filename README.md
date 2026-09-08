@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [contained HTML/CSS intake](docs/reference/HTML_INTAKE_V1.7.md)
+binds exact source/resource bytes and confines local stylesheet/font reads to the
+evidence folder. It rejects symlink escapes and excessive input, marks unsupported
+resources for review, and reuses the same HTML snapshot across the intake gate.
+
 The unreleased [bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md) validates
 one source snapshot, limits selected ZIP/XML/font processing, and rejects XML
 entities and ambiguous package paths. Embedded-font geometry runs in a resource-
@@ -13,7 +18,8 @@ limited child; unavailable analysis requires review. Uninspected parts and
 complete visible rendering remain explicitly unverified.
 
 The unreleased [coverage-guided fuzzing job](docs/reference/COVERAGE_FUZZING_V1.7.md)
-mutates synthetic inputs across twelve provider/context, five archive, and one DOCX profile.
+mutates synthetic inputs across twelve provider/context, five archive, one DOCX,
+and two static HTML/CSS profiles.
 CI requires actual Atheris execution, replay and claim checks, bounded process
 resources, and retained diagnostics; the weekly workflow runs a larger campaign.
 
