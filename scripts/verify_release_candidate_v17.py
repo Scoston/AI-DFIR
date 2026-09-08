@@ -149,6 +149,11 @@ FUZZ_TARGET_PACKAGE_PATHS = {
     "requirements-fuzz.txt", "docs/reference/COVERAGE_FUZZING_V1.7.md",
 }
 
+DOCX_INTAKE_PACKAGE_PATHS = {
+    "v17_docx_intake.py", "v17_docx_font.py", "v17_docx_intake_selftest.py",
+    "scripts/docx_font_worker_v17.py", "tests/test_v17_docx_intake.py", "docs/reference/DOCX_INTAKE_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -433,6 +438,10 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         has_fuzz_targets = bool(FUZZ_TARGET_PACKAGE_PATHS & set(expected))
         if has_fuzz_targets and not (FUZZ_TARGET_PACKAGE_PATHS | PARSER_CORPUS_PACKAGE_PATHS | ARCHIVE_INTAKE_PACKAGE_PATHS).issubset(expected):
             raise ReleaseCandidateError("incomplete coverage fuzz target package support")
+        has_docx_intake = bool(DOCX_INTAKE_PACKAGE_PATHS & set(expected))
+        if has_docx_intake and not (DOCX_INTAKE_PACKAGE_PATHS | ARCHIVE_INTAKE_PACKAGE_PATHS | {
+                "evil_font_forensics.py", "content_intake_gate.py", "requirements.txt", "v17_integrity.py", "v17_provenance.py"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete bounded DOCX intake package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -509,6 +518,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_case_exchange": has_case_exchange,
             "has_archive_intake": has_archive_intake,
             "has_fuzz_targets": has_fuzz_targets,
+            "has_docx_intake": has_docx_intake,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -621,8 +631,14 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_archive_intake_selftest="PASS", v17_archive_intake_regression_tests=190,
                                   v17_archive_intake_cases=680)
     if zip_result.get("has_fuzz_targets"):
-        required_assurance.update(v17_fuzz_targets_selftest="PASS", v17_fuzz_targets_regression_tests=115,
-                                  v17_fuzz_target_profiles=17, v17_fuzz_preflight_coverage_guided=False)
+        # Preserve the original seventeen-profile package assurance contract.
+        required_assurance.update(v17_fuzz_targets_selftest="PASS",
+                                  v17_fuzz_targets_regression_tests=125 if zip_result.get("has_docx_intake") else 115,
+                                  v17_fuzz_target_profiles=18 if zip_result.get("has_docx_intake") else 17,
+                                  v17_fuzz_preflight_coverage_guided=False)
+    if zip_result.get("has_docx_intake"):
+        required_assurance.update(v17_docx_intake_selftest="PASS", v17_docx_intake_regression_tests=133,
+                                  v17_docx_independent_rendering_verified=False)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):

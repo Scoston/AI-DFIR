@@ -90,7 +90,7 @@ def test_exact_duplicate_member_rejected():
     with pytest.raises(ProvenanceError): intake.load_docx(stream.getvalue())
 
 
-@pytest.mark.parametrize("mode", [stat.S_IFLNK, stat.S_IFIFO, stat.S_IFCHR])
+@pytest.mark.parametrize("mode", [stat.S_IFLNK, stat.S_IFIFO, stat.S_IFCHR, stat.S_IFDIR])
 def test_nonregular_members(mode):
     raw = bytearray(package())
     struct.pack_into("<I", raw, raw.index(b"PK\x01\x02") + 38, (mode | 0o600) << 16)

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import stat
 import struct
 import zipfile
 import zlib
@@ -135,6 +136,9 @@ def load_docx(raw):
     try:
         with zipfile.ZipFile(io.BytesIO(raw)) as container:
             infos = {info.orig_filename: info for info in container.infolist()}
+            for info in infos.values():
+                mode = stat.S_IFMT(info.external_attr >> 16)
+                require(mode in ({0, stat.S_IFDIR} if info.is_dir() else {0, stat.S_IFREG}))
             require("word/document.xml" in infos and not infos["word/document.xml"].is_dir())
 
             def retain(name, limit, role):

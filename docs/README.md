@@ -17,6 +17,7 @@
 - [Verified CASE/UCO Inventory Exchange (development)](reference/CASE_EXCHANGE_V1.7.md)
 - [Bounded Archive Intake and Hostile Corpus (development)](reference/ARCHIVE_INTAKE_V1.7.md)
 - [Coverage-guided Parser and Archive Fuzzing (development)](reference/COVERAGE_FUZZING_V1.7.md)
+- [Bounded DOCX Intake and Embedded-font Analysis (development)](reference/DOCX_INTAKE_V1.7.md)
 - [Witnessed Private Transparency Proofs (development)](reference/PRIVATE_TRANSPARENCY_V1.7.md)
 - [Deterministic Hostile-input Parser Corpus (development)](reference/PARSER_HOSTILE_CORPUS_V1.7.md)
 - [Azure Activity Log Import and Replay (development)](reference/AZURE_ACTIVITY_REPLAY_V1.7.md)
