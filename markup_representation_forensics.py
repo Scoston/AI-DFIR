@@ -46,9 +46,6 @@ def analyze(text):
             "decoded_source_sha256":__import__("hashlib").sha256(entity_delta.encode()).hexdigest()}
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument("path");ap.add_argument("--out")
-    a=ap.parse_args();obj=analyze(Path(a.path).read_text(encoding="utf-8",errors="replace"))
-    s=json.dumps(obj,indent=2,sort_keys=True)
-    if a.out:Path(a.out).write_text(s)
-    else:print(s)
+    from v17_content_intake import text_cli
+    text_cli("markup")
 if __name__=="__main__":main()

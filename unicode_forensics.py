@@ -73,9 +73,6 @@ def analyze(text):
             "tag_payloads":[r["decoded"] for r in runs if r["category"]=="tag" and r.get("decoded")]}
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument("path");ap.add_argument("--out")
-    a=ap.parse_args();text=Path(a.path).read_text(encoding="utf-8",errors="replace");obj=analyze(text)
-    s=json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=False)
-    if a.out:Path(a.out).write_text(s,encoding="utf-8")
-    else:print(s)
+    from v17_content_intake import text_cli
+    text_cli("unicode")
 if __name__=="__main__":main()

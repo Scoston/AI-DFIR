@@ -8,22 +8,30 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Bounded text/PDF workers, standalone-font intake, and exclusive report output are
+implemented in development. Fixed Linux processes cap CPU, address space, elapsed
+time, and response bytes; exact source bindings and strict result checks preserve
+unknowns. The gate and specialist text/document/font CLIs use these boundaries,
+with 100 regressions and optional synthetic PyMuPDF acceptance. Broader native
+sanitizer/format qualification, persistent fuzz corpus curation, and independent
+rendering remain open. See [Bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md).
+
 Contained HTML/CSS intake is implemented in development: directory-handle local
 reads, no resource symlinks, safe stylesheet-relative references, strict bounded
 source/parser/resource profiles, selected-byte receipts, and explicit unresolved
 resources. The content gate reuses one HTML snapshot and bounds other text reads.
-There are 88 regressions and two pure static fuzz profiles. Next work is CPU/output
-isolation for general text analyzers, standalone-font/PDF intake boundaries, and
-exclusive general gate output. Independent rendering remains open. See
+There are 88 regressions and two pure static fuzz profiles. General text/PDF
+processing and standalone-font/gate output now have a separate bounded worker
+profile. Independent rendering remains open. See
 [Contained HTML/CSS intake](docs/reference/HTML_INTAKE_V1.7.md).
 
 Bounded selected-part DOCX intake is implemented in development: immutable source
 binding, ZIP/XML/font budgets, forbidden DTD/entities, literal internal font
 relationships, selected CRC/size verification, explicit uninspected scope, and
 resource-limited embedded-font geometry. There are 133 regressions and a pure
-DOCX loader fuzz target. HTML/CSS containment is now implemented; remaining work
-includes general text/font intake and broader PDF/native parser boundaries;
-independent rendering remains unqualified. See
+DOCX loader fuzz target. HTML/CSS containment and general text/font/PDF process
+boundaries are now implemented; broader native parser qualification and
+independent rendering remain open. See
 [Bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md).
 
 Coverage-guided parser fuzzing is implemented in development: 20 fixed synthetic

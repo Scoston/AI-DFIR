@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 import os
 from pathlib import Path
 import re
@@ -125,6 +126,29 @@ def font_file(path):
               "independent_rendering_verified": False, "collection_complete": None, "network_required": False}
     require(len(canonical_json_bytes(report)) <= OUTPUT_BYTES)
     return report
+
+
+def text_cli(domain):
+    """Shared safe file/worker/output path for the three specialist text CLIs."""
+    require(domain in {"unicode", "terminal", "markup"})
+    parser = argparse.ArgumentParser(); parser.add_argument("path"); parser.add_argument("--out")
+    args = parser.parse_args()
+    try:
+        raw = read_snapshot(args.path, TEXT_BYTES)
+        worker = run_worker(raw, mode="markup" if domain == "markup" else "plain")
+        available = worker.get("available") is True
+        report = worker["analyses"][domain] if available else {
+            "schema": SCHEMA, "findings": [{"type": "text_analysis_incomplete", "severity": "high"}]}
+        report["intake"] = {"source_sha256": sha256_bytes(raw), "source_size_bytes": len(raw),
+                            "analysis_available": available, "source_authenticity_verified": False,
+                            "independent_rendering_verified": False, "collection_complete": None, "network_required": False}
+        output_report(report, args.out)
+    except KeyboardInterrupt:
+        raise SystemExit(130)
+    except Exception:
+        print(json.dumps({"status": "FAIL", "error": "invalid, unsupported, excessive text or unavailable output"}))
+        raise SystemExit(1)
+    raise SystemExit(0 if available else 1)
 
 
 def pdf_file(path):

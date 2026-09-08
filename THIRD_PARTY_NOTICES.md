@@ -13,6 +13,8 @@ substitute for the upstream license text.
 | asn1crypto | RFC 3161 request/response ASN.1 parsing | MIT | yes |
 | OpenSSL 3 executable | offline timestamp signature and certificate-chain verification | Apache-2.0 | operator-installed for timestamps |
 | fontTools | font/glyph analysis | MIT | yes |
+| defusedxml | bounded DOCX XML parsing | PSF License | yes |
+| tinycss2 | bounded static CSS syntax parsing | BSD-3-Clause | yes |
 | NumPy | numeric analysis | BSD-3-Clause | yes |
 | pandas | data analysis | BSD-3-Clause | yes |
 | scikit-learn | statistical/ML analysis | BSD-3-Clause | yes |

@@ -291,7 +291,9 @@ def main():
         elif ext in (".html",".htm"):obj=analyze_html(a.path)
         elif ext==".pdf":obj=analyze_pdf(a.path)
         elif ext in (".ttf",".otf",".woff",".woff2"):
-            obj={"schema":"ai-dfir/font-analysis/v1.2","font":bounded_content.font_file(a.path)}
+            report=bounded_content.font_file(a.path)
+            obj={"schema":"ai-dfir/font-analysis/v1.2","font":{**report["analysis"],"findings":report["findings"]},
+                 "intake":{k:v for k,v in report.items() if k not in {"analysis","findings"}}}
         else:raise ValueError("unsupported document")
         bounded_content.output_report(obj,a.out)
     except KeyboardInterrupt:raise SystemExit(130)

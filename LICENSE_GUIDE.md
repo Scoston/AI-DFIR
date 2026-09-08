@@ -13,7 +13,8 @@ artifacts, standards, or external services.
 ## Important optional PDF dependency
 
 `evil_font_forensics.py` can use PyMuPDF (`fitz`) when it is installed, but the
-module degrades safely when it is absent. PyMuPDF is offered by Artifex under
+bounded worker preserves raw structural leads and reports unavailable extraction
+for review when it is absent. PyMuPDF is offered by Artifex under
 AGPL and commercial licensing. For that reason AI-DFIR does **not** install it
 in the default requirements.
 

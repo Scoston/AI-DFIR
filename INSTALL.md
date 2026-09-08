@@ -49,9 +49,11 @@ licensed under AGPL or commercial terms. Read `LICENSE_GUIDE.md` before:
 ./install.sh pdf-agpl
 ```
 
-AI-DFIR's raw PDF structural checks still run without PyMuPDF; independent
+AI-DFIR's bounded raw PDF structural checks still run without PyMuPDF. The
+unreleased content worker profile reports unavailable extraction as requiring
+review, while retaining existing critical structural findings. Independent
 render/vision output can also be supplied to the representation-differential
-workflow.
+workflow; the bounded worker does not provide an independent renderer.
 
 ## Verify the checkout before installation
 

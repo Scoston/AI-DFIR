@@ -303,6 +303,13 @@ def test_gate_cli_exclusive_output(kind, tmp_path):
 @pytest.mark.parametrize('suffix,raw', [('.pdf', PDF), ('.ttf', FONT)])
 def test_pdf_font_cli_refuses_source_overwrite(suffix, raw, tmp_path):
     path = tmp_path / ('source' + suffix); path.write_bytes(raw)
+    read = subprocess.run([sys.executable, str(ROOT / 'evil_font_forensics.py'), str(path)], capture_output=True, timeout=20)
+    assert read.returncode == 0
+    report = json.loads(read.stdout)
+    if suffix == '.ttf':
+        assert report['font']['available'] == (sys.platform == 'linux')
+        assert report['intake']['source_sha256'] == sha256_bytes(raw)
+    else: assert report['pdf_sha256'] == sha256_bytes(raw)
     result = subprocess.run([sys.executable, str(ROOT / 'evil_font_forensics.py'), str(path), '--out', str(path)], capture_output=True, timeout=20)
     assert result.returncode == 1 and path.read_bytes() == raw
 
@@ -311,6 +318,26 @@ def test_private_output_limit_precedes_creation(tmp_path):
     output = tmp_path / 'report.json'
     with pytest.raises(ProvenanceError): intake.output_report({'large': 'x' * 100}, output, limit=20)
     assert not output.exists()
+
+
+@pytest.mark.parametrize('script', ['unicode_forensics.py', 'terminal_render_forensics.py', 'markup_representation_forensics.py'])
+@pytest.mark.parametrize('kind', ['new', 'existing', 'symlink', 'source'])
+def test_specialist_text_cli_uses_bounded_exclusive_output(script, kind, tmp_path):
+    source = tmp_path / 'source.txt'; source.write_bytes(TEXT)
+    output = tmp_path / 'report.json'
+    if kind == 'existing': output.write_bytes(b'keep')
+    if kind == 'symlink': output.symlink_to(source)
+    if kind == 'source': output = source
+    result = subprocess.run([sys.executable, str(ROOT / script), str(source), '--out', str(output)], capture_output=True, timeout=10)
+    assert source.read_bytes() == TEXT
+    if kind == 'new':
+        assert result.returncode == (0 if sys.platform == 'linux' else 1)
+        report = json.loads(output.read_bytes())
+        assert output.stat().st_mode & 0o777 == 0o600 and report['intake']['source_sha256'] == sha256_bytes(TEXT)
+        assert report['intake']['independent_rendering_verified'] is False
+    else:
+        assert result.returncode == 1 and json.loads(result.stdout)['status'] == 'FAIL'
+        if kind == 'existing': assert output.read_bytes() == b'keep'
 
 
 def test_selftest():

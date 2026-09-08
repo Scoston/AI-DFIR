@@ -159,6 +159,11 @@ HTML_INTAKE_PACKAGE_PATHS = {
     "docs/reference/HTML_INTAKE_V1.7.md",
 }
 
+CONTENT_INTAKE_PACKAGE_PATHS = {
+    "v17_content_intake.py", "v17_content_intake_selftest.py", "scripts/content_worker_v17.py",
+    "tests/test_v17_content_intake.py", "docs/reference/CONTENT_WORKERS_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -451,6 +456,11 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         if has_html_intake and not (HTML_INTAKE_PACKAGE_PATHS | DOCX_INTAKE_PACKAGE_PATHS | FUZZ_TARGET_PACKAGE_PATHS | {
                 "evil_font_forensics.py", "content_intake_gate.py", "requirements.txt", "v17_integrity.py", "v17_provenance.py"}).issubset(expected):
             raise ReleaseCandidateError("incomplete contained HTML/CSS intake package support")
+        has_content_intake = bool(CONTENT_INTAKE_PACKAGE_PATHS & set(expected))
+        if has_content_intake and not (CONTENT_INTAKE_PACKAGE_PATHS | HTML_INTAKE_PACKAGE_PATHS | DOCX_INTAKE_PACKAGE_PATHS | {
+                "evil_font_forensics.py", "content_intake_gate.py", "unicode_forensics.py", "terminal_render_forensics.py",
+                "markup_representation_forensics.py", "requirements-pdf-agpl.txt"}).issubset(expected):
+            raise ReleaseCandidateError("incomplete bounded content worker package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -529,6 +539,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_fuzz_targets": has_fuzz_targets,
             "has_docx_intake": has_docx_intake,
             "has_html_intake": has_html_intake,
+            "has_content_intake": has_content_intake,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -652,6 +663,9 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
     if zip_result.get("has_html_intake"):
         required_assurance.update(v17_html_intake_selftest="PASS", v17_html_intake_regression_tests=88,
                                   v17_html_independent_rendering_verified=False)
+    if zip_result.get("has_content_intake"):
+        required_assurance.update(v17_content_intake_selftest="PASS", v17_content_intake_regression_tests=100,
+                                  v17_content_independent_rendering_verified=False)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)
     if zip_result.get("has_timestamps"):
