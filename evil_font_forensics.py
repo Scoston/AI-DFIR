@@ -17,11 +17,12 @@ Detection layers:
 The tool-specific IOCs are never required for the generic remapped-glyph finding.
 """
 from __future__ import annotations
-import argparse, hashlib, io, json, os, re, time
+import argparse, hashlib, io, json, re, time
 from collections import Counter, defaultdict
 from pathlib import Path
 import v17_docx_intake as docx_intake
 import v17_html_intake as html_intake
+import v17_content_intake as bounded_content
 from v17_docx_font import analyze as bounded_docx_font
 from v17_integrity import canonical_json_bytes
 
@@ -280,62 +281,21 @@ def analyze_html(path, *, captured=None):
     return report
 
 def analyze_pdf(path):
-    findings=[];fonts=[];text=""
-    raw=Path(path).read_bytes()
-    if re.search(rb"(?<!\d)3\s+Tr\b",raw):
-        findings.append({"type":"pdf_invisible_text_render_mode_3","severity":"critical"})
-    image_markers=len(re.findall(rb"/Subtype\s*/Image\b",raw))
-    try:
-        import fitz
-        doc=fitz.open(path);pages=len(doc)
-        for page in doc:
-            text += page.get_text()
-            for f in page.get_fonts(full=True):
-                xref=f[0]
-                if not xref:continue
-                if any(x.get("xref")==xref for x in fonts):continue
-                try:
-                    name,ext,ftype,content=doc.extract_font(xref)
-                    item={"xref":xref,"name":name,"ext":ext,"type":ftype,
-                          "analysis":analyze_font_bytes(content,name)}
-                    fonts.append(item)
-                    findings += [{**x,"font_name":name,"font_xref":xref} for x in item["analysis"].get("findings",[])]
-                except Exception as e:
-                    fonts.append({"xref":xref,"error":repr(e)})
-        if pages and image_markers>=pages and len(text.strip())>=50:
-            findings.append({"type":"pdf_image_dominant_with_machine_text_layer","severity":"high",
-                             "pages":pages,"image_markers":image_markers,"extracted_text_chars":len(text)})
-    except Exception as e:
-        pages=None
-    return {"schema":"ai-dfir/evil-font-pdf-analysis/v1.2","path":str(Path(path).resolve()),
-            "pdf_sha256":hashlib.sha256(raw).hexdigest(),"image_markers":image_markers,
-            "extracted_text_sha256":hashlib.sha256(text.encode()).hexdigest() if text else None,
-            "embedded_fonts":fonts,"findings":findings}
+    return bounded_content.pdf_file(path)
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument("path");ap.add_argument("--out")
     a=ap.parse_args();ext=Path(a.path).suffix.lower()
-    if ext in (".docx",".html",".htm"):
-        try:
-            obj=analyze_docx(a.path) if ext==".docx" else analyze_html(a.path)
-            txt=json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=True)
-            raw=(txt+"\n").encode("utf-8")
-            docx_intake.require(len(raw)<=docx_intake.MAX_OUTPUT_BYTES)
-            if a.out:
-                fd=os.open(a.out,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
-                with os.fdopen(fd,"wb") as output:
-                    output.write(raw);output.flush();os.fsync(output.fileno())
-            else:print(txt)
-        except KeyboardInterrupt:raise SystemExit(130)
-        except Exception:
-            print(json.dumps({"status":"FAIL","error":"invalid, unsupported, excessive document or unavailable output"}))
-            raise SystemExit(1)
-        return
-    elif ext==".pdf":obj=analyze_pdf(a.path)
-    elif ext in (".ttf",".otf",".woff",".woff2"):
-        obj={"schema":"ai-dfir/font-analysis/v1.2","font":analyze_font_bytes(Path(a.path).read_bytes(),Path(a.path).name)}
-    else:raise SystemExit("supported: DOCX, PDF, TTF/OTF/WOFF/WOFF2")
-    txt=json.dumps(obj,indent=2,sort_keys=True,default=str)
-    if a.out:Path(a.out).write_text(txt)
-    else:print(txt)
+    try:
+        if ext==".docx":obj=analyze_docx(a.path)
+        elif ext in (".html",".htm"):obj=analyze_html(a.path)
+        elif ext==".pdf":obj=analyze_pdf(a.path)
+        elif ext in (".ttf",".otf",".woff",".woff2"):
+            obj={"schema":"ai-dfir/font-analysis/v1.2","font":bounded_content.font_file(a.path)}
+        else:raise ValueError("unsupported document")
+        bounded_content.output_report(obj,a.out)
+    except KeyboardInterrupt:raise SystemExit(130)
+    except Exception:
+        print(json.dumps({"status":"FAIL","error":"invalid, unsupported, excessive document or unavailable output"}))
+        raise SystemExit(1)
 if __name__=="__main__":main()
