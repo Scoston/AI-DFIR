@@ -8,12 +8,21 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Coverage-guided parser fuzzing is implemented in development: 17 fixed synthetic
+provider/context/archive profiles, Atheris bytecode instrumentation, repeated
+replay and claim oracles, bounded child execution, retained failure diagnostics,
+required PR/main campaigns, and a larger scheduled/manual campaign. Source and
+extracted gates separately validate the engine-independent harness and pinned
+preflight. Persistent corpus curation, native sanitizer qualification, broader
+documents, and independent rendering remain open. See
+[Coverage-guided fuzzing](docs/reference/COVERAGE_FUZZING_V1.7.md).
+
 Bounded archive metadata intake is implemented in development: ZIP32, TAR,
 gzip/bzip2/xz-wrapped TAR, explicit expansion/member/header/name/output limits,
 header-consistency checks, portable path/link findings, and integration with the
 existing archive CLI/intake gate. A pinned 680-case hostile campaign and 190
-regressions cover five profiles without extraction. Coverage-guided campaigns,
-broader document corpora, and independent rendering remain open. See
+regressions cover five profiles without extraction. The separate coverage-guided
+job now includes these profiles; broader documents and rendering remain open. See
 [Bounded archive intake](docs/reference/ARCHIVE_INTAKE_V1.7.md).
 
 An optional CASE/UCO 1.5.0 inventory exchange is implemented in development:
@@ -36,8 +45,8 @@ twelve fixed native response/context profiles, 3,318 default cases with pinned
 input/outcome digests, structural/encoding/embedded-JSON mutations, repeated
 normalization, replay and claim checks, bounded failure reports, and fault-injected
 harness acceptance. This finite synthetic campaign is required in source and
-extracted releases; broader archive/document corpora and continuous coverage-guided
-fuzzing remain open. See [Hostile parser corpus](docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md).
+extracted releases; the separate coverage-guided job now includes all twelve
+profiles. Broader document corpora remain open. See [Hostile parser corpus](docs/reference/PARSER_HOSTILE_CORPUS_V1.7.md).
 
 Private transparency-log snapshots and multi-key witnessing have an implemented
 offline profile: immutable bounded states, signed heads, independently pinned
@@ -235,7 +244,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - evidence-source coverage measurement and authoritative provider schema/compatibility evaluation beyond the implemented retained nested-shape comparisons;
 - additional independent visible-rendering adapters for representation attacks;
 - full investigation modeling, bidirectional import, and external case-management interoperability beyond the implemented optional CASE/UCO 1.5.0 inventory view;
-- continuous coverage-guided fuzzing and broader hostile document/format corpora beyond the implemented deterministic provider-parser and bounded-archive campaigns;
+- broader hostile document/format corpora, persistent fuzz corpus curation, structure-aware mutation, and native sanitizer qualification beyond the implemented finite and coverage-guided provider/archive campaigns;
 - external independent penetration-test reports and deployment certifications when a production environment exists.
 
 Roadmap items are not treated as implemented evidence capabilities until code, Evidence Packs, analyst documentation, and acceptance tests are present.

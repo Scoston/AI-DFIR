@@ -280,6 +280,13 @@ def required_v17_paths() -> set[str]:
         "requirements-case-validation.txt",
         "docs/reference/CASE_EXCHANGE_V1.7.md",
         "v17_archive_intake.py",
+        "v17_fuzz_targets.py",
+        "v17_fuzz_targets_selftest.py",
+        "tests/test_v17_fuzz_targets.py",
+        "scripts/fuzz_parsers_v17.py",
+        "scripts/run_coverage_fuzz_v17.py",
+        "requirements-fuzz.txt",
+        "docs/reference/COVERAGE_FUZZING_V1.7.md",
         "v17_archive_intake_selftest.py",
         "tests/test_v17_archive_intake.py",
         "docs/reference/ARCHIVE_INTAKE_V1.7.md",
@@ -403,6 +410,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_case_exchange_selftest": "PASS",
         "v17_case_exchange_conformance": "PASS",
         "v17_archive_intake_selftest": "PASS",
+        "v17_fuzz_targets_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -507,6 +515,12 @@ def require_extracted_v17_checks(report: dict) -> None:
     archive_campaign = checks["v17_archive_intake_selftest"]
     if archive_campaign.get("cases") != 680 or archive_campaign.get("profiles") != 5:
         raise RuntimeError("extracted package must pass the pinned 680-case archive mutation campaign")
+    fuzz = checks.get("v17_fuzz_targets_regression")
+    if not isinstance(fuzz, dict) or fuzz.get("status") != "PASS" or fuzz.get("tests") != 113:
+        raise RuntimeError("extracted package must pass all 113 fuzz-oracle/runner regression tests")
+    fuzz_preflight = checks["v17_fuzz_targets_selftest"]
+    if fuzz_preflight.get("cases") != 34 or fuzz_preflight.get("profiles") != 17 or fuzz_preflight.get("coverage_guided") is not False:
+        raise RuntimeError("extracted package must pass the fixed 17-profile fuzz preflight without promoting it to engine coverage")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -781,6 +795,10 @@ def main() -> None:
                 "v17_archive_intake_selftest": "PASS",
                 "v17_archive_intake_regression_tests": 190,
                 "v17_archive_intake_cases": 680,
+                "v17_fuzz_targets_selftest": "PASS",
+                "v17_fuzz_targets_regression_tests": 113,
+                "v17_fuzz_target_profiles": 17,
+                "v17_fuzz_preflight_coverage_guided": False,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

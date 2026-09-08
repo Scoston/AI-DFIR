@@ -1,0 +1,3 @@
+# Optional coverage-guided CI tooling; qualified on Linux x86_64 / CPython 3.12.
+# Not a runtime or mandatory cross-platform development dependency.
+atheris==3.1.0

@@ -1,0 +1,91 @@
+"""Fixed synthetic coverage-fuzz targets; no optional engine import is needed."""
+from __future__ import annotations
+
+from contextlib import ExitStack, contextmanager
+import hashlib
+import os
+import socket
+import subprocess
+import tarfile
+import zipfile
+from unittest.mock import patch
+
+import v17_archive_intake_selftest as archives
+import v17_parser_corpus as providers
+from v17_integrity import canonical_json_bytes
+
+SCHEMA = "ai-dfir/coverage-fuzz-targets/v1.7"
+MAX_INPUT_BYTES = 16 * 1024 + 1  # Includes the one-byte, versioned selector.
+PROVIDERS = providers.profiles()
+ARCHIVE_FORMATS = ("zip", "tar", "tar-gzip", "tar-bzip2", "tar-xz")
+PROFILE_NAMES = tuple(p.name for p in PROVIDERS) + tuple("archive-" + f for f in ARCHIVE_FORMATS)
+INSTRUMENTED_MODULES = (
+    "v17_fuzz_targets", "v17_parser_corpus", "v17_archive_intake_selftest",
+    "v17_archive_intake", "v17_cloudtrail", "v17_gcp_audit", "v17_azure_activity",
+    "v17_log_analytics", "v17_log_analytics_lossless", "v17_numeric_json",
+    "v17_log_analytics_context", "v17_gcp_logging_context", "v17_reconstruction",
+    "v17_provenance", "v17_integrity",
+)
+
+
+def seed_inputs():
+    """Build before installing member-I/O guards: ZIP fixture writers use open."""
+    retained = archives.seeds()
+    payloads = tuple(p.seed for p in PROVIDERS) + tuple(retained[f] for f in ARCHIVE_FORMATS)
+    return tuple(bytes([index]) + raw for index, raw in enumerate(payloads))
+
+
+@contextmanager
+def blocked_actions():
+    """Tripwires for these Python APIs; not an OS or native-code sandbox."""
+    with ExitStack() as guards:
+        for owner, name in (
+            (socket.socket, "connect"), (socket.socket, "connect_ex"), (socket.socket, "sendto"),
+            (socket, "create_connection"), (socket, "getaddrinfo"), (subprocess, "Popen"),
+            (os, "system"), (zipfile.ZipFile, "open"), (zipfile.ZipFile, "extract"),
+            (zipfile.ZipFile, "extractall"), (tarfile.TarFile, "extractfile"),
+            (tarfile.TarFile, "extract"), (tarfile.TarFile, "extractall"),
+        ):
+            guards.enter_context(patch.object(owner, name, side_effect=AssertionError("fuzz target external action blocked")))
+        yield
+
+
+def exercise(data):
+    """Selector 0..16 + raw bytes. Unknown selectors are ignored, never imported."""
+    if not __debug__:
+        raise RuntimeError("fuzz assertions must be enabled")
+    if type(data) is not bytes or len(data) > MAX_INPUT_BYTES:
+        raise ValueError("invalid or excessive fuzz input")
+    if not data or data[0] >= len(PROFILE_NAMES):
+        return "IGNORED", None
+    selector, raw = data[0], data[1:]
+
+    def once():
+        if selector < len(PROVIDERS):
+            status, digest, error = providers._outcome(PROVIDERS[selector], raw)
+            if status not in {"ACCEPT", "REJECT"} or error is not None:
+                raise AssertionError("provider fuzz invariant or crash: " + str(status))
+            return status, digest
+        return archives._outcome(raw, ARCHIVE_FORMATS[selector - len(PROVIDERS)])
+
+    first = once()
+    if first != once():
+        raise AssertionError("nondeterministic fuzz outcome")
+    return first
+
+
+def preflight():
+    retained = seed_inputs()
+    rows = []
+    with blocked_actions():
+        for index, (name, raw) in enumerate(zip(PROFILE_NAMES, retained, strict=True)):
+            accepted = exercise(raw)
+            rejected = exercise(bytes([index]))
+            if accepted[0] != "ACCEPT" or rejected != ("REJECT", None):
+                raise AssertionError("fuzz seed expectation mismatch")
+            rows.append({"profile": name, "selector": index, "seed_sha256": hashlib.sha256(raw).hexdigest(),
+                         "output_sha256": accepted[1]})
+    return {"schema": SCHEMA, "status": "PASS", "profiles": len(rows), "cases": 2 * len(rows),
+            "seed_manifest_sha256": hashlib.sha256(canonical_json_bytes(rows)).hexdigest(),
+            "rows": rows, "coverage_guided": False, "network_required": False,
+            "native_sanitizers": False, "os_sandbox": False, "exhaustive": False}

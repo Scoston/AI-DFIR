@@ -29,3 +29,21 @@ jobs:
 
       - name: CASE/UCO conformance and RDF round trip
         run: python scripts/case_exchange_conformance_v17.py
+
+      - name: Install optional coverage fuzzing engine
+        run: python -m pip install --only-binary=:all: -r requirements-fuzz.txt
+
+      - name: Coverage-guided parser and archive campaign
+        run: python scripts/run_coverage_fuzz_v17.py --runs 5000 --out-dir "${{ runner.temp }}/coverage-fuzz"
+
+      - name: Retain coverage fuzzing results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: coverage-fuzz-ci
+          path: |
+            ${{ runner.temp }}/coverage-fuzz/report.json
+            ${{ runner.temp }}/coverage-fuzz/engine.log
+            ${{ runner.temp }}/coverage-fuzz/failures/
+          retention-days: 14
+          if-no-files-found: warn
