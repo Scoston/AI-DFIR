@@ -55,13 +55,24 @@ by raw input bytes. Selector order is part of the v1.7 harness profile.
 | 17 | DOCX selected parts (ZIP/XML; no font child) |
 | 18 | Static HTML observations (no resource reads) |
 | 19 | Static CSS font-face observations (no resource reads) |
+| 20 | DOCX main XML in a rebuilt ZIP32 container |
+| 21 | DOCX font relationships in a rebuilt ZIP32 container |
+| 22 | Literal UTF-8 member name in a rebuilt ZIP32 container |
 
-Empty inputs and selectors above 19 are ignored; selected empty payloads must
+Empty inputs and selectors above 22 are ignored; selected empty payloads must
 reject in the harness, including otherwise-valid empty HTML/CSS. Before starting
-the engine, all 20 valid synthetic seeds must accept and all 20 selected empty
-payloads must reject. The source/output manifest is pinned
+the engine, all 23 valid synthetic seeds must accept, all 23 selected empty
+payloads must reject, and eight curated case outcomes must match. These 54 inputs
+seed every campaign. The source/output manifest is pinned
 by the engine-independent self-test. No real provider exports enter this corpus.
 Context mutations retain a separate fixed synthetic response.
+
+The three structured targets recompute ZIP32 headers and CRCs around mutations
+so XML, relationship, and member-name checks remain reachable. Generated archives
+are at most 32 KiB. Outcomes bind mutation, archive, and report bytes; the
+committed corpus is hash-pinned and included in campaign source receipts. See
+[Structured fuzz corpus](STRUCTURED_FUZZ_CORPUS_V1.7.md) for profiles, limits,
+expected cases, and the manual curation process.
 
 Every selected engine input is evaluated twice. Accepted provider projections
 must retain source/context digest bindings, bounded output, unknown/false
@@ -109,8 +120,9 @@ failure inputs for 14 days, including when the campaign step fails. They do not
 upload the evolving corpus. Dependency/install failures fail the job; they do
 not silently skip coverage testing.
 
-Source and extracted full release gates require 141 engine-independent harness
-regressions (including both workflow YAML files) and a 40-case, 20-profile pinned preflight. These gates do **not**
+Source and extracted full release gates require 147 engine-independent harness
+regressions (including both workflow YAML files), 96 structured/corpus regressions,
+and a 54-case, 23-profile pinned preflight. These gates do **not**
 claim to have run Atheris. The release manifest explicitly records the preflight
 as `coverage_guided: false`; the optional engine has its own CI/run report.
 The independent package verifier checks the complete harness and those claims.
@@ -131,8 +143,8 @@ the qualified campaign path. Fix confirmed bugs with focused regressions before
 changing seed pins. Follow SECURITY.md for vulnerability reporting and do not
 publish customer evidence in CI artifacts.
 
-Broader document formats, structure-aware archive mutation, persistent corpus
-curation, native sanitizer builds, and independent rendering remain future work.
+Broader document formats, richer grammar-aware mutation, larger curated corpora,
+native sanitizer builds, and independent rendering remain future work.
 
 ## Dependency and references
 

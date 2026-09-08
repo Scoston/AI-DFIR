@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [structured fuzz corpus](docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md)
+rebuilds ZIP headers and CRCs around mutated DOCX XML, font relationships, and
+member names. Eight pinned synthetic regression cases persist in the repository
+and seed every campaign; all original twenty profile outcomes remain unchanged.
+
 The unreleased [bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md)
 limit text and optional PDF processing, reuse the bounded standalone-font worker,
 and require review for incomplete analysis or unknown formats. Gate and specialist
@@ -24,7 +29,7 @@ complete visible rendering remain explicitly unverified.
 
 The unreleased [coverage-guided fuzzing job](docs/reference/COVERAGE_FUZZING_V1.7.md)
 mutates synthetic inputs across twelve provider/context, five archive, one DOCX,
-and two static HTML/CSS profiles.
+two static HTML/CSS profiles, and three structure-preserving profiles.
 CI requires actual Atheris execution, replay and claim checks, bounded process
 resources, and retained diagnostics; the weekly workflow runs a larger campaign.
 

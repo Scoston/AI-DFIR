@@ -8,13 +8,21 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+Three structure-preserving fuzz targets and a persistent synthetic corpus are
+implemented in development: bounded in-memory ZIP32 reconstruction around main
+DOCX XML, font relationships, and member names; eight pinned committed cases;
+source/generated/output bindings; and unchanged original twenty profile digests.
+There are 96 structured/corpus regressions plus 147 general harness regressions.
+Broader corpus/format qualification, native sanitizers, and independent rendering
+remain open. See [Structured fuzz corpus](docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md).
+
 Bounded text/PDF workers, standalone-font intake, and exclusive report output are
 implemented in development. Fixed Linux processes cap CPU, address space, elapsed
 time, and response bytes; exact source bindings and strict result checks preserve
 unknowns. The gate and specialist text/document/font CLIs use these boundaries,
 with 100 regressions and optional synthetic PyMuPDF acceptance. Broader native
-sanitizer/format qualification, persistent fuzz corpus curation, and independent
-rendering remain open. See [Bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md).
+sanitizer/format qualification and independent rendering remain open. A separate
+structured fuzz profile now supplies a pinned persistent synthetic corpus. See [Bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md).
 
 Contained HTML/CSS intake is implemented in development: directory-handle local
 reads, no resource symlinks, safe stylesheet-relative references, strict bounded
@@ -34,13 +42,14 @@ boundaries are now implemented; broader native parser qualification and
 independent rendering remain open. See
 [Bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md).
 
-Coverage-guided parser fuzzing is implemented in development: 20 fixed synthetic
-provider/context/archive/DOCX/HTML/CSS profiles, Atheris bytecode instrumentation, repeated
+Coverage-guided parser fuzzing is implemented in development: 23 fixed synthetic
+provider/context/archive/DOCX/HTML/CSS and structured profiles, Atheris bytecode instrumentation, repeated
 replay and claim oracles, bounded child execution, retained failure diagnostics,
 required PR/main campaigns, and a larger scheduled/manual campaign. Source and
 extracted gates separately validate the engine-independent harness and pinned
-preflight. Persistent corpus curation, native sanitizer qualification, broader
-documents, and independent rendering remain open. See
+preflight. A pinned eight-case persistent corpus and three structure-preserving
+targets are now implemented. Native sanitizer qualification, broader documents,
+and independent rendering remain open. See
 [Coverage-guided fuzzing](docs/reference/COVERAGE_FUZZING_V1.7.md).
 
 Bounded archive metadata intake is implemented in development: ZIP32, TAR,
@@ -270,7 +279,7 @@ policy completeness and actual prior verifier execution are not proven. See
 - evidence-source coverage measurement and authoritative provider schema/compatibility evaluation beyond the implemented retained nested-shape comparisons;
 - additional independent visible-rendering adapters for representation attacks;
 - full investigation modeling, bidirectional import, and external case-management interoperability beyond the implemented optional CASE/UCO 1.5.0 inventory view;
-- broader hostile document/format corpora, persistent fuzz corpus curation, structure-aware mutation, and native sanitizer qualification beyond the implemented finite and coverage-guided provider/archive campaigns;
+- broader hostile document/format corpora, grammar-aware mutation, and native sanitizer qualification beyond the implemented finite/coverage-guided campaigns, three structure-preserving targets, and eight-case persistent synthetic corpus;
 - external independent penetration-test reports and deployment certifications when a production environment exists.
 
 Roadmap items are not treated as implemented evidence capabilities until code, Evidence Packs, analyst documentation, and acceptance tests are present.

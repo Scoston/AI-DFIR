@@ -22,20 +22,20 @@ SEEDS = targets.seed_inputs()
 DONE = b"#100 DONE cov: 12 ft: 15 corp: 3/40b\nstat::number_of_executed_units: 100\n"
 
 
-@pytest.mark.parametrize("index", range(20))
+@pytest.mark.parametrize("index", range(23))
 def test_all_seed_profiles_and_source_bindings(index):
     with targets.blocked_actions():
         status, digest = targets.exercise(SEEDS[index])
     assert status == "ACCEPT" and len(digest) == 64
 
 
-@pytest.mark.parametrize("index", range(20))
+@pytest.mark.parametrize("index", range(23))
 def test_all_empty_payloads_reject(index):
     with targets.blocked_actions():
         assert targets.exercise(bytes([index])) == ("REJECT", None)
 
 
-@pytest.mark.parametrize("raw", [b"", b"\x14", b"\xff", b"\x80import os"])
+@pytest.mark.parametrize("raw", [b"", b"\x17", b"\xff", b"\x80import os"])
 def test_unknown_selectors_do_not_call_parser(raw, monkeypatch):
     monkeypatch.setattr(targets.providers, "_outcome", lambda *a: pytest.fail("unexpected dispatch"))
     monkeypatch.setattr(targets.archives, "_outcome", lambda *a: pytest.fail("unexpected dispatch"))
@@ -123,7 +123,7 @@ def test_action_tripwires_restore_after_failure(owner, name):
 def test_seed_preflight_pins_and_no_engine_claim():
     report = check()
     assert report["status"] == "PASS" and report["coverage_guided"] is False
-    assert len({row["selector"] for row in report["rows"]}) == 20
+    assert len({row["selector"] for row in report["rows"]}) == 23
 
 
 def test_instrumentation_modules_match_without_importing_engine():
@@ -192,7 +192,7 @@ def test_successful_runner_records_provenance_and_private_outputs(tmp_path, mock
     output = tmp_path / "campaign"
     report = runner.run(output, runs=100)
     assert report["status"] == "PASS" and report["executed_units"] == 100
-    assert report["preflight"]["profiles"] == 20
+    assert report["preflight"]["profiles"] == 23
     assert report["source_sha256"]["v17_fuzz_targets.py"] == hashlib.sha256((runner.ROOT / "v17_fuzz_targets.py").read_bytes()).hexdigest()
     assert report["native_sanitizers"] is False and report["os_sandbox"] is False
     assert {p.name for p in output.iterdir()} == {"report.json", "engine.log", "failures"}

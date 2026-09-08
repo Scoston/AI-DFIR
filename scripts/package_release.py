@@ -287,6 +287,11 @@ def required_v17_paths() -> set[str]:
         "scripts/run_coverage_fuzz_v17.py",
         "requirements-fuzz.txt",
         "docs/reference/COVERAGE_FUZZING_V1.7.md",
+        "v17_structured_fuzz.py",
+        "v17_structured_fuzz_selftest.py",
+        "tests/test_v17_structured_fuzz.py",
+        "tests/fixtures/fuzz/v17/structured_cases.json",
+        "docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md",
         "v17_docx_intake.py",
         "v17_docx_font.py",
         "v17_docx_intake_selftest.py",
@@ -432,6 +437,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_case_exchange_conformance": "PASS",
         "v17_archive_intake_selftest": "PASS",
         "v17_fuzz_targets_selftest": "PASS",
+        "v17_structured_fuzz_selftest": "PASS",
         "v17_docx_intake_selftest": "PASS",
         "v17_html_intake_selftest": "PASS",
         "v17_content_intake_selftest": "PASS",
@@ -540,11 +546,19 @@ def require_extracted_v17_checks(report: dict) -> None:
     if archive_campaign.get("cases") != 680 or archive_campaign.get("profiles") != 5:
         raise RuntimeError("extracted package must pass the pinned 680-case archive mutation campaign")
     fuzz = checks.get("v17_fuzz_targets_regression")
-    if not isinstance(fuzz, dict) or fuzz.get("status") != "PASS" or fuzz.get("tests") != 141:
-        raise RuntimeError("extracted package must pass all 141 fuzz-oracle/runner regression tests")
+    if not isinstance(fuzz, dict) or fuzz.get("status") != "PASS" or fuzz.get("tests") != 147:
+        raise RuntimeError("extracted package must pass all 147 fuzz-oracle/runner regression tests")
     fuzz_preflight = checks["v17_fuzz_targets_selftest"]
-    if fuzz_preflight.get("cases") != 40 or fuzz_preflight.get("profiles") != 20 or fuzz_preflight.get("coverage_guided") is not False:
-        raise RuntimeError("extracted package must pass the fixed 20-profile fuzz preflight without promoting it to engine coverage")
+    if (fuzz_preflight.get("cases") != 54 or fuzz_preflight.get("profiles") != 23
+            or fuzz_preflight.get("curated_cases") != 8 or fuzz_preflight.get("coverage_guided") is not False):
+        raise RuntimeError("extracted package must pass the fixed 23-profile fuzz preflight without promoting it to engine coverage")
+    structured = checks.get("v17_structured_fuzz_regression")
+    if not isinstance(structured, dict) or structured.get("status") != "PASS" or structured.get("tests") != 96:
+        raise RuntimeError("extracted package must pass all 96 structured fuzz/corpus regression tests")
+    structured_seeds = checks["v17_structured_fuzz_selftest"]
+    if (structured_seeds.get("structured_profiles") != 3 or structured_seeds.get("curated_cases") != 8
+            or structured_seeds.get("legacy_profiles_unchanged") != 20 or structured_seeds.get("coverage_guided") is not False):
+        raise RuntimeError("extracted package must pass pinned corpus and unchanged legacy fuzz profiles")
     docx = checks.get("v17_docx_intake_regression")
     if not isinstance(docx, dict) or docx.get("status") != "PASS" or docx.get("tests") != 133:
         raise RuntimeError("extracted package must pass all 133 bounded DOCX regression tests")
@@ -840,9 +854,14 @@ def main() -> None:
                 "v17_archive_intake_regression_tests": 190,
                 "v17_archive_intake_cases": 680,
                 "v17_fuzz_targets_selftest": "PASS",
-                "v17_fuzz_targets_regression_tests": 141,
-                "v17_fuzz_target_profiles": 20,
+                "v17_fuzz_targets_regression_tests": 147,
+                "v17_fuzz_target_profiles": 23,
                 "v17_fuzz_preflight_coverage_guided": False,
+                "v17_structured_fuzz_selftest": "PASS",
+                "v17_structured_fuzz_regression_tests": 96,
+                "v17_structured_fuzz_profiles": 3,
+                "v17_curated_fuzz_cases": 8,
+                "v17_structured_fuzz_native_sanitizers": False,
                 "v17_docx_intake_selftest": "PASS",
                 "v17_docx_intake_regression_tests": 133,
                 "v17_docx_independent_rendering_verified": False,
