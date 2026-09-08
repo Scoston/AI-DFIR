@@ -131,6 +131,7 @@ def main():
     py("v17_schema_drift_selftest.py",timeout=90); results["v17_schema_drift_selftest"]={"status":"PASS"}
     py("v17_case_exchange_selftest.py",timeout=90); results["v17_case_exchange_selftest"]={"status":"PASS"}
     py("v17_archive_intake_selftest.py",timeout=90); results["v17_archive_intake_selftest"]={"status":"PASS","cases":680,"profiles":5}
+    py("v17_fuzz_targets_selftest.py",timeout=60); results["v17_fuzz_targets_selftest"]={"status":"PASS","cases":34,"profiles":17,"coverage_guided":False}
     out=ROOT/".release-test"/f"v16-{uuid.uuid4().hex}"; out.parent.mkdir(parents=True,exist_ok=True); py("v16_selftest.py","--out",out,timeout=420); results["v16_focused"]={"status":"PASS"}
     compatibility("v15_selftest.py",[("version':'1.5","version':'1.6"),("meta['tool_version']=='1.5'","meta['tool_version']=='1.6'")],"v15"); results["v15_compatibility"]={"status":"PASS"}
     if full:
@@ -164,6 +165,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_schema_drift.py","-q"],timeout=300); results["v17_schema_drift_regression"]={"status":"PASS","tests":182}
         run([sys.executable,"-m","pytest","tests/test_v17_case_exchange.py","-q"],timeout=300); results["v17_case_exchange_regression"]={"status":"PASS","tests":101}
         run([sys.executable,"-m","pytest","tests/test_v17_archive_intake.py","-q"],timeout=300); results["v17_archive_intake_regression"]={"status":"PASS","tests":190}
+        run([sys.executable,"-m","pytest","tests/test_v17_fuzz_targets.py","-q"],timeout=120); results["v17_fuzz_targets_regression"]={"status":"PASS","tests":115}
         py("scripts/case_exchange_conformance_v17.py",timeout=120); results["v17_case_exchange_conformance"]={"status":"PASS","case_version":"1.5.0","valid_graphs":1,"invalid_graphs_rejected":4}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}

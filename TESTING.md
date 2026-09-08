@@ -867,3 +867,28 @@ flags. Source and extracted gates require both checks. Independent package
 verification requires feature completeness and assurance while preserving older
 releases. This is finite synthetic mutation testing; coverage-guided fuzzing and
 independent document rendering remain separate. See [Bounded archive intake](docs/reference/ARCHIVE_INTAKE_V1.7.md).
+
+## 39. Unreleased coverage-guided parser and archive fuzzing
+
+```bash
+python v17_fuzz_targets_selftest.py
+python -m pytest tests/test_v17_fuzz_targets.py -q
+# Optional engine: Linux x86_64 / CPython 3.12
+python -m pip install --only-binary=:all: -r requirements-fuzz.txt
+python scripts/run_coverage_fuzz_v17.py --runs 5000 --out-dir /tmp/ai-dfir-fuzz-new
+```
+
+The 115 focused regressions bring the v1.7 total to 3,906. They exercise every
+fixed selector, accepted/rejected seeds, source and claim fault injection,
+nondeterminism, unknown selectors, bounds, restored API tripwires, disabled
+assertions, partial/failed engine completion, timeouts, failure retention,
+exclusive output, private permissions, and redacted CLI failures.
+
+Source and extracted full gates require those tests and a pinned 34-case,
+17-profile preflight. They explicitly do not count the preflight as a coverage-
+guided campaign. The optional Atheris runner requires actual native completion
+and nonzero instrumentation counters. PR/main CI requires 5,000 inputs, and
+the existing scheduled/manual workflow requires 20,000 with a rotating seed.
+An initial local 20,000-input campaign passed; counters are build/run observations
+and are not a coverage percentage or proof of safety. See
+[Coverage-guided fuzzing](docs/reference/COVERAGE_FUZZING_V1.7.md).

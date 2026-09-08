@@ -4,6 +4,13 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: coverage-guided parser and archive fuzzing
+
+- optional pinned Atheris 3.1.0 bytecode instrumentation for twelve provider/context and five archive profiles, using only committed synthetic seeds;
+- repeated normalization/replay/claim oracles, preserved selector-prefixed failures, private exclusive output, and explicit execution, input, log, CPU, RSS, and timeout bounds;
+- required 5,000-input PR/main CI runs and 20,000-input scheduled/manual runs with rotating seeds; reports and failure diagnostics retained for 14 days;
+- 115 engine-independent regressions and pinned 34-case preflight in source/extracted gates, with separate optional-engine reports and no native-sanitizer, sandbox, exhaustive-coverage, or evidence-authenticity claim.
+
 ### Unreleased: bounded archive intake and hostile corpus
 
 - bounded immutable ZIP32/TAR/gzip/bzip2/xz metadata profiles, early central-directory/header counts, capped container expansion, and explicit unsupported ZIP64/sparse/ambiguous-header rejection;

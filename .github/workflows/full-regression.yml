@@ -16,3 +16,21 @@ jobs:
         with: {python-version: '3.12', cache: pip}
       - run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
       - run: python scripts/release_check.py --full
+      - name: Install optional coverage fuzzing engine
+        run: |
+          python -m pip install --only-binary=:all: -r requirements-fuzz.txt
+      - name: Larger coverage-guided campaign with a rotating seed
+        env:
+          FUZZ_RUN_NUMBER: ${{ github.run_number }}
+        run: python scripts/run_coverage_fuzz_v17.py --runs 20000 --seed "$((FUZZ_RUN_NUMBER % 4294967295 + 1))" --out-dir "${{ runner.temp }}/coverage-fuzz"
+      - name: Retain coverage fuzzing results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: coverage-fuzz-full
+          path: |
+            ${{ runner.temp }}/coverage-fuzz/report.json
+            ${{ runner.temp }}/coverage-fuzz/engine.log
+            ${{ runner.temp }}/coverage-fuzz/failures/
+          retention-days: 14
+          if-no-files-found: warn

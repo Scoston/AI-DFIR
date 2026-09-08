@@ -6,6 +6,11 @@
 
 ## Why AI-DFIR
 
+The unreleased [coverage-guided fuzzing job](docs/reference/COVERAGE_FUZZING_V1.7.md)
+mutates synthetic inputs across twelve provider/context and five archive profiles.
+CI requires actual Atheris execution, replay and claim checks, bounded process
+resources, and retained diagnostics; the weekly workflow runs a larger campaign.
+
 The unreleased [bounded archive intake](docs/reference/ARCHIVE_INTAKE_V1.7.md)
 inspects ZIP32 and TAR metadata under explicit input, expansion, member, name,
 and report limits. It detects portable path collisions and unsafe links, rejects
