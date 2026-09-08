@@ -516,8 +516,8 @@ def require_extracted_v17_checks(report: dict) -> None:
     if archive_campaign.get("cases") != 680 or archive_campaign.get("profiles") != 5:
         raise RuntimeError("extracted package must pass the pinned 680-case archive mutation campaign")
     fuzz = checks.get("v17_fuzz_targets_regression")
-    if not isinstance(fuzz, dict) or fuzz.get("status") != "PASS" or fuzz.get("tests") != 113:
-        raise RuntimeError("extracted package must pass all 113 fuzz-oracle/runner regression tests")
+    if not isinstance(fuzz, dict) or fuzz.get("status") != "PASS" or fuzz.get("tests") != 115:
+        raise RuntimeError("extracted package must pass all 115 fuzz-oracle/runner regression tests")
     fuzz_preflight = checks["v17_fuzz_targets_selftest"]
     if fuzz_preflight.get("cases") != 34 or fuzz_preflight.get("profiles") != 17 or fuzz_preflight.get("coverage_guided") is not False:
         raise RuntimeError("extracted package must pass the fixed 17-profile fuzz preflight without promoting it to engine coverage")
@@ -796,7 +796,7 @@ def main() -> None:
                 "v17_archive_intake_regression_tests": 190,
                 "v17_archive_intake_cases": 680,
                 "v17_fuzz_targets_selftest": "PASS",
-                "v17_fuzz_targets_regression_tests": 113,
+                "v17_fuzz_targets_regression_tests": 115,
                 "v17_fuzz_target_profiles": 17,
                 "v17_fuzz_preflight_coverage_guided": False,
             }

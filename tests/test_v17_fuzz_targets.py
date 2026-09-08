@@ -12,6 +12,7 @@ import tarfile
 import zipfile
 
 import pytest
+import yaml
 
 import v17_fuzz_targets as targets
 from v17_fuzz_targets_selftest import check
@@ -231,3 +232,14 @@ def test_cli_invalid_options_are_redacted_and_create_nothing(tmp_path):
                              "--runs", "0", "--out-dir", str(output)], capture_output=True)
     assert result.returncode == 1 and not output.exists()
     assert json.loads(result.stdout) == {"status": "FAIL", "error_type": "ValueError"}
+
+
+@pytest.mark.parametrize("filename", ["ci.yml", "full-regression.yml"])
+def test_fuzz_workflow_yaml_and_required_campaign(filename):
+    workflow = yaml.safe_load((runner.ROOT / ".github/workflows" / filename).read_text())
+    steps = next(iter(workflow["jobs"].values()))["steps"]
+    commands = [step["run"] for step in steps if "run" in step]
+    assert all(isinstance(command, str) for command in commands)
+    assert any("--only-binary=:all: -r requirements-fuzz.txt" in command for command in commands)
+    assert any("scripts/run_coverage_fuzz_v17.py --runs " in command for command in commands)
+    assert all(step.get("continue-on-error") is not True for step in steps)

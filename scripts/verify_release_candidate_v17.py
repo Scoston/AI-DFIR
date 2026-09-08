@@ -621,7 +621,7 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_archive_intake_selftest="PASS", v17_archive_intake_regression_tests=190,
                                   v17_archive_intake_cases=680)
     if zip_result.get("has_fuzz_targets"):
-        required_assurance.update(v17_fuzz_targets_selftest="PASS", v17_fuzz_targets_regression_tests=113,
+        required_assurance.update(v17_fuzz_targets_selftest="PASS", v17_fuzz_targets_regression_tests=115,
                                   v17_fuzz_target_profiles=17, v17_fuzz_preflight_coverage_guided=False)
     if zip_result.get("has_key_policy"):
         required_assurance.update(v17_key_policy_selftest="PASS", v17_key_policy_regression_tests=57)

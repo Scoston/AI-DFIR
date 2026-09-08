@@ -99,8 +99,8 @@ failure inputs for 14 days, including when the campaign step fails. They do not
 upload the evolving corpus. Dependency/install failures fail the job; they do
 not silently skip coverage testing.
 
-Source and extracted full release gates require 113 engine-independent harness
-regressions and a 34-case, 17-profile pinned preflight. These gates do **not**
+Source and extracted full release gates require 115 engine-independent harness
+regressions (including both workflow YAML files) and a 34-case, 17-profile pinned preflight. These gates do **not**
 claim to have run Atheris. The release manifest explicitly records the preflight
 as `coverage_guided: false`; the optional engine has its own CI/run report.
 The independent package verifier checks the complete harness and those claims.
@@ -131,3 +131,6 @@ development tool built on libFuzzer. The pinned
 [3.1.0 package](https://pypi.org/project/atheris/3.1.0/) provides the qualified
 CPython 3.12 Linux wheel. Bytecode instrumentation covers the fixed module list
 reported by this harness; this wheel is not a native sanitizer qualification.
+
+PyYAML (MIT license) is an explicit development dependency for the workflow syntax
+regressions; it is not added to the ordinary runtime requirements.

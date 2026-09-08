@@ -165,7 +165,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_schema_drift.py","-q"],timeout=300); results["v17_schema_drift_regression"]={"status":"PASS","tests":182}
         run([sys.executable,"-m","pytest","tests/test_v17_case_exchange.py","-q"],timeout=300); results["v17_case_exchange_regression"]={"status":"PASS","tests":101}
         run([sys.executable,"-m","pytest","tests/test_v17_archive_intake.py","-q"],timeout=300); results["v17_archive_intake_regression"]={"status":"PASS","tests":190}
-        run([sys.executable,"-m","pytest","tests/test_v17_fuzz_targets.py","-q"],timeout=120); results["v17_fuzz_targets_regression"]={"status":"PASS","tests":113}
+        run([sys.executable,"-m","pytest","tests/test_v17_fuzz_targets.py","-q"],timeout=120); results["v17_fuzz_targets_regression"]={"status":"PASS","tests":115}
         py("scripts/case_exchange_conformance_v17.py",timeout=120); results["v17_case_exchange_conformance"]={"status":"PASS","case_version":"1.5.0","valid_graphs":1,"invalid_graphs_rejected":4}
         compatibility("v14_selftest.py",[("version':'1.4","version':'1.6")],"v14"); results["v14_compatibility"]={"status":"PASS"}
         compatibility("v13_selftest.py",[("version':'1.3","version':'1.6")],"v13"); results["v13_compatibility"]={"status":"PASS"}

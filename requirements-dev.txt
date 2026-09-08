@@ -1,5 +1,6 @@
 -r requirements-enterprise.txt
 -r requirements-case-validation.txt
 pytest>=8.4
+PyYAML>=6.0.3
 ruff>=0.12
 pip-audit>=2.9

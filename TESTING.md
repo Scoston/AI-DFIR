@@ -878,7 +878,7 @@ python -m pip install --only-binary=:all: -r requirements-fuzz.txt
 python scripts/run_coverage_fuzz_v17.py --runs 5000 --out-dir /tmp/ai-dfir-fuzz-new
 ```
 
-The 113 focused regressions bring the v1.7 total to 3,904. They exercise every
+The 115 focused regressions bring the v1.7 total to 3,906. They exercise every
 fixed selector, accepted/rejected seeds, source and claim fault injection,
 nondeterminism, unknown selectors, bounds, restored API tripwires, disabled
 assertions, partial/failed engine completion, timeouts, failure retention,
