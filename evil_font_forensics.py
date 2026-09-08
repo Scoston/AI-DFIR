@@ -21,6 +21,7 @@ import argparse, hashlib, io, json, os, re, time
 from collections import Counter, defaultdict
 from pathlib import Path
 import v17_docx_intake as docx_intake
+import v17_html_intake as html_intake
 from v17_docx_font import analyze as bounded_docx_font
 from v17_integrity import canonical_json_bytes
 
@@ -217,64 +218,20 @@ def analyze_docx(path):
     return report
 
 
-def _css_font_faces(css_text,base_dir:Path):
-    faces=[]
-    block_re=re.compile(r"@font-face\s*\{(.*?)\}",re.I|re.S)
-    fam_re=re.compile(r"font-family\s*:\s*['\"]?([^;'\"\}]+)",re.I)
-    src_re=re.compile(r"url\((?:['\"])?([^)'\"\s]+)",re.I)
-    for b in block_re.findall(css_text or ""):
-        fm=fam_re.search(b);sm=src_re.search(b)
-        if not fm:continue
-        family=fm.group(1).strip()
-        src=sm.group(1).strip() if sm else None
-        item={"font_family":family,"src":src}
-        if src and not re.match(r"^[a-z]+://",src,re.I) and not src.startswith("data:"):
-            fp=(base_dir/src).resolve()
-            try:
-                if fp.exists() and fp.is_file():
-                    raw=fp.read_bytes()
-                    item["font_file"]=str(fp)
-                    item["font_analysis"]=analyze_font_bytes(raw,fp.name)
-            except Exception as e:item["font_error"]=repr(e)
-        faces.append(item)
-    return faces
-
-def analyze_html(path):
-    """
-    Detect EvilFont-style HTML and generic remapped-font abuse.
-
-    The implementation parses static HTML/CSS only. It never loads remote
-    resources, runs JavaScript, or renders the page.
-    """
-    p=Path(path).resolve();text=p.read_text(encoding="utf-8",errors="replace")
-    findings=[];families=[];machine=[];reconstructed=[];mapped=stealth=mismatch=styled_chars=0
-
-    # Collect inline styles and linked local CSS only.
-    css_chunks=[]
-    css_chunks += re.findall(r"<style\b[^>]*>(.*?)</style>",text,re.I|re.S)
-    for href in re.findall(r"<link\b[^>]*href=['\"]([^'\"]+\.css(?:\?[^'\"]*)?)['\"][^>]*>",text,re.I|re.S):
-        if re.match(r"^[a-z]+://",href,re.I):continue
-        css_path=(p.parent/href.split("?",1)[0]).resolve()
-        try:
-            if css_path.exists() and css_path.is_file():css_chunks.append(css_path.read_text(encoding="utf-8",errors="replace"))
-        except Exception:pass
-
-    font_faces=[]
-    for css in css_chunks:
-        font_faces += _css_font_faces(css,p.parent)
+def analyze_html(path, *, captured=None):
+    """Static bounded HTML/CSS only; no JavaScript or independent rendering."""
+    p=Path(path).absolute()
+    captured=html_intake.capture(p) if captured is None else captured
+    text=captured["text"]
+    findings=list(captured["findings"]);families=[];machine=[];reconstructed=[];mapped=stealth=mismatch=styled_chars=0
+    font_faces=captured["font_faces"]
 
     # EvilFont-style HTML uses single-character spans with a font family whose
     # suffix encodes the human-visible character; family suffix 0 hides
     # machine-only characters.
-    span_re=re.compile(r"<span\b([^>]*)>(.*?)</span>",re.I|re.S)
-    fam_attr=re.compile(r"font-family\s*:\s*['\"]?([^;'\"\}]+)",re.I)
-    tag_strip=re.compile(r"<[^>]+>")
-    for attrs,body in span_re.findall(text):
-        body=tag_strip.sub("",body)
-        body=__import__("html").unescape(body)
+    for span in captured["spans"]:
+        body=span["text"];family=span["font"]
         machine.append(body)
-        fm=fam_attr.search(attrs)
-        family=fm.group(1).strip() if fm else None
         if family:families.append(family)
         vis=font_name_suffix_visible(family)
         if len(body)==1 and family:styled_chars+=1
@@ -310,13 +267,17 @@ def analyze_html(path):
         findings += [{**x,"font_family":face.get("font_family"),"font_file":face.get("font_file")}
                      for x in (face.get("font_analysis") or {}).get("findings",[])]
 
-    return {"schema":"ai-dfir/evil-font-html-analysis/v1.2","path":str(p),
-            "html_sha256":hashlib.sha256(text.encode()).hexdigest(),
+    report={"schema":"ai-dfir/evil-font-html-analysis/v1.2","path":str(p),
+            "html_sha256":hashlib.sha256(captured["raw"]).hexdigest(),
+            "decoded_html_sha256":hashlib.sha256(text.encode()).hexdigest(),
+            "intake":captured["intake"],"independent_rendering_verified":False,
             "font_faces":font_faces,"unique_run_fonts":len(set(families)),
             "machine_text_sha256":hashlib.sha256(machine_text.encode()).hexdigest() if machine_text else None,
             "tool_reconstructed_visible_text_sha256":hashlib.sha256(visible_text.encode()).hexdigest() if visible_text else None,
             "findings":findings,
-            "note":"Static analysis only; remote fonts/resources are not fetched."}
+            "note":"Static span and top-level font-face observations only; no CSS cascade, JavaScript, or independent rendering."}
+    html_intake.require(len(canonical_json_bytes(report))<=html_intake.MAX_OUTPUT_BYTES)
+    return report
 
 def analyze_pdf(path):
     findings=[];fonts=[];text=""
@@ -354,9 +315,9 @@ def analyze_pdf(path):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument("path");ap.add_argument("--out")
     a=ap.parse_args();ext=Path(a.path).suffix.lower()
-    if ext==".docx":
+    if ext in (".docx",".html",".htm"):
         try:
-            obj=analyze_docx(a.path)
+            obj=analyze_docx(a.path) if ext==".docx" else analyze_html(a.path)
             txt=json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=True)
             raw=(txt+"\n").encode("utf-8")
             docx_intake.require(len(raw)<=docx_intake.MAX_OUTPUT_BYTES)
@@ -367,11 +328,10 @@ def main():
             else:print(txt)
         except KeyboardInterrupt:raise SystemExit(130)
         except Exception:
-            print(json.dumps({"status":"FAIL","error":"invalid, unsupported, excessive DOCX or unavailable output"}))
+            print(json.dumps({"status":"FAIL","error":"invalid, unsupported, excessive document or unavailable output"}))
             raise SystemExit(1)
         return
     elif ext==".pdf":obj=analyze_pdf(a.path)
-    elif ext in (".html",".htm"):obj=analyze_html(a.path)
     elif ext in (".ttf",".otf",".woff",".woff2"):
         obj={"schema":"ai-dfir/font-analysis/v1.2","font":analyze_font_bytes(Path(a.path).read_bytes(),Path(a.path).name)}
     else:raise SystemExit("supported: DOCX, PDF, TTF/OTF/WOFF/WOFF2")

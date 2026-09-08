@@ -13,6 +13,7 @@ from unittest.mock import patch
 import v17_archive_intake_selftest as archives
 import v17_docx_intake as docx
 import v17_docx_intake_selftest as docx_seeds
+import v17_html_intake as html
 import v17_parser_corpus as providers
 from v17_integrity import canonical_json_bytes
 from v17_provenance import ProvenanceError
@@ -21,7 +22,7 @@ SCHEMA = "ai-dfir/coverage-fuzz-targets/v1.7"
 MAX_INPUT_BYTES = 16 * 1024 + 1  # Includes the one-byte, versioned selector.
 PROVIDERS = providers.profiles()
 ARCHIVE_FORMATS = ("zip", "tar", "tar-gzip", "tar-bzip2", "tar-xz")
-PROFILE_NAMES = tuple(p.name for p in PROVIDERS) + tuple("archive-" + f for f in ARCHIVE_FORMATS) + ("docx-selected-parts",)
+PROFILE_NAMES = tuple(p.name for p in PROVIDERS) + tuple("archive-" + f for f in ARCHIVE_FORMATS) + ("docx-selected-parts", "html-static", "css-font-face")
 INSTRUMENTED_MODULES = (
     "v17_fuzz_targets", "v17_parser_corpus", "v17_archive_intake_selftest",
     "v17_archive_intake", "v17_cloudtrail", "v17_gcp_audit", "v17_azure_activity",
@@ -29,6 +30,7 @@ INSTRUMENTED_MODULES = (
     "v17_log_analytics_context", "v17_gcp_logging_context", "v17_reconstruction",
     "v17_provenance", "v17_integrity",
     "v17_docx_intake", "v17_docx_intake_selftest",
+    "v17_html_intake",
 )
 
 
@@ -41,6 +43,8 @@ def seed_inputs():
         "word/_rels/fontTable.xml.rels": docx_seeds.relationships(),
         "word/fonts/synthetic.ttf": b"synthetic opaque font",
     }, compression=zipfile.ZIP_STORED),)
+    payloads += (b'<html><body><span style="font-family: \'Demo 41\'">sample</span></body></html>',
+                 b'@font-face{font-family:Synthetic;src:url("fonts/demo.ttf")}')
     return tuple(bytes([index]) + raw for index, raw in enumerate(payloads))
 
 
@@ -60,7 +64,7 @@ def blocked_actions():
 
 
 def exercise(data):
-    """Selector 0..17 + raw bytes. Unknown selectors are ignored, never imported."""
+    """Selector 0..19 + raw bytes. Unknown selectors are ignored, never imported."""
     if not __debug__:
         raise RuntimeError("fuzz assertions must be enabled")
     if type(data) is not bytes or len(data) > MAX_INPUT_BYTES:
@@ -70,6 +74,22 @@ def exercise(data):
     selector, raw = data[0], data[1:]
 
     def once():
+        if selector >= len(PROVIDERS) + len(ARCHIVE_FORMATS) + 1:
+            # Empty HTML/CSS is valid for intake but not a useful fuzz seed.
+            if not raw:
+                return "REJECT", None
+            try:
+                report = html.inspect_static(raw, input_format=("html", "css")[selector - 18])
+            except ProvenanceError:
+                return "REJECT", None
+            assert report["source_sha256"] == hashlib.sha256(raw).hexdigest()
+            assert report["collection_complete"] is None
+            for flag in ("filesystem_resources_loaded", "font_geometry_verified", "source_authenticity_verified",
+                         "complete_visible_rendering_verified", "network_required"):
+                assert report[flag] is False
+            encoded = canonical_json_bytes(report)
+            assert len(encoded) <= html.MAX_OUTPUT_BYTES
+            return "ACCEPT", hashlib.sha256(encoded).hexdigest()
         if selector == len(PROVIDERS) + len(ARCHIVE_FORMATS):
             try:
                 parts = docx.load_docx(raw)

@@ -293,6 +293,10 @@ def required_v17_paths() -> set[str]:
         "scripts/docx_font_worker_v17.py",
         "tests/test_v17_docx_intake.py",
         "docs/reference/DOCX_INTAKE_V1.7.md",
+        "v17_html_intake.py",
+        "v17_html_intake_selftest.py",
+        "tests/test_v17_html_intake.py",
+        "docs/reference/HTML_INTAKE_V1.7.md",
         "evil_font_forensics.py",
         "requirements.txt",
         "v17_archive_intake_selftest.py",
@@ -420,6 +424,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_archive_intake_selftest": "PASS",
         "v17_fuzz_targets_selftest": "PASS",
         "v17_docx_intake_selftest": "PASS",
+        "v17_html_intake_selftest": "PASS",
     }
     for name, expected in required.items():
         row = checks.get(name)
@@ -525,17 +530,24 @@ def require_extracted_v17_checks(report: dict) -> None:
     if archive_campaign.get("cases") != 680 or archive_campaign.get("profiles") != 5:
         raise RuntimeError("extracted package must pass the pinned 680-case archive mutation campaign")
     fuzz = checks.get("v17_fuzz_targets_regression")
-    if not isinstance(fuzz, dict) or fuzz.get("status") != "PASS" or fuzz.get("tests") != 125:
-        raise RuntimeError("extracted package must pass all 125 fuzz-oracle/runner regression tests")
+    if not isinstance(fuzz, dict) or fuzz.get("status") != "PASS" or fuzz.get("tests") != 141:
+        raise RuntimeError("extracted package must pass all 141 fuzz-oracle/runner regression tests")
     fuzz_preflight = checks["v17_fuzz_targets_selftest"]
-    if fuzz_preflight.get("cases") != 36 or fuzz_preflight.get("profiles") != 18 or fuzz_preflight.get("coverage_guided") is not False:
-        raise RuntimeError("extracted package must pass the fixed 18-profile fuzz preflight without promoting it to engine coverage")
+    if fuzz_preflight.get("cases") != 40 or fuzz_preflight.get("profiles") != 20 or fuzz_preflight.get("coverage_guided") is not False:
+        raise RuntimeError("extracted package must pass the fixed 20-profile fuzz preflight without promoting it to engine coverage")
     docx = checks.get("v17_docx_intake_regression")
     if not isinstance(docx, dict) or docx.get("status") != "PASS" or docx.get("tests") != 133:
         raise RuntimeError("extracted package must pass all 133 bounded DOCX regression tests")
     docx_seeds = checks["v17_docx_intake_selftest"]
     if docx_seeds.get("valid_packages") != 2 or docx_seeds.get("invalid_packages_rejected") != 6:
         raise RuntimeError("extracted package must pass synthetic DOCX acceptance and rejection")
+    html = checks.get("v17_html_intake_regression")
+    if not isinstance(html, dict) or html.get("status") != "PASS" or html.get("tests") != 88:
+        raise RuntimeError("extracted package must pass all 88 contained HTML/CSS regression tests")
+    html_seeds = checks["v17_html_intake_selftest"]
+    if any(html_seeds.get(k) != v for k, v in {"valid_html": 2, "invalid_html_rejected": 6, "valid_css": 2,
+            "invalid_css_rejected": 4, "contained_resource_fixture": "PASS"}.items()):
+        raise RuntimeError("extracted package must pass HTML/CSS parser and contained-resource acceptance")
 
 
 def write_archive(staged: Path, destination: Path, root_name: str, *, tar: bool) -> None:
@@ -811,12 +823,15 @@ def main() -> None:
                 "v17_archive_intake_regression_tests": 190,
                 "v17_archive_intake_cases": 680,
                 "v17_fuzz_targets_selftest": "PASS",
-                "v17_fuzz_targets_regression_tests": 125,
-                "v17_fuzz_target_profiles": 18,
+                "v17_fuzz_targets_regression_tests": 141,
+                "v17_fuzz_target_profiles": 20,
                 "v17_fuzz_preflight_coverage_guided": False,
                 "v17_docx_intake_selftest": "PASS",
                 "v17_docx_intake_regression_tests": 133,
                 "v17_docx_independent_rendering_verified": False,
+                "v17_html_intake_selftest": "PASS",
+                "v17_html_intake_regression_tests": 88,
+                "v17_html_independent_rendering_verified": False,
             }
             (out / names["assurance"]).write_text(
                 json.dumps(assurance, indent=2, sort_keys=True),

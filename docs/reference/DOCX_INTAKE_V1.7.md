@@ -99,7 +99,7 @@ Historical releases without the feature retain their previous assurance contract
 
 The coverage-guided campaign adds selector 17 for this pure selected-part loader,
 with repeated source/selected-byte/claim checks. It does not launch font children
-or qualify native font parsing. A fixed 18-profile, 36-case preflight and 125
+or qualify native font parsing. The expanded 20-profile, 40-case preflight and 141
 harness regressions remain separate from actual Atheris execution. See
 [Coverage-guided fuzzing](COVERAGE_FUZZING_V1.7.md).
 
@@ -107,7 +107,8 @@ Security review focused on decompression before limits, XML entity/resource
 expansion, package-to-filesystem confusion, malformed font worker responses,
 source replacement, and false completeness claims. Negative regressions exercise
 those boundaries. Independent human review is not implied by these checks.
-Broader HTML/CSS, PDF, standalone-font intake and independent rendering remain
+HTML/CSS containment now has a separate implemented profile. General text-parser
+CPU/output isolation, PDF, standalone-font intake and independent rendering remain
 separate roadmap work.
 
 ## Dependency

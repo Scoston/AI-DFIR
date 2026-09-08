@@ -20,6 +20,7 @@ def main():
         "v17_log_analytics_context", "v17_gcp_logging_context", "v17_reconstruction",
         "v17_provenance", "v17_integrity",
         "v17_docx_intake", "v17_docx_intake_selftest",
+        "v17_html_intake",
     )
     with atheris.instrument_imports(include=modules):
         import v17_fuzz_targets as targets
