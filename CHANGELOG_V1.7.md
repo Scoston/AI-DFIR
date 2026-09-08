@@ -4,6 +4,14 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: structured fuzz targets and persistent synthetic corpus
+
+- three fixed targets rebuild bounded ZIP32 headers, sizes, offsets, and CRCs around mutated DOCX XML, font relationships, and member names;
+- eight committed, hash-pinned synthetic cases seed every campaign, with strict corpus validation and explicit expected outcomes;
+- original twenty selector/outcome bindings preserved; expanded harness has 23 profiles, 54 preflight cases, and 147 regressions;
+- 96 structured/corpus regressions, synthetic self-test, current source/extracted gates, and historical independent package compatibility;
+- no new dependency, arbitrary corpus input, extraction, font worker execution, native sanitizer, or rendering claim.
+
 ### Unreleased: bounded content workers and file/report entry points
 
 - fixed Linux text/markup/PDF worker modes with immutable piped input, CPU/memory/elapsed/output limits, and strict source-bound response validation;

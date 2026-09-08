@@ -84,7 +84,7 @@ def run(output, *, runs=5000, seed=17019):
     platform_check()
     preflight = targets.preflight()
     source_paths = tuple(name + ".py" for name in targets.INSTRUMENTED_MODULES) + (
-        "scripts/fuzz_parsers_v17.py", "scripts/run_coverage_fuzz_v17.py", "requirements-fuzz.txt")
+        "scripts/fuzz_parsers_v17.py", "scripts/run_coverage_fuzz_v17.py", "requirements-fuzz.txt", targets.structured.CORPUS_PATH)
     source_hashes = {path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest() for path in source_paths}
     output = Path(output).absolute()
     output.mkdir(mode=0o700)  # Exclusive: never overwrite a prior campaign.
@@ -100,6 +100,8 @@ def run(output, *, runs=5000, seed=17019):
             for index, raw in enumerate(targets.seed_inputs()):
                 private_write(corpus / f"seed-{index:02}", raw)
                 private_write(corpus / f"empty-{index:02}", bytes([index]))
+            for index, row in enumerate(targets.curated_inputs()):
+                private_write(corpus / f"curated-{index:02}", row["data"])
             log_path = output / "engine.log"
             with open(os.open(log_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), "wb") as log:
                 process = subprocess.Popen(command(corpus, artifacts, runs, seed), cwd=ROOT,
@@ -129,6 +131,7 @@ def run(output, *, runs=5000, seed=17019):
               "elapsed_seconds": round(time.monotonic() - started, 3), **result,
               "profiles": list(targets.PROFILE_NAMES), "preflight": preflight,
               "max_input_bytes": targets.MAX_INPUT_BYTES, "wall_seconds": WALL_SECONDS,
+              "max_generated_archive_bytes": targets.structured.MAX_GENERATED_BYTES,
               "rss_limit_mib": RSS_MIB, "log_limit_bytes": MAX_LOG_BYTES,
               "instrumented_modules": list(targets.INSTRUMENTED_MODULES),
               "coverage_guided": True, "native_sanitizers": False, "os_sandbox": False,

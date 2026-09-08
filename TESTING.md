@@ -961,3 +961,25 @@ verification requires complete worker support when present and retains earlier
 contracts. The existing 141-test, 20-profile fuzz harness is unchanged and does
 not claim native font/PDF or worker-process fuzz coverage. See
 [Bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md).
+
+
+## 43. Unreleased structured fuzz targets and curated synthetic corpus
+
+```bash
+python v17_structured_fuzz_selftest.py
+python v17_fuzz_targets_selftest.py
+python -m pytest tests/test_v17_structured_fuzz.py tests/test_v17_fuzz_targets.py -q
+```
+
+The 96 new structured/corpus regressions plus six additional selector tests bring
+v1.7 to 4,355 regressions. They verify rebuilt ZIP CRCs and deep XML reachability,
+literal hostile names, generation limits, source/claim forgery and nondeterminism,
+corpus byte pins and strict records, symlinks/FIFOs, and all curated seeds reaching
+the campaign engine. The original twenty selector/output digests are unchanged.
+
+Source and extracted full gates now require 88 checks, including 147 general
+harness tests, the 96 structured/corpus tests, 23 profiles with 54 pinned preflight
+cases, and eight persistent synthetic records. Independent package verification
+preserves earlier 17/18/20-profile contracts. Actual Atheris execution remains a
+separate required CI campaign; the preflight does not claim native coverage or
+sanitizers. See [Structured fuzz corpus](docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md).
