@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Method-agnostic human-visible vs machine-readable text differential."""
 from __future__ import annotations
-import argparse, hashlib, json, re, unicodedata
+import hashlib, re, unicodedata
 from difflib import SequenceMatcher
-from pathlib import Path
 
 def norm(s):
     s=unicodedata.normalize("NFKC",s or "")
@@ -33,12 +32,6 @@ def analyze(machine,visible,source_machine=None,source_visible=None):
             "findings":findings,
             "rule":"Visible text should come from an independent rendering/vision pipeline when available; this module performs comparison only."}
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument("--machine",required=True);ap.add_argument("--visible",required=True)
-    ap.add_argument("--machine-source");ap.add_argument("--visible-source");ap.add_argument("--out")
-    a=ap.parse_args();obj=analyze(Path(a.machine).read_text(encoding="utf-8",errors="replace"),
-                                  Path(a.visible).read_text(encoding="utf-8",errors="replace"),
-                                  a.machine_source or a.machine,a.visible_source or a.visible)
-    s=json.dumps(obj,indent=2,sort_keys=True)
-    if a.out:Path(a.out).write_text(s)
-    else:print(s)
+    from v17_representation_compare import main as bounded_main
+    raise SystemExit(bounded_main())
 if __name__=="__main__":main()

@@ -6,6 +6,12 @@
 
 ## Why AI-DFIR
 
+The unreleased [bounded text comparison](docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md)
+captures both text sources under explicit limits, isolates expensive comparison
+in a fixed worker, and preserves source hashes and critical divergence findings.
+Unavailable comparison requires review; supplied visible text does not prove
+independent rendering.
+
 The unreleased [structured fuzz corpus](docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md)
 rebuilds ZIP headers and CRCs around mutated DOCX XML, font relationships, and
 member names. Eight pinned synthetic regression cases persist in the repository

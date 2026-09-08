@@ -21,6 +21,8 @@
 - [Bounded DOCX Intake and Embedded-font Analysis (development)](reference/DOCX_INTAKE_V1.7.md)
 - [Contained Static HTML/CSS Intake (development)](reference/HTML_INTAKE_V1.7.md)
 - [Bounded Text/PDF/Font Workers and Report Output (development)](reference/CONTENT_WORKERS_V1.7.md)
+- [Bounded Two-source Representation Comparison (development)](reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md)
+- [Remaining Roadmap Qualification Requirements (development)](reference/ROADMAP_QUALIFICATION_V1.7.md)
 - [Witnessed Private Transparency Proofs (development)](reference/PRIVATE_TRANSPARENCY_V1.7.md)
 - [Deterministic Hostile-input Parser Corpus (development)](reference/PARSER_HOSTILE_CORPUS_V1.7.md)
 - [Azure Activity Log Import and Replay (development)](reference/AZURE_ACTIVITY_REPLAY_V1.7.md)

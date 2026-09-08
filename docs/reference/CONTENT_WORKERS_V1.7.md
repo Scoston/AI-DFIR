@@ -115,8 +115,10 @@ preserves a PDF structural finding through failed extraction.
 
 Source and extracted release gates require these checks. Independent package
 verification requires the complete feature when present and preserves historical
-package contracts. The 20-profile coverage campaign remains unchanged; it does
-not claim to fuzz these worker processes or native PDF/font libraries.
+package contracts. The expanded 23-profile coverage campaign does not claim to
+fuzz these worker processes or native PDF/font libraries. The separate
+[bounded comparison profile](BOUNDED_REPRESENTATION_COMPARISON_V1.7.md) now covers
+the standalone and case-pipeline two-source text comparison entry points.
 
 Security review focused on unchecked processing time/memory/output, source
 reopening, child-result promotion, optional-parser failures, and output/source
