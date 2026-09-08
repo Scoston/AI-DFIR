@@ -6,8 +6,14 @@
 
 ## Why AI-DFIR
 
+The unreleased [bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md) validates
+one source snapshot, limits selected ZIP/XML/font processing, and rejects XML
+entities and ambiguous package paths. Embedded-font geometry runs in a resource-
+limited child; unavailable analysis requires review. Uninspected parts and
+complete visible rendering remain explicitly unverified.
+
 The unreleased [coverage-guided fuzzing job](docs/reference/COVERAGE_FUZZING_V1.7.md)
-mutates synthetic inputs across twelve provider/context and five archive profiles.
+mutates synthetic inputs across twelve provider/context, five archive, and one DOCX profile.
 CI requires actual Atheris execution, replay and claim checks, bounded process
 resources, and retained diagnostics; the weekly workflow runs a larger campaign.
 

@@ -6,6 +6,7 @@ PyJWT[crypto]>=2.9
 rfc8785>=0.1.4
 asn1crypto>=1.5.1,<2
 fonttools>=4.63
+defusedxml>=0.7.1,<0.8
 numpy>=1.26
 pandas>=2.2
 scikit-learn>=1.5

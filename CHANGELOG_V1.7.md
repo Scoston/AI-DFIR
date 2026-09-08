@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: bounded DOCX intake and embedded-font analysis
+
+- immutable ZIP snapshot, selected-part expansion and XML tree budgets, DTD/entity rejection, and strict package-name/relationship handling;
+- selected part CRC/size/hash receipts with explicit uninspected payloads and unknown authenticity/completeness;
+- fixed Linux font child with CPU, memory, output, and elapsed limits; incomplete analysis requires review while existing critical findings remain;
+- 133 DOCX regressions, synthetic acceptance/rejection, source/extracted/independent package gates, and a new pure-loader fuzz target;
+- coverage harness now has 18 profiles, 36 pinned preflight cases, and 125 regressions; defusedxml is a PSF-licensed runtime dependency;
+- no independent rendering, full OOXML conformance, or native parser qualification claim.
+
 ### Unreleased: coverage-guided parser and archive fuzzing
 
 - optional pinned Atheris 3.1.0 bytecode instrumentation for twelve provider/context and five archive profiles, using only committed synthetic seeds;

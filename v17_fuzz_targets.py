@@ -11,20 +11,24 @@ import zipfile
 from unittest.mock import patch
 
 import v17_archive_intake_selftest as archives
+import v17_docx_intake as docx
+import v17_docx_intake_selftest as docx_seeds
 import v17_parser_corpus as providers
 from v17_integrity import canonical_json_bytes
+from v17_provenance import ProvenanceError
 
 SCHEMA = "ai-dfir/coverage-fuzz-targets/v1.7"
 MAX_INPUT_BYTES = 16 * 1024 + 1  # Includes the one-byte, versioned selector.
 PROVIDERS = providers.profiles()
 ARCHIVE_FORMATS = ("zip", "tar", "tar-gzip", "tar-bzip2", "tar-xz")
-PROFILE_NAMES = tuple(p.name for p in PROVIDERS) + tuple("archive-" + f for f in ARCHIVE_FORMATS)
+PROFILE_NAMES = tuple(p.name for p in PROVIDERS) + tuple("archive-" + f for f in ARCHIVE_FORMATS) + ("docx-selected-parts",)
 INSTRUMENTED_MODULES = (
     "v17_fuzz_targets", "v17_parser_corpus", "v17_archive_intake_selftest",
     "v17_archive_intake", "v17_cloudtrail", "v17_gcp_audit", "v17_azure_activity",
     "v17_log_analytics", "v17_log_analytics_lossless", "v17_numeric_json",
     "v17_log_analytics_context", "v17_gcp_logging_context", "v17_reconstruction",
     "v17_provenance", "v17_integrity",
+    "v17_docx_intake", "v17_docx_intake_selftest",
 )
 
 
@@ -32,6 +36,11 @@ def seed_inputs():
     """Build before installing member-I/O guards: ZIP fixture writers use open."""
     retained = archives.seeds()
     payloads = tuple(p.seed for p in PROVIDERS) + tuple(retained[f] for f in ARCHIVE_FORMATS)
+    payloads += (docx_seeds.package({
+        "word/document.xml": docx_seeds.DOCUMENT, "word/fontTable.xml": docx_seeds.font_table(),
+        "word/_rels/fontTable.xml.rels": docx_seeds.relationships(),
+        "word/fonts/synthetic.ttf": b"synthetic opaque font",
+    }, compression=zipfile.ZIP_STORED),)
     return tuple(bytes([index]) + raw for index, raw in enumerate(payloads))
 
 
@@ -51,7 +60,7 @@ def blocked_actions():
 
 
 def exercise(data):
-    """Selector 0..16 + raw bytes. Unknown selectors are ignored, never imported."""
+    """Selector 0..17 + raw bytes. Unknown selectors are ignored, never imported."""
     if not __debug__:
         raise RuntimeError("fuzz assertions must be enabled")
     if type(data) is not bytes or len(data) > MAX_INPUT_BYTES:
@@ -61,6 +70,22 @@ def exercise(data):
     selector, raw = data[0], data[1:]
 
     def once():
+        if selector == len(PROVIDERS) + len(ARCHIVE_FORMATS):
+            try:
+                parts = docx.load_docx(raw)
+            except ProvenanceError:
+                return "REJECT", None
+            report = parts.intake
+            assert report["source_sha256"] == hashlib.sha256(raw).hexdigest()
+            assert report["selected_part_size_crc_checked"] is True and report["collection_complete"] is None
+            assert len(report["selected_parts"]) == len(parts)
+            for row in report["selected_parts"]:
+                assert row["sha256"] == hashlib.sha256(parts[row["name"]]).hexdigest()
+                assert row["size_bytes"] == len(parts[row["name"]])
+            for flag in ("all_member_payloads_verified", "external_resources_loaded", "filesystem_extraction",
+                         "source_authenticity_verified", "complete_visible_rendering_verified", "network_required"):
+                assert report[flag] is False
+            return "ACCEPT", hashlib.sha256(canonical_json_bytes(report)).hexdigest()
         if selector < len(PROVIDERS):
             status, digest, error = providers._outcome(PROVIDERS[selector], raw)
             if status not in {"ACCEPT", "REJECT"} or error is not None:

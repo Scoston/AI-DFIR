@@ -8,8 +8,17 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
-Coverage-guided parser fuzzing is implemented in development: 17 fixed synthetic
-provider/context/archive profiles, Atheris bytecode instrumentation, repeated
+Bounded selected-part DOCX intake is implemented in development: immutable source
+binding, ZIP/XML/font budgets, forbidden DTD/entities, literal internal font
+relationships, selected CRC/size verification, explicit uninspected scope, and
+resource-limited embedded-font geometry. There are 133 regressions and a pure
+DOCX loader fuzz target. Next document work is HTML/CSS local-resource containment
+and bounded text/font intake, followed by broader PDF/native parser boundaries;
+independent rendering remains unqualified. See
+[Bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md).
+
+Coverage-guided parser fuzzing is implemented in development: 18 fixed synthetic
+provider/context/archive/DOCX profiles, Atheris bytecode instrumentation, repeated
 replay and claim oracles, bounded child execution, retained failure diagnostics,
 required PR/main campaigns, and a larger scheduled/manual campaign. Source and
 extracted gates separately validate the engine-independent harness and pinned

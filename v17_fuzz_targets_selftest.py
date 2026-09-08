@@ -4,12 +4,12 @@ import json
 
 from v17_fuzz_targets import preflight
 
-SEED_MANIFEST_SHA256 = "87e2b0c2ecec6e8ca5a56ca0b93dc49e51b6132a62d4de2fe512b4df8333932f"
+SEED_MANIFEST_SHA256 = "546cfb663a44ba5cc295578f9dd35fda3abe3bdb42a986ed115528c60b0d4c77"
 
 
 def check():
     report = preflight()
-    if (report["profiles"] != 17 or report["cases"] != 34
+    if (report["profiles"] != 18 or report["cases"] != 36
             or report["seed_manifest_sha256"] != SEED_MANIFEST_SHA256):
         raise AssertionError("fixed fuzz seed manifest mismatch")
     return report

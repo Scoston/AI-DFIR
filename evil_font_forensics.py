@@ -17,10 +17,12 @@ Detection layers:
 The tool-specific IOCs are never required for the generic remapped-glyph finding.
 """
 from __future__ import annotations
-import argparse, hashlib, io, json, re, tempfile, zipfile
+import argparse, hashlib, io, json, os, re, time
 from collections import Counter, defaultdict
 from pathlib import Path
-from xml.etree import ElementTree as ET
+import v17_docx_intake as docx_intake
+from v17_docx_font import analyze as bounded_docx_font
+from v17_integrity import canonical_json_bytes
 
 NS={
  "w":"http://schemas.openxmlformats.org/wordprocessingml/2006/main",
@@ -111,11 +113,10 @@ def analyze_font_bytes(data:bytes,label="font"):
         return {"label":label,"available":True,"sha256":sha256(data),"error":repr(e),"findings":[]}
 
 def docx_parts(path):
-    with zipfile.ZipFile(path) as z:
-        return {n:z.read(n) for n in z.namelist()}
+    return docx_intake.read_docx(path)
 
 def parse_docx_runs(parts):
-    xml=ET.fromstring(parts.get("word/document.xml",b"<x/>"))
+    xml=docx_intake.xml_root(parts["word/document.xml"],docx_intake.XML_PARTS["word/document.xml"])
     runs=[];machine=[]
     for r in xml.findall(".//w:r",NS):
         texts=[t.text or "" for t in r.findall(".//w:t",NS)]
@@ -133,35 +134,42 @@ def embedded_docx_fonts(parts):
     out=[];findings=[]
     ft=parts.get("word/fontTable.xml")
     if not ft:return out,findings
-    try:root=ET.fromstring(ft)
-    except Exception:return out,findings
-    relmap={}
-    rels=parts.get("word/_rels/fontTable.xml.rels")
-    if rels:
-        try:
-            rr=ET.fromstring(rels)
-            for rel in rr:
-                relmap[rel.attrib.get("Id")]=rel.attrib.get("Target")
-        except Exception:pass
-    for f in root.findall(".//w:font",NS):
+    root=docx_intake.xml_root(ft,docx_intake.XML_PARTS["word/fontTable.xml"])
+    relmap=docx_intake.font_relationships(parts)
+    fonts=root.findall(".//w:font",NS)
+    docx_intake.require(len(fonts)<=docx_intake.MAX_FONTS)
+    cache={};deadline=time.monotonic()+20
+    for f in fonts:
         name=f.attrib.get("{%s}name"%NS["w"])
         emb=f.find("w:embedRegular",NS)
         if emb is None:continue
         rid=emb.attrib.get("{%s}id"%NS["r"]);key=emb.attrib.get("{%s}fontKey"%NS["w"])
-        target=relmap.get(rid)
-        raw=parts.get("word/"+target) if target else None
+        relationship=relmap.get(rid)
+        target=relationship["target"] if relationship else None
+        part=docx_intake.font_part(relationship)
+        raw=parts.get(part) if part else None
         item={"font_name":name,"relationship_id":rid,"target":target,"font_key":key,
               "font_sha256":sha256(raw) if raw else None}
         if raw:
             decoded=deobfuscate_odttf(raw,key)
-            item["decoded_font"]=analyze_font_bytes(decoded,name or target)
+            digest=sha256(decoded)
+            key_ok=not key or re.fullmatch(r"[0-9a-fA-F]{32}",key.strip("{}").replace("-",""))
+            if key_ok and digest not in cache and time.monotonic()<deadline:
+                cache[digest]=bounded_docx_font(decoded)
+            result=cache.get(digest) if key_ok else None
+            item["decoded_font"]=result or {"available":False,"error":"embedded font analysis unavailable, unsupported, or resource-limited","findings":[]}
+            if item["decoded_font"].get("available") is not True:
+                findings.append({"type":"docx_font_analysis_incomplete","severity":"high","font_name":name})
+        else:
+            findings.append({"type":"docx_font_reference_unresolved","severity":"high","font_name":name,
+                             "note":"Missing, external, or unsupported regular-font relationship; no external resource was loaded."})
         out.append(item)
     if len(out)>=8:
         findings.append({"type":"unusually_many_embedded_fonts","severity":"high","count":len(out)})
     return out,findings
 
 def analyze_docx(path):
-    parts=docx_parts(path);findings=[]
+    parts=docx_parts(path);findings=list(parts.intake["findings"])
     runs,machine=parse_docx_runs(parts)
     embedded,ef=embedded_docx_fonts(parts);findings+=ef
     fonts=[r["font"] for r in runs if r.get("font")]
@@ -197,12 +205,16 @@ def analyze_docx(path):
                          "note":"Tool-specific IOC; generic glyph/remapping findings carry greater evidentiary weight."})
     for e in embedded:
         findings += [{**x,"font_name":e["font_name"]} for x in (e.get("decoded_font") or {}).get("findings",[])]
-    return {"schema":"ai-dfir/evil-font-docx-analysis/v1.2","path":str(Path(path).resolve()),
+    report={"schema":"ai-dfir/evil-font-docx-analysis/v1.2","path":str(Path(path).absolute()),
+            "intake":parts.intake,"independent_rendering_verified":False,
+            "source_authenticity_verified":False,"collection_complete":None,
             "machine_text_sha256":hashlib.sha256(machine.encode()).hexdigest(),
             "tool_reconstructed_visible_text_sha256":hashlib.sha256(visible.encode()).hexdigest(),
             "run_count":len(runs),"unique_run_fonts":len(set(fonts)),"embedded_fonts":embedded,
             "findings":findings,
             "note":"Reconstructed visible text uses only a tool-specific hex-suffix signal; generic glyph-collapse detection does not depend on EvilFontTool naming."}
+    docx_intake.require(len(canonical_json_bytes(report))<=docx_intake.MAX_OUTPUT_BYTES)
+    return report
 
 
 def _css_font_faces(css_text,base_dir:Path):
@@ -342,7 +354,22 @@ def analyze_pdf(path):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument("path");ap.add_argument("--out")
     a=ap.parse_args();ext=Path(a.path).suffix.lower()
-    if ext==".docx":obj=analyze_docx(a.path)
+    if ext==".docx":
+        try:
+            obj=analyze_docx(a.path)
+            txt=json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=True)
+            raw=(txt+"\n").encode("utf-8")
+            docx_intake.require(len(raw)<=docx_intake.MAX_OUTPUT_BYTES)
+            if a.out:
+                fd=os.open(a.out,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+                with os.fdopen(fd,"wb") as output:
+                    output.write(raw);output.flush();os.fsync(output.fileno())
+            else:print(txt)
+        except KeyboardInterrupt:raise SystemExit(130)
+        except Exception:
+            print(json.dumps({"status":"FAIL","error":"invalid, unsupported, excessive DOCX or unavailable output"}))
+            raise SystemExit(1)
+        return
     elif ext==".pdf":obj=analyze_pdf(a.path)
     elif ext in (".html",".htm"):obj=analyze_html(a.path)
     elif ext in (".ttf",".otf",".woff",".woff2"):

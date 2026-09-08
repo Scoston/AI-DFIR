@@ -23,7 +23,9 @@ from archive_intake_forensics import analyze as archive_analyze
 def findings(o):return o.get("findings",[]) if isinstance(o,dict) else []
 def scan(path):
     p=Path(path);ext=p.suffix.lower();analyses={}
-    if ext==".docx":analyses["document_font"]=analyze_docx(p)
+    if ext==".docx":
+        try:analyses["document_font"]=analyze_docx(p)
+        except Exception:analyses["document_font"]={"findings":[{"type":"docx_parse_failure","severity":"high","error":"invalid, unsupported, excessive, or unavailable DOCX"}]}
     elif ext==".pdf":analyses["document_font"]=analyze_pdf(p)
     elif ext in (".html",".htm"):analyses["document_font"]=analyze_html(p)
     elif ext in (".ttf",".otf",".woff",".woff2"):
