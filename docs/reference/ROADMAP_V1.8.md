@@ -75,19 +75,22 @@ Status: **implemented evidence-gated baseline**
 
 ## Milestone 5 — AI/ML-BOM
 
-Status: **inventory baseline merged; deterministic validation and expected-vs-observed drift implemented on the current development branch and subject to PR qualification**
+Status: **inventory, deterministic validation and expected-vs-observed drift are merged; a pinned external CycloneDX 1.7 qualification gate is implemented and must pass repository CI before promotion**
 
 - [x] inventory for models, tokenizers, adapters, runtimes, tools, MCP servers, connectors, datasets, retrieval stores, policies, skills, containers and libraries
 - [x] deterministic component/dependency ordering and internal record validation
 - [x] dependency graph
-- [x] CycloneDX 1.7-shaped projection
-- [x] explicit non-conformance claim until validator evidence exists
+- [x] CycloneDX 1.7 projection
+- [x] default non-conformance claim retained for arbitrary/unvalidated exports
 - [x] compare two bound incident-time/expected BOM snapshots
 - [x] missing, unexpected and modified component drift findings
 - [x] dependency, component-property and source-version drift findings
 - [x] report binding to both source BOM hashes
 - [x] no-drift-is-safety and drift-is-compromise claims explicitly remain false
-- [ ] actual CycloneDX 1.7 schema validation in CI
+- [x] checksum-pinned CycloneDX `sbom-utility` v0.19.2 validation against the built-in 1.7 schema
+- [x] positive projection plus known-invalid negative-control validation
+- [x] network-isolated validation phase and retained qualification receipt/artifact
+- [ ] validate each production/operator-exported BOM when conformance is asserted for that exact artifact
 
 ## Milestone 6 — reconstruction depth
 
