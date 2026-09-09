@@ -45,7 +45,7 @@ Status: **baseline merged; broader adapters remain**
 
 ## Milestone 3 — OpenTelemetry GenAI and AER reconstruction
 
-Status: **single-span adapter merged; bounded multi-span reconstruction implemented on the current development branch and subject to PR qualification**
+Status: **single-span adapter and bounded multi-span reconstruction merged with repository-controlled synthetic qualification; live collector/exporter interoperability remains open**
 
 - [x] dictionary and OTLP-style attribute ingestion
 - [x] agent/conversation/workflow/model/tool/retrieval field normalization
@@ -75,15 +75,19 @@ Status: **implemented evidence-gated baseline**
 
 ## Milestone 5 — AI/ML-BOM
 
-Status: **implemented baseline**
+Status: **inventory baseline merged; deterministic validation and expected-vs-observed drift implemented on the current development branch and subject to PR qualification**
 
 - [x] inventory for models, tokenizers, adapters, runtimes, tools, MCP servers, connectors, datasets, retrieval stores, policies, skills, containers and libraries
+- [x] deterministic component/dependency ordering and internal record validation
 - [x] dependency graph
 - [x] CycloneDX 1.7-shaped projection
 - [x] explicit non-conformance claim until validator evidence exists
+- [x] compare two bound incident-time/expected BOM snapshots
+- [x] missing, unexpected and modified component drift findings
+- [x] dependency, component-property and source-version drift findings
+- [x] report binding to both source BOM hashes
+- [x] no-drift-is-safety and drift-is-compromise claims explicitly remain false
 - [ ] actual CycloneDX 1.7 schema validation in CI
-- [ ] import and compare two incident-time BOM snapshots
-- [ ] expected-vs-observed component drift findings
 
 ## Milestone 6 — reconstruction depth
 
