@@ -11,10 +11,14 @@ capabilities.
 
 The optional [isolated PDF adapter](ISOLATED_PDF_RENDERING_V1.7.md) now renders
 bounded grayscale pages and English OCR through an explicitly pinned local Docker
-image. A dedicated GitHub workflow qualifies six synthetic cases on an Ubuntu
-24.04 Docker host, including kernel isolation observations, source/image/text
-bindings, hidden-text exclusion and divergence, failure handling, and cleanup.
-Its retained observations qualify only the tested image and profile.
+image. A dedicated GitHub workflow qualifies twelve synthetic cases on an Ubuntu
+24.04 Docker host. Ten must render successfully: baseline visible text, hidden
+machine text, two pages, blank output, white-on-white source text, off-page source
+text, clipped source text, two-column layout, 90-degree page rotation, and the
+four-page upper boundary. Malformed and five-page inputs must remain unavailable.
+The workflow also checks kernel isolation observations, source/image/text bindings,
+representation divergence, failure handling, and cleanup. Its retained observations
+qualify only the tested image and profile.
 
 The earlier local namespace probe remains insufficient for local isolation
 qualification. The adapter does not fall back to an uncontained host renderer.
@@ -22,11 +26,15 @@ Ordinary source/extracted tests use synthetic protocol replies and explicitly
 cannot claim native rendering. No production deployment or complete visible
 content, OCR accuracy, or source authenticity is established.
 
-Remaining rendering work covers named additional formats, languages and layouts,
-curated hostile raster/OCR cases, native sanitizers, and production host/image
-qualification. Each needs concrete fixtures and actual acceptance on its target
-runtime. The existing comparator can consume a retained OCR observation without
-automatically promoting evidence-gate decisions.
+The curated representation-hostile cases now cover three source-versus-visible
+failure modes: render-mode hidden text, white-on-white text, off-page text, and
+clipped text are all checked through the same comparison path, with the original
+hidden-text case plus three new fixtures. Remaining rendering work covers named
+additional formats, languages, broader layouts/fonts, larger hostile corpora,
+native sanitizers, and production host/image qualification. Each needs concrete
+fixtures and actual acceptance on its target runtime. The existing comparator can
+consume a retained OCR observation without automatically promoting evidence-gate
+decisions.
 
 ## Remaining work and concrete inputs
 
@@ -41,7 +49,7 @@ automatically promoting evidence-gate decisions.
 | HSM signing and hardware collector keys | Existing signed checkpoints, scoped trust, and key governance | Specific HSM/KMS/PKCS#11 interface, accessible test hardware, key policy and failure/rotation acceptance |
 | Operated transparency and witnessing | Offline signed states, inclusion/consistency proofs, witness keys | Independent service/custodian topology, retained prior heads, fork-monitor and archival-key operation |
 | Source coverage and authoritative compatibility | Retained schema-shape comparisons and explicit unknown collection | Authoritative source inventory, effective scope/retention evidence, versioned provider contracts and reference populations |
-| Broader visible rendering | Isolated bounded PDF/English OCR profile, static intake and two-source comparison | Selected additional formats/languages/layouts, curated synthetic fixtures, and actual target-host qualification |
+| Broader visible rendering | Isolated bounded PDF/English OCR profile with curated source-vs-visible hostile cases, rotation/two-column layout, static intake and two-source comparison | Selected additional formats/languages/layouts/fonts, larger curated synthetic fixtures, native sanitizer profile, and actual target-host qualification |
 | Full CASE/UCO investigation/import interoperability | Verified inventory/lineage export and official schema validation | Named external system/version, mapping and loss policy, representative synthetic bidirectional fixtures |
 | Broader corpora, grammar mutation, native sanitizers | Twenty-three fuzz profiles, three structure-preserving targets, eight curated cases | Selected additional formats and grammars, curated synthetic inputs, reproducible sanitizer toolchain and actual native campaign evidence |
 | Independent penetration testing/certification | Threat model, negative tests, release assurance and readiness gates | A deployed assessment target, independent assessor, agreed scope and retained report |
