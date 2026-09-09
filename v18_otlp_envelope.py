@@ -7,8 +7,10 @@ from __future__ import annotations
 
 import base64
 import json
+import re
 from copy import deepcopy
-from typing import Any, Iterable
+from datetime import datetime
+from typing import Any
 
 import v18_agent_execution_record as aer
 import v18_otel_genai as otel
@@ -25,6 +27,28 @@ MAX_RESOURCE_GROUPS = 2_048
 MAX_SCOPE_GROUPS = 8_192
 MAX_SPANS = 50_000
 MAX_LOG_RECORDS = 100_000
+TRACE_ID_RE = re.compile(r"^[0-9a-fA-F]{32}$")
+SPAN_ID_RE = re.compile(r"^[0-9a-fA-F]{16}$")
+
+
+def _time(value: Any) -> str:
+    if not isinstance(value, str) or not value:
+        raise ValueError("observed_at must be a non-empty ISO-8601 string")
+    candidate = value[:-1] + "+00:00" if value.endswith("Z") else value
+    try:
+        datetime.fromisoformat(candidate)
+    except ValueError as exc:
+        raise ValueError("invalid observed_at") from exc
+    return value
+
+
+def _validate_id(value: Any, *, trace: bool, field: str) -> None:
+    if value in (None, ""):
+        return
+    pattern = TRACE_ID_RE if trace else SPAN_ID_RE
+    if not isinstance(value, str) or not pattern.fullmatch(value):
+        expected = "32" if trace else "16"
+        raise ValueError(f"{field} must be empty or {expected} hexadecimal characters")
 
 
 def _json_bytes(source: bytes | bytearray | dict[str, Any]) -> tuple[bytes, dict[str, Any], str]:
@@ -59,6 +83,14 @@ def _json_bytes(source: bytes | bytearray | dict[str, Any]) -> tuple[bytes, dict
 def _kv_attributes(raw: Any) -> dict[str, Any]:
     if raw is None:
         return {}
+    if isinstance(raw, list):
+        seen: set[str] = set()
+        for item in raw:
+            if not isinstance(item, dict) or not isinstance(item.get("key"), str):
+                raise ValueError("invalid OTLP attribute")
+            if item["key"] in seen:
+                raise ValueError(f"duplicate OTLP attribute key: {item['key']}")
+            seen.add(item["key"])
     return otel.attributes({"attributes": raw})
 
 
@@ -114,7 +146,10 @@ def import_trace_envelope(
     observed_at: str,
 ) -> dict[str, Any]:
     """Import one OTLP JSON traces envelope without network activity."""
+    _time(observed_at)
     raw, envelope, serialization = _json_bytes(source)
+    if "resourceLogs" in envelope:
+        raise ValueError("log envelope supplied to trace importer")
     groups = envelope.get("resourceSpans", [])
     if not isinstance(groups, list):
         raise ValueError("resourceSpans must be an array")
@@ -149,6 +184,10 @@ def import_trace_envelope(
             for span_index, span in enumerate(spans):
                 if not isinstance(span, dict):
                     raise ValueError("OTLP span must be an object")
+                _kv_attributes(span.get("attributes", []))
+                _validate_id(span.get("traceId") or span.get("trace_id"), trace=True, field="traceId")
+                _validate_id(span.get("spanId") or span.get("span_id"), trace=False, field="spanId")
+                _validate_id(span.get("parentSpanId") or span.get("parent_span_id"), trace=False, field="parentSpanId")
                 adapted_span = otel.adapt_span(
                     span,
                     semantic_conventions_version=semantic_conventions_version,
@@ -216,6 +255,8 @@ def _log_record(
     observed_at: str,
     context: dict[str, Any],
 ) -> dict[str, Any]:
+    _validate_id(item.get("traceId") or item.get("trace_id"), trace=True, field="traceId")
+    _validate_id(item.get("spanId") or item.get("span_id"), trace=False, field="spanId")
     raw = aer.canonical_bytes(item)
     attrs = _kv_attributes(item.get("attributes", []))
     record = {
@@ -251,7 +292,10 @@ def import_log_envelope(
     observed_at: str,
 ) -> dict[str, Any]:
     """Import one OTLP JSON logs envelope and preserve record/resource/scope context."""
+    _time(observed_at)
     raw, envelope, serialization = _json_bytes(source)
+    if "resourceSpans" in envelope:
+        raise ValueError("trace envelope supplied to log importer")
     groups = envelope.get("resourceLogs", [])
     if not isinstance(groups, list):
         raise ValueError("resourceLogs must be an array")
@@ -379,6 +423,7 @@ def validate_log_import(record: dict[str, Any]) -> bool:
 
 
 def _validate_common(record: dict[str, Any]) -> None:
+    _time(record.get("observed_at"))
     if record.get("otlp_contract_version") != OTLP_CONTRACT_VERSION:
         raise ValueError("unexpected OTLP contract version")
     raw = record.get("raw_envelope")
