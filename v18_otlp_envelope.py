@@ -8,6 +8,7 @@ from __future__ import annotations
 import base64
 import json
 import re
+from collections import Counter
 from copy import deepcopy
 from datetime import datetime
 from typing import Any
@@ -137,6 +138,90 @@ def _raw_info(raw: bytes, serialization: str) -> dict[str, Any]:
         "base64": base64.b64encode(raw).decode("ascii"),
         "serialization": serialization,
     }
+
+
+def _raw_envelope_object(record: dict[str, Any]) -> dict[str, Any]:
+    raw = base64.b64decode(record["raw_envelope"]["base64"], validate=True)
+    try:
+        value = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("retained OTLP envelope cannot be replay-parsed") from exc
+    if not isinstance(value, dict):
+        raise ValueError("retained OTLP envelope root must be an object")
+    return value
+
+
+def _trace_source_bindings(envelope: dict[str, Any]) -> list[tuple[str, str]]:
+    bindings: list[tuple[str, str]] = []
+    groups = envelope.get("resourceSpans", [])
+    if not isinstance(groups, list):
+        raise ValueError("retained resourceSpans must be an array")
+    for resource_index, resource_group in enumerate(groups):
+        if not isinstance(resource_group, dict):
+            raise ValueError("retained resourceSpans entry must be an object")
+        resource_context = _resource_context(resource_group)
+        scopes = resource_group.get("scopeSpans", [])
+        if not isinstance(scopes, list):
+            raise ValueError("retained scopeSpans must be an array")
+        for scope_index, scope_group in enumerate(scopes):
+            if not isinstance(scope_group, dict):
+                raise ValueError("retained scopeSpans entry must be an object")
+            scope_context = _scope_context(scope_group)
+            spans = scope_group.get("spans", [])
+            if not isinstance(spans, list):
+                raise ValueError("retained spans must be an array")
+            for span_index, span in enumerate(spans):
+                if not isinstance(span, dict):
+                    raise ValueError("retained span must be an object")
+                _kv_attributes(span.get("attributes", []))
+                context = {
+                    "resource_index": resource_index,
+                    "scope_index": scope_index,
+                    "span_index": span_index,
+                    "resource": deepcopy(resource_context),
+                    "scope": deepcopy(scope_context),
+                }
+                bindings.append((
+                    aer.sha256_bytes(aer.canonical_bytes(span)),
+                    aer.sha256_bytes(aer.canonical_bytes(context)),
+                ))
+    return sorted(bindings)
+
+
+def _log_source_bindings(envelope: dict[str, Any]) -> list[tuple[str, str]]:
+    bindings: list[tuple[str, str]] = []
+    groups = envelope.get("resourceLogs", [])
+    if not isinstance(groups, list):
+        raise ValueError("retained resourceLogs must be an array")
+    for resource_index, resource_group in enumerate(groups):
+        if not isinstance(resource_group, dict):
+            raise ValueError("retained resourceLogs entry must be an object")
+        resource_context = _resource_context(resource_group)
+        scopes = resource_group.get("scopeLogs", [])
+        if not isinstance(scopes, list):
+            raise ValueError("retained scopeLogs must be an array")
+        for scope_index, scope_group in enumerate(scopes):
+            if not isinstance(scope_group, dict):
+                raise ValueError("retained scopeLogs entry must be an object")
+            scope_context = _scope_context(scope_group)
+            logs = scope_group.get("logRecords", [])
+            if not isinstance(logs, list):
+                raise ValueError("retained logRecords must be an array")
+            for log_index, log_record in enumerate(logs):
+                if not isinstance(log_record, dict):
+                    raise ValueError("retained log record must be an object")
+                context = {
+                    "resource_index": resource_index,
+                    "scope_index": scope_index,
+                    "log_index": log_index,
+                    "resource": deepcopy(resource_context),
+                    "scope": deepcopy(scope_context),
+                }
+                bindings.append((
+                    aer.sha256_bytes(aer.canonical_bytes(log_record)),
+                    aer.sha256_bytes(aer.canonical_bytes(context)),
+                ))
+    return sorted(bindings)
 
 
 def import_trace_envelope(
@@ -375,14 +460,55 @@ def validate_trace_import(record: dict[str, Any]) -> bool:
     if not isinstance(record, dict) or record.get("schema") != TRACE_SCHEMA:
         raise ValueError("unsupported OTLP trace import schema")
     _validate_common(record)
+    semconv = record.get("semantic_conventions_version")
+    if not isinstance(semconv, str) or not semconv:
+        raise ValueError("semantic_conventions_version is required")
     entries = record.get("entries")
     if not isinstance(entries, list) or len(entries) > MAX_SPANS:
         raise ValueError("invalid OTLP trace entries")
+
+    actual_bindings: list[tuple[str, str]] = []
     for entry in entries:
         if not isinstance(entry, dict) or not isinstance(entry.get("context"), dict):
             raise ValueError("invalid OTLP trace entry")
-        otel.validate(entry.get("adapted_span"))
+        adapted = entry.get("adapted_span")
+        otel.validate(adapted)
+        if adapted.get("semantic_conventions_version") != semconv or adapted.get("observed_at") != record.get("observed_at"):
+            raise ValueError("adapted span version/time binding mismatch")
+        raw_span = base64.b64decode(adapted["raw_span"]["base64"], validate=True)
+        try:
+            span_obj = json.loads(raw_span.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ValueError("retained adapted span cannot be replay-parsed") from exc
+        replayed = otel.adapt_span(
+            span_obj,
+            semantic_conventions_version=semconv,
+            observed_at=record["observed_at"],
+        )
+        if replayed["record_sha256"] != adapted["record_sha256"]:
+            raise ValueError("adapted span is not reproducible from retained span bytes")
+        actual_bindings.append((
+            adapted["raw_span"]["sha256"],
+            aer.sha256_bytes(aer.canonical_bytes(entry["context"])),
+        ))
+
+    source = _raw_envelope_object(record)
+    if "resourceLogs" in source:
+        raise ValueError("retained trace import contains log signal")
+    if Counter(actual_bindings) != Counter(_trace_source_bindings(source)):
+        raise ValueError("trace entries/context do not match retained OTLP envelope")
+
+    diagnostics = record.get("diagnostics")
+    if not isinstance(diagnostics, dict) or diagnostics.get("span_count") != len(entries):
+        raise ValueError("trace diagnostics mismatch")
+    derived_trace_ids = sorted({e["adapted_span"].get("trace_id") for e in entries if e["adapted_span"].get("trace_id")})
+    if diagnostics.get("trace_ids") != derived_trace_ids:
+        raise ValueError("trace-id diagnostics mismatch")
+
     claims = record.get("claims", {})
+    expected_source_bytes = record["raw_envelope"]["serialization"] == "observed-json-bytes"
+    if claims.get("source_bytes_preserved") is not expected_source_bytes:
+        raise ValueError("source_bytes_preserved claim mismatch")
     for key in ("telemetry_authenticity_verified", "collection_complete", "transport_delivery_complete",
                 "semantic_meaning_complete", "private_reasoning_captured"):
         if claims.get(key) is not False:
@@ -398,6 +524,8 @@ def validate_log_import(record: dict[str, Any]) -> bool:
     entries = record.get("entries")
     if not isinstance(entries, list) or len(entries) > MAX_LOG_RECORDS:
         raise ValueError("invalid OTLP log entries")
+
+    actual_bindings: list[tuple[str, str]] = []
     for entry in entries:
         if not isinstance(entry, dict) or not isinstance(entry.get("context"), dict):
             raise ValueError("invalid OTLP log entry")
@@ -407,13 +535,34 @@ def validate_log_import(record: dict[str, Any]) -> bool:
         raw_bytes = base64.b64decode(raw.get("base64", ""), validate=True)
         if len(raw_bytes) != raw.get("size") or aer.sha256_bytes(raw_bytes) != raw.get("sha256"):
             raise ValueError("raw log record custody mismatch")
+        try:
+            log_obj = json.loads(raw_bytes.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ValueError("retained log record cannot be replay-parsed") from exc
+        replayed = _log_record(log_obj, observed_at=record["observed_at"], context=entry["context"])
+        if replayed["record_sha256"] != entry.get("record_sha256"):
+            raise ValueError("log record is not reproducible from retained bytes/context")
         if entry.get("claims", {}).get("log_to_span_causality_proven") is not False:
             raise ValueError("log-to-span causality must remain false")
-        unsigned = deepcopy(entry)
-        digest = unsigned.pop("record_sha256", None)
-        if digest != aer.sha256_bytes(aer.canonical_bytes(unsigned)):
-            raise ValueError("OTLP log record hash mismatch")
+        actual_bindings.append((
+            raw["sha256"],
+            aer.sha256_bytes(aer.canonical_bytes(entry["context"])),
+        ))
+
+    source = _raw_envelope_object(record)
+    if "resourceSpans" in source:
+        raise ValueError("retained log import contains trace signal")
+    if Counter(actual_bindings) != Counter(_log_source_bindings(source)):
+        raise ValueError("log entries/context do not match retained OTLP envelope")
+
+    diagnostics = record.get("diagnostics")
+    if not isinstance(diagnostics, dict) or diagnostics.get("log_record_count") != len(entries):
+        raise ValueError("log diagnostics mismatch")
+
     claims = record.get("claims", {})
+    expected_source_bytes = record["raw_envelope"]["serialization"] == "observed-json-bytes"
+    if claims.get("source_bytes_preserved") is not expected_source_bytes:
+        raise ValueError("source_bytes_preserved claim mismatch")
     for key in ("telemetry_authenticity_verified", "collection_complete", "transport_delivery_complete",
                 "log_to_span_causality_proven"):
         if claims.get(key) is not False:
