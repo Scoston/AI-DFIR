@@ -297,6 +297,14 @@ def required_v17_paths() -> set[str]:
         "scripts/representation_compare_worker_v17.py",
         "tests/test_v17_representation_compare.py",
         "docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md",
+        "v17_pdf_render.py",
+        "v17_pdf_render_selftest.py",
+        "deploy/render/Dockerfile",
+        "deploy/render/worker.py",
+        "scripts/qualify_pdf_render_v17.py",
+        "tests/test_v17_pdf_render.py",
+        ".github/workflows/pdf-render-qualification.yml",
+        "docs/reference/ISOLATED_PDF_RENDERING_V1.7.md",
         "docs/reference/ROADMAP_QUALIFICATION_V1.7.md",
         "representation_differential.py",
         "representation_integrity_analyze.py",
@@ -447,6 +455,7 @@ def require_extracted_v17_checks(report: dict) -> None:
         "v17_fuzz_targets_selftest": "PASS",
         "v17_structured_fuzz_selftest": "PASS",
         "v17_representation_compare_selftest": "PASS",
+        "v17_pdf_render_selftest": "PASS",
         "v17_docx_intake_selftest": "PASS",
         "v17_html_intake_selftest": "PASS",
         "v17_content_intake_selftest": "PASS",
@@ -575,6 +584,13 @@ def require_extracted_v17_checks(report: dict) -> None:
     if (comparison_seeds.get("valid_pairs") != 2 or comparison_seeds.get("invalid_pairs_rejected") != 2
             or comparison_seeds.get("independent_rendering_verified") is not False):
         raise RuntimeError("extracted package must pass real comparison workers without claiming independent rendering")
+    pdf_render = checks.get("v17_pdf_render_regression")
+    if not isinstance(pdf_render, dict) or pdf_render.get("status") != "PASS" or pdf_render.get("tests") != 211:
+        raise RuntimeError("extracted package must pass all 211 isolated PDF protocol and boundary regression tests")
+    pdf_protocol = checks["v17_pdf_render_selftest"]
+    if (pdf_protocol.get("valid_protocol_replies") != 1 or pdf_protocol.get("invalid_protocol_replies_rejected") != 3
+            or pdf_protocol.get("native_rendering_qualified") is not False):
+        raise RuntimeError("extracted package must pass PDF protocol acceptance without promoting it to native rendering qualification")
     docx = checks.get("v17_docx_intake_regression")
     if not isinstance(docx, dict) or docx.get("status") != "PASS" or docx.get("tests") != 133:
         raise RuntimeError("extracted package must pass all 133 bounded DOCX regression tests")
@@ -881,6 +897,9 @@ def main() -> None:
                 "v17_representation_compare_selftest": "PASS",
                 "v17_representation_compare_regression_tests": 112,
                 "v17_comparison_independent_rendering_verified": False,
+                "v17_pdf_render_selftest": "PASS",
+                "v17_pdf_render_regression_tests": 211,
+                "v17_pdf_protocol_native_rendering_qualified": False,
                 "v17_docx_intake_selftest": "PASS",
                 "v17_docx_intake_regression_tests": 133,
                 "v17_docx_independent_rendering_verified": False,

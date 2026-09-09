@@ -6,6 +6,12 @@
 
 ## Why AI-DFIR
 
+The unreleased [isolated PDF renderer](docs/reference/ISOLATED_PDF_RENDERING_V1.7.md)
+captures bounded grayscale page images and English OCR in an explicitly selected,
+locally pinned Docker image. It checks isolation controls, retains source/image/text
+hashes, and requires successful cleanup. A separate GitHub workflow exercises real
+rendering on synthetic PDFs; ordinary protocol tests do not qualify native output.
+
 The unreleased [bounded text comparison](docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md)
 captures both text sources under explicit limits, isolates expensive comparison
 in a fixed worker, and preserves source hashes and critical divergence findings.
@@ -374,6 +380,10 @@ AI-DFIR is licensed under **Apache License 2.0**. Review:
 - [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 **PyMuPDF is not installed by default** because its AGPL/commercial licensing differs from the AI-DFIR project license. The optional PDF profile is deliberately separated.
+
+The separate optional raster/OCR image uses Poppler, Tesseract and Liberation fonts.
+Their image-specific license notices and inventory are described in the
+[renderer guide](docs/reference/ISOLATED_PDF_RENDERING_V1.7.md).
 
 ## Security reporting
 

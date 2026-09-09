@@ -8,11 +8,19 @@ The current catalog contains 111 Evidence Packs.
 
 ## Implemented in development, unreleased
 
+An optional isolated PDF raster/OCR adapter is implemented: explicit pinned local
+Docker image, bounded grayscale pages and English OCR, required kernel/container
+controls, no network or host mounts, source/image/text custody, and fail-closed
+cleanup. Its 211 protocol/boundary regressions are separate from the dedicated
+GitHub workflow's six actual synthetic rendering cases. Each rebuilt image needs
+that qualification before use. Broader rendering and deployment qualification
+remain open. See [Isolated PDF rendering](docs/reference/ISOLATED_PDF_RENDERING_V1.7.md).
+
 Bounded representation comparison is implemented in development: fixed Linux
 worker, two strict source snapshots, source/size/character bindings, explicit
 unavailable findings, and protected standalone/case comparison reports. Its 112
 regressions preserve existing comparison scores and critical signals. Independent
-rendering remains open and is the next selected representation item; see
+PDF rendering now has a separate optional isolated profile; see
 [Bounded comparison](docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md) and
 [Remaining qualification requirements](docs/reference/ROADMAP_QUALIFICATION_V1.7.md).
 
@@ -21,7 +29,7 @@ implemented in development: bounded in-memory ZIP32 reconstruction around main
 DOCX XML, font relationships, and member names; eight pinned committed cases;
 source/generated/output bindings; and unchanged original twenty profile digests.
 There are 96 structured/corpus regressions plus 147 general harness regressions.
-Broader corpus/format qualification, native sanitizers, and independent rendering
+Broader corpus/format qualification, native sanitizers, and broader rendering
 remain open. See [Structured fuzz corpus](docs/reference/STRUCTURED_FUZZ_CORPUS_V1.7.md).
 
 Bounded text/PDF workers, standalone-font intake, and exclusive report output are
@@ -29,7 +37,7 @@ implemented in development. Fixed Linux processes cap CPU, address space, elapse
 time, and response bytes; exact source bindings and strict result checks preserve
 unknowns. The gate and specialist text/document/font CLIs use these boundaries,
 with 100 regressions and optional synthetic PyMuPDF acceptance. Broader native
-sanitizer/format qualification and independent rendering remain open. A separate
+sanitizer/format qualification and broader rendering remain open. A separate
 structured fuzz profile now supplies a pinned persistent synthetic corpus. See [Bounded content workers](docs/reference/CONTENT_WORKERS_V1.7.md).
 
 Contained HTML/CSS intake is implemented in development: directory-handle local
@@ -38,7 +46,7 @@ source/parser/resource profiles, selected-byte receipts, and explicit unresolved
 resources. The content gate reuses one HTML snapshot and bounds other text reads.
 There are 88 regressions and two pure static fuzz profiles. General text/PDF
 processing and standalone-font/gate output now have a separate bounded worker
-profile. Independent rendering remains open. See
+profile. Broader rendering remains open. See
 [Contained HTML/CSS intake](docs/reference/HTML_INTAKE_V1.7.md).
 
 Bounded selected-part DOCX intake is implemented in development: immutable source
@@ -47,7 +55,7 @@ relationships, selected CRC/size verification, explicit uninspected scope, and
 resource-limited embedded-font geometry. There are 133 regressions and a pure
 DOCX loader fuzz target. HTML/CSS containment and general text/font/PDF process
 boundaries are now implemented; broader native parser qualification and
-independent rendering remain open. See
+broader rendering remain open. See
 [Bounded DOCX intake](docs/reference/DOCX_INTAKE_V1.7.md).
 
 Coverage-guided parser fuzzing is implemented in development: 23 fixed synthetic
@@ -57,7 +65,7 @@ required PR/main campaigns, and a larger scheduled/manual campaign. Source and
 extracted gates separately validate the engine-independent harness and pinned
 preflight. A pinned eight-case persistent corpus and three structure-preserving
 targets are now implemented. Native sanitizer qualification, broader documents,
-and independent rendering remain open. See
+and broader rendering remain open. See
 [Coverage-guided fuzzing](docs/reference/COVERAGE_FUZZING_V1.7.md).
 
 Bounded archive metadata intake is implemented in development: ZIP32, TAR,
@@ -277,8 +285,9 @@ policy completeness and actual prior verifier execution are not proven. See
 
 The [qualification matrix](docs/reference/ROADMAP_QUALIFICATION_V1.7.md) records
 the concrete environment, target, and acceptance inputs needed for each remaining
-area. Independent rendering is next; the current host's namespace probe did not
-complete, so it has not been treated as a qualified renderer environment.
+area. The isolated PDF profile now has a dedicated GitHub runner qualification
+path. Remaining rendering work includes additional document formats, languages,
+layouts, curated hostile cases and deployment-specific acceptance.
 
 - complete historical policy/revocation and custody evidence beyond the bounded retained-record profile;
 - operated policy delivery services, additional deployment identity profiles beyond mTLS, and durable/HA coordination beyond the controlled local scheduling profile;
@@ -290,7 +299,7 @@ complete, so it has not been treated as a qualified renderer environment.
 - HSM-specific signing profiles and hardware-backed collector keys;
 - operated private transparency services, independent witness custody/fork monitoring, and archival log-key governance beyond the implemented offline signed-snapshot/proof profile;
 - evidence-source coverage measurement and authoritative provider schema/compatibility evaluation beyond the implemented retained nested-shape comparisons;
-- additional independent visible-rendering adapters for representation attacks;
+- additional visible-rendering formats, languages and deployment qualification beyond the bounded isolated PDF/English OCR profile;
 - full investigation modeling, bidirectional import, and external case-management interoperability beyond the implemented optional CASE/UCO 1.5.0 inventory view;
 - broader hostile document/format corpora, grammar-aware mutation, and native sanitizer qualification beyond the implemented finite/coverage-guided campaigns, three structure-preserving targets, and eight-case persistent synthetic corpus;
 - external independent penetration-test reports and deployment certifications when a production environment exists.

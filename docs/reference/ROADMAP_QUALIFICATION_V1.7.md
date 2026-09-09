@@ -7,25 +7,26 @@ coverage-guided targets; and a pinned persistent synthetic corpus. These control
 do not turn the remaining production or external-validation items into completed
 capabilities.
 
-## Next selected item: independent visible rendering
+## Independent visible rendering: bounded PDF profile implemented
 
-The next representation item is an independently sourced rendering/text adapter,
-with original-byte binding, renderer/version identity, bounded resource handling,
-and explicit partial/failed observations. The bounded comparator can consume
-retained text observations, but cannot establish how they were rendered.
+The optional [isolated PDF adapter](ISOLATED_PDF_RENDERING_V1.7.md) now renders
+bounded grayscale pages and English OCR through an explicitly pinned local Docker
+image. A dedicated GitHub workflow qualifies six synthetic cases on an Ubuntu
+24.04 Docker host, including kernel isolation observations, source/image/text
+bindings, hidden-text exclusion and divergence, failure handling, and cleanup.
+Its retained observations qualify only the tested image and profile.
 
-Qualification needs a disposable Linux host with working process/network/mount
-isolation and a selected renderer/OCR profile. In this development session,
-Poppler's `pdftoppm` and Tesseract were present, while Chromium, LibreOffice,
-Docker, and Clang were absent. A harmless Bubblewrap namespace probe did not
-complete within ten seconds. This is insufficient evidence of usable isolation;
-no uncontained renderer run was promoted as a qualified adapter.
+The earlier local namespace probe remains insufficient for local isolation
+qualification. The adapter does not fall back to an uncontained host renderer.
+Ordinary source/extracted tests use synthetic protocol replies and explicitly
+cannot claim native rendering. No production deployment or complete visible
+content, OCR accuracy, or source authenticity is established.
 
-On an appropriate host, acceptance must demonstrate controlled source mounts,
-network denial, bounded pages/pixels/output/time/memory, actual independent output,
-source/renderer bindings, and explicit behavior for unsupported, hidden, corrupt,
-and resource-exhausting inputs. Synthetic successes alone must not claim complete
-visible content, authentic sources, or production deployment certification.
+Remaining rendering work covers named additional formats, languages and layouts,
+curated hostile raster/OCR cases, native sanitizers, and production host/image
+qualification. Each needs concrete fixtures and actual acceptance on its target
+runtime. The existing comparator can consume a retained OCR observation without
+automatically promoting evidence-gate decisions.
 
 ## Remaining work and concrete inputs
 
@@ -40,7 +41,7 @@ visible content, authentic sources, or production deployment certification.
 | HSM signing and hardware collector keys | Existing signed checkpoints, scoped trust, and key governance | Specific HSM/KMS/PKCS#11 interface, accessible test hardware, key policy and failure/rotation acceptance |
 | Operated transparency and witnessing | Offline signed states, inclusion/consistency proofs, witness keys | Independent service/custodian topology, retained prior heads, fork-monitor and archival-key operation |
 | Source coverage and authoritative compatibility | Retained schema-shape comparisons and explicit unknown collection | Authoritative source inventory, effective scope/retention evidence, versioned provider contracts and reference populations |
-| Independent visible rendering | Bounded static intake and two-source comparison | Qualified isolated renderer/OCR host and the acceptance described above |
+| Broader visible rendering | Isolated bounded PDF/English OCR profile, static intake and two-source comparison | Selected additional formats/languages/layouts, curated synthetic fixtures, and actual target-host qualification |
 | Full CASE/UCO investigation/import interoperability | Verified inventory/lineage export and official schema validation | Named external system/version, mapping and loss policy, representative synthetic bidirectional fixtures |
 | Broader corpora, grammar mutation, native sanitizers | Twenty-three fuzz profiles, three structure-preserving targets, eight curated cases | Selected additional formats and grammars, curated synthetic inputs, reproducible sanitizer toolchain and actual native campaign evidence |
 | Independent penetration testing/certification | Threat model, negative tests, release assurance and readiness gates | A deployed assessment target, independent assessor, agreed scope and retained report |

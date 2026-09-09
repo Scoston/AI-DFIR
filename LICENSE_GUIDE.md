@@ -29,6 +29,16 @@ an independently licensed PDF rendering/extraction pipeline and feed its output
 into `representation_differential.py`, or obtain an appropriate commercial
 license from the dependency vendor.
 
+## Optional isolated raster/OCR image
+
+`deploy/render/Dockerfile` installs distribution packages for Poppler, Tesseract,
+the English OCR model and Liberation fonts. They are separate from AI-DFIR's
+Apache-2.0 source and default Python profile. Retain and review their exact
+`/usr/share/doc/*/copyright` notices and `/opt/ai-dfir/packages.txt` inventory when
+distributing the image. `scripts/license_inventory.py` inventories Python
+dependencies only; it does not cover these native image packages. See the
+[renderer guide](docs/reference/ISOLATED_PDF_RENDERING_V1.7.md).
+
 ## Enterprise optional dependencies
 
 The enterprise profile uses provider SDKs and PostgreSQL drivers. Their licenses
