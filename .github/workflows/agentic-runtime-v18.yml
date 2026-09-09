@@ -1,0 +1,40 @@
+name: Agentic Runtime v1.8
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  agentic-runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install test dependencies
+        run: python -m pip install -r requirements.txt "pytest>=8,<9"
+
+      - name: Compile v1.8 modules
+        run: |
+          python -m py_compile \
+            v18_agent_execution_record.py \
+            v18_mcp_forensics.py \
+            v18_rag_memory.py \
+            v18_otel_genai.py \
+            v18_agentic_detections.py \
+            v18_ai_ml_bom.py \
+            v18_agentic_selftest.py
+
+      - name: Run v1.8 synthetic acceptance self-test
+        run: python v18_agentic_selftest.py
+
+      - name: Run v1.8 regression tests
+        run: python -m pytest tests/test_v18_agentic_runtime.py -q

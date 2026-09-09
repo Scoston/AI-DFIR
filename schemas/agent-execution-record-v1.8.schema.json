@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Scoston/AI-DFIR/schemas/agent-execution-record-v1.8.schema.json",
+  "title": "AI-DFIR Agent Execution Record v1.8",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "record_id", "started_at", "ended_at", "source_versions", "nodes", "edges", "raw_evidence", "claims", "record_sha256"],
+  "properties": {
+    "schema": {"const": "ai-dfir/agent-execution-record/v1.8"},
+    "version": {"const": "1.8"},
+    "record_id": {"type": "string", "minLength": 1},
+    "started_at": {"type": "string", "format": "date-time"},
+    "ended_at": {"anyOf": [{"type": "string", "format": "date-time"}, {"type": "null"}]},
+    "source_versions": {"type": "object", "additionalProperties": {"type": "string"}},
+    "nodes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/node"}
+    },
+    "edges": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/edge"}
+    },
+    "raw_evidence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidenceRef"}
+    },
+    "claims": {
+      "type": "object",
+      "required": ["source_authenticity_verified", "complete_context_captured", "private_reasoning_captured", "causal_intent_proven"],
+      "properties": {
+        "source_authenticity_verified": {"type": "boolean"},
+        "complete_context_captured": {"type": "boolean"},
+        "private_reasoning_captured": {"const": false},
+        "causal_intent_proven": {"type": "boolean"}
+      },
+      "additionalProperties": {"type": "boolean"}
+    },
+    "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "evidenceRef": {
+      "type": "object",
+      "required": ["artifact_type", "sha256", "size"],
+      "properties": {
+        "artifact_type": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "size": {"type": "integer", "minimum": 0},
+        "locator": {"type": "string", "minLength": 1},
+        "chunk_id": {"type": "string", "minLength": 1},
+        "observed_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "node": {
+      "type": "object",
+      "required": ["node_id", "kind", "observed_at", "attributes", "evidence_refs"],
+      "properties": {
+        "node_id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["trigger", "human", "agent", "context", "retrieval", "memory", "policy", "identity", "model", "tool", "protocol", "action", "resource", "side_effect", "approval", "workflow", "unknown"]},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "attributes": {"type": "object"},
+        "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/evidenceRef"}}
+      },
+      "additionalProperties": false
+    },
+    "edge": {
+      "type": "object",
+      "required": ["edge_id", "source_node", "target_node", "relationship", "evidence_refs", "authority_context", "policy_context", "approval_context", "confidence", "unknown_fields"],
+      "properties": {
+        "edge_id": {"type": "string", "minLength": 1},
+        "source_node": {"type": "string", "minLength": 1},
+        "target_node": {"type": "string", "minLength": 1},
+        "relationship": {"enum": ["triggered", "instructed", "provided_context", "retrieved", "read_memory", "wrote_memory", "evaluated_policy", "approved", "denied", "delegated_authority", "selected_tool", "invoked", "communicated_with", "acted_on", "changed", "produced", "observed", "derived_from", "correlated_with"]},
+        "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/evidenceRef"}},
+        "authority_context": {"type": "object"},
+        "policy_context": {"type": "object"},
+        "approval_context": {"type": "object"},
+        "confidence": {"enum": ["observed", "corroborated", "inferred", "unknown"]},
+        "unknown_fields": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    }
+  }
+}
