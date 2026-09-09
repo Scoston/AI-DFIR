@@ -26,7 +26,7 @@ Ordinary source/extracted tests use synthetic protocol replies and explicitly
 cannot claim native rendering. No production deployment or complete visible
 content, OCR accuracy, or source authenticity is established.
 
-The curated representation-hostile cases now cover three source-versus-visible
+The curated representation-hostile cases now cover four source-versus-visible
 failure modes: render-mode hidden text, white-on-white text, off-page text, and
 clipped text are all checked through the same comparison path, with the original
 hidden-text case plus three new fixtures. Remaining rendering work covers named
