@@ -68,8 +68,16 @@ def main() -> None:
     model = aibom.component("model:primary", "model", "example-model", version="1")
     server = aibom.component("mcp:identity", "mcp-server", "identity-server", version="2026.09")
     bom = aibom.build("system-1", observed_at=T, components=[model, server], dependencies=[("model:primary", "mcp:identity")])
+    assert aibom.validate(bom)
     cdx = aibom.to_cyclonedx_1_7(bom)
     assert cdx["specVersion"] == "1.7" and len(cdx["components"]) == 2
+    observed_model = aibom.component("model:primary", "model", "example-model", version="2")
+    observed_bom = aibom.build("system-1", observed_at=T2, components=[observed_model, server],
+                               dependencies=[("model:primary", "mcp:identity")])
+    drift = aibom.compare(bom, observed_bom)
+    assert drift["summary"]["drift_detected"] is True
+    assert drift["component_changes"][0]["changed_fields"] == ["version"]
+    assert drift["claims"]["compromise_proven"] is False
 
     forged = dict(record); forged["record_id"] = "forged"
     rejected = False
@@ -82,7 +90,8 @@ def main() -> None:
     print(json.dumps({"status": "PASS", "aer_nodes": len(nodes), "aer_edges": len(edges),
                       "mcp_offline_replay": True, "retrieval_documents": 1, "memory_events": 1,
                       "otel_raw_preserved": True, "otel_aer_spans": 2, "agentic_findings": 1,
-                      "aibom_components": 2, "private_reasoning_captured": False}, sort_keys=True))
+                      "aibom_components": 2, "aibom_drift_detected": True,
+                      "private_reasoning_captured": False}, sort_keys=True))
 
 
 if __name__ == "__main__":
