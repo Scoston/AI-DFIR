@@ -271,6 +271,38 @@ def test_actual_parent_cli_output_file_limit(tmp_path):
     with pytest.raises(ValueError): render.command(str(binary), tmp_path, ["info"], limit=1024)
 
 
+@pytest.mark.parametrize("stage", sorted(render.WORKER_STAGES))
+def test_failed_worker_retains_only_fixed_stage(tmp_path, monkeypatch, stage):
+    def run(args, **kwargs):
+        kwargs["stdout"].write(json.dumps({"schema": "ai-dfir/pdf-render-failure/v1.7", "stage": stage}).encode())
+        return SimpleNamespace(returncode=1)
+    monkeypatch.setattr(render.subprocess, "run", run)
+    with pytest.raises(render.WorkerFailure) as error: render.command("docker", tmp_path, ["start"])
+    assert error.value.stage == stage
+
+
+@pytest.mark.parametrize("failure", [{"schema": "other", "stage": "input"},
+    {"schema": "ai-dfir/pdf-render-failure/v1.7", "stage": "private document title"},
+    {"schema": "ai-dfir/pdf-render-failure/v1.7", "stage": "input", "source": "private"}])
+def test_arbitrary_failed_worker_details_are_discarded(tmp_path, monkeypatch, failure):
+    def run(args, **kwargs):
+        kwargs["stdout"].write(json.dumps(failure).encode()); return SimpleNamespace(returncode=1)
+    monkeypatch.setattr(render.subprocess, "run", run)
+    with pytest.raises(ValueError) as error: render.command("docker", tmp_path, ["start"])
+    assert not isinstance(error.value, render.WorkerFailure) and "private" not in str(error.value)
+
+
+def test_worker_stage_failure_still_cleans_up(driver, monkeypatch):
+    original = render.command
+    def command(binary, config, args, **kwargs):
+        if args[0] == "start": raise render.WorkerFailure("isolation")
+        return original(binary, config, args, **kwargs)
+    monkeypatch.setattr(render, "command", command)
+    result = render.render(SOURCE, selected_image=IMAGE); unknown(result)
+    assert result["worker_stage"] == "isolation" and result["cleanup_complete"]
+    assert driver.calls[-1][0][0] == "rm"
+
+
 @pytest.fixture
 def isolated_worker(monkeypatch):
     state = SimpleNamespace(uid=65532, gid=65532, net=["lo"], connected=101, tmp_bytes=render.TMPFS_BYTES,

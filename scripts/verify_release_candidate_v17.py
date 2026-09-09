@@ -175,6 +175,12 @@ REPRESENTATION_COMPARE_PACKAGE_PATHS = {
     "docs/reference/ROADMAP_QUALIFICATION_V1.7.md",
 }
 
+PDF_RENDER_PACKAGE_PATHS = {
+    "v17_pdf_render.py", "v17_pdf_render_selftest.py", "deploy/render/Dockerfile", "deploy/render/worker.py",
+    "scripts/qualify_pdf_render_v17.py", "tests/test_v17_pdf_render.py",
+    ".github/workflows/pdf-render-qualification.yml", "docs/reference/ISOLATED_PDF_RENDERING_V1.7.md",
+}
+
 KEY_POLICY_PACKAGE_PATHS = {
     "v17_key_policy.py", "v17_key_policy_selftest.py", "tests/test_v17_key_policy.py",
     "docs/reference/CHECKPOINT_KEY_POLICY_V1.7.md",
@@ -480,6 +486,10 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
         if has_representation_compare and not (REPRESENTATION_COMPARE_PACKAGE_PATHS | CONTENT_INTAKE_PACKAGE_PATHS
                 | {"representation_differential.py", "representation_integrity_analyze.py"}).issubset(expected):
             raise ReleaseCandidateError("incomplete bounded representation comparison package support")
+        has_pdf_render = bool(PDF_RENDER_PACKAGE_PATHS & set(expected))
+        if has_pdf_render and not (PDF_RENDER_PACKAGE_PATHS | CONTENT_INTAKE_PACKAGE_PATHS
+                | REPRESENTATION_COMPARE_PACKAGE_PATHS).issubset(expected):
+            raise ReleaseCandidateError("incomplete isolated PDF rendering package support")
         has_key_policy = bool(KEY_POLICY_PACKAGE_PATHS & set(expected))
         if has_key_policy and not KEY_POLICY_PACKAGE_PATHS.issubset(expected):
             raise ReleaseCandidateError("incomplete checkpoint key-policy package support")
@@ -561,6 +571,7 @@ def verify_package_zip(zip_path: Path, version: str) -> dict[str, Any]:
             "has_content_intake": has_content_intake,
             "has_structured_fuzz": has_structured_fuzz,
             "has_representation_compare": has_representation_compare,
+            "has_pdf_render": has_pdf_render,
             "has_key_policy": has_key_policy,
             "has_timestamps": has_timestamps,
             "has_policy_distribution": has_policy_distribution,
@@ -685,6 +696,9 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
     if zip_result.get("has_representation_compare"):
         required_assurance.update(v17_representation_compare_selftest="PASS", v17_representation_compare_regression_tests=112,
                                   v17_comparison_independent_rendering_verified=False)
+    if zip_result.get("has_pdf_render"):
+        required_assurance.update(v17_pdf_render_selftest="PASS", v17_pdf_render_regression_tests=200,
+                                  v17_pdf_protocol_native_rendering_qualified=False)
     if zip_result.get("has_docx_intake"):
         required_assurance.update(v17_docx_intake_selftest="PASS", v17_docx_intake_regression_tests=133,
                                   v17_docx_independent_rendering_verified=False)

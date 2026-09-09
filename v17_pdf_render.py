@@ -37,6 +37,14 @@ PROBES = {"nonroot", "capabilities_dropped", "no_new_privileges", "seccomp_filte
           "root_read_only", "tmpfs_bounded_noexec", "memory_swap_cpu_pids_limits", "process_limits"}
 FALSE_FLAGS = {"source_authenticity_verified", "complete_visible_rendering_verified", "ocr_accuracy_verified", "network_required"}
 ULIMITS = {"core": 0, "fsize": SOURCE_BYTES, "cpu": 30, "nofile": 64}
+WORKER_STAGES = {"isolation", "tool_versions", "toolchain", "input", "pdf_inventory", "raster", "ocr", "response"}
+
+
+class WorkerFailure(ValueError):
+    """Only a fixed stage identifier may cross the failed-worker boundary."""
+    def __init__(self, stage):
+        super().__init__("PDF worker unavailable")
+        self.stage = stage
 
 
 def digest(value):
@@ -191,6 +199,14 @@ def command(binary, config, args, *, data=None, limit=65536, timeout=10):
                     stdout=output, stderr=subprocess.DEVNULL, timeout=timeout, preexec_fn=limits,
                     env={"PATH": "/usr/local/bin:/usr/bin:/bin", "LANG": "C.UTF-8"}, check=False)
         output.seek(0); raw = output.read(limit + 1)
+    if result.returncode != 0 and args[0] == "start" and len(raw) <= 256:
+        try:
+            failure = parse(raw)
+            if (isinstance(failure, dict) and set(failure) == {"schema", "stage"}
+                    and failure["schema"] == "ai-dfir/pdf-render-failure/v1.7" and failure["stage"] in WORKER_STAGES):
+                raise WorkerFailure(failure["stage"])
+        except WorkerFailure: raise
+        except Exception: pass
     require(result.returncode == 0 and len(raw) <= limit)
     return raw
 
@@ -234,6 +250,8 @@ def render(source, *, selected_image):
         if cleaned and report is not None:
             report["cleanup_complete"] = True
             return report
+    except WorkerFailure as error:
+        unknown["worker_stage"] = error.stage
     except Exception:
         pass
     unknown["cleanup_complete"] = cleaned

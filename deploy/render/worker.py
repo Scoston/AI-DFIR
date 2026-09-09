@@ -23,6 +23,7 @@ MAX_PAGES = 4
 MAX_SIDE = 2048
 MEMORY_BYTES = 512 * 1024**2
 TMPFS_BYTES = 64 * 1024**2
+STAGE = "isolation"
 
 
 def require(condition):
@@ -89,32 +90,39 @@ def page_count(raw):
 
 
 def main():
+    global STAGE
     require(len(sys.argv) == 1)
     os.umask(0o077)
     probes = isolation()  # Fail before consuming evidence or invoking a parser.
+    STAGE = "tool_versions"
     versions = {}
     for name, args in (("pdftoppm", ["pdftoppm", "-v"]), ("tesseract", ["tesseract", "--version"])):
         version = invoke(args, timeout=5, limit=4096, stderr=True).decode("utf-8").splitlines()[0]
         require(0 < len(version) <= 256); versions[name] = version
+    STAGE = "toolchain"
     toolchain = {"versions": versions, "worker_sha256": sha(bounded_read(__file__, 65536)),
         "package_inventory_sha256": sha(bounded_read("/opt/ai-dfir/packages.txt", 256 * 1024)),
         "english_model_sha256": sha(bounded_read("/usr/share/tesseract-ocr/5/tessdata/eng.traineddata", 32 * 1024**2)),
-        "font_sha256": sha(bounded_read("/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf", 2 * 1024**2))}
+        "font_sha256": sha(bounded_read("/opt/ai-dfir/render-font.ttf", 2 * 1024**2))}
+    STAGE = "input"
     raw = sys.stdin.buffer.read(SOURCE_BYTES + 1)
     require(0 < len(raw) <= SOURCE_BYTES and raw.startswith(b"%PDF-"))
     with tempfile.TemporaryDirectory(prefix="render-", dir="/tmp") as folder:
         source = Path(folder) / "source.pdf"
         with open(os.open(source, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o400), "wb") as stream: stream.write(raw)
+        STAGE = "pdf_inventory"
         count = page_count(invoke(["pdfinfo", str(source)], timeout=5))
         rows, texts = [], []
         for number in range(1, count + 1):
             prefix = Path(folder) / f"page-{number:03}"
+            STAGE = "raster"
             invoke(["pdftoppm", "-f", str(number), "-l", str(number), "-singlefile", "-gray", "-png",
                     "-r", "144", "-scale-to", str(MAX_SIDE), str(source), str(prefix)], timeout=10, limit=0)
             png = bounded_read(str(prefix) + ".png", PNG_BYTES)
             require(png.startswith(b"\x89PNG\r\n\x1a\n") and len(png) >= 33)
             width, height = struct.unpack(">II", png[16:24])
             require(1 <= width <= MAX_SIDE and 1 <= height <= MAX_SIDE)
+            STAGE = "ocr"
             text_raw = invoke(["tesseract", str(prefix) + ".png", "stdout", "-l", "eng", "--oem", "1", "--psm", "6"],
                               timeout=10, limit=TEXT_BYTES)
             text = text_raw.decode("utf-8", errors="strict"); texts.append(text)
@@ -127,6 +135,7 @@ def main():
         "toolchain": toolchain, "isolation": probes, "method": "raster-then-ocr", "rendering_performed": True,
         "source_authenticity_verified": False, "complete_visible_rendering_verified": False,
         "ocr_accuracy_verified": False, "collection_complete": None, "network_required": False}
+    STAGE = "response"
     output = json.dumps(report, ensure_ascii=True, allow_nan=False, separators=(",", ":")).encode()
     require(len(output) <= WIRE_BYTES); sys.stdout.buffer.write(output)
     return 0
@@ -134,4 +143,6 @@ def main():
 
 if __name__ == "__main__":
     try: raise SystemExit(main())
-    except (Exception, KeyboardInterrupt): raise SystemExit(1)
+    except (Exception, KeyboardInterrupt):
+        print(json.dumps({"schema": "ai-dfir/pdf-render-failure/v1.7", "stage": STAGE}))
+        raise SystemExit(1)

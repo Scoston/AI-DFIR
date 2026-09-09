@@ -134,6 +134,7 @@ def main():
     py("v17_fuzz_targets_selftest.py",timeout=60); results["v17_fuzz_targets_selftest"]={"status":"PASS","cases":54,"profiles":23,"curated_cases":8,"coverage_guided":False}
     py("v17_structured_fuzz_selftest.py",timeout=60); results["v17_structured_fuzz_selftest"]={"status":"PASS","structured_profiles":3,"curated_cases":8,"legacy_profiles_unchanged":20,"coverage_guided":False}
     py("v17_representation_compare_selftest.py",timeout=60); results["v17_representation_compare_selftest"]={"status":"PASS","valid_pairs":2,"invalid_pairs_rejected":2,"independent_rendering_verified":False}
+    py("v17_pdf_render_selftest.py",timeout=60); results["v17_pdf_render_selftest"]={"status":"PASS","valid_protocol_replies":1,"invalid_protocol_replies_rejected":3,"native_rendering_qualified":False}
     py("v17_docx_intake_selftest.py",timeout=60); results["v17_docx_intake_selftest"]={"status":"PASS","valid_packages":2,"invalid_packages_rejected":6}
     py("v17_html_intake_selftest.py",timeout=60); results["v17_html_intake_selftest"]={"status":"PASS","valid_html":2,"invalid_html_rejected":6,"valid_css":2,"invalid_css_rejected":4,"contained_resource_fixture":"PASS"}
     py("v17_content_intake_selftest.py",timeout=60); results["v17_content_intake_selftest"]={"status":"PASS","text_worker_profiles":2,"invalid_text_rejected":2,"pdf_failure_preserves_static_finding":True}
@@ -173,6 +174,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_fuzz_targets.py","-q"],timeout=120); results["v17_fuzz_targets_regression"]={"status":"PASS","tests":147}
         run([sys.executable,"-m","pytest","tests/test_v17_structured_fuzz.py","-q"],timeout=120); results["v17_structured_fuzz_regression"]={"status":"PASS","tests":96}
         run([sys.executable,"-m","pytest","tests/test_v17_representation_compare.py","-q"],timeout=120); results["v17_representation_compare_regression"]={"status":"PASS","tests":112}
+        run([sys.executable,"-m","pytest","tests/test_v17_pdf_render.py","-q"],timeout=120); results["v17_pdf_render_regression"]={"status":"PASS","tests":200}
         run([sys.executable,"-m","pytest","tests/test_v17_docx_intake.py","-q"],timeout=300); results["v17_docx_intake_regression"]={"status":"PASS","tests":133}
         run([sys.executable,"-m","pytest","tests/test_v17_html_intake.py","-q"],timeout=300); results["v17_html_intake_regression"]={"status":"PASS","tests":88}
         run([sys.executable,"-m","pytest","tests/test_v17_content_intake.py","-q"],timeout=300); results["v17_content_intake_regression"]={"status":"PASS","tests":100}
