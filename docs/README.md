@@ -9,6 +9,7 @@
 - [Production Readiness](../PRODUCTION_READINESS_V1.6.md)
 - [Platform Assurance](../PLATFORM_ASSURANCE_V1.6.md)
 - [v1.8 Agentic Forensics & Runtime Reconstruction (development)](reference/AGENTIC_RUNTIME_RECONSTRUCTION_V1.8.md)
+- [OTLP Trace/Log Envelope Intake (v1.8 development)](reference/OTLP_ENVELOPE_INTAKE_V1.8.md)
 - [CycloneDX 1.7 Qualification (v1.8 development)](reference/CYCLONEDX_QUALIFICATION_V1.8.md)
 - [v1.7 Offline Verification](reference/OFFLINE_VERIFICATION_V1.7.md)
 - [v1.7 Release Assurance](reference/RELEASE_ASSURANCE_V1.7.md)
