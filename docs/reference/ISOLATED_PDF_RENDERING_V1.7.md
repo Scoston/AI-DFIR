@@ -88,13 +88,23 @@ The adapter is explicit; it does not automatically promote evidence-gate decisio
 ## Qualification and security review
 
 `Isolated PDF Rendering` builds the image from the repository's configured pinned
-base, exercises four positive synthetic PDFs (visible text, hidden machine text,
-two pages, blank), and rejects malformed and five-page PDFs. It checks retained
-images/text/source hashes, OCR phrases, hidden-text exclusion, critical divergence,
-kernel isolation observations, and cleanup. Synthetic artifacts are retained for
-14 days. A failing or skipped actual-render step is not qualification. Export the
-qualification artifacts and retain the image if longer-term reproducibility is
-needed. No real evidence is uploaded by the workflow.
+base and now exercises ten available synthetic PDFs plus two rejection cases.
+The available corpus includes baseline visible text, render-mode hidden machine
+text, two pages, blank output, white-on-white source text, off-page source text,
+clipped source text, a two-column layout, a 90-degree page rotation, and the
+four-page upper boundary. Malformed and five-page PDFs must remain unavailable.
+
+The three added representation-hostile cases deliberately retain machine-readable
+source text that should not appear in the raster/OCR observation. Qualification
+checks that the machine string remains present in the source bytes, absent from
+`visible.txt`, and produces the existing critical representation divergence when
+compared with the visible observation. Layout/boundary cases prove bounded native
+processing and custody without turning OCR success into an accuracy claim. The
+workflow also checks retained images/text/source hashes, expected baseline OCR
+phrases, kernel isolation observations, and cleanup. Synthetic artifacts are
+retained for 14 days. A failing or skipped actual-render step is not qualification.
+Export the qualification artifacts and retain the image if longer-term
+reproducibility is needed. No real evidence is uploaded by the workflow.
 
 The focused suite covers forged claims and hashes, malformed PNGs and excessive
 inflation, missing isolation controls, command failures and interruption, cleanup,
@@ -102,9 +112,10 @@ bounded CLI output, strict P5 encoding, and exclusive evidence storage. Only
 fixed worker failure-stage names cross the failed-command boundary; native error
 text and document metadata are discarded. The security review assumes
 the parent code, daemon and pinned image are trusted; it makes no authenticity
-claim for a compromised renderer. OCR languages, layouts, fonts and PDFs beyond
-the synthetic profile, other architectures, rootless daemons, alternate kernels,
-and production deployment remain separately qualified work.
+claim for a compromised renderer. Languages beyond English, broader layouts and
+fonts, additional document formats, larger curated corpora, other architectures,
+rootless daemons, alternate kernels, and production deployment remain separately
+qualified work.
 
 The optional image introduces native components and their distribution license
 notices; it does not add them to default Python requirements or vendor their
