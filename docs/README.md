@@ -8,6 +8,7 @@
 - [v1.6 Runbook](../V1.6_RUNBOOK.md)
 - [Production Readiness](../PRODUCTION_READINESS_V1.6.md)
 - [Platform Assurance](../PLATFORM_ASSURANCE_V1.6.md)
+- [v1.8 Agentic Forensics & Runtime Reconstruction (development)](reference/AGENTIC_RUNTIME_RECONSTRUCTION_V1.8.md)
 - [v1.7 Offline Verification](reference/OFFLINE_VERIFICATION_V1.7.md)
 - [v1.7 Release Assurance](reference/RELEASE_ASSURANCE_V1.7.md)
 - [Native CloudTrail Import and Replay (development)](reference/CLOUDTRAIL_REPLAY_V1.7.md)
