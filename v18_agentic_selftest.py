@@ -10,8 +10,10 @@ import v18_ai_ml_bom as aibom
 import v18_mcp_forensics as mcp
 import v18_otel_genai as otel
 import v18_rag_memory as provenance
+import v18_runtime_reconstruction as reconstruction
 
 T = "2026-09-09T18:00:00Z"
+T2 = "2026-09-09T18:00:01Z"
 
 
 def main() -> None:
@@ -51,6 +53,13 @@ def main() -> None:
     adapted = otel.adapt_span(span, semantic_conventions_version="operator-declared", observed_at=T)
     assert otel.validate(adapted)
     assert "custom.attribute" not in adapted["normalized_genai"]
+    child = otel.adapt_span({"traceId": "abc", "spanId": "ghi", "parentSpanId": "def", "name": "tool-run",
+                             "attributes": {"gen_ai.operation.name": "execute_tool", "gen_ai.tool.name": "disable-account"}},
+                            semantic_conventions_version="operator-declared", observed_at=T2)
+    rebuilt = reconstruction.reconstruct_trace([child, adapted], record_id="case-001/otel-trace-abc")
+    assert reconstruction.validate_reconstruction(rebuilt)
+    assert rebuilt["diagnostics"]["span_count"] == 2
+    assert rebuilt["claims"]["intent_causality_proven"] is False
 
     findings = detect.evaluate(record)
     assert [x["risk_id"] for x in findings["findings"]] == ["ASI02"]
@@ -72,8 +81,8 @@ def main() -> None:
 
     print(json.dumps({"status": "PASS", "aer_nodes": len(nodes), "aer_edges": len(edges),
                       "mcp_offline_replay": True, "retrieval_documents": 1, "memory_events": 1,
-                      "otel_raw_preserved": True, "agentic_findings": 1, "aibom_components": 2,
-                      "private_reasoning_captured": False}, sort_keys=True))
+                      "otel_raw_preserved": True, "otel_aer_spans": 2, "agentic_findings": 1,
+                      "aibom_components": 2, "private_reasoning_captured": False}, sort_keys=True))
 
 
 if __name__ == "__main__":

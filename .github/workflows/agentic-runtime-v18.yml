@@ -29,6 +29,7 @@ jobs:
             v18_mcp_forensics.py \
             v18_rag_memory.py \
             v18_otel_genai.py \
+            v18_runtime_reconstruction.py \
             v18_agentic_detections.py \
             v18_ai_ml_bom.py \
             v18_agentic_selftest.py
@@ -37,4 +38,8 @@ jobs:
         run: python v18_agentic_selftest.py
 
       - name: Run v1.8 regression tests
-        run: python -m pytest tests/test_v18_agentic_runtime.py -q
+        run: |
+          python -m pytest \
+            tests/test_v18_agentic_runtime.py \
+            tests/test_v18_runtime_reconstruction.py \
+            -q
