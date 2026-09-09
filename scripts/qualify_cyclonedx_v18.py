@@ -11,9 +11,14 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
+import sys
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import v18_ai_ml_bom as aibom
 from v18_agent_execution_record import canonical_bytes, sha256_bytes
