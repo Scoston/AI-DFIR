@@ -30,7 +30,7 @@ jobs:
         run: |
           python -c 'import os,re; assert re.fullmatch(r"[a-z0-9][a-z0-9./:_-]+@sha256:[0-9a-f]{64}", os.environ["PYTHON_IMAGE"])'
           docker build --build-arg "PYTHON_IMAGE=$PYTHON_IMAGE" --file deploy/render/Dockerfile --tag ai-dfir-render:qualification .
-      - name: Qualify actual isolated PDF rendering and OCR
+      - name: Qualify actual isolated rendering and OCR
         run: |
           render_image_id="$(docker image inspect --format '{{.Id}}' ai-dfir-render:qualification)"
           python scripts/qualify_pdf_render_v17.py --image-id "$render_image_id" --out-dir "${{ runner.temp }}/pdf-render-qualification"
