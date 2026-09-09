@@ -42,4 +42,5 @@ jobs:
           python -m pytest \
             tests/test_v18_agentic_runtime.py \
             tests/test_v18_runtime_reconstruction.py \
+            tests/test_v18_aibom_drift.py \
             -q
