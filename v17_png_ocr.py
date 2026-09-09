@@ -45,7 +45,7 @@ def bridge_pdf(source):
     """
     require(type(source) is bytes and 0 < len(source) <= SOURCE_BYTES)
     width, height, compressed = _idat(source)
-    page_width, page_height = width / 2.0, height / 2.0  # 144-DPI renderer -> approximately source pixels.
+    page_width, page_height = width / 2.0, height / 2.0
     pw, ph = f"{page_width:.3f}", f"{page_height:.3f}"
     content = f"q {pw} 0 0 {ph} 0 0 cm /Im0 Do Q\n".encode("ascii")
     objects = [
@@ -129,10 +129,12 @@ def validate(report, source):
     require(isinstance(report, dict) and set(report) == keys and report["schema"] == SCHEMA and report["profile"] == PROFILE
             and report["available"] is True and report["rendering_performed"] is True and report["artifact_set_complete"] is False
             and report["source_sha256"] == sha256_bytes(source) and type(report["source_size_bytes"]) is int
-            and report["source_size_bytes"] == len(source) and report["source_width"] == source_width
+            and report["source_size_bytes"] == len(source) and type(report["source_width"]) is int
+            and type(report["source_height"]) is int and report["source_width"] == source_width
             and report["source_height"] == source_height and report["bridge_pdf_sha256"] == sha256_bytes(bridge)
-            and report["bridge_pdf_size_bytes"] == len(bridge) and report["method"] == METHOD
-            and report["collection_complete"] is None and all(report[key] is False for key in FALSE_FLAGS)
+            and type(report["bridge_pdf_size_bytes"]) is int and report["bridge_pdf_size_bytes"] == len(bridge)
+            and report["method"] == METHOD and report["collection_complete"] is None
+            and all(report[key] is False for key in FALSE_FLAGS)
             and report["container_configuration_checked"] is True and report["cleanup_complete"] is True
             and pdf_renderer.image_id(report["container_image_id"]) == report["container_image_id"]
             and isinstance(report["docker_server_version"], str) and 0 < len(report["docker_server_version"]) <= 128)
@@ -146,8 +148,8 @@ def validate(report, source):
             and all(isinstance(value, str) and 0 < len(value) <= 256 for value in chain["versions"].values()))
     page = report["page"]
     require(isinstance(page, dict) and set(page) == {"page", "width", "height", "png_sha256", "png_size_bytes", "png_base64", "ocr_text", "ocr_sha256"}
-            and page["page"] == 1 and type(page["width"]) is int and type(page["height"]) is int
-            and isinstance(page["png_base64"], str))
+            and type(page["page"]) is int and page["page"] == 1 and type(page["width"]) is int and type(page["height"]) is int
+            and type(page["png_size_bytes"]) is int and isinstance(page["png_base64"], str))
     observed = base64.b64decode(page["png_base64"], validate=True)
     require(base64.b64encode(observed).decode() == page["png_base64"] and page["png_sha256"] == sha256_bytes(observed)
             and page["png_size_bytes"] == len(observed) and pdf_renderer.png_dimensions(observed) == (page["width"], page["height"]))
