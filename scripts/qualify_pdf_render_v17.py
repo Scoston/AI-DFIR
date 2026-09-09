@@ -47,8 +47,8 @@ def hostile_fixtures():
     white = (BASE_STREAM + b"1 g BT /F1 18 Tf 72 500 Td (" + MACHINE + b") Tj ET 0 g\n")
     off_page = (BASE_STREAM + b"BT /F1 18 Tf 10000 10000 Td (" + MACHINE + b") Tj ET\n")
     clipped = (BASE_STREAM + b"q 10000 10000 10 10 re W n BT /F1 18 Tf 72 500 Td (" + MACHINE + b") Tj ET Q\n")
-    columns = (b"BT /F1 18 Tf 72 700 Td (Quarterly benefits enrollment closes Friday) Tj ET\n"
-               b"BT /F1 18 Tf 320 700 Td (Employees should contact human resources) Tj ET\n")
+    columns = (b"BT /F1 18 Tf 72 700 Td (Quarterly benefits enrollment) Tj ET\n"
+               b"BT /F1 18 Tf 340 700 Td (Human resources contact desk) Tj ET\n")
     return (
         ("white-on-white", synthetic_pdf([white]), True, True),
         ("off-page", synthetic_pdf([off_page]), True, True),
