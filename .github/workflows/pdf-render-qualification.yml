@@ -38,19 +38,19 @@ jobs:
         run: |
           render_image_id="$(docker image inspect --format '{{.Id}}' ai-dfir-render:qualification)"
           python scripts/qualify_png_ocr_v17.py --image-id "$render_image_id" --out-dir "${{ runner.temp }}/png-ocr-qualification"
-      - name: Retain synthetic PDF qualification observations
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
-        with:
-          name: pdf-render-qualification
-          path: ${{ runner.temp }}/pdf-render-qualification/
-          retention-days: 14
-          if-no-files-found: warn
       - name: Retain synthetic PNG qualification observations
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: png-ocr-qualification
           path: ${{ runner.temp }}/png-ocr-qualification/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Retain synthetic PDF qualification observations
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: pdf-render-qualification
+          path: ${{ runner.temp }}/pdf-render-qualification/
           retention-days: 14
           if-no-files-found: warn
