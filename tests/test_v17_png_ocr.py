@@ -1,14 +1,17 @@
 """Bounded PNG bridge, wrapper integrity, rejection, and custody tests."""
 import copy
+from pathlib import Path
 import struct
 import zlib
 
 import pytest
+import yaml
 
 import v17_png_ocr as png_ocr
 from v17_pdf_render_selftest import png_chunk, png_fixture, reply_fixture
 from v17_png_ocr_selftest import check
 
+ROOT = Path(__file__).resolve().parents[1]
 IMAGE = "sha256:" + "a" * 64
 SOURCE = png_fixture()
 
@@ -123,3 +126,15 @@ def test_existing_destination_fails_closed(monkeypatch, tmp_path):
     destination = tmp_path / "capture"; destination.mkdir()
     with pytest.raises(FileExistsError):
         png_ocr.capture(source, destination, selected_image=IMAGE)
+
+
+def test_qualification_workflow_requires_actual_png_ocr_and_retention():
+    workflow = yaml.safe_load((ROOT / ".github/workflows/pdf-render-qualification.yml").read_text())
+    assert workflow["permissions"] == {"contents": "read"}
+    steps = workflow["jobs"]["qualify"]["steps"]
+    actual = next(step for step in steps if step.get("name") == "Qualify actual PNG bridge and isolated OCR")
+    assert "scripts/qualify_png_ocr_v17.py" in actual["run"] and "if" not in actual
+    assert not actual.get("continue-on-error")
+    upload = next(step for step in steps if step.get("with", {}).get("name") == "png-ocr-qualification")
+    assert upload["if"] == "always()" and upload["with"]["retention-days"] == 14
+    assert "upload-artifact@" in upload["uses"]
