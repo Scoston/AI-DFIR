@@ -1,0 +1,48 @@
+name: OTLP v1.8 Qualification
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12'
+
+      - name: Compile OTLP intake and qualification code
+        run: |
+          python -m py_compile \
+            v18_otel_genai.py \
+            v18_runtime_reconstruction.py \
+            v18_otlp_envelope.py \
+            scripts/qualify_otlp_envelope_v18.py
+
+      - name: Qualify bounded synthetic OTLP trace and log population
+        run: |
+          python scripts/qualify_otlp_envelope_v18.py \
+            --spans 2048 \
+            --logs 4096 \
+            --traces 8 \
+            --out-dir "${{ runner.temp }}/otlp-v18-qualification"
+
+      - name: Retain OTLP qualification observations
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: otlp-v18-qualification
+          path: ${{ runner.temp }}/otlp-v18-qualification/
+          retention-days: 14
+          if-no-files-found: warn
