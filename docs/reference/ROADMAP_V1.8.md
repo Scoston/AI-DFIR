@@ -8,7 +8,7 @@ The v1.8 line makes observable autonomous execution a first-class forensic objec
 
 ## Milestone 0 — common evidence model
 
-Status: **implemented on the v1.8 development branch; synthetic qualification required before merge**
+Status: **merged to `main` with repository-controlled synthetic acceptance; production qualification is not claimed**
 
 - [x] Agent Execution Record with bounded node/edge vocabulary
 - [x] SHA-256 evidence references with optional chunk IDs
@@ -18,7 +18,7 @@ Status: **implemented on the v1.8 development branch; synthetic qualification re
 
 ## Milestone 1 — MCP recorder and inert replay
 
-Status: **implemented; synthetic qualification required**
+Status: **baseline merged; live interoperability remains externally gated**
 
 - [x] exact JSON-RPC request/response byte retention
 - [x] observed MCP protocol-version binding
@@ -31,7 +31,7 @@ Status: **implemented; synthetic qualification required**
 
 ## Milestone 2 — RAG and memory provenance
 
-Status: **implemented baseline; broader adapters remain**
+Status: **baseline merged; broader adapters remain**
 
 - [x] exact query-byte identity
 - [x] index ID and revision
@@ -43,18 +43,23 @@ Status: **implemented baseline; broader adapters remain**
 - [ ] native framework memory adapters
 - [ ] retrieval reranker/provider-specific acquisition context
 
-## Milestone 3 — OpenTelemetry GenAI adapter
+## Milestone 3 — OpenTelemetry GenAI and AER reconstruction
 
-Status: **implemented baseline; live exporter qualification remains**
+Status: **single-span adapter merged; bounded multi-span reconstruction implemented on the current development branch and subject to PR qualification**
 
 - [x] dictionary and OTLP-style attribute ingestion
 - [x] agent/conversation/workflow/model/tool/retrieval field normalization
 - [x] complete raw-span preservation
 - [x] explicit semantic-convention version binding
 - [x] unmapped GenAI attribute inventory
+- [x] bounded single-trace multi-span AER graph assembly
+- [x] deterministic output independent of source-span input order
+- [x] every source span bound into AER raw evidence
+- [x] explicit orphan-parent, missing-span-ID and unmapped-span diagnostics
+- [x] duplicate span IDs and cyclic parent graphs fail closed
+- [x] trace relationships represented as correlation rather than inferred intent/business causality
 - [ ] OTLP trace/log envelope import at scale
 - [ ] named collector/exporter interoperability qualification
-- [ ] span-to-AER graph assembler for multi-span agent workflows
 
 ## Milestone 4 — agentic detection mappings
 
