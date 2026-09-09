@@ -4,6 +4,7 @@
 
 - [Installation](../INSTALL.md)
 - [Testing](../TESTING.md)
+- [Roadmap](../ROADMAP.md)
 - [v1.6 Runbook](../V1.6_RUNBOOK.md)
 - [Production Readiness](../PRODUCTION_READINESS_V1.6.md)
 - [Platform Assurance](../PLATFORM_ASSURANCE_V1.6.md)
@@ -23,6 +24,7 @@
 - [Bounded Text/PDF/Font Workers and Report Output (development)](reference/CONTENT_WORKERS_V1.7.md)
 - [Bounded Two-source Representation Comparison (development)](reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md)
 - [Isolated PDF Raster and OCR Capture (development)](reference/ISOLATED_PDF_RENDERING_V1.7.md)
+- [Bounded Grayscale PNG OCR Bridge (development)](reference/PNG_OCR_BRIDGE_V1.7.md)
 - [Remaining Roadmap Qualification Requirements (development)](reference/ROADMAP_QUALIFICATION_V1.7.md)
 - [Witnessed Private Transparency Proofs (development)](reference/PRIVATE_TRANSPARENCY_V1.7.md)
 - [Deterministic Hostile-input Parser Corpus (development)](reference/PARSER_HOSTILE_CORPUS_V1.7.md)
