@@ -1004,3 +1004,29 @@ verification requires complete bounded comparison support when present and
 preserves prior package contracts. The existing 23-profile coverage campaign does
 not claim to fuzz this worker or verify rendering. See
 [Bounded representation comparison](docs/reference/BOUNDED_REPRESENTATION_COMPARISON_V1.7.md).
+
+
+## 45. Unreleased isolated PDF rendering and OCR
+
+```bash
+python v17_pdf_render_selftest.py
+python -m pytest tests/test_v17_pdf_render.py -q
+```
+
+The 211 new regressions bring v1.7 to 4,678. They cover forged protocol claims,
+source/image/OCR bindings, narrow PNG validation and inflation limits, required
+daemon/image/container controls, failed kernel observations, resource failures,
+interruption and cleanup, bounded and redacted diagnostics, and protected evidence
+files. The ordinary selftest explicitly reports `native_rendering_qualified: false`.
+
+Source and extracted full gates require 92 checks. Independent package verification
+requires the complete optional renderer and workflow when any renderer component
+is present, while preserving earlier package contracts. These release gates do
+not require Docker and cannot promote protocol acceptance to native qualification.
+
+The separate `Isolated PDF Rendering` workflow on Ubuntu 24.04 builds from the
+configured pinned Python base, runs real Poppler/Tesseract rendering on visible,
+hidden, two-page and blank PDFs, rejects malformed and five-page PDFs, and retains
+synthetic source/image/text receipts and kernel observations for 14 days. All six
+cases and the actual-render step must pass. See
+[Isolated PDF rendering](docs/reference/ISOLATED_PDF_RENDERING_V1.7.md).

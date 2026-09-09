@@ -12,6 +12,7 @@ import struct
 import subprocess
 import sys
 import tempfile
+import zlib
 
 SCHEMA = "ai-dfir/isolated-pdf-render/v1.7"
 PROFILE = "pdf-raster-ocr-v1.7"
@@ -89,6 +90,27 @@ def page_count(raw):
     return int(pages[0])
 
 
+def pgm_to_png(raw):
+    """Encode Poppler's bounded P5 grayscale raster in the fixed PNG profile.
+
+    Poppler's PNG option can emit RGB even with -gray. PGM makes the pixel
+    contract explicit; no general image decoder is introduced on the host.
+    """
+    require(type(raw) is bytes and len(raw) <= PNG_BYTES)
+    header = re.match(rb"P5\n([1-9][0-9]{0,3}) ([1-9][0-9]{0,3})\n255\n", raw[:64])
+    require(header is not None)
+    width, height = (int(value) for value in header.groups())
+    require(1 <= width <= MAX_SIDE and 1 <= height <= MAX_SIDE and len(raw) - header.end() == width * height)
+    pixels = raw[header.end():]
+    filtered = b"".join(b"\x00" + pixels[row * width:(row + 1) * width] for row in range(height))
+    def chunk(kind, body):
+        return struct.pack(">I", len(body)) + kind + body + struct.pack(">I", zlib.crc32(kind + body))
+    png = (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 0, 0, 0, 0))
+           + chunk(b"IDAT", zlib.compress(filtered)) + chunk(b"IEND", b""))
+    require(len(png) <= PNG_BYTES)
+    return png, width, height
+
+
 def main():
     global STAGE
     require(len(sys.argv) == 1)
@@ -116,12 +138,11 @@ def main():
         for number in range(1, count + 1):
             prefix = Path(folder) / f"page-{number:03}"
             STAGE = "raster"
-            invoke(["pdftoppm", "-f", str(number), "-l", str(number), "-singlefile", "-gray", "-png",
+            invoke(["pdftoppm", "-f", str(number), "-l", str(number), "-singlefile", "-gray",
                     "-r", "144", "-scale-to", str(MAX_SIDE), str(source), str(prefix)], timeout=10, limit=0)
-            png = bounded_read(str(prefix) + ".png", PNG_BYTES)
-            require(png.startswith(b"\x89PNG\r\n\x1a\n") and len(png) >= 33)
-            width, height = struct.unpack(">II", png[16:24])
-            require(1 <= width <= MAX_SIDE and 1 <= height <= MAX_SIDE)
+            png, width, height = pgm_to_png(bounded_read(str(prefix) + ".pgm", PNG_BYTES))
+            with open(os.open(str(prefix) + ".png", os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), "wb") as stream:
+                stream.write(png)
             STAGE = "ocr"
             text_raw = invoke(["tesseract", str(prefix) + ".png", "stdout", "-l", "eng", "--oem", "1", "--psm", "6"],
                               timeout=10, limit=TEXT_BYTES)

@@ -697,7 +697,7 @@ def verify_release_dir(release_dir: Path, version: str) -> dict[str, Any]:
         required_assurance.update(v17_representation_compare_selftest="PASS", v17_representation_compare_regression_tests=112,
                                   v17_comparison_independent_rendering_verified=False)
     if zip_result.get("has_pdf_render"):
-        required_assurance.update(v17_pdf_render_selftest="PASS", v17_pdf_render_regression_tests=200,
+        required_assurance.update(v17_pdf_render_selftest="PASS", v17_pdf_render_regression_tests=211,
                                   v17_pdf_protocol_native_rendering_qualified=False)
     if zip_result.get("has_docx_intake"):
         required_assurance.update(v17_docx_intake_selftest="PASS", v17_docx_intake_regression_tests=133,

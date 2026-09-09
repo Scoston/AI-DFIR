@@ -30,6 +30,16 @@ substitute for the upstream license text.
 | Azure Key Vault Keys | Azure KMS adapter | MIT | enterprise profile |
 | Google Cloud KMS | Google KMS adapter | Apache-2.0 | enterprise profile |
 | PyMuPDF | optional PDF extraction | **AGPL or commercial** | **optional only** |
+| Poppler distribution packages | isolated PDF raster/OCR image | review exact installed copyright notices | optional image only |
+| Tesseract and English OCR model | isolated PDF raster/OCR image | Apache-2.0; review exact distribution notices | optional image only |
+| Liberation fonts | isolated PDF raster/OCR image | SIL Open Font License 1.1 | optional image only |
+
+The renderer's native packages are inventoried in `/opt/ai-dfir/packages.txt`
+inside the image, with notices under `/usr/share/doc/`. The Python inventory
+command below does not inventory native packages. See the upstream
+[Tesseract license](https://github.com/tesseract-ocr/tesseract/blob/main/LICENSE)
+and [Liberation font license](https://github.com/liberationfonts/liberation-fonts/blob/main/LICENSE),
+and the [optional renderer guide](docs/reference/ISOLATED_PDF_RENDERING_V1.7.md).
 
 Always verify the license metadata for the exact version you distribute. Use:
 

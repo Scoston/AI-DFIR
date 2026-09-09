@@ -174,7 +174,7 @@ def main():
         run([sys.executable,"-m","pytest","tests/test_v17_fuzz_targets.py","-q"],timeout=120); results["v17_fuzz_targets_regression"]={"status":"PASS","tests":147}
         run([sys.executable,"-m","pytest","tests/test_v17_structured_fuzz.py","-q"],timeout=120); results["v17_structured_fuzz_regression"]={"status":"PASS","tests":96}
         run([sys.executable,"-m","pytest","tests/test_v17_representation_compare.py","-q"],timeout=120); results["v17_representation_compare_regression"]={"status":"PASS","tests":112}
-        run([sys.executable,"-m","pytest","tests/test_v17_pdf_render.py","-q"],timeout=120); results["v17_pdf_render_regression"]={"status":"PASS","tests":200}
+        run([sys.executable,"-m","pytest","tests/test_v17_pdf_render.py","-q"],timeout=120); results["v17_pdf_render_regression"]={"status":"PASS","tests":211}
         run([sys.executable,"-m","pytest","tests/test_v17_docx_intake.py","-q"],timeout=300); results["v17_docx_intake_regression"]={"status":"PASS","tests":133}
         run([sys.executable,"-m","pytest","tests/test_v17_html_intake.py","-q"],timeout=300); results["v17_html_intake_regression"]={"status":"PASS","tests":88}
         run([sys.executable,"-m","pytest","tests/test_v17_content_intake.py","-q"],timeout=300); results["v17_content_intake_regression"]={"status":"PASS","tests":100}

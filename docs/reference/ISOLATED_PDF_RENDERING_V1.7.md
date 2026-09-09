@@ -33,7 +33,7 @@ The adapter does not manage daemon installation or grant that access.
 | Boundary | Required limit or control |
 | --- | --- |
 | Input | Regular non-symlink PDF snapshot, at most 8 MiB; at most four unencrypted pages |
-| Raster | Poppler, grayscale 8-bit PNG, 144 DPI with longest side capped at 2,048 pixels; 5 MiB per image |
+| Raster | Poppler P5 grayscale raster, fixed worker PNG encoding, 144 DPI with longest side capped at 2,048 pixels; 5 MiB per image |
 | OCR | Tesseract English, OEM 1, PSM 6; at most 16 KiB UTF-8 text across pages |
 | Container | UID/GID 65532, all capabilities dropped, no new privileges, built-in seccomp, read-only root |
 | Namespaces | No network, no host mounts, private cgroup namespace, no shared IPC or PID namespace |
@@ -50,7 +50,10 @@ cleanup failure cannot produce a successful report. If cleanup fails, the error
 retains that container's name for operator diagnosis.
 
 The PNG reader on the host accepts a narrow grayscale profile and bounds zlib
-decompression. Native PDF and image parsing remain inside the container. Docker
+decompression. Inside the container the worker validates Poppler's exact P5
+header and pixel count and encodes grayscale PNG with the standard library;
+Poppler's own PNG mode can emit RGB despite its grayscale option. Native PDF and
+image parsing remain inside the container. Docker
 isolation reduces exposure but shares the host kernel; this is not a claim of
 perfect isolation or a replacement for deployment security review. Docker's
 [container options](https://docs.docker.com/reference/cli/docker/container/run/),
@@ -95,7 +98,9 @@ needed. No real evidence is uploaded by the workflow.
 
 The focused suite covers forged claims and hashes, malformed PNGs and excessive
 inflation, missing isolation controls, command failures and interruption, cleanup,
-bounded CLI output, and exclusive evidence storage. The security review assumes
+bounded CLI output, strict P5 encoding, and exclusive evidence storage. Only
+fixed worker failure-stage names cross the failed-command boundary; native error
+text and document metadata are discarded. The security review assumes
 the parent code, daemon and pinned image are trusted; it makes no authenticity
 claim for a compromised renderer. OCR languages, layouts, fonts and PDFs beyond
 the synthetic profile, other architectures, rootless daemons, alternate kernels,

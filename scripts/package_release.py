@@ -585,8 +585,8 @@ def require_extracted_v17_checks(report: dict) -> None:
             or comparison_seeds.get("independent_rendering_verified") is not False):
         raise RuntimeError("extracted package must pass real comparison workers without claiming independent rendering")
     pdf_render = checks.get("v17_pdf_render_regression")
-    if not isinstance(pdf_render, dict) or pdf_render.get("status") != "PASS" or pdf_render.get("tests") != 200:
-        raise RuntimeError("extracted package must pass all 200 isolated PDF protocol and boundary regression tests")
+    if not isinstance(pdf_render, dict) or pdf_render.get("status") != "PASS" or pdf_render.get("tests") != 211:
+        raise RuntimeError("extracted package must pass all 211 isolated PDF protocol and boundary regression tests")
     pdf_protocol = checks["v17_pdf_render_selftest"]
     if (pdf_protocol.get("valid_protocol_replies") != 1 or pdf_protocol.get("invalid_protocol_replies_rejected") != 3
             or pdf_protocol.get("native_rendering_qualified") is not False):
@@ -898,7 +898,7 @@ def main() -> None:
                 "v17_representation_compare_regression_tests": 112,
                 "v17_comparison_independent_rendering_verified": False,
                 "v17_pdf_render_selftest": "PASS",
-                "v17_pdf_render_regression_tests": 200,
+                "v17_pdf_render_regression_tests": 211,
                 "v17_pdf_protocol_native_rendering_qualified": False,
                 "v17_docx_intake_selftest": "PASS",
                 "v17_docx_intake_regression_tests": 133,

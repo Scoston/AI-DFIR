@@ -377,6 +377,21 @@ def test_bounded_page_inventory(pages):
     assert worker.page_count(f"Title: synthetic\nPages: {pages}\nEncrypted: no\n".encode()) == pages
 
 
+@pytest.mark.parametrize("raw", [b"", b"P2\n1 1\n255\n255", b"P6\n1 1\n255\n\xff\xff\xff",
+    b"P5\n0 1\n255\n", b"P5\n2049 1\n255\n", b"P5\n1 1\n255\n",
+    b"P5\n1 1\n255\n\xfftrailer", b"P5\n1 1\n65535\n\xff\xff",
+    b" P5\n1 1\n255\n\xff", b"P5\n# comment\n1 1\n255\n\xff"])
+def test_raster_encoder_requires_exact_bounded_grayscale_pixels(raw):
+    with pytest.raises(ValueError): worker.pgm_to_png(raw)
+
+
+def test_raster_encoder_preserves_each_grayscale_pixel():
+    png_bytes, width, height = worker.pgm_to_png(b"P5\n2 2\n255\n\x00\x7f\x80\xff")
+    assert (width, height) == render.png_dimensions(png_bytes) == (2, 2)
+    length = struct.unpack(">I", png_bytes[33:37])[0]
+    assert zlib.decompress(png_bytes[41:41 + length]) == b"\x00\x00\x7f\x00\x80\xff"
+
+
 def test_capture_retains_bound_private_artifacts_and_receipt_last(tmp_path, driver, monkeypatch):
     source = tmp_path / "input.pdf"; source.write_bytes(SOURCE)
     destination = tmp_path / "rendered"; order = []; original = render.private_write

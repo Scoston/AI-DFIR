@@ -4,6 +4,15 @@ v1.7 is the stable investigation-integrity and offline-verification layer. It ex
 
 ## Added
 
+### Unreleased: isolated PDF raster and OCR capture
+
+- optional fixed Docker image and worker for at most four unencrypted PDF pages, bounded grayscale images and English OCR;
+- exact local image ID, no automatic pull or host mounts, nonroot read-only execution, no network, default seccomp and explicit resource limits;
+- parent inspection, worker kernel observations, strict source/image/text reply bindings, bounded PNG validation, and confirmed container cleanup;
+- private exclusive source/image/text artifacts with a completion receipt written last; failures remain high findings with unknown partial rendering;
+- 211 protocol/boundary regressions, source/extracted package gates, and a dedicated actual-rendering workflow retaining six synthetic cases;
+- no default Python dependency, source-authenticity, complete-visible-content, OCR-accuracy or production-qualification claim.
+
 ### Unreleased: bounded representation comparison
 
 - fixed Linux worker for two strict UTF-8 snapshots, 16 KiB per source, 3 CPU seconds, 256 MiB address space, 5-second parent deadline, and 64 KiB response/output caps;
