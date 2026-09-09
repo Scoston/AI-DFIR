@@ -123,7 +123,7 @@ The mapping includes ASI01 through ASI10:
 
 Detections are evidence gates, not attack verdicts. A finding is emitted only when an explicit boolean observation is present in a retained AER node. Absence of a finding does not prove safety, and a framework mapping does not prove attacker intent.
 
-## AI/ML-BOM
+## AI/ML-BOM and drift
 
 `v18_ai_ml_bom.py` inventories AI runtime materials including:
 
@@ -134,9 +134,20 @@ Detections are evidence gates, not attack verdicts. A finding is emitted only wh
 - datasets and retrieval stores;
 - policy components.
 
-Dependencies form an explicit directed graph. The module can create a conservative CycloneDX 1.7-shaped projection with model components represented as `machine-learning-model` where applicable.
+Dependencies form an explicit directed graph. Component and dependency ordering is deterministic before the internal record is hashed. The module validates the internal BOM and can create a conservative CycloneDX 1.7-shaped projection with model components represented as `machine-learning-model` where applicable.
 
-The internal record deliberately leaves `inventory_complete`, `component_authenticity_verified`, and `cyclonedx_conformance_verified` false. Schema conformance must be established by an actual CycloneDX validator before it is claimed.
+The expected-vs-observed comparison binds both source BOM hashes and reports, without security-verdict inflation:
+
+- components missing from the observed inventory;
+- unexpected observed components;
+- modified component kind, name, version, hash, source or properties;
+- added/removed component properties;
+- added/removed dependency edges;
+- source-version changes.
+
+A drift report says what differs between the two retained inventories. It deliberately keeps `compromise_proven` and `no_drift_proves_safety` false. Because each source BOM also keeps `inventory_complete` and `component_authenticity_verified` false, the comparison cannot turn an incomplete or unauthenticated inventory into a stronger claim.
+
+The CycloneDX projection continues to leave `cyclonedx_conformance_verified` false. Schema conformance must be established by an actual CycloneDX validator before it is claimed.
 
 ## Evidence and claim boundaries
 
@@ -147,6 +158,7 @@ The v1.8 development profile must preserve these boundaries:
 - **No source-authenticity inference from hashing.** A hash proves identity relative to retained bytes, not who created them.
 - **No completeness inference.** Missing telemetry, RAG chunks, memory history, protocol exchanges or side effects remain explicit unknowns.
 - **No causality inflation from tracing.** Parent/child span structure is correlation evidence unless separate evidence establishes causality.
+- **No drift-verdict inflation.** BOM drift is a difference to investigate, not proof of compromise; absence of drift is not proof of safety.
 - **No framework-verdict inflation.** OWASP/ATLAS mappings are investigative pivots and review signals.
 - **No standards-conformance claim without validation.** Version-shaped adapters are not certification.
 
@@ -155,9 +167,10 @@ The v1.8 development profile must preserve these boundaries:
 Repository-controlled acceptance consists of:
 
 - Python compilation under the repository quick gate;
-- `v18_agentic_selftest.py` covering the six v1.8 capability families plus a synthetic multi-span reconstruction;
+- `v18_agentic_selftest.py` covering the six v1.8 capability families, synthetic multi-span reconstruction and AI/ML-BOM drift;
 - `tests/test_v18_agentic_runtime.py` validating hash/edge binding, replay inertness, RAG/memory custody, OTel raw preservation, explicit-signal detection gating and AI/ML-BOM projection;
 - `tests/test_v18_runtime_reconstruction.py` validating deterministic span assembly, source-span custody, explicit orphan/missing/unmapped handling, duplicate/cycle rejection and non-causality claims;
+- `tests/test_v18_aibom_drift.py` validating deterministic inventories, tamper rejection, component/property/dependency/source-version drift, no-drift handling and anti-verdict claims;
 - a dedicated GitHub Actions workflow that runs the self-test and regressions on every pull request and `main` push.
 
 This is synthetic/offline acceptance. It does not qualify a production agent platform, external MCP implementation, telemetry collector, vector database, memory service or CycloneDX validator.
@@ -172,8 +185,9 @@ This is synthetic/offline acceptance. It does not qualify a production agent pla
 
 ## Next qualification work
 
-The v1.8 foundation and bounded multi-span reconstruction establish the common evidence model before provider-specific capture expansion. Follow-on work should add:
+The v1.8 foundation, bounded multi-span reconstruction and AI/ML-BOM drift establish the common evidence model before provider-specific capture expansion. Follow-on work should add:
 
+- actual CycloneDX 1.7 schema validation in CI;
 - OTLP trace/log envelope import and larger bounded trace populations;
 - native capture adapters for selected agent frameworks and model providers;
 - versioned A2A/inter-agent message capture;
