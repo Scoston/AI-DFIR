@@ -86,6 +86,24 @@ The semantic-convention version is supplied explicitly by the operator/exporter 
 
 Because prompt, completion, retrieval and system-instruction fields may contain sensitive data, deployment-specific collection, minimization and retention controls remain operator responsibilities.
 
+## Multi-span runtime reconstruction
+
+`v18_runtime_reconstruction.py` assembles a bounded set of already-adapted OpenTelemetry GenAI spans from one trace into an AER reconstruction bundle.
+
+The current profile is intentionally narrow:
+
+- maximum 10,000 adapted spans;
+- maximum 32 MiB of retained raw span bytes;
+- exactly one non-empty trace ID per reconstruction;
+- every raw span is retained as an AER evidence reference;
+- output node/edge/evidence ordering is deterministic so equivalent input sets produce the same record and bundle hashes regardless of source order;
+- agent/workflow base nodes can be accompanied by retrieval, tool and model observation nodes when those fields are present;
+- parent/child span structure is represented with `correlated_with`, not a causal relationship;
+- orphan parent IDs, spans without IDs and spans without mapped GenAI semantics remain explicit diagnostics;
+- duplicate span IDs and cyclic parent graphs fail closed.
+
+The reconstruction deliberately leaves `trace_complete`, `business_causality_proven`, `intent_causality_proven`, and `private_reasoning_captured` false. A tracing parent relationship is evidence of telemetry structure; it is not, by itself, proof that a model intended an action or that one span caused a business outcome.
+
 ## Agentic detection mappings
 
 `v18_agentic_detections.py` maps explicit observed signals to the OWASP Top 10 for Agentic Applications 2026 and relevant MITRE ATLAS technique names.
@@ -128,6 +146,7 @@ The v1.8 development profile must preserve these boundaries:
 - **No active MCP replay.** Forensic replay is offline and must not re-run tools.
 - **No source-authenticity inference from hashing.** A hash proves identity relative to retained bytes, not who created them.
 - **No completeness inference.** Missing telemetry, RAG chunks, memory history, protocol exchanges or side effects remain explicit unknowns.
+- **No causality inflation from tracing.** Parent/child span structure is correlation evidence unless separate evidence establishes causality.
 - **No framework-verdict inflation.** OWASP/ATLAS mappings are investigative pivots and review signals.
 - **No standards-conformance claim without validation.** Version-shaped adapters are not certification.
 
@@ -136,8 +155,9 @@ The v1.8 development profile must preserve these boundaries:
 Repository-controlled acceptance consists of:
 
 - Python compilation under the repository quick gate;
-- `v18_agentic_selftest.py` covering all six v1.8 capability families;
+- `v18_agentic_selftest.py` covering the six v1.8 capability families plus a synthetic multi-span reconstruction;
 - `tests/test_v18_agentic_runtime.py` validating hash/edge binding, replay inertness, RAG/memory custody, OTel raw preservation, explicit-signal detection gating and AI/ML-BOM projection;
+- `tests/test_v18_runtime_reconstruction.py` validating deterministic span assembly, source-span custody, explicit orphan/missing/unmapped handling, duplicate/cycle rejection and non-causality claims;
 - a dedicated GitHub Actions workflow that runs the self-test and regressions on every pull request and `main` push.
 
 This is synthetic/offline acceptance. It does not qualify a production agent platform, external MCP implementation, telemetry collector, vector database, memory service or CycloneDX validator.
@@ -152,8 +172,9 @@ This is synthetic/offline acceptance. It does not qualify a production agent pla
 
 ## Next qualification work
 
-The first v1.8 milestone intentionally establishes the common evidence model before provider-specific capture expansion. Follow-on work should add:
+The v1.8 foundation and bounded multi-span reconstruction establish the common evidence model before provider-specific capture expansion. Follow-on work should add:
 
+- OTLP trace/log envelope import and larger bounded trace populations;
 - native capture adapters for selected agent frameworks and model providers;
 - versioned A2A/inter-agent message capture;
 - browser/computer-use side-effect evidence;
