@@ -134,7 +134,7 @@ Detections are evidence gates, not attack verdicts. A finding is emitted only wh
 - datasets and retrieval stores;
 - policy components.
 
-Dependencies form an explicit directed graph. Component and dependency ordering is deterministic before the internal record is hashed. The module validates the internal BOM and can create a conservative CycloneDX 1.7-shaped projection with model components represented as `machine-learning-model` where applicable.
+Dependencies form an explicit directed graph. Component and dependency ordering is deterministic before the internal record is hashed. The module validates the internal BOM and creates a CycloneDX 1.7 projection with model components represented as `machine-learning-model` where applicable.
 
 The expected-vs-observed comparison binds both source BOM hashes and reports, without security-verdict inflation:
 
@@ -147,7 +147,22 @@ The expected-vs-observed comparison binds both source BOM hashes and reports, wi
 
 A drift report says what differs between the two retained inventories. It deliberately keeps `compromise_proven` and `no_drift_proves_safety` false. Because each source BOM also keeps `inventory_complete` and `component_authenticity_verified` false, the comparison cannot turn an incomplete or unauthenticated inventory into a stronger claim.
 
-The CycloneDX projection continues to leave `cyclonedx_conformance_verified` false. Schema conformance must be established by an actual CycloneDX validator before it is claimed.
+### CycloneDX 1.7 external qualification
+
+The repository includes `scripts/qualify_cyclonedx_v18.py` and `.github/workflows/cyclonedx-v18-qualification.yml` to validate the tested projection with a checksum-pinned external validator.
+
+The qualification profile uses CycloneDX `sbom-utility` v0.19.2 and verifies the Linux AMD64 release archive SHA-256 before execution. The actual schema validations run inside a network-isolated Linux namespace and use the validator's built-in CycloneDX 1.7 schema.
+
+Qualification requires two results:
+
+1. the AI-DFIR synthetic CycloneDX 1.7 projection must be accepted;
+2. an otherwise equivalent negative-control BOM with root `version=0` must be rejected with the validator's schema-validation exit code.
+
+The workflow retains the source internal BOM, positive projection, negative control, validator output, schema inventory and a hash-bound qualification receipt for 14 days.
+
+This establishes conformance for the **tested projection profile and exact retained fixture**. The internal AI/ML-BOM continues to keep `cyclonedx_conformance_verified` false by default so an arbitrary future or operator-generated export cannot inherit a validation claim it did not earn. If conformance is asserted for a production/exported BOM, that exact artifact should be independently validated and its evidence retained.
+
+See [CycloneDX 1.7 Qualification](CYCLONEDX_QUALIFICATION_V1.8.md).
 
 ## Evidence and claim boundaries
 
@@ -160,7 +175,7 @@ The v1.8 development profile must preserve these boundaries:
 - **No causality inflation from tracing.** Parent/child span structure is correlation evidence unless separate evidence establishes causality.
 - **No drift-verdict inflation.** BOM drift is a difference to investigate, not proof of compromise; absence of drift is not proof of safety.
 - **No framework-verdict inflation.** OWASP/ATLAS mappings are investigative pivots and review signals.
-- **No standards-conformance claim without validation.** Version-shaped adapters are not certification.
+- **No transitive conformance claim.** A validated synthetic projection does not automatically validate future operator-generated BOMs.
 
 ## Initial acceptance evidence
 
@@ -171,9 +186,11 @@ Repository-controlled acceptance consists of:
 - `tests/test_v18_agentic_runtime.py` validating hash/edge binding, replay inertness, RAG/memory custody, OTel raw preservation, explicit-signal detection gating and AI/ML-BOM projection;
 - `tests/test_v18_runtime_reconstruction.py` validating deterministic span assembly, source-span custody, explicit orphan/missing/unmapped handling, duplicate/cycle rejection and non-causality claims;
 - `tests/test_v18_aibom_drift.py` validating deterministic inventories, tamper rejection, component/property/dependency/source-version drift, no-drift handling and anti-verdict claims;
-- a dedicated GitHub Actions workflow that runs the self-test and regressions on every pull request and `main` push.
+- `tests/test_v18_cyclonedx_qualification.py` validating qualification-harness pinning and negative-control enforcement;
+- the `Agentic Runtime v1.8` workflow for synthetic/regression coverage;
+- the `CycloneDX v1.8 Qualification` workflow for the actual pinned external schema validator and retained qualification evidence.
 
-This is synthetic/offline acceptance. It does not qualify a production agent platform, external MCP implementation, telemetry collector, vector database, memory service or CycloneDX validator.
+The application/runtime acceptance remains synthetic/offline. The CycloneDX workflow additionally qualifies the tested synthetic projection against a named external validator. Neither result qualifies a production agent platform, telemetry collector, vector database, memory service, or operator-generated production BOM by implication.
 
 ## External references/version anchors
 
@@ -182,12 +199,12 @@ This is synthetic/offline acceptance. It does not qualify a production agent pla
 - OWASP Top 10 for Agentic Applications 2026 — https://genai.owasp.org/
 - MITRE ATLAS — https://atlas.mitre.org/
 - CycloneDX 1.7 / AI-ML BOM — https://cyclonedx.org/
+- CycloneDX sbom-utility v0.19.2 — https://github.com/CycloneDX/sbom-utility/releases/tag/v0.19.2
 
 ## Next qualification work
 
-The v1.8 foundation, bounded multi-span reconstruction and AI/ML-BOM drift establish the common evidence model before provider-specific capture expansion. Follow-on work should add:
+The v1.8 foundation, bounded multi-span reconstruction, AI/ML-BOM drift and external CycloneDX projection qualification establish the common evidence model before provider-specific capture expansion. Follow-on work should add:
 
-- actual CycloneDX 1.7 schema validation in CI;
 - OTLP trace/log envelope import and larger bounded trace populations;
 - native capture adapters for selected agent frameworks and model providers;
 - versioned A2A/inter-agent message capture;
