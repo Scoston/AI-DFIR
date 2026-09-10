@@ -10,6 +10,7 @@
 - [Platform Assurance](../PLATFORM_ASSURANCE_V1.6.md)
 - [v1.8 Agentic Forensics & Runtime Reconstruction (development)](reference/AGENTIC_RUNTIME_RECONSTRUCTION_V1.8.md)
 - [A2A Protocol Forensics (v1.8 development)](reference/A2A_FORENSICS_V1.8.md)
+- [Credential and Delegated-Authority Lineage (v1.8 development)](reference/CREDENTIAL_LINEAGE_V1.8.md)
 - [OTLP Trace/Log Envelope Intake (v1.8 development)](reference/OTLP_ENVELOPE_INTAKE_V1.8.md)
 - [CycloneDX 1.7 Qualification (v1.8 development)](reference/CYCLONEDX_QUALIFICATION_V1.8.md)
 - [v1.7 Offline Verification](reference/OFFLINE_VERIFICATION_V1.7.md)
