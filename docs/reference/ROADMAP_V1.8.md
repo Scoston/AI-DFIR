@@ -14,6 +14,7 @@ Status: **merged to `main` with repository-controlled synthetic acceptance; prod
 - [x] SHA-256 evidence references with optional chunk IDs
 - [x] explicit authority, policy, approval, confidence and unknown-field context on edges
 - [x] machine-readable JSON Schema
+- [x] first-class task/message/artifact node kinds for inter-agent reconstruction
 - [x] hard prohibition on claiming private chain-of-thought capture
 
 ## Milestone 1 — MCP recorder and inert replay
@@ -45,7 +46,7 @@ Status: **baseline merged; broader adapters remain**
 
 ## Milestone 3 — OpenTelemetry GenAI and AER reconstruction
 
-Status: **single-span adapter and bounded multi-span reconstruction are merged; bounded OTLP JSON trace/log envelope intake is implemented on the current development branch and requires PR qualification; live collector/exporter interoperability remains open**
+Status: **single-span, bounded multi-span, and bounded OTLP JSON trace/log envelope profiles are merged with repository-controlled synthetic qualification; live collector/exporter interoperability remains open**
 
 - [x] dictionary and OTLP-style attribute ingestion
 - [x] agent/conversation/workflow/model/tool/retrieval field normalization
@@ -66,7 +67,7 @@ Status: **single-span adapter and bounded multi-span reconstruction are merged; 
 - [x] strict trace/span ID and duplicate-attribute validation
 - [x] selected imported trace -> AER reconstruction wrapper with source-envelope binding
 - [x] trace/log identifier correlation with explicit non-causality claims
-- [x] dedicated bounded-population synthetic qualification profile (2,048 spans / 4,096 logs / 8 traces)
+- [x] bounded-population synthetic qualification (2,048 spans / 4,096 logs / 8 traces)
 - [ ] OTLP binary Protobuf/gRPC intake and transport custody
 - [ ] OTLP File Exporter multi-envelope JSONL intake
 - [ ] named collector/exporter interoperability qualification
@@ -85,7 +86,7 @@ Status: **implemented evidence-gated baseline**
 
 ## Milestone 5 — AI/ML-BOM
 
-Status: **inventory, deterministic validation, expected-vs-observed drift, and the pinned external CycloneDX 1.7 synthetic projection qualification are merged to `main`; exact operator/production exports still require their own validation evidence**
+Status: **inventory, deterministic validation, expected-vs-observed drift, and pinned external CycloneDX 1.7 synthetic projection qualification are merged to `main`; exact operator/production exports still require their own validation evidence**
 
 - [x] inventory for models, tokenizers, adapters, runtimes, tools, MCP servers, connectors, datasets, retrieval stores, policies, skills, containers and libraries
 - [x] deterministic component/dependency ordering and internal record validation
@@ -104,9 +105,23 @@ Status: **inventory, deterministic validation, expected-vs-observed drift, and t
 
 ## Milestone 6 — reconstruction depth
 
-Status: **planned**
+Status: **A2A 1.0 JSON-RPC/HTTP+JSON forensic capture implemented on the current development branch; repository qualification required before promotion**
 
-- [ ] A2A/inter-agent protocol capture with named version contracts
+- [x] A2A 1.0.0 version contract and per-request `A2A-Version` observation
+- [x] explicit missing/empty version handling using the protocol's legacy 0.3 default
+- [x] JSON-RPC 2.0 request/response body custody and known-operation observation
+- [x] HTTP+JSON route-to-operation observation
+- [x] exact request/response body SHA-256 and byte custody
+- [x] credential-bearing HTTP header fingerprinting without normalized plaintext retention
+- [x] A2A extension URI inventory
+- [x] Agent Card byte observation and hash correlation without re-claiming v1.3 JWS/provider trust
+- [x] first-class AER task/message/artifact nodes
+- [x] task/context correlation without causality or authorization inflation
+- [x] bounded SSE stream capture for task/message/status/artifact events
+- [x] bounded synthetic qualification profile (512 exchanges / 8 agents / 128 SSE events)
+- [ ] A2A gRPC/protobuf capture and qualification
+- [ ] named live A2A client/server interoperability qualification
+- [ ] explicit runtime binding from v1.8 exchanges to verified historical v1.3 trust records
 - [ ] browser/computer-use evidence: screenshot, DOM/accessibility tree, target, typed content, download/upload and before/after state
 - [ ] delegated-token/credential lineage graph
 - [ ] differential execution comparison across model, prompt, policy and tool versions
@@ -122,8 +137,8 @@ Status: **planned/external where noted**
 - [ ] retries, duplicate tool calls, cancellation, partial responses and reordered events
 - [ ] crash-during-write and interrupted evidence-pack generation
 - [ ] clock skew and cross-provider time disagreement
-- [ ] hostile MCP/RAG/memory/OTel corpora and fuzz targets
-- [ ] authorized live provider/framework compatibility matrix
+- [ ] hostile MCP/RAG/memory/OTel/A2A corpora and fuzz targets
+- [ ] authorized live provider/framework/protocol compatibility matrix
 - [ ] independent penetration test and external security assessment
 
 ## Release gates
@@ -134,4 +149,4 @@ No v1.8 capability is promoted solely because source code exists. Promotion requ
 2. deterministic regression coverage;
 3. retained acceptance evidence for the exact environment exercised;
 4. explicit false/unknown claims for anything not established;
-5. no production, interoperability, authenticity or conformance claim without corresponding external evidence.
+5. no production, interoperability, authenticity, authorization or conformance claim without corresponding external evidence.

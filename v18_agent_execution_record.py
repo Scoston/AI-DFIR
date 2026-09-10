@@ -18,7 +18,7 @@ SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 NODE_KINDS = {
     "trigger", "human", "agent", "context", "retrieval", "memory", "policy",
     "identity", "model", "tool", "protocol", "action", "resource", "side_effect",
-    "approval", "workflow", "unknown",
+    "approval", "workflow", "task", "message", "artifact", "unknown",
 }
 RELATIONSHIPS = {
     "triggered", "instructed", "provided_context", "retrieved", "read_memory",

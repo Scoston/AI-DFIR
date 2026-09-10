@@ -7,6 +7,7 @@ import json
 import v18_agent_execution_record as aer
 import v18_agentic_detections as detect
 import v18_ai_ml_bom as aibom
+import v18_a2a_forensics as a2a
 import v18_mcp_forensics as mcp
 import v18_otel_genai as otel
 import v18_otlp_envelope as otlp
@@ -106,6 +107,33 @@ def main() -> None:
     assert trace_log["summary"]["matched_trace_and_span"] == 1
     assert trace_log["claims"]["business_causality_proven"] is False
 
+    a2a_request = json.dumps({
+        "jsonrpc": "2.0", "id": "a2a-1", "method": "SendMessage",
+        "params": {"message": {"messageId": "msg-a2a-1", "contextId": "ctx-a2a-1",
+                                "role": "ROLE_USER", "parts": [{"text": "investigate"}]}}
+    }, separators=(",", ":")).encode()
+    a2a_response = json.dumps({
+        "jsonrpc": "2.0", "id": "a2a-1",
+        "result": {"task": {"id": "task-a2a-1", "contextId": "ctx-a2a-1",
+                            "status": {"state": "TASK_STATE_COMPLETED"},
+                            "artifacts": [{"artifactId": "artifact-a2a-1", "parts": [{"text": "done"}]}]}}
+    }, separators=(",", ":")).encode()
+    a2a_exchange = a2a.capture_exchange(
+        binding="JSONRPC", http_method="POST", path="/rpc",
+        request_headers={"Content-Type": "application/json", "A2A-Version": "1.0",
+                         "Authorization": "Bearer synthetic-selftest-secret"},
+        request_body=a2a_request, response_status=200,
+        response_headers={"Content-Type": "application/json"}, response_body=a2a_response,
+        observed_at=T, client_agent_id="agent-client", server_agent_id="agent-server",
+    )
+    a2a_bundle = a2a.exchanges_to_aer([a2a_exchange], record_id="case-001/a2a")
+    assert a2a.validate_exchange(a2a_exchange)
+    assert a2a.validate_aer_binding(a2a_bundle)
+    assert a2a_exchange["operation"] == "SendMessage"
+    assert "authorization" not in a2a_exchange["request_headers"]["safe_values"]
+    assert {"task", "message", "artifact"} <= {n["kind"] for n in a2a_bundle["aer"]["nodes"]}
+    assert a2a_bundle["claims"]["delegated_authority_proven"] is False
+
     findings = detect.evaluate(record)
     assert [x["risk_id"] for x in findings["findings"]] == ["ASI02"]
     assert findings["claims"]["attack_proven"] is False
@@ -135,8 +163,9 @@ def main() -> None:
     print(json.dumps({"status": "PASS", "aer_nodes": len(nodes), "aer_edges": len(edges),
                       "mcp_offline_replay": True, "retrieval_documents": 1, "memory_events": 1,
                       "otel_raw_preserved": True, "otel_aer_spans": 2, "otlp_envelope_spans": 2,
-                      "otlp_log_records": 1, "otlp_trace_log_matches": 1, "agentic_findings": 1,
-                      "aibom_components": 2, "aibom_drift_detected": True,
+                      "otlp_log_records": 1, "otlp_trace_log_matches": 1, "a2a_exchanges": 1,
+                      "a2a_protocol_objects": 3, "a2a_credential_values_retained": False,
+                      "agentic_findings": 1, "aibom_components": 2, "aibom_drift_detected": True,
                       "private_reasoning_captured": False}, sort_keys=True))
 
 
