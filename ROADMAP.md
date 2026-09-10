@@ -20,14 +20,16 @@ v1.8 is now the active development direction. Its organizing primitive is the
 execution from trigger/human request through agent context, retrieval/memory,
 identity/authority, policy/approval, protocol/tool activity and side effects.
 
-The first v1.8 milestone implements six connected capability families:
+The v1.8 development line currently includes:
 
 - Agent Execution Record with machine-readable schema and explicit unknowns;
 - MCP `2026-07-28` recorder plus inert/offline replayer;
 - RAG and memory provenance with chunk and state-transition custody;
-- OpenTelemetry GenAI non-destructive adapter with raw-span preservation;
+- OpenTelemetry GenAI non-destructive adapter and bounded OTLP JSON trace/log intake;
 - OWASP Agentic ASI01–ASI10 / MITRE ATLAS evidence-gated mappings;
-- AI/ML-BOM inventory with dependency graph and conservative CycloneDX 1.7 projection.
+- AI/ML-BOM inventory, expected-vs-observed drift, and conservative CycloneDX 1.7 projection;
+- A2A 1.0 JSON-RPC/HTTP+JSON forensic capture and AER reconstruction;
+- delegated credential/authority lineage under active qualification on the current development branch.
 
 The profile never claims capture of private model chain-of-thought. Hash binding does
 not establish source authenticity, framework mappings are not attack verdicts, and
@@ -37,6 +39,8 @@ See:
 
 - [v1.8 architecture and evidence boundaries](docs/reference/AGENTIC_RUNTIME_RECONSTRUCTION_V1.8.md)
 - [v1.8 development roadmap](docs/reference/ROADMAP_V1.8.md)
+- [A2A protocol forensics](docs/reference/A2A_FORENSICS_V1.8.md)
+- [credential and delegated-authority lineage](docs/reference/CREDENTIAL_LINEAGE_V1.8.md)
 
 ## v1.7 development capabilities retained
 
@@ -109,16 +113,16 @@ actual acceptance evidence exist for the environment being claimed.
 The following can continue with synthetic fixtures and CI while preserving explicit
 limits and conservative claims:
 
+- finish and qualify delegated-token/credential lineage;
 - v1.8 provider/framework-native agent capture adapters;
-- multi-span OpenTelemetry-to-AER graph assembly;
 - agentic Evidence Packs for ASI01–ASI10;
-- CycloneDX 1.7 validation and expected-vs-observed AI/ML-BOM comparison;
-- versioned A2A/inter-agent capture;
+- A2A gRPC/protobuf capture using an explicitly pinned protocol contract;
 - browser/computer-use side-effect evidence;
 - differential execution comparison;
 - temporal reconstruction and clock uncertainty;
 - privacy-preserving/redacted evidence views bound to retained originals;
-- hostile MCP/RAG/memory/OTel corpora and fuzz targets;
+- hostile MCP/RAG/memory/OTel/A2A/identity corpora and fuzz targets;
+- OTLP binary Protobuf/gRPC and File Exporter JSONL intake;
 - additional v1.7 visible-input formats, OCR/layout corpora, provider parsers,
   grammar-aware mutations and CASE/UCO modeling.
 
@@ -129,7 +133,7 @@ The following cannot be truthfully completed by repository code alone:
 - authoritative historical policy/revocation and custody evidence;
 - operated policy-delivery service topology and durable/HA scheduler coordination;
 - an independently operated TSA, archival revocation evidence and renewal policy;
-- authorized live provider, model, MCP, vector-store, memory or OTel targets and credentials;
+- authorized live provider, model, MCP, vector-store, memory, OTel, A2A or identity targets and credentials;
 - representative PostgreSQL/HA staging workloads, topology, SLOs and failover data;
 - a selected HSM/KMS/PKCS#11 or accessible hardware-backed signing target;
 - independently operated transparency/witness custodians and fork monitoring;

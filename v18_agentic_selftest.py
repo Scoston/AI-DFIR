@@ -2,12 +2,14 @@
 """Engine-independent v1.8 agentic forensics acceptance self-test."""
 from __future__ import annotations
 
+import base64
 import json
 
 import v18_agent_execution_record as aer
 import v18_agentic_detections as detect
 import v18_ai_ml_bom as aibom
 import v18_a2a_forensics as a2a
+import v18_credential_lineage as credential_lineage
 import v18_mcp_forensics as mcp
 import v18_otel_genai as otel
 import v18_otlp_envelope as otlp
@@ -16,6 +18,15 @@ import v18_runtime_reconstruction as reconstruction
 
 T = "2026-09-09T18:00:00Z"
 T2 = "2026-09-09T18:00:01Z"
+
+
+def _b64(value: object) -> str:
+    return base64.urlsafe_b64encode(json.dumps(value, separators=(",", ":"), sort_keys=True).encode()).rstrip(b"=").decode()
+
+
+def _jwt(claims: dict) -> bytes:
+    header = {"alg": "RS256", "typ": "at+jwt", "kid": "selftest-kid"}
+    return f"{_b64(header)}.{_b64(claims)}.c2ln".encode()
 
 
 def main() -> None:
@@ -134,6 +145,55 @@ def main() -> None:
     assert {"task", "message", "artifact"} <= {n["kind"] for n in a2a_bundle["aer"]["nodes"]}
     assert a2a_bundle["claims"]["delegated_authority_proven"] is False
 
+    subject_token = _jwt({
+        "iss": "https://synthetic-idp.example", "sub": "human-1", "aud": "broker",
+        "client_id": "human-client", "scope": "read investigate", "iat": 1789045200,
+        "exp": 1789056000, "jti": "subject-jti",
+    })
+    actor_token = _jwt({
+        "iss": "https://synthetic-idp.example", "sub": "agent-1", "aud": "identity-api",
+        "client_id": "agent-client", "scope": "read investigate disable", "iat": 1789045201,
+        "exp": 1789056001, "jti": "actor-jti", "act": {"sub": "human-1", "client_id": "human-client"},
+    })
+    credential_records = [
+        credential_lineage.credential_observation("subject-token", subject_token, credential_type="oauth-access-token",
+                                                  observed_at=T, scheme="Bearer", metadata={"synthetic": True}),
+        credential_lineage.credential_observation("actor-token", actor_token, credential_type="oauth-access-token",
+                                                  observed_at=T2, scheme="Bearer", metadata={"synthetic": True}),
+    ]
+    principal_records = [
+        credential_lineage.principal("human-1", kind="human", observed_at=T, provider="synthetic-idp"),
+        credential_lineage.principal("agent-1", kind="agent", observed_at=T2, provider="synthetic-runtime"),
+    ]
+    jwt_records = [
+        credential_lineage.jwt_structure(subject_token, observed_at=T, credential_id="subject-token"),
+        credential_lineage.jwt_structure(actor_token, observed_at=T2, credential_id="actor-token"),
+    ]
+    hop = credential_lineage.delegation_hop(
+        "exchange-1", mechanism="oauth-token-exchange", observed_at=T2,
+        input_credential_id="subject-token", output_credential_id="actor-token",
+        source_principal_id="human-1", target_principal_id="agent-1",
+        issuer="https://synthetic-idp.example", audience="identity-api",
+        scopes=["read", "investigate", "disable"], authorization_decision="allowed",
+        evidence_refs=[ref], policy_context={"revision": "selftest"}, approval_context={"approval": "observed"},
+    )
+    shown = credential_lineage.presentation(
+        "presentation-1", credential_id="actor-token", presenter_principal_id="agent-1",
+        observed_at=T2, target="identity-api:/users/alice:disable", audience="identity-api",
+        scopes=["disable"], authorization_decision="allowed", evidence_refs=[ref],
+    )
+    credential_report = credential_lineage.build_lineage(
+        lineage_id="case-001/credential-lineage", credentials=credential_records, principals=principal_records,
+        hops=[hop], presentations=[shown], jwt_structures=jwt_records,
+    )
+    credential_bundle = credential_lineage.to_aer(credential_report, record_id="case-001/credential-lineage-aer")
+    assert credential_lineage.validate_lineage(credential_report)
+    assert credential_lineage.validate_aer_binding(credential_bundle, report=credential_report)
+    assert credential_report["diagnostics"]["scope_changes"][0]["scope_expansion_observed"] is True
+    assert credential_bundle["claims"]["mere_presentation_treated_as_delegation"] is False
+    assert actor_token.decode() not in json.dumps(credential_report, sort_keys=True)
+    assert all(value is False for value in jwt_records[1]["verification"].values())
+
     findings = detect.evaluate(record)
     assert [x["risk_id"] for x in findings["findings"]] == ["ASI02"]
     assert findings["claims"]["attack_proven"] is False
@@ -152,7 +212,8 @@ def main() -> None:
     assert drift["component_changes"][0]["changed_fields"] == ["version"]
     assert drift["claims"]["compromise_proven"] is False
 
-    forged = dict(record); forged["record_id"] = "forged"
+    forged = dict(record)
+    forged["record_id"] = "forged"
     rejected = False
     try:
         aer.validate_record(forged)
@@ -165,6 +226,8 @@ def main() -> None:
                       "otel_raw_preserved": True, "otel_aer_spans": 2, "otlp_envelope_spans": 2,
                       "otlp_log_records": 1, "otlp_trace_log_matches": 1, "a2a_exchanges": 1,
                       "a2a_protocol_objects": 3, "a2a_credential_values_retained": False,
+                      "credential_lineage_hops": 1, "credential_lineage_presentations": 1,
+                      "credential_values_retained": False, "presentation_inflated_to_delegation": False,
                       "agentic_findings": 1, "aibom_components": 2, "aibom_drift_detected": True,
                       "private_reasoning_captured": False}, sort_keys=True))
 
