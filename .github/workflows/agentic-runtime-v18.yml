@@ -32,12 +32,14 @@ jobs:
             v18_runtime_reconstruction.py \
             v18_otlp_envelope.py \
             v18_a2a_forensics.py \
+            v18_credential_lineage.py \
             v18_agentic_detections.py \
             v18_ai_ml_bom.py \
             v18_agentic_selftest.py \
             scripts/qualify_cyclonedx_v18.py \
             scripts/qualify_otlp_envelope_v18.py \
-            scripts/qualify_a2a_v18.py
+            scripts/qualify_a2a_v18.py \
+            scripts/qualify_credential_lineage_v18.py
 
       - name: Run v1.8 synthetic acceptance self-test
         run: python v18_agentic_selftest.py
@@ -52,4 +54,5 @@ jobs:
             tests/test_v18_otlp_envelope.py \
             tests/test_v18_otlp_qualification.py \
             tests/test_v18_a2a_forensics.py \
+            tests/test_v18_credential_lineage.py \
             -q
