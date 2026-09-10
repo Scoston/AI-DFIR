@@ -25,8 +25,9 @@ def _json(value: object) -> bytes:
 def _exchange(index: int, agent_count: int) -> dict:
     client = f"client-{index % agent_count}"
     server = f"server-{(index + 1) % agent_count}"
-    task = f"task-{index // 2:06d}"
-    context = f"context-{index % 32:03d}"
+    task_index = index // 2
+    task = f"task-{task_index:06d}"
+    context = f"context-{task_index % 32:03d}"
     message = f"message-{index:06d}"
     artifact = f"artifact-{index:06d}"
     observed_at = f"2026-09-10T12:{30 + ((index // 60) % 20):02d}:{index % 60:02d}Z"
