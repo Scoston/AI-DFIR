@@ -9,6 +9,7 @@ import v18_agentic_detections as detect
 import v18_ai_ml_bom as aibom
 import v18_mcp_forensics as mcp
 import v18_otel_genai as otel
+import v18_otlp_envelope as otlp
 import v18_rag_memory as provenance
 import v18_runtime_reconstruction as reconstruction
 
@@ -61,6 +62,50 @@ def main() -> None:
     assert rebuilt["diagnostics"]["span_count"] == 2
     assert rebuilt["claims"]["intent_causality_proven"] is False
 
+    otlp_trace_id = "0123456789abcdef0123456789abcdef"
+    otlp_root = "0123456789abcdef"
+    otlp_child = "fedcba9876543210"
+    trace_envelope = {
+        "resourceSpans": [{
+            "resource": {"attributes": [{"key": "service.name", "value": {"stringValue": "agent-service"}}]},
+            "scopeSpans": [{
+                "scope": {"name": "agent.instrumentation", "version": "1.8"},
+                "spans": [
+                    {"traceId": otlp_trace_id, "spanId": otlp_root, "name": "invoke-agent",
+                     "attributes": [
+                         {"key": "gen_ai.agent.id", "value": {"stringValue": "agent-1"}},
+                         {"key": "gen_ai.operation.name", "value": {"stringValue": "invoke_agent"}},
+                     ]},
+                    {"traceId": otlp_trace_id, "spanId": otlp_child, "parentSpanId": otlp_root,
+                     "name": "execute-tool", "attributes": [
+                         {"key": "gen_ai.operation.name", "value": {"stringValue": "execute_tool"}},
+                         {"key": "gen_ai.tool.name", "value": {"stringValue": "disable-account"}},
+                     ]},
+                ],
+            }],
+        }],
+    }
+    log_envelope = {
+        "resourceLogs": [{
+            "resource": {"attributes": [{"key": "service.name", "value": {"stringValue": "agent-service"}}]},
+            "scopeLogs": [{"scope": {"name": "agent.logs"}, "logRecords": [
+                {"timeUnixNano": "1", "traceId": otlp_trace_id, "spanId": otlp_child,
+                 "body": {"stringValue": "tool completed"}},
+            ]}],
+        }],
+    }
+    trace_import = otlp.import_trace_envelope(trace_envelope, semantic_conventions_version="operator-declared", observed_at=T)
+    log_import = otlp.import_log_envelope(log_envelope, observed_at=T)
+    envelope_rebuilt = otlp.reconstruct_imported_trace(trace_import, trace_id=otlp_trace_id,
+                                                        record_id="case-001/otlp-trace")
+    trace_log = otlp.correlate_trace_logs(trace_import, log_import)
+    assert otlp.validate_trace_import(trace_import)
+    assert otlp.validate_log_import(log_import)
+    assert otlp.validate_imported_reconstruction(envelope_rebuilt, trace_import=trace_import)
+    assert otlp.validate_trace_log_correlation(trace_log, trace_import=trace_import, log_import=log_import)
+    assert trace_log["summary"]["matched_trace_and_span"] == 1
+    assert trace_log["claims"]["business_causality_proven"] is False
+
     findings = detect.evaluate(record)
     assert [x["risk_id"] for x in findings["findings"]] == ["ASI02"]
     assert findings["claims"]["attack_proven"] is False
@@ -89,7 +134,8 @@ def main() -> None:
 
     print(json.dumps({"status": "PASS", "aer_nodes": len(nodes), "aer_edges": len(edges),
                       "mcp_offline_replay": True, "retrieval_documents": 1, "memory_events": 1,
-                      "otel_raw_preserved": True, "otel_aer_spans": 2, "agentic_findings": 1,
+                      "otel_raw_preserved": True, "otel_aer_spans": 2, "otlp_envelope_spans": 2,
+                      "otlp_log_records": 1, "otlp_trace_log_matches": 1, "agentic_findings": 1,
                       "aibom_components": 2, "aibom_drift_detected": True,
                       "private_reasoning_captured": False}, sort_keys=True))
 

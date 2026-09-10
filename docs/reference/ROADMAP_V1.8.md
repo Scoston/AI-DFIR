@@ -45,7 +45,7 @@ Status: **baseline merged; broader adapters remain**
 
 ## Milestone 3 — OpenTelemetry GenAI and AER reconstruction
 
-Status: **single-span adapter and bounded multi-span reconstruction merged with repository-controlled synthetic qualification; live collector/exporter interoperability remains open**
+Status: **single-span adapter and bounded multi-span reconstruction are merged; bounded OTLP JSON trace/log envelope intake is implemented on the current development branch and requires PR qualification; live collector/exporter interoperability remains open**
 
 - [x] dictionary and OTLP-style attribute ingestion
 - [x] agent/conversation/workflow/model/tool/retrieval field normalization
@@ -58,7 +58,17 @@ Status: **single-span adapter and bounded multi-span reconstruction merged with 
 - [x] explicit orphan-parent, missing-span-ID and unmapped-span diagnostics
 - [x] duplicate span IDs and cyclic parent graphs fail closed
 - [x] trace relationships represented as correlation rather than inferred intent/business causality
-- [ ] OTLP trace/log envelope import at scale
+- [x] OTLP 1.11.0 JSON trace-envelope intake (`resourceSpans/scopeSpans/spans`)
+- [x] OTLP 1.11.0 JSON log-envelope intake (`resourceLogs/scopeLogs/logRecords`)
+- [x] exact source-envelope custody when observed JSON bytes are supplied
+- [x] resource/instrumentation-scope context retention
+- [x] replay validation binding derived span/log entries back to the retained source envelope
+- [x] strict trace/span ID and duplicate-attribute validation
+- [x] selected imported trace -> AER reconstruction wrapper with source-envelope binding
+- [x] trace/log identifier correlation with explicit non-causality claims
+- [x] dedicated bounded-population synthetic qualification profile (2,048 spans / 4,096 logs / 8 traces)
+- [ ] OTLP binary Protobuf/gRPC intake and transport custody
+- [ ] OTLP File Exporter multi-envelope JSONL intake
 - [ ] named collector/exporter interoperability qualification
 
 ## Milestone 4 — agentic detection mappings
@@ -75,7 +85,7 @@ Status: **implemented evidence-gated baseline**
 
 ## Milestone 5 — AI/ML-BOM
 
-Status: **inventory, deterministic validation and expected-vs-observed drift are merged; a pinned external CycloneDX 1.7 qualification gate is implemented and must pass repository CI before promotion**
+Status: **inventory, deterministic validation, expected-vs-observed drift, and the pinned external CycloneDX 1.7 synthetic projection qualification are merged to `main`; exact operator/production exports still require their own validation evidence**
 
 - [x] inventory for models, tokenizers, adapters, runtimes, tools, MCP servers, connectors, datasets, retrieval stores, policies, skills, containers and libraries
 - [x] deterministic component/dependency ordering and internal record validation
