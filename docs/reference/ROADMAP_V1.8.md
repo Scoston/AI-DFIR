@@ -105,7 +105,9 @@ Status: **inventory, deterministic validation, expected-vs-observed drift, and p
 
 ## Milestone 6 — reconstruction depth
 
-Status: **A2A 1.0 JSON-RPC/HTTP+JSON forensic capture implemented on the current development branch; repository qualification required before promotion**
+Status: **A2A 1.0 JSON-RPC/HTTP+JSON forensic capture is merged with repository-controlled synthetic qualification. Delegated credential lineage is implemented on the current development branch and requires its own green qualification before promotion.**
+
+### A2A protocol forensics
 
 - [x] A2A 1.0.0 version contract and per-request `A2A-Version` observation
 - [x] explicit missing/empty version handling using the protocol's legacy 0.3 default
@@ -122,8 +124,28 @@ Status: **A2A 1.0 JSON-RPC/HTTP+JSON forensic capture implemented on the current
 - [ ] A2A gRPC/protobuf capture and qualification
 - [ ] named live A2A client/server interoperability qualification
 - [ ] explicit runtime binding from v1.8 exchanges to verified historical v1.3 trust records
+
+### Delegated credential and authority lineage
+
+- [x] reusable credential non-retention with SHA-256 observation fingerprints
+- [x] strict three-part JWT structural observation without signature/trust inflation
+- [x] RFC 8693-style actor (`act`) identity pivots and access-token investigation fields
+- [x] principal, credential, presentation and explicit delegation-hop records
+- [x] OAuth token-exchange, assume-role, service-account impersonation, workload-identity, delegated-session and on-behalf-of evidence categories
+- [x] audience, issuer, principal and scope-change diagnostics
+- [x] credential-fingerprint reuse across multiple observed presenters
+- [x] missing-parent diagnostics and explicit AER `unknown` nodes
+- [x] duplicate-ID and cyclic delegation graphs fail closed
+- [x] separate AER namespaces for principals and credentials
+- [x] presentations remain `correlated_with`; only explicit delegation hops create `delegated_authority` edges
+- [x] bounded synthetic qualification workflow and retained receipt defined
+- [ ] green repository qualification and merge to `main`
+- [ ] live OAuth/OIDC/cloud identity-provider interoperability qualification
+- [ ] bind structural JWT observations to independently verified signature/issuer trust evidence
+
+### Remaining reconstruction-depth work
+
 - [ ] browser/computer-use evidence: screenshot, DOM/accessibility tree, target, typed content, download/upload and before/after state
-- [ ] delegated-token/credential lineage graph
 - [ ] differential execution comparison across model, prompt, policy and tool versions
 - [ ] temporal reconstruction with event, provider, tool, ingestion and monotonic time plus uncertainty
 - [ ] privacy-preserving/redacted evidence views cryptographically bound to retained originals
@@ -137,7 +159,7 @@ Status: **planned/external where noted**
 - [ ] retries, duplicate tool calls, cancellation, partial responses and reordered events
 - [ ] crash-during-write and interrupted evidence-pack generation
 - [ ] clock skew and cross-provider time disagreement
-- [ ] hostile MCP/RAG/memory/OTel/A2A corpora and fuzz targets
+- [ ] hostile MCP/RAG/memory/OTel/A2A/identity corpora and fuzz targets
 - [ ] authorized live provider/framework/protocol compatibility matrix
 - [ ] independent penetration test and external security assessment
 
