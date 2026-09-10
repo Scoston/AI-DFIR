@@ -12,18 +12,9 @@
     "started_at": {"type": "string", "format": "date-time"},
     "ended_at": {"anyOf": [{"type": "string", "format": "date-time"}, {"type": "null"}]},
     "source_versions": {"type": "object", "additionalProperties": {"type": "string"}},
-    "nodes": {
-      "type": "array",
-      "items": {"$ref": "#/$defs/node"}
-    },
-    "edges": {
-      "type": "array",
-      "items": {"$ref": "#/$defs/edge"}
-    },
-    "raw_evidence": {
-      "type": "array",
-      "items": {"$ref": "#/$defs/evidenceRef"}
-    },
+    "nodes": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+    "edges": {"type": "array", "items": {"$ref": "#/$defs/edge"}},
+    "raw_evidence": {"type": "array", "items": {"$ref": "#/$defs/evidenceRef"}},
     "claims": {
       "type": "object",
       "required": ["source_authenticity_verified", "complete_context_captured", "private_reasoning_captured", "causal_intent_proven"],
@@ -56,7 +47,7 @@
       "required": ["node_id", "kind", "observed_at", "attributes", "evidence_refs"],
       "properties": {
         "node_id": {"type": "string", "minLength": 1},
-        "kind": {"enum": ["trigger", "human", "agent", "context", "retrieval", "memory", "policy", "identity", "model", "tool", "protocol", "action", "resource", "side_effect", "approval", "workflow", "unknown"]},
+        "kind": {"enum": ["trigger", "human", "agent", "context", "retrieval", "memory", "policy", "identity", "model", "tool", "protocol", "action", "resource", "side_effect", "approval", "workflow", "task", "message", "artifact", "unknown"]},
         "observed_at": {"type": "string", "format": "date-time"},
         "attributes": {"type": "object"},
         "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/evidenceRef"}}
