@@ -2,5 +2,5 @@
 psycopg[binary]>=3.3
 boto3>=1.40
 azure-identity>=1.24
-azure-keyvault-keys>=4.11
+azure-keyvault-keys>=4.11.2
 google-cloud-kms>=3.7
